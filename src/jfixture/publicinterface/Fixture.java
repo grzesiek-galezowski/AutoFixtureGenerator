@@ -1,15 +1,8 @@
 package jfixture.publicinterface;
 import java.lang.Class;
-import java.math.BigInteger;
-
 import jfixture.publicinterface.generators.*;
 
 public class Fixture {
-	private IntGenerator intGenerator = new IntGenerator();
-	private StringGenerator stringGenerator = new StringGenerator();
-	private DoubleGenerator doubleGenerator = new DoubleGenerator();
-	private BigIntGenerator bigIntGenerator = new BigIntGenerator();
-	
 	private ObjectGenerator[] generators = new ObjectGenerator[] {
 			new StringGenerator(),
 			new IntGenerator(),
