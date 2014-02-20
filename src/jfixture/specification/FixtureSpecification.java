@@ -57,7 +57,21 @@ public class FixtureSpecification {
 	@DataPoint
 	public static Class<BigInteger> bigIntClass = BigInteger.class;
 	@DataPoint
-	public static Class<Object> objectClass = Object.class;
+	public static Class<Short> shortClass = short.class;
+	@DataPoint
+	public static Class<Short> shortClass2 = Short.class;
+	@DataPoint
+	public static Class<Long> longClass = long.class;
+	@DataPoint
+	public static Class<Long> longClass2 = Long.class;
+	@DataPoint
+	public static Class<Boolean> booleanClass = boolean.class;
+	@DataPoint
+	public static Class<Boolean> booleanClass1 = Boolean.class;
+	@DataPoint
+	public static Class<Character> charClass = char.class;
+	@DataPoint
+	public static Class<Character> charClass1 = Character.class;
 	
 	
 }

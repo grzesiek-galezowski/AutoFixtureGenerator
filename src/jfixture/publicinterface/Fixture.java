@@ -12,7 +12,8 @@ public class Fixture {
 			new DateGenerator(),
 			new CalendarGenerator(),
 			new PlainObjectGenerator(),
-			new ByteGenerator(),
+			new ByteAndCharGenerator(),
+			new BooleanGenerator(),
 	};
 	
   public <T> T create(Class<T> clazz) {
@@ -22,7 +23,6 @@ public class Fixture {
 		  }
 	  }
 	  
-	  //todo throw exception if type cannot be generated
-	  return null;
+	  throw new CannotCreateInstanceException(clazz);
   }
 }
