@@ -3,6 +3,6 @@ package jfixture.publicinterface.generators;
 import jfixture.publicinterface.Fixture;
 
 public interface CollectionGenerator {
-	boolean AppliesTo(Class<?> clazz);
-	Object next(Class<?> clazz, Fixture fixture);
+	<T> boolean AppliesTo(Class<T> clazz);
+	<T> T next(Class<T> clazz, Fixture fixture) throws InstantiationException, IllegalAccessException;
 }

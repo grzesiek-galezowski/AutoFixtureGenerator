@@ -34,9 +34,11 @@ public class CollectionTypesGenerationSpecification {
 		String[] array = fixture.create(String[].class);
 		
 		assertThat(array, hasLength(3));
-		assertThat(array[0], is(not(array[1])));
-		assertThat(array[0], is(not(array[2])));
-		assertThat(array[1], is(not(array[2])));
+		assertThat(array, hasUniqueItems());
+	}
+
+	private Matcher<? super String[]> hasUniqueItems() {
+		return new HasUniqueItemsMatcher();
 	}
 
 	private Matcher<? super String[]> hasLength(int i) {

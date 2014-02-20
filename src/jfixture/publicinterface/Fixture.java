@@ -1,5 +1,6 @@
 package jfixture.publicinterface;
 import java.lang.Class;
+
 import jfixture.publicinterface.generators.*;
 
 public class Fixture {
@@ -17,7 +18,7 @@ public class Fixture {
 	};
 	
 	private CollectionGenerator[] collectionGenerators = new CollectionGenerator[] {
-      //TODO add collection generators in here
+      new ArrayGenerator()
 	};
 	
   public <T> T create(Class<T> clazz) {
@@ -29,7 +30,11 @@ public class Fixture {
 	  
 	  for(CollectionGenerator generator : collectionGenerators) {
 		  if(generator.AppliesTo(clazz)) {
-			  return (T)generator.next(clazz, this);
+			  try {
+				return (T)generator.next(clazz, this);
+			} catch (InstantiationException | IllegalAccessException e) {
+				throw new ObjectCreationException(clazz);
+			}
 		  }
 	  }
 	  
