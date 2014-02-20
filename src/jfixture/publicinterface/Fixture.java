@@ -23,6 +23,6 @@ public class Fixture {
 		  }
 	  }
 	  
-	  throw new CannotCreateInstanceException(clazz);
+	  throw new ObjectCreationException(clazz);
   }
 }
