@@ -17,7 +17,7 @@ import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
 @RunWith(Theories.class)
-public class FixtureSpecification {
+public class PrimitiveTypesGenerationSpecification {
 	Fixture fixture = new Fixture();
 	
 	//TODO generate instances of classes and generic methods

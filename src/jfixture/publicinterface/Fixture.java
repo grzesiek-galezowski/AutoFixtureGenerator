@@ -16,10 +16,20 @@ public class Fixture {
 			new BooleanGenerator(),
 	};
 	
+	private CollectionGenerator[] collectionGenerators = new CollectionGenerator[] {
+      //TODO add collection generators in here
+	};
+	
   public <T> T create(Class<T> clazz) {
 	  for(ObjectGenerator generator : generators) {
 		  if(generator.AppliesTo(clazz)) {
 			  return (T)generator.next();
+		  }
+	  }
+	  
+	  for(CollectionGenerator generator : collectionGenerators) {
+		  if(generator.AppliesTo(clazz)) {
+			  return (T)generator.next(clazz, this);
 		  }
 	  }
 	  
