@@ -20,7 +20,16 @@ import org.junit.runner.RunWith;
 public class FixtureSpecification {
 	Fixture fixture = new Fixture();
 	
+	//TODO generate instances of classes and generic methods
 	
+	@Theory
+	public void ShouldGenerateDifferentValuesEachTime(Class<?> clazz) {
+		Object value1 = fixture.create(clazz);
+		Object value2 = fixture.create(clazz);
+		 
+		assertThat(value1, not(is(value2)));
+	}
+
 	@DataPoint
 	public static Class<Integer> intClass = int.class;
 	@DataPoint
@@ -39,31 +48,16 @@ public class FixtureSpecification {
 	public static Class<Byte> byteClass = byte.class;
 	@DataPoint
 	public static Class<Byte> byteClass2 = Byte.class;
-	/* TODO make it work!
     @DataPoint
 	public static Class<Date> dateClass = Date.class;
-
 	@DataPoint
 	public static Class<Calendar> calendarClass = Calendar.class;
-	*/
 	@DataPoint
 	public static Class<BigDecimal> bigDecimalClass = BigDecimal.class;
-	
 	@DataPoint
 	public static Class<BigInteger> bigIntClass = BigInteger.class;
-	
 	@DataPoint
 	public static Class<Object> objectClass = Object.class;
-	
-	//TODO generate instances of classes and generic methods
-	
-	@Theory
-	public void ShouldGenerateDifferentValuesEachTime(Class<?> clazz) {
-		Object value1 = fixture.create(clazz);
-		Object value2 = fixture.create(clazz);
-		 
-		assertThat(value1, not(is(value2)));
-	}
 	
 	
 }
