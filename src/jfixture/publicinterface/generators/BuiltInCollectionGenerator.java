@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.Stack;
 import java.util.TreeSet;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -61,7 +62,8 @@ public class BuiltInCollectionGenerator implements CollectionGenerator {
 			collection = new ArrayBlockingQueue(3);
 		} else if(clazz.getRawType().isAssignableFrom(ArrayDeque.class)) {
 			collection = new ArrayDeque();
-
+		} else if(clazz.getRawType().isAssignableFrom(Stack.class)) {
+			collection = new Stack();
 		} else {
 			collection = new ArrayList();
 		}

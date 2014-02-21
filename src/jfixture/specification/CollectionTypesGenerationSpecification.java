@@ -99,6 +99,8 @@ public class CollectionTypesGenerationSpecification {
 	public static TypeToken<LinkedHashSet<String>> linkedHashSetClass = new TypeToken<LinkedHashSet<String>>() {};
 	@DataPoint
 	public static TypeToken<PriorityBlockingQueue<String>> priorityBlockingQueueClass = new TypeToken<PriorityBlockingQueue<String>>() {};
+	@DataPoint
+	public static TypeToken<Stack<String>> stackClass = new TypeToken<Stack<String>>() {};
 
 	
 	@Theory

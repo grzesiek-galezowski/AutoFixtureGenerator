@@ -18,5 +18,6 @@ public class EnumTypesGenerationSpecification {
 		Eon eon2 = fixture.create(TypeToken.of(Eon.class));
 		
 		assertThat(eon1,not(is(eon2)));
+		//TODO this does not work quite well - fix it with circular lists!
 	}
 }
