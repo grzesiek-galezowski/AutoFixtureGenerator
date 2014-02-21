@@ -1,4 +1,4 @@
-package jfixture.specification;
+package jfixture.specification.testfixtures;
 
 public class ObjectWithOneConstructorParameter<T> {
 	private T parameter;

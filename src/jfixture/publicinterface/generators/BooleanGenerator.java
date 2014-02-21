@@ -2,7 +2,7 @@ package jfixture.publicinterface.generators;
 
 import com.google.common.reflect.TypeToken;
 
-public class BooleanGenerator implements ObjectGenerator {
+public class BooleanGenerator implements PrimitiveGenerator {
 	private Boolean currentValue = false;
 	
 	public Object next() {

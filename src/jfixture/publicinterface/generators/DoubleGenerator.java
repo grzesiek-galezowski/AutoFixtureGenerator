@@ -2,7 +2,7 @@ package jfixture.publicinterface.generators;
 
 import com.google.common.reflect.TypeToken;
 
-public class DoubleGenerator implements ObjectGenerator {
+public class DoubleGenerator implements PrimitiveGenerator {
 	private Double startingNumber = 0.3;
 	public Object next() {
 		return startingNumber++;

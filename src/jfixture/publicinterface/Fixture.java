@@ -7,7 +7,7 @@ import com.google.common.reflect.TypeToken;
 import jfixture.publicinterface.generators.*;
 
 public class Fixture {
-	private ObjectGenerator[] generators = new ObjectGenerator[] {
+	private PrimitiveGenerator[] generators = new PrimitiveGenerator[] {
 			new StringGenerator(),
 			new IntGenerator(),
 			new DoubleGenerator(),
@@ -20,25 +20,17 @@ public class Fixture {
 			new BooleanGenerator(),
 	};
 	
-	private CollectionGenerator[] collectionGenerators = new CollectionGenerator[] {
+	private CompoundObjectGenerator[] collectionGenerators = new CompoundObjectGenerator[] {
       new ArrayGenerator(),
       new BuiltInCollectionGenerator(),
+      new ConcreteObjectGenerator()
 	};
 	
 	private EnumGenerator enumGenerator = new EnumGenerator();
 	
 	public <T> T create(TypeToken<T> typeToken) {
-		for(CollectionGenerator generator : collectionGenerators) {
-			if(generator.AppliesTo(typeToken)) {
-				try {
-					return (T)generator.next(typeToken, this);
-				} catch (InstantiationException | IllegalAccessException e) {
-					throw new ObjectCreationException(typeToken, e);
-				}
-			}
-		}
-		
-      for(ObjectGenerator generator : generators) {
+
+      for(PrimitiveGenerator generator : generators) {
 		  if(generator.AppliesTo(typeToken)) {
 			  return (T)generator.next();
 		  }
@@ -48,6 +40,16 @@ public class Fixture {
     	  return (T)enumGenerator.next(typeToken);
       }
 	  
+      for(CompoundObjectGenerator generator : collectionGenerators) {
+			if(generator.AppliesTo(typeToken)) {
+				try {
+					return (T)generator.next(typeToken, this);
+				} catch (InstantiationException | IllegalAccessException e) {
+					throw new ObjectCreationException(typeToken, e);
+				}
+			}
+      }
+      
 	  throw new ObjectCreationException(typeToken);
   }
 	

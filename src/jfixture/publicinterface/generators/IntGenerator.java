@@ -2,7 +2,7 @@ package jfixture.publicinterface.generators;
 
 import com.google.common.reflect.TypeToken;
 
-public class IntGenerator implements ObjectGenerator {
+public class IntGenerator implements PrimitiveGenerator {
 
 	public int startingInteger = 1;
 	public Object next() {

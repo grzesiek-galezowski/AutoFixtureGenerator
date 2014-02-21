@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 
 import com.google.common.reflect.TypeToken;
 
-public class CalendarGenerator implements ObjectGenerator {
+public class CalendarGenerator implements PrimitiveGenerator {
 	int secondsToAdd = 0;
 	
 	public Object next() {

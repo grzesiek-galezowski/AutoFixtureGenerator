@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import com.google.common.reflect.TypeToken;
 
-public class StringGenerator implements ObjectGenerator {
+public class StringGenerator implements PrimitiveGenerator {
 	public Object next() {
 		return UUID.randomUUID().toString();
 	}

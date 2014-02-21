@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import com.google.common.reflect.TypeToken;
 
-public class BigDecimalGenerator implements ObjectGenerator {
+public class BigDecimalGenerator implements PrimitiveGenerator {
 	private IntGenerator intGenerator = new IntGenerator();
 	
 	public Object next() {

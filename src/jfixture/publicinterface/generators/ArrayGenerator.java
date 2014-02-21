@@ -6,7 +6,7 @@ import com.google.common.reflect.TypeToken;
 
 import jfixture.publicinterface.Fixture;
 
-public class ArrayGenerator implements CollectionGenerator {
+public class ArrayGenerator implements CompoundObjectGenerator {
 
 	@Override
 	public <T> boolean AppliesTo(TypeToken<T> clazz) {

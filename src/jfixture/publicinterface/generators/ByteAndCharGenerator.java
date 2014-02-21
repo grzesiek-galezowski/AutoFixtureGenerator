@@ -2,7 +2,7 @@ package jfixture.publicinterface.generators;
 
 import com.google.common.reflect.TypeToken;
 
-public class ByteAndCharGenerator implements ObjectGenerator {
+public class ByteAndCharGenerator implements PrimitiveGenerator {
 
 	public byte startingByte = 1;
 	public Object next() {

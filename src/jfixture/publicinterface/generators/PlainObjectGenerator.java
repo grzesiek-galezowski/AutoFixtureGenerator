@@ -2,7 +2,7 @@ package jfixture.publicinterface.generators;
 
 import com.google.common.reflect.TypeToken;
 
-public class PlainObjectGenerator implements ObjectGenerator {
+public class PlainObjectGenerator implements PrimitiveGenerator {
 	public Object next() {
 		return new Object();
 	}

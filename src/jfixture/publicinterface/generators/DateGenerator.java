@@ -5,7 +5,7 @@ import java.util.Date;
 
 import com.google.common.reflect.TypeToken;
 
-public class DateGenerator implements ObjectGenerator {
+public class DateGenerator implements PrimitiveGenerator {
 	
 	Calendar calendar = Calendar.getInstance();
 	

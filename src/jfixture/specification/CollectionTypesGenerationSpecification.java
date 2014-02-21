@@ -27,17 +27,6 @@ public class CollectionTypesGenerationSpecification {
 
 	/*
 	 TODO
-	 Array
-	 Collection
-	   Set
-	     SortedSet
-	   List
-	   Queue
-	   Deque
-	   SortedSet
-	   Map
-	     SortedMap
-	     
 	  TODO generic versions
 	  TODO non-generic versions
 	  TODO collections of collections!
