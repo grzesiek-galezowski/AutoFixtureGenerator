@@ -25,6 +25,8 @@ public class Fixture {
       new BuiltInCollectionGenerator(),
 	};
 	
+	private EnumGenerator enumGenerator = new EnumGenerator();
+	
 	public <T> T create(TypeToken<T> typeToken) {
 		for(CollectionGenerator generator : collectionGenerators) {
 			if(generator.AppliesTo(typeToken)) {
@@ -42,6 +44,9 @@ public class Fixture {
 		  }
 	  }
 	  
+      if(enumGenerator.AppliesTo(typeToken)) {
+    	  return (T)enumGenerator.next(typeToken);
+      }
 	  
 	  throw new ObjectCreationException(typeToken);
   }

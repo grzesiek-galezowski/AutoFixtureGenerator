@@ -75,5 +75,4 @@ public class PrimitiveTypesGenerationSpecification {
 	@DataPoint
 	public static Class<Character> charClass1 = Character.class;
 	
-	
 }
