@@ -1,12 +1,12 @@
-package jfixture.specification;
+package jfixture.specification.matchers;
 
 import org.hamcrest.*;
 
-public class HasLengthMatcher<T> extends TypeSafeMatcher<T[]> {
+public class HasArrayLengthMatcher<T> extends TypeSafeMatcher<T[]> {
 
 	private int expectedCount;
 
-	public HasLengthMatcher(int expectedLength) {
+	public HasArrayLengthMatcher(int expectedLength) {
 		this.expectedCount = expectedLength;
  
 	}

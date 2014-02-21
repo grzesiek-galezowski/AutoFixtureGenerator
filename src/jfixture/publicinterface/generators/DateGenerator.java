@@ -3,6 +3,8 @@ package jfixture.publicinterface.generators;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.google.common.reflect.TypeToken;
+
 public class DateGenerator implements ObjectGenerator {
 	
 	Calendar calendar = Calendar.getInstance();
@@ -13,7 +15,7 @@ public class DateGenerator implements ObjectGenerator {
 	}
 
 	@Override
-	public boolean AppliesTo(Class<?> clazz) {
-		return clazz == Date.class;
+	public boolean AppliesTo(TypeToken<?> clazz) {
+		return clazz.getRawType() == Date.class;
 	}
 }

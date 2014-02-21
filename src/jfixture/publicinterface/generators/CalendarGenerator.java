@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import com.google.common.reflect.TypeToken;
+
 public class CalendarGenerator implements ObjectGenerator {
 	int secondsToAdd = 0;
 	
@@ -14,7 +16,7 @@ public class CalendarGenerator implements ObjectGenerator {
 	}
 
 	@Override
-	public boolean AppliesTo(Class<?> clazz) {
-		return clazz == Calendar.class;
+	public boolean AppliesTo(TypeToken<?> clazz) {
+		return clazz.getRawType() == Calendar.class;
 	}
 }

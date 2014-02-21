@@ -1,10 +1,10 @@
-package jfixture.specification;
+package jfixture.specification.matchers;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
-public class HasUniqueItemsMatcher<T> extends TypeSafeMatcher<T[]> {
+public class HasArrayUniqueItemsMatcher<T> extends TypeSafeMatcher<T[]> {
 
 	@Override
 	public void describeTo(Description description) {

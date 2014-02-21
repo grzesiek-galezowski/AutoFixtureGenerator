@@ -1,5 +1,7 @@
 package jfixture.publicinterface.generators;
 
+import com.google.common.reflect.TypeToken;
+
 public class BooleanGenerator implements ObjectGenerator {
 	private Boolean currentValue = false;
 	
@@ -9,8 +11,8 @@ public class BooleanGenerator implements ObjectGenerator {
 	}
 
 	@Override
-	public boolean AppliesTo(Class<?> clazz) {
-		return clazz == boolean.class
-				|| clazz == Boolean.class;
+	public boolean AppliesTo(TypeToken<?> clazz) {
+		return clazz.isAssignableFrom(boolean.class)
+				|| clazz.isAssignableFrom(Boolean.class);
 	}
 }

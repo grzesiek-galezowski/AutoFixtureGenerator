@@ -1,5 +1,8 @@
 package jfixture.publicinterface;
 import java.lang.Class;
+import java.util.Collection;
+
+import com.google.common.reflect.TypeToken;
 
 import jfixture.publicinterface.generators.*;
 
@@ -18,26 +21,29 @@ public class Fixture {
 	};
 	
 	private CollectionGenerator[] collectionGenerators = new CollectionGenerator[] {
-      new ArrayGenerator()
+      new ArrayGenerator(),
+      new BuiltInCollectionGenerator(),
 	};
 	
-  public <T> T create(Class<T> clazz) {
-	  for(ObjectGenerator generator : generators) {
-		  if(generator.AppliesTo(clazz)) {
+	public <T> T create(TypeToken<T> typeToken) {
+		for(CollectionGenerator generator : collectionGenerators) {
+			if(generator.AppliesTo(typeToken)) {
+				try {
+					return (T)generator.next(typeToken, this);
+				} catch (InstantiationException | IllegalAccessException e) {
+					throw new ObjectCreationException(typeToken, e);
+				}
+			}
+		}
+		
+      for(ObjectGenerator generator : generators) {
+		  if(generator.AppliesTo(typeToken)) {
 			  return (T)generator.next();
 		  }
 	  }
 	  
-	  for(CollectionGenerator generator : collectionGenerators) {
-		  if(generator.AppliesTo(clazz)) {
-			  try {
-				return (T)generator.next(clazz, this);
-			} catch (InstantiationException | IllegalAccessException e) {
-				throw new ObjectCreationException(clazz);
-			}
-		  }
-	  }
 	  
-	  throw new ObjectCreationException(clazz);
+	  throw new ObjectCreationException(typeToken);
   }
+	
 }

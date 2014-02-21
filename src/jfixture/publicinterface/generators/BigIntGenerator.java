@@ -2,6 +2,8 @@ package jfixture.publicinterface.generators;
 
 import java.math.BigInteger;
 
+import com.google.common.reflect.TypeToken;
+
 public class BigIntGenerator implements ObjectGenerator {
 	private IntGenerator intGenerator = new IntGenerator();
 	
@@ -10,7 +12,7 @@ public class BigIntGenerator implements ObjectGenerator {
 	}
 
 	@Override
-	public boolean AppliesTo(Class<?> clazz) {
-		return clazz == BigInteger.class;
+	public boolean AppliesTo(TypeToken<?> clazz) {
+		return clazz.isAssignableFrom(BigInteger.class);
 	}
 }

@@ -1,5 +1,7 @@
 package jfixture.publicinterface.generators;
 
+import com.google.common.reflect.TypeToken;
+
 public class IntGenerator implements ObjectGenerator {
 
 	public int startingInteger = 1;
@@ -7,13 +9,13 @@ public class IntGenerator implements ObjectGenerator {
 		return startingInteger++;
 	}
 	@Override
-	public boolean AppliesTo(Class<?> clazz) {
-		return clazz == int.class
-				|| clazz == Integer.class
-				|| clazz == short.class
-				|| clazz == Short.class
-				|| clazz == long.class
-				|| clazz == Long.class;
+	public boolean AppliesTo(TypeToken<?> clazz) {
+		return clazz.getRawType() == int.class
+				|| clazz.getRawType() == Integer.class
+				|| clazz.getRawType() == short.class
+				|| clazz.getRawType() == Short.class
+				|| clazz.getRawType() == long.class
+				|| clazz.getRawType() == Long.class;
 	}
 
 }

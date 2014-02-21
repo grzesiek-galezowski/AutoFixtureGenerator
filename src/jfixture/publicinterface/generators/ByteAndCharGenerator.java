@@ -1,5 +1,7 @@
 package jfixture.publicinterface.generators;
 
+import com.google.common.reflect.TypeToken;
+
 public class ByteAndCharGenerator implements ObjectGenerator {
 
 	public byte startingByte = 1;
@@ -7,11 +9,11 @@ public class ByteAndCharGenerator implements ObjectGenerator {
 		return startingByte++;
 	}
 	@Override
-	public boolean AppliesTo(Class<?> clazz) {
-		return clazz == byte.class
-				|| clazz == Byte.class
-				|| clazz == char.class
-				|| clazz == Character.class;
+	public boolean AppliesTo(TypeToken<?> clazz) {
+		return clazz.getRawType() == byte.class
+				|| clazz.getRawType() == Byte.class
+				|| clazz.getRawType() == char.class
+				|| clazz.getRawType() == Character.class;
 	}
 
 }

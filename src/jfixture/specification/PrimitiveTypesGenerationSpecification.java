@@ -16,6 +16,8 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
+import com.google.common.reflect.TypeToken;
+
 @RunWith(Theories.class)
 public class PrimitiveTypesGenerationSpecification {
 	Fixture fixture = new Fixture();
@@ -24,8 +26,8 @@ public class PrimitiveTypesGenerationSpecification {
 	
 	@Theory
 	public void ShouldGenerateDifferentValuesEachTime(Class<?> clazz) {
-		Object value1 = fixture.create(clazz);
-		Object value2 = fixture.create(clazz);
+		Object value1 = fixture.create(TypeToken.of(clazz));
+		Object value2 = fixture.create(TypeToken.of(clazz));
 		 
 		assertThat(value1, not(is(value2)));
 	}
