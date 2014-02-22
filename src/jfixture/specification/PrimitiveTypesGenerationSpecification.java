@@ -10,7 +10,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.generators.InstanceGenerator;
 
+import org.junit.After;
+import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
@@ -25,13 +28,38 @@ public class PrimitiveTypesGenerationSpecification {
 	//TODO generate instances of classes and generic methods
 	
 	@Theory
-	public void ShouldGenerateDifferentValuesEachTime(Class<?> clazz) {
+	public void shouldGenerateDifferentValuesEachTime(Class<?> clazz) {
 		Object value1 = fixture.create(TypeToken.of(clazz));
 		Object value2 = fixture.create(TypeToken.of(clazz));
 		 
 		assertThat(value1, not(is(value2)));
 	}
 
+	@Test
+	public void shouldGivePrecedenseToRegisteredGenerators() {
+		fixture.register(new InstanceGenerator() {
+			
+			@Override
+			public <T> T next(TypeToken<T> typeToken, Fixture fixture) {
+				return (T) Integer.valueOf(9999);
+			}
+			
+			@Override
+			public <T> boolean AppliesTo(TypeToken<T> typeToken) {
+				return typeToken.getRawType() == int.class;
+			}
+		});
+		
+		Integer anInt = fixture.create(TypeToken.of(int.class));
+		
+		assertThat(anInt, is(9999));
+	}
+
+	@After
+	public void deregisterAllCustomizations() {
+		fixture.clearCustomizations();
+	}
+	
 	@DataPoint
 	public static Class<Integer> intClass = int.class;
 	@DataPoint

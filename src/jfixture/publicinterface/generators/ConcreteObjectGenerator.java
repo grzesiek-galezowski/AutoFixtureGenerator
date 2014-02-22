@@ -13,7 +13,7 @@ import com.google.common.reflect.Invokable;
 import com.google.common.reflect.Parameter;
 import com.google.common.reflect.TypeToken;
 
-public class ConcreteObjectGenerator implements ComplexObjectGenerator {
+public class ConcreteObjectGenerator implements InstanceGenerator {
 
 	@Override
 	public <T> boolean AppliesTo(TypeToken<T> typeToken) {
@@ -21,8 +21,7 @@ public class ConcreteObjectGenerator implements ComplexObjectGenerator {
 	}
 
 	@Override
-	public <T> T next(TypeToken<T> type, Fixture fixture)
-			throws InstantiationException, IllegalAccessException {
+	public <T> T next(TypeToken<T> type, Fixture fixture) {
 
 		Invokable<T, T> currentConstructor = findPublicConstructorWithLeastArguments(type);
 		ArrayList<Object> arguments = prepareArgumentsOf(currentConstructor, fixture);
@@ -31,12 +30,11 @@ public class ConcreteObjectGenerator implements ComplexObjectGenerator {
 	}
 
 	private <T> T createInstanceOf(TypeToken<T> typeToken,
-			Invokable<?, ?> currentConstructor, ArrayList<Object> arguments)
-			throws IllegalAccessException {
+			Invokable<?, ?> currentConstructor, ArrayList<Object> arguments) {
 		try {
 			T instance = (T) currentConstructor.invoke(null, arguments.toArray());
 			return instance;
-		} catch (InvocationTargetException e) {
+		} catch (InvocationTargetException | IllegalAccessException e) {
 			throw new ObjectCreationException(typeToken, e);
 		}
 	}

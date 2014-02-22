@@ -1,18 +1,21 @@
 package jfixture.publicinterface.generators;
 
+import jfixture.publicinterface.Fixture;
+
 import com.google.common.reflect.TypeToken;
 
-public class BooleanGenerator implements PrimitiveGenerator {
+public class BooleanGenerator implements InstanceGenerator {
 	private Boolean currentValue = false;
 	
-	public Object next() {
-		currentValue = !currentValue;
-		return currentValue;
+	@Override
+	public <T> boolean AppliesTo(TypeToken<T> typeToken) {
+		return typeToken.isAssignableFrom(boolean.class)
+				|| typeToken.isAssignableFrom(Boolean.class);
 	}
 
 	@Override
-	public boolean AppliesTo(TypeToken<?> clazz) {
-		return clazz.isAssignableFrom(boolean.class)
-				|| clazz.isAssignableFrom(Boolean.class);
+	public <T> T next(TypeToken<T> typeToken, Fixture fixture) {
+		currentValue = !currentValue;
+		return (T) currentValue;
 	}
 }

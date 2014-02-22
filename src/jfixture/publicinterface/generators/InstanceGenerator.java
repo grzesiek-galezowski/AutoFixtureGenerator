@@ -4,7 +4,7 @@ import com.google.common.reflect.TypeToken;
 
 import jfixture.publicinterface.Fixture;
 
-public interface ComplexObjectGenerator {
+public interface InstanceGenerator {
 	<T> boolean AppliesTo(TypeToken<T> typeToken);
-	<T> T next(TypeToken<T> typeToken, Fixture fixture) throws InstantiationException, IllegalAccessException;
+	<T> T next(TypeToken<T> typeToken, Fixture fixture);
 }

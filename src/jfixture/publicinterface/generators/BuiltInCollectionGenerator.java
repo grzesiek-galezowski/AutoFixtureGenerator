@@ -27,7 +27,7 @@ import jfixture.publicinterface.Fixture;
 
 import com.google.common.reflect.TypeToken;
 
-public class BuiltInCollectionGenerator implements ComplexObjectGenerator {
+public class BuiltInCollectionGenerator implements InstanceGenerator {
 
 	@Override
 	public <T> boolean AppliesTo(TypeToken<T> clazz) {

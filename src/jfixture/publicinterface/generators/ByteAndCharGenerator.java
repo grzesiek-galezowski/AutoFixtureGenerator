@@ -1,19 +1,23 @@
 package jfixture.publicinterface.generators;
 
+import jfixture.publicinterface.Fixture;
+
 import com.google.common.reflect.TypeToken;
 
-public class ByteAndCharGenerator implements PrimitiveGenerator {
+public class ByteAndCharGenerator implements InstanceGenerator {
 
-	public byte startingByte = 1;
-	public Object next() {
-		return startingByte++;
+	public Byte startingByte = 1;
+
+	@Override
+	public <T> boolean AppliesTo(TypeToken<T> typeToken) {
+		return typeToken.getRawType() == byte.class
+				|| typeToken.getRawType() == Byte.class
+				|| typeToken.getRawType() == char.class
+				|| typeToken.getRawType() == Character.class;
 	}
 	@Override
-	public boolean AppliesTo(TypeToken<?> clazz) {
-		return clazz.getRawType() == byte.class
-				|| clazz.getRawType() == Byte.class
-				|| clazz.getRawType() == char.class
-				|| clazz.getRawType() == Character.class;
+	public <T> T next(TypeToken<T> typeToken, Fixture fixture) {
+		return (T)(startingByte++);
 	}
 
 }

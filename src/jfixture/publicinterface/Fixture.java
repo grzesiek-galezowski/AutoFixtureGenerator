@@ -1,13 +1,21 @@
 package jfixture.publicinterface;
+
 import java.lang.Class;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.google.common.reflect.TypeToken;
 
 import jfixture.publicinterface.generators.*;
 
 public class Fixture {
-	private PrimitiveGenerator[] generators = new PrimitiveGenerator[] {
+
+	private LinkedList<InstanceGenerator> instanceGenerators = new LinkedList<InstanceGenerator>(
+			Arrays.asList(new InstanceGenerator[] {
+			new EnumGenerator(),
 			new StringGenerator(),
 			new IntGenerator(),
 			new DoubleGenerator(),
@@ -18,44 +26,35 @@ public class Fixture {
 			new PlainObjectGenerator(),
 			new ByteAndCharGenerator(),
 			new BooleanGenerator(),
-	};
-
-	private ComplexObjectGenerator[] complexObjectGenerators = new ComplexObjectGenerator[] {
 			new ArrayGenerator(),
 			new BuiltInCollectionGenerator(),
-			//new GenericTypeGenerator()
-	};
-
-	private EnumGenerator enumGenerator = new EnumGenerator();
-	private ConcreteObjectGenerator objectGenerator = new ConcreteObjectGenerator();
-
+			new ConcreteObjectGenerator()
+	}));
+	private int customizationsCount = 0; 
 
 	@SuppressWarnings("unchecked")
 	public <T> T create(TypeToken<T> typeToken) {
-		try {
-			for(PrimitiveGenerator generator : generators) {
-				if(generator.AppliesTo(typeToken)) {
-					return (T)generator.next();
-				}
+		for(InstanceGenerator generator : instanceGenerators) {
+			if(generator.AppliesTo(typeToken)) {
+
+				return (T)generator.next(typeToken, this);
 			}
-
-			if(enumGenerator.AppliesTo(typeToken)) {
-				return (T)enumGenerator.next(typeToken);
-			}
-
-			for(ComplexObjectGenerator generator : complexObjectGenerators) {
-				if(generator.AppliesTo(typeToken)) {
-
-					return (T)generator.next(typeToken, this);
-				}
-			}
-
-			return (T) objectGenerator.next(typeToken, this);
-		} catch (InstantiationException | IllegalAccessException e) {
-			throw new ObjectCreationException(typeToken, e);
 		}
-
-		//throw new ObjectCreationException(typeToken);
+		
+		throw new ObjectCreationException(typeToken);
 	}
 
+	public void register(InstanceGenerator instanceGenerator) {
+		instanceGenerators.add(0, instanceGenerator);
+		customizationsCount++;
+	}
+
+	public void clearCustomizations() {
+		for(int i = 0 ; i < customizationsCount ; ++i) {
+			instanceGenerators.remove(0);
+		}
+		customizationsCount = 0;
+	}
+
+	
 }

@@ -2,18 +2,22 @@ package jfixture.publicinterface.generators;
 
 import java.util.Random;
 
+import jfixture.publicinterface.Fixture;
+
 import com.google.common.reflect.TypeToken;
 
-public class EnumGenerator {
+public class EnumGenerator implements InstanceGenerator {
 
-	public boolean AppliesTo(TypeToken<?> typeToken) {
+	@Override
+	public <T> boolean AppliesTo(TypeToken<T> typeToken) {
 		return typeToken.getRawType().isEnum();
 	}
 
-	public Object next(TypeToken<?> typeToken) {
+	@Override
+	public <T> T next(TypeToken<T> typeToken, Fixture fixture) {
 		Object[] enumElements=typeToken.getRawType().getEnumConstants();
 		int idx = new Random().nextInt(enumElements.length);
-		return enumElements[idx];
+		return (T)(enumElements[idx]);
 		//TODO make it sequential! Random is bad...
 	}
 

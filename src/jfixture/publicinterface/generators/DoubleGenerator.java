@@ -1,17 +1,21 @@
 package jfixture.publicinterface.generators;
 
+import jfixture.publicinterface.Fixture;
+
 import com.google.common.reflect.TypeToken;
 
-public class DoubleGenerator implements PrimitiveGenerator {
+public class DoubleGenerator implements InstanceGenerator {
 	private Double startingNumber = 0.3;
-	public Object next() {
-		return startingNumber++;
+
+	@Override
+	public <T> boolean AppliesTo(TypeToken<T> typeToken) {
+		return typeToken.getRawType() == double.class
+				|| typeToken.getRawType() == Double.class
+				|| typeToken.getRawType() == float.class
+				|| typeToken.getRawType() == Float.class; 
 	}
 	@Override
-	public boolean AppliesTo(TypeToken<?> clazz) {
-		return clazz.getRawType() == double.class
-				|| clazz.getRawType() == Double.class
-				|| clazz.getRawType() == float.class
-			    || clazz.getRawType() == Float.class; 
+	public <T> T next(TypeToken<T> typeToken, Fixture fixture) {
+		return (T)(startingNumber++);
 	}
 }

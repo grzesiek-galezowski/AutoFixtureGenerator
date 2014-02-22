@@ -6,7 +6,7 @@ import com.google.common.reflect.TypeToken;
 
 import jfixture.publicinterface.Fixture;
 
-public class ArrayGenerator implements ComplexObjectGenerator {
+public class ArrayGenerator implements InstanceGenerator {
 
 	@Override
 	public <T> boolean AppliesTo(TypeToken<T> clazz) {
@@ -14,7 +14,7 @@ public class ArrayGenerator implements ComplexObjectGenerator {
 	}
 
 	@Override
-	public <T> T next(TypeToken<T> clazz, Fixture fixture) throws InstantiationException, IllegalAccessException {
+	public <T> T next(TypeToken<T> clazz, Fixture fixture) {
 		TypeToken<?> componentType = clazz.getComponentType();
 		Object instance1 = fixture.create(componentType);
 		Object instance2 = fixture.create(componentType);

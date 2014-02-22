@@ -1,21 +1,27 @@
 package jfixture.publicinterface.generators;
 
+import jfixture.publicinterface.Fixture;
+
 import com.google.common.reflect.TypeToken;
 
-public class IntGenerator implements PrimitiveGenerator {
+public class IntGenerator implements InstanceGenerator {
 
-	public int startingInteger = 1;
-	public Object next() {
-		return startingInteger++;
-	}
+	public Integer startingInteger = 1;
+
 	@Override
-	public boolean AppliesTo(TypeToken<?> clazz) {
-		return clazz.getRawType() == int.class
-				|| clazz.getRawType() == Integer.class
-				|| clazz.getRawType() == short.class
-				|| clazz.getRawType() == Short.class
-				|| clazz.getRawType() == long.class
-				|| clazz.getRawType() == Long.class;
+	public <T> boolean AppliesTo(TypeToken<T> typeToken) {
+		// TODO Auto-generated method stub
+		return typeToken.getRawType() == int.class
+				|| typeToken.getRawType() == Integer.class
+				|| typeToken.getRawType() == short.class
+				|| typeToken.getRawType() == Short.class
+				|| typeToken.getRawType() == long.class
+				|| typeToken.getRawType() == Long.class;
+	}
+	
+	@Override
+	public <T> T next(TypeToken<T> typeToken, Fixture fixture) {
+		return (T)(startingInteger++);
 	}
 
 }
