@@ -20,9 +20,10 @@ public class Fixture {
 			new BooleanGenerator(),
 	};
 
-	private CompoundObjectGenerator[] collectionGenerators = new CompoundObjectGenerator[] {
+	private ComplexObjectGenerator[] complexObjectGenerators = new ComplexObjectGenerator[] {
 			new ArrayGenerator(),
 			new BuiltInCollectionGenerator(),
+			//new GenericTypeGenerator()
 	};
 
 	private EnumGenerator enumGenerator = new EnumGenerator();
@@ -42,7 +43,7 @@ public class Fixture {
 				return (T)enumGenerator.next(typeToken);
 			}
 
-			for(CompoundObjectGenerator generator : collectionGenerators) {
+			for(ComplexObjectGenerator generator : complexObjectGenerators) {
 				if(generator.AppliesTo(typeToken)) {
 
 					return (T)generator.next(typeToken, this);

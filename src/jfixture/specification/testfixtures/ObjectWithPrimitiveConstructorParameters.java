@@ -1,5 +1,8 @@
 package jfixture.specification.testfixtures;
 
+import java.util.AbstractList;
+import java.util.Set;
+
 public class ObjectWithPrimitiveConstructorParameters {
 
 	public int intParameter;
@@ -11,4 +14,5 @@ public class ObjectWithPrimitiveConstructorParameters {
 		this.stringParameter = parameter2;
 		this.doubleParameter = parameter3;
 	}
+
 }

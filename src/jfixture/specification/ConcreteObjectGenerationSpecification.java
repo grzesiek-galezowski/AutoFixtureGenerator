@@ -1,20 +1,34 @@
 package jfixture.specification;
 
-import jfixture.publicinterface.Fixture;
-import jfixture.specification.testfixtures.ObjectWithPrimitiveConstructorParameters;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
+import jfixture.publicinterface.Fixture;
+import jfixture.specification.matchers.HasArrayLengthMatcher;
+import jfixture.specification.testfixtures.GenericObject;
+import jfixture.specification.testfixtures.ObjectWithCollectionConstructorParameters;
+import jfixture.specification.testfixtures.ObjectWithGenericConstructorParameters;
+import jfixture.specification.testfixtures.ObjectWithPrimitiveConstructorParameters;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+
 import org.junit.Test;
 
+import com.google.common.reflect.Invokable;
+import com.google.common.reflect.Parameter;
 import com.google.common.reflect.TypeToken;
 
 public class ConcreteObjectGenerationSpecification {
 
 	Fixture fixture = new Fixture();
+	HashSet<Double>[] doubleSets = array(new HashSet<Double>());
 	
 	@Test
-	public void ShouldCreateFilledObjectOfTypeXXXX() {
+	public void shouldCreateFilledObjectWithPrimitiveValuesInConstructor() {
 		ObjectWithPrimitiveConstructorParameters obj1 
 			= fixture.create(TypeToken.of(ObjectWithPrimitiveConstructorParameters.class));
 		ObjectWithPrimitiveConstructorParameters obj2 
@@ -35,6 +49,48 @@ public class ConcreteObjectGenerationSpecification {
 		assertThat(obj1.intParameter, is(not(obj2.intParameter)));
 		assertThat(obj1.doubleParameter, is(not(obj2.doubleParameter)));
 		assertThat(obj1.stringParameter, is(not(obj2.stringParameter)));
+	}
+	
+	@Test
+	public void shouldCreateFilledObjectWithCollectionParametersInConstructor() {
+		ObjectWithCollectionConstructorParameters obj1 
+			= fixture.create(TypeToken.of(ObjectWithCollectionConstructorParameters.class));
+		
+		assertThat(obj1.intListParameter.toArray(), hasManyItems());
+		
+		assertThat(obj1.doubleSetSetParameter.toArray(), hasManyItems());
+
+		Object[] nestedSet1Obj1 = obj1.doubleSetSetParameter.toArray(doubleSets)[0].toArray();
+		Object[] nestedSet2Obj1 = obj1.doubleSetSetParameter.toArray(doubleSets)[1].toArray();
+		Object[] nestedSet3Obj1 = obj1.doubleSetSetParameter.toArray(doubleSets)[2].toArray();
+		
+		assertThat(nestedSet1Obj1, hasManyItems());
+		assertThat(nestedSet2Obj1, hasManyItems());
+		assertThat(nestedSet3Obj1, hasManyItems());
+
+		assertThat(obj1.stringArrayParameter, hasManyItems());
+		assertThat(obj1.stringArrayParameter[0], hasManyItems());
+		assertThat(obj1.stringArrayParameter[1], hasManyItems());
+		assertThat(obj1.stringArrayParameter[2], hasManyItems());
+	}
+
+	private HasArrayLengthMatcher<Object> hasManyItems() {
+		return new HasArrayLengthMatcher<>(3);
+	}
+	
+	@Test
+	public void shouldCreateInstancesOfClassesWithCustomGenericConstructorParameters() {
+		ObjectWithGenericConstructorParameters obj 
+			= fixture.create(TypeToken.of(ObjectWithGenericConstructorParameters.class));
+		
+		assertThat(obj.parameter1.instance, is(notNullValue()));
+		assertThat(obj.parameter1.instance, is(not("")));
+	}
+	
+	@SafeVarargs
+	static <E> E[] array(E... array)
+	{
+	    return array;
 	}
 	
 }

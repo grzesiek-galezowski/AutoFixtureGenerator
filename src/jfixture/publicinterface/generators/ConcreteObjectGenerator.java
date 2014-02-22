@@ -2,16 +2,18 @@ package jfixture.publicinterface.generators;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 
 import jfixture.publicinterface.Fixture;
 import jfixture.publicinterface.ObjectCreationException;
 
+import com.google.common.base.Optional;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.Parameter;
 import com.google.common.reflect.TypeToken;
 
-public class ConcreteObjectGenerator implements CompoundObjectGenerator {
+public class ConcreteObjectGenerator implements ComplexObjectGenerator {
 
 	@Override
 	public <T> boolean AppliesTo(TypeToken<T> typeToken) {
@@ -22,7 +24,7 @@ public class ConcreteObjectGenerator implements CompoundObjectGenerator {
 	public <T> T next(TypeToken<T> type, Fixture fixture)
 			throws InstantiationException, IllegalAccessException {
 
-		Invokable<?, ?> currentConstructor = findPublicConstructorWithLeastArguments(type);
+		Invokable<T, T> currentConstructor = findPublicConstructorWithLeastArguments(type);
 		ArrayList<Object> arguments = prepareArgumentsOf(currentConstructor, fixture);
 		return createInstanceOf(type, currentConstructor, arguments);
 		
@@ -39,36 +41,42 @@ public class ConcreteObjectGenerator implements CompoundObjectGenerator {
 		}
 	}
 
-	private ArrayList<Object> prepareArgumentsOf(
-			Invokable<?, ?> currentConstructor, Fixture fixture) {
+	private <T> ArrayList<Object> prepareArgumentsOf(
+			Invokable<T, T> currentConstructor, Fixture fixture) {
 		ArrayList<Object> arguments = new ArrayList<Object>();
 		
 		for(Parameter parameter : currentConstructor.getParameters()) {
-			arguments.add(fixture.create(parameter.getType()));
+			  if(parameter.getType().getType() instanceof ParameterizedType) {
+				  arguments.add(fixture.create(TypeToken.of(parameter.getType().getType())));
+			  } else {
+				  arguments.add(fixture.create(parameter.getType()));
+			  }
+
 		}
+		
 		return arguments;
 	}
 
-	private <T> Invokable<?, ?> findPublicConstructorWithLeastArguments(
+	private <T> Invokable<T, T> findPublicConstructorWithLeastArguments(
 			TypeToken<T> typeToken) {
 		Constructor<?>[] constructors = typeToken.getRawType().getConstructors();
 		
 		int currentArgumentCount = 10000;
-		Invokable<?, ?> currentConstructor = null; 
+		Optional<Invokable<T, T>> currentConstructor = Optional.absent(); 
 		
 		for(Constructor<?> constructor : constructors) {
-			Invokable<?, ?> invokable = Invokable.from(constructor);
+			Invokable<T, T> invokable = typeToken.constructor(constructor);
 			int invokableParametersCount = invokable.getParameters().size();
 			if(invokable.isPublic() && invokableParametersCount < currentArgumentCount) {
 				currentArgumentCount = invokableParametersCount;
-				currentConstructor = invokable;
+				currentConstructor = Optional.of(invokable);
 			}
 		}
 
-		if(currentConstructor == null) {
+		if(!currentConstructor.isPresent()) {
 			throw new ObjectCreationException(typeToken, "Could not find any public constructor");
 		}
-		return currentConstructor;
+		return currentConstructor.get();
 	}
 
 }
