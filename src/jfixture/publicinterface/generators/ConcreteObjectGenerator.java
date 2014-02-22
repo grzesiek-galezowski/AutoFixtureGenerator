@@ -46,15 +46,27 @@ public class ConcreteObjectGenerator implements ComplexObjectGenerator {
 		ArrayList<Object> arguments = new ArrayList<Object>();
 		
 		for(Parameter parameter : currentConstructor.getParameters()) {
-			  if(parameter.getType().getType() instanceof ParameterizedType) {
-				  arguments.add(fixture.create(TypeToken.of(parameter.getType().getType())));
-			  } else {
-				  arguments.add(fixture.create(parameter.getType()));
-			  }
-
+			  AddInstanceOf(parameter, arguments, fixture);
 		}
 		
 		return arguments;
+	}
+
+	private void AddInstanceOf(Parameter parameter,
+			ArrayList<Object> arguments, Fixture fixture) {
+		if(IsParameterized(parameter)) {
+			  arguments.add(fixture.create(RealTypeOf(parameter)));
+		  } else {
+			  arguments.add(fixture.create(parameter.getType()));
+		  }
+	}
+
+	private TypeToken<?> RealTypeOf(Parameter parameter) {
+		return TypeToken.of(parameter.getType().getType());
+	}
+
+	private boolean IsParameterized(Parameter parameter) {
+		return parameter.getType().getType() instanceof ParameterizedType;
 	}
 
 	private <T> Invokable<T, T> findPublicConstructorWithLeastArguments(
