@@ -14,6 +14,7 @@ import jfixture.publicinterface.generators.ConcreteObjectGenerator;
 import jfixture.publicinterface.generators.DateGenerator;
 import jfixture.publicinterface.generators.DoubleGenerator;
 import jfixture.publicinterface.generators.EnumGenerator;
+import jfixture.publicinterface.generators.GeneratorsFactory;
 import jfixture.publicinterface.generators.InstanceGenerator;
 import jfixture.publicinterface.generators.IntGenerator;
 import jfixture.publicinterface.generators.PlainObjectGenerator;
@@ -23,23 +24,12 @@ import com.google.common.reflect.TypeToken;
 
 public class Fixture {
 
-	private LinkedList<InstanceGenerator> instanceGenerators = new LinkedList<InstanceGenerator>(
-			Arrays.asList(new InstanceGenerator[] {
-			new EnumGenerator(),
-			new StringGenerator(),
-			new IntGenerator(),
-			new DoubleGenerator(),
-			new BigIntGenerator(),
-			new BigDecimalGenerator(),
-			new DateGenerator(),
-			new CalendarGenerator(),
-			new PlainObjectGenerator(),
-			new ByteAndCharGenerator(),
-			new BooleanGenerator(),
-			new ArrayGenerator(),
-			new BuiltInCollectionGenerator(),
-			new ConcreteObjectGenerator()
-	}));
+	private GeneratorsFactory generatorsFactory = new GeneratorsFactory();
+
+	private LinkedList<InstanceGenerator> instanceGenerators = 
+			generatorsFactory.createBuiltinGenerators();
+
+	
 	private int customizationsCount = 0; 
 
 	public <T> T create(Class<T> clazz) {
