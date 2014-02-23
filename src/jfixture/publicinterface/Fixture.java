@@ -34,7 +34,7 @@ public class Fixture {
 	}
 
 	public <T> T create(TypeToken<T> typeToken) {
-		return instanceGenerators.executeFor(typeToken, this);
+		return create(new InstanceType<T>(typeToken));
 	}
 	
 	
@@ -44,6 +44,10 @@ public class Fixture {
 
 	public void clearCustomizations() {
 		instanceGenerators.clearCustomizations();
+	}
+
+	public <T> T create(InstanceType<T> instanceType) {
+		return instanceGenerators.executeFor(instanceType, this);
 	}
 
 	

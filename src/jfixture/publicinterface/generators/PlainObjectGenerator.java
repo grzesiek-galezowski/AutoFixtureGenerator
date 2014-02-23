@@ -1,18 +1,19 @@
 package jfixture.publicinterface.generators;
 
 import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.InstanceType;
 
 import com.google.common.reflect.TypeToken;
 
 public class PlainObjectGenerator implements InstanceGenerator {
 
 	@Override
-	public <T> boolean AppliesTo(TypeToken<T> typeToken) {
+	public <T> boolean AppliesTo(InstanceType<T> typeToken) {
 		return typeToken.getRawType() == Object.class;
 	}
 
 	@Override
-	public <T> T next(TypeToken<T> typeToken, Fixture fixture) {
+	public <T> T next(InstanceType<T> typeToken, Fixture fixture) {
 		return (T)new Object();
 	}
 }

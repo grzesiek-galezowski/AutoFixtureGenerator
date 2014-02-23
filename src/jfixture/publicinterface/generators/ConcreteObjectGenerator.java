@@ -1,14 +1,13 @@
 package jfixture.publicinterface.generators;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 
 import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.InstanceType;
 import jfixture.publicinterface.ObjectCreationException;
 
-import com.google.common.base.Optional;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.Parameter;
 import com.google.common.reflect.TypeToken;
@@ -16,26 +15,26 @@ import com.google.common.reflect.TypeToken;
 public class ConcreteObjectGenerator implements InstanceGenerator {
 
 	@Override
-	public <T> boolean AppliesTo(TypeToken<T> typeToken) {
+	public <T> boolean AppliesTo(InstanceType<T> typeToken) {
 		return true;
 	}
 
 	@Override
-	public <T> T next(TypeToken<T> type, Fixture fixture) {
+	public <T> T next(InstanceType<T> type, Fixture fixture) {
 
-		Invokable<T, T> currentConstructor = findPublicConstructorWithLeastArguments(type);
+		Invokable<T, T> currentConstructor = type.findPublicConstructorWithLeastArguments();
 		ArrayList<Object> arguments = prepareArgumentsOf(currentConstructor, fixture);
 		return createInstanceOf(type, currentConstructor, arguments);
 		
 	}
 
-	private <T> T createInstanceOf(TypeToken<T> typeToken,
+	private <T> T createInstanceOf(InstanceType<T> type,
 			Invokable<?, ?> currentConstructor, ArrayList<Object> arguments) {
 		try {
 			T instance = (T) currentConstructor.invoke(null, arguments.toArray());
 			return instance;
 		} catch (InvocationTargetException | IllegalAccessException e) {
-			throw new ObjectCreationException(typeToken, e);
+			throw new ObjectCreationException(type, e);
 		}
 	}
 
@@ -67,26 +66,5 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
 		return parameter.getType().getType() instanceof ParameterizedType;
 	}
 
-	private <T> Invokable<T, T> findPublicConstructorWithLeastArguments(
-			TypeToken<T> typeToken) {
-		Constructor<?>[] constructors = typeToken.getRawType().getConstructors();
-		
-		int currentArgumentCount = 10000;
-		Optional<Invokable<T, T>> currentConstructor = Optional.absent(); 
-		
-		for(Constructor<?> constructor : constructors) {
-			Invokable<T, T> invokable = typeToken.constructor(constructor);
-			int invokableParametersCount = invokable.getParameters().size();
-			if(invokable.isPublic() && invokableParametersCount < currentArgumentCount) {
-				currentArgumentCount = invokableParametersCount;
-				currentConstructor = Optional.of(invokable);
-			}
-		}
-
-		if(!currentConstructor.isPresent()) {
-			throw new ObjectCreationException(typeToken, "Could not find any public constructor");
-		}
-		return currentConstructor.get();
-	}
 
 }

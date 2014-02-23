@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import com.google.common.reflect.TypeToken;
 
 import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.InstanceType;
 import jfixture.publicinterface.ObjectCreationException;
 
 public class GeneratorsPipeline {
@@ -16,14 +17,14 @@ public class GeneratorsPipeline {
 		this.generators = generators;
 	}
 
-	public <T> T executeFor(TypeToken<T> typeToken, Fixture fixture) {
+	public <T> T executeFor(InstanceType<T> instanceType, Fixture fixture) {
 		for(InstanceGenerator generator : generators) {
-			if(generator.AppliesTo(typeToken)) {
-				return (T)generator.next(typeToken, fixture);
+			if(generator.AppliesTo(instanceType)) {
+				return (T)generator.next(instanceType, fixture);
 			}
 		}
 		
-		throw new ObjectCreationException(typeToken);
+		throw new ObjectCreationException(instanceType);
 
 	}
 

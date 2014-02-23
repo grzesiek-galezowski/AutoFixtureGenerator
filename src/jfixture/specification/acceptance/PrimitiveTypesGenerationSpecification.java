@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.InstanceType;
 import jfixture.publicinterface.generators.InstanceGenerator;
 
 import org.junit.After;
@@ -40,13 +41,13 @@ public class PrimitiveTypesGenerationSpecification {
 		fixture.register(new InstanceGenerator() {
 			
 			@Override
-			public <T> T next(TypeToken<T> typeToken, Fixture fixture) {
+			public <T> T next(InstanceType<T> typeToken, Fixture fixture) {
 				return (T) Integer.valueOf(9999);
 			}
 			
 			@Override
-			public <T> boolean AppliesTo(TypeToken<T> typeToken) {
-				return typeToken.getRawType() == int.class;
+			public <T> boolean AppliesTo(InstanceType<T> typeToken) {
+				return typeToken.isRawTypeAssignableFrom(int.class);
 			}
 		});
 		

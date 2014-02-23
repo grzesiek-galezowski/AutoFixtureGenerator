@@ -5,25 +5,24 @@ import java.lang.reflect.Array;
 import com.google.common.reflect.TypeToken;
 
 import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.InstanceType;
 
 public class ArrayGenerator implements InstanceGenerator {
 
 	@Override
-	public <T> boolean AppliesTo(TypeToken<T> clazz) {
+	public <T> boolean AppliesTo(InstanceType<T> clazz) {
 		return clazz.isArray();
 	}
 
 	@Override
-	public <T> T next(TypeToken<T> clazz, Fixture fixture) {
-		TypeToken<?> componentType = clazz.getComponentType();
-		Object instance1 = fixture.create(componentType);
-		Object instance2 = fixture.create(componentType);
-		Object instance3 = fixture.create(componentType);
+	public <T> T next(InstanceType<T> type, Fixture fixture) {
+		InstanceType<?> componentType = type.getArrayElementType();
 		
-		Object array = Array.newInstance(componentType.getRawType(), 3);
-		Array.set(array, 0, instance1);
-		Array.set(array, 1, instance2);
-		Array.set(array, 2, instance3);
+		Object array = componentType.createArray(new Object[] {
+			fixture.create(componentType), 
+			fixture.create(componentType), 
+			fixture.create(componentType)
+		});
 		
 		return (T)array;
 	}
