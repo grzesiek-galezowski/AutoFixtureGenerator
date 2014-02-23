@@ -6,7 +6,7 @@ An attempt to reimplement core features of a popular .NET anonymous value genera
 Creating a fixture object
 -
 
-New fixture:
+New fixture object:
 
     Fixture fixture = new Fixture();
 
@@ -21,14 +21,16 @@ A value of non-generic class:
     
 A value of generic class (including collections):
 
-    ArrayList<Integer> list = f.create(new InstanceOf<ArrayList<Integer>>() {});
+    ArrayList<Integer> list = fixture.create(new InstanceOf<ArrayList<Integer>>() {});
 
 Fixture customization
 -
 
-Example of new integer customization that always returns 12:
+Customizations always take precedence over built-in generators.
 
-    f.register(new InstanceGenerator() {
+Example of new integer generation customization that always returns 12:
+
+    fixture.register(new InstanceGenerator() {
       @Override
       public <T> boolean AppliesTo(TypeToken<T> arg) {
         return arg.getRawType() == int.class;
@@ -40,7 +42,9 @@ Example of new integer customization that always returns 12:
         return (T) Integer.valueOf(12);
       }
     });
-		
 
+Clearing all customizations:
+
+    fixture.clearCustomizations();
 
 
