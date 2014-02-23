@@ -42,7 +42,10 @@ public class Fixture {
 	}));
 	private int customizationsCount = 0; 
 
-	@SuppressWarnings("unchecked")
+	public <T> T create(Class<T> clazz) {
+		return this.create(TypeToken.of(clazz));
+	}
+
 	public <T> T create(TypeToken<T> typeToken) {
 		for(InstanceGenerator generator : instanceGenerators) {
 			if(generator.AppliesTo(typeToken)) {
@@ -53,7 +56,8 @@ public class Fixture {
 		
 		throw new ObjectCreationException(typeToken);
 	}
-
+	
+	
 	public void register(InstanceGenerator instanceGenerator) {
 		instanceGenerators.add(0, instanceGenerator);
 		customizationsCount++;
