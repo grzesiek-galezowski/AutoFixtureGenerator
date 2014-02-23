@@ -23,3 +23,23 @@ A value of generic class (including collections):
 
     ArrayList<Integer> list = f.create(new InstanceOf<ArrayList<Integer>>() {});
 
+Fixture customization
+-
+
+Example of new integer customization that always returns 12:
+
+    f.register(new InstanceGenerator() {
+      @Override
+      public <T> boolean AppliesTo(TypeToken<T> arg) {
+        return arg.getRawType() == int.class;
+      }
+      
+      @Override
+      public <T> T next(TypeToken<T> arg0, Fixture arg1) {
+        //note the cast to T:
+        return (T) Integer.valueOf(12);
+      }
+    });
+		
+
+
