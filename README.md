@@ -45,6 +45,6 @@ Example of new integer generation customization that always returns 12:
 
 Clearing all customizations:
 
-    f.clearCustomizations();
+    fixture.clearCustomizations();
 
 
