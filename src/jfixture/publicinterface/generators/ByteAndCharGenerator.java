@@ -3,8 +3,6 @@ package jfixture.publicinterface.generators;
 import jfixture.publicinterface.Fixture;
 import jfixture.publicinterface.InstanceType;
 
-import com.google.common.reflect.TypeToken;
-
 public class ByteAndCharGenerator implements InstanceGenerator {
 
 	public Byte startingByte = 1;

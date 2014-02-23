@@ -34,7 +34,7 @@ public class Fixture {
 	}
 
 	public <T> T create(TypeToken<T> typeToken) {
-		return create(new InstanceType<T>(typeToken));
+		return create(new ConcreteInstanceType<T>(typeToken));
 	}
 	
 	

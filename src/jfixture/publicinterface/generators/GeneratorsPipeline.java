@@ -2,8 +2,6 @@ package jfixture.publicinterface.generators;
 
 import java.util.LinkedList;
 
-import com.google.common.reflect.TypeToken;
-
 import jfixture.publicinterface.Fixture;
 import jfixture.publicinterface.InstanceType;
 import jfixture.publicinterface.ObjectCreationException;

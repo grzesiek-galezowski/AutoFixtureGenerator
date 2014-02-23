@@ -1,9 +1,5 @@
 package jfixture.publicinterface.generators;
 
-import java.lang.reflect.Array;
-
-import com.google.common.reflect.TypeToken;
-
 import jfixture.publicinterface.Fixture;
 import jfixture.publicinterface.InstanceType;
 

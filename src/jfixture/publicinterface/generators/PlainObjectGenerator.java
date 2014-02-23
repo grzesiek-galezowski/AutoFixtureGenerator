@@ -3,13 +3,11 @@ package jfixture.publicinterface.generators;
 import jfixture.publicinterface.Fixture;
 import jfixture.publicinterface.InstanceType;
 
-import com.google.common.reflect.TypeToken;
-
 public class PlainObjectGenerator implements InstanceGenerator {
 
 	@Override
 	public <T> boolean AppliesTo(InstanceType<T> typeToken) {
-		return typeToken.getRawType() == Object.class;
+		return typeToken.isRawTypeAssignableFrom(Object.class);
 	}
 
 	@Override

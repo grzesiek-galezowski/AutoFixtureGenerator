@@ -1,13 +1,10 @@
 package jfixture.publicinterface.generators;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import jfixture.publicinterface.Fixture;
 import jfixture.publicinterface.InstanceType;
-
-import com.google.common.reflect.TypeToken;
 
 public class CalendarGenerator implements InstanceGenerator {
 	int secondsToAdd = 0;

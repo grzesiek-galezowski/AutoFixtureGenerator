@@ -5,8 +5,6 @@ import java.math.BigDecimal;
 import jfixture.publicinterface.Fixture;
 import jfixture.publicinterface.InstanceType;
 
-import com.google.common.reflect.TypeToken;
-
 public class BigDecimalGenerator implements InstanceGenerator {
 
 	@Override

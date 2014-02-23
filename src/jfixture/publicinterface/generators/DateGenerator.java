@@ -6,8 +6,6 @@ import java.util.Date;
 import jfixture.publicinterface.Fixture;
 import jfixture.publicinterface.InstanceType;
 
-import com.google.common.reflect.TypeToken;
-
 public class DateGenerator implements InstanceGenerator {
 	
 	Calendar calendar = Calendar.getInstance();

@@ -5,8 +5,6 @@ import java.math.BigInteger;
 import jfixture.publicinterface.Fixture;
 import jfixture.publicinterface.InstanceType;
 
-import com.google.common.reflect.TypeToken;
-
 public class BigIntGenerator implements InstanceGenerator {
 	@Override
 	public <T> boolean AppliesTo(InstanceType<T> typeToken) {
