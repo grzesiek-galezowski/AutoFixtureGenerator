@@ -15,6 +15,7 @@ import jfixture.publicinterface.generators.DateGenerator;
 import jfixture.publicinterface.generators.DoubleGenerator;
 import jfixture.publicinterface.generators.EnumGenerator;
 import jfixture.publicinterface.generators.GeneratorsFactory;
+import jfixture.publicinterface.generators.GeneratorsPipeline;
 import jfixture.publicinterface.generators.InstanceGenerator;
 import jfixture.publicinterface.generators.IntGenerator;
 import jfixture.publicinterface.generators.PlainObjectGenerator;
@@ -26,38 +27,23 @@ public class Fixture {
 
 	private GeneratorsFactory generatorsFactory = new GeneratorsFactory();
 
-	private LinkedList<InstanceGenerator> instanceGenerators = 
-			generatorsFactory.createBuiltinGenerators();
-
-	
-	private int customizationsCount = 0; 
+	GeneratorsPipeline instanceGenerators = generatorsFactory.createBuiltinGenerators();
 
 	public <T> T create(Class<T> clazz) {
 		return this.create(TypeToken.of(clazz));
 	}
 
 	public <T> T create(TypeToken<T> typeToken) {
-		for(InstanceGenerator generator : instanceGenerators) {
-			if(generator.AppliesTo(typeToken)) {
-
-				return (T)generator.next(typeToken, this);
-			}
-		}
-		
-		throw new ObjectCreationException(typeToken);
+		return instanceGenerators.executeFor(typeToken, this);
 	}
 	
 	
 	public void register(InstanceGenerator instanceGenerator) {
-		instanceGenerators.add(0, instanceGenerator);
-		customizationsCount++;
+		instanceGenerators.registerCustomization(instanceGenerator);
 	}
 
 	public void clearCustomizations() {
-		for(int i = 0 ; i < customizationsCount ; ++i) {
-			instanceGenerators.remove(0);
-		}
-		customizationsCount = 0;
+		instanceGenerators.clearCustomizations();
 	}
 
 	

@@ -1,4 +1,4 @@
-package jfixture.specification.testfixtures;
+package jfixture.specification.acceptance.testfixtures;
 
 
 public class ObjectWithGenericConstructorParameters {

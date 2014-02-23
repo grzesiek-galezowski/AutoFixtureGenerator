@@ -1,4 +1,4 @@
-package jfixture.specification;
+package jfixture.specification.acceptance;
 
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -11,7 +11,7 @@ import java.util.concurrent.PriorityBlockingQueue;
 import com.google.common.reflect.*;
 
 import jfixture.publicinterface.Fixture;
-import jfixture.specification.matchers.*;
+import jfixture.specification.acceptance.matchers.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 

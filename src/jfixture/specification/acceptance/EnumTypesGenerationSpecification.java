@@ -1,4 +1,4 @@
-package jfixture.specification;
+package jfixture.specification.acceptance;
 
 import jfixture.publicinterface.Fixture;
 

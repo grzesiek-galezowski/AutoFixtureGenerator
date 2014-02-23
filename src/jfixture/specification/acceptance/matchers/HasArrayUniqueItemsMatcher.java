@@ -1,4 +1,4 @@
-package jfixture.specification.matchers;
+package jfixture.specification.acceptance.matchers;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;

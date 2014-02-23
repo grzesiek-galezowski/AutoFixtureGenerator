@@ -20,8 +20,9 @@ import jfixture.publicinterface.generators.PlainObjectGenerator;
 import jfixture.publicinterface.generators.StringGenerator;
 
 public class GeneratorsFactory {
-	public LinkedList<InstanceGenerator> createBuiltinGenerators() {
-		return new LinkedList<InstanceGenerator>(
+	public GeneratorsPipeline createBuiltinGenerators() {
+		return new GeneratorsPipeline(
+				new LinkedList<InstanceGenerator>(
 				Arrays.asList(new InstanceGenerator[] {
 				new EnumGenerator(),
 				new StringGenerator(),
@@ -37,6 +38,6 @@ public class GeneratorsFactory {
 				new ArrayGenerator(),
 				new BuiltInCollectionGenerator(),
 				new ConcreteObjectGenerator()
-		}));
+		})));
 	}
 }

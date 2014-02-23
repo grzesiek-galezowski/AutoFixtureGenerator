@@ -1,4 +1,4 @@
-package jfixture.specification.testfixtures;
+package jfixture.specification.acceptance.testfixtures;
 
 import java.util.AbstractList;
 import java.util.Set;

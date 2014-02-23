@@ -1,4 +1,4 @@
-package jfixture.specification;
+package jfixture.specification.acceptance;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;

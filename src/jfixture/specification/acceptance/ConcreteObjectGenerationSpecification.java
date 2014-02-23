@@ -1,4 +1,4 @@
-package jfixture.specification;
+package jfixture.specification.acceptance;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -8,11 +8,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import jfixture.publicinterface.Fixture;
-import jfixture.specification.matchers.HasArrayLengthMatcher;
-import jfixture.specification.testfixtures.GenericObject;
-import jfixture.specification.testfixtures.ObjectWithCollectionConstructorParameters;
-import jfixture.specification.testfixtures.ObjectWithGenericConstructorParameters;
-import jfixture.specification.testfixtures.ObjectWithPrimitiveConstructorParameters;
+import jfixture.specification.acceptance.matchers.HasArrayLengthMatcher;
+import jfixture.specification.acceptance.testfixtures.GenericObject;
+import jfixture.specification.acceptance.testfixtures.ObjectWithCollectionConstructorParameters;
+import jfixture.specification.acceptance.testfixtures.ObjectWithGenericConstructorParameters;
+import jfixture.specification.acceptance.testfixtures.ObjectWithPrimitiveConstructorParameters;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
