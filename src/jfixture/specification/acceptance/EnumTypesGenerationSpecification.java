@@ -1,8 +1,11 @@
 package jfixture.specification.acceptance;
 
+import java.util.ArrayList;
+
 import jfixture.publicinterface.Fixture;
 
 import org.junit.Test;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
@@ -14,10 +17,15 @@ public class EnumTypesGenerationSpecification {
 	
 	@Test
 	public void ShouldGenerateDistinctEnums() {
-		Eon eon1 = fixture.create(TypeToken.of(Eon.class));
-		Eon eon2 = fixture.create(TypeToken.of(Eon.class));
+		ArrayList<Eon> generatedEons = new ArrayList<>();
 		
-		assertThat(eon1,not(is(eon2)));
-		//TODO this does not work quite well - fix it with circular lists!
+		generatedEons.add(fixture.create(TypeToken.of(Eon.class)));
+		generatedEons.add(fixture.create(TypeToken.of(Eon.class)));
+		generatedEons.add(fixture.create(TypeToken.of(Eon.class)));
+		generatedEons.add(fixture.create(TypeToken.of(Eon.class)));
+		generatedEons.add(fixture.create(TypeToken.of(Eon.class)));
+		
+		assertArrayEquals(new Eon[] { Eon.HADEAN, Eon.ARCHAEAN, Eon.PROTEROZOIC, Eon.PHANEROZOIC, Eon.HADEAN }, 
+				generatedEons.toArray(new Eon[] {}));
 	}
 }

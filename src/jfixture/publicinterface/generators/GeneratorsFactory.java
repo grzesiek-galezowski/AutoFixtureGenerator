@@ -22,22 +22,21 @@ import jfixture.publicinterface.generators.StringGenerator;
 public class GeneratorsFactory {
 	public GeneratorsPipeline createBuiltinGenerators() {
 		return new GeneratorsPipeline(
-				new LinkedList<InstanceGenerator>(
-				Arrays.asList(new InstanceGenerator[] {
-				new EnumGenerator(),
-				new StringGenerator(),
-				new IntGenerator(),
-				new DoubleGenerator(),
-				new BigIntGenerator(),
-				new BigDecimalGenerator(),
-				new DateGenerator(),
-				new CalendarGenerator(),
-				new PlainObjectGenerator(),
-				new ByteAndCharGenerator(),
-				new BooleanGenerator(),
-				new ArrayGenerator(),
-				new BuiltInCollectionGenerator(),
-				new ConcreteObjectGenerator()
-		})));
+				new LinkedList<InstanceGenerator>(Arrays.asList(new InstanceGenerator[] {
+						new EnumGenerator(new InMemoryEnumCache()),
+						new StringGenerator(),
+						new IntGenerator(),
+						new DoubleGenerator(),
+						new BigIntGenerator(),
+						new BigDecimalGenerator(),
+						new DateGenerator(),
+						new CalendarGenerator(),
+						new PlainObjectGenerator(),
+						new ByteAndCharGenerator(),
+						new BooleanGenerator(),
+						new ArrayGenerator(),
+						new BuiltInCollectionGenerator(),
+						new ConcreteObjectGenerator()
+						})));
 	}
 }

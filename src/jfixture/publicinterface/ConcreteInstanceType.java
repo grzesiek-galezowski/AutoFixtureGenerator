@@ -157,6 +157,32 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 		return collection;
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((typeToken == null) ? 0 : typeToken.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ConcreteInstanceType other = (ConcreteInstanceType) obj;
+		if (typeToken == null) {
+			if (other.typeToken != null)
+				return false;
+		} else if (!typeToken.equals(other.typeToken))
+			return false;
+		return true;
+	}
+
 	/* (non-Javadoc)
 	 * @see jfixture.publicinterface.IInstanceType#getNestedGenericType()
 	 */
