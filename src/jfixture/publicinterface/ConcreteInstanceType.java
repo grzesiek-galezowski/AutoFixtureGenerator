@@ -195,6 +195,11 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 	public T[] getEnumConstants() {
 		return (T[])(typeToken.getRawType().getEnumConstants());
 	}
+
+	@Override
+	public boolean isInterface() {
+		return typeToken.getRawType().isInterface();
+	}
 	
 	
 	//TODO reimplement toString();

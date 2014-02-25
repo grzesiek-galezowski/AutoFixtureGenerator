@@ -25,5 +25,6 @@ public interface InstanceType<T> {
 	Invokable<T, T> findPublicConstructorWithLeastArguments();
 	boolean isEnum();
 	T[] getEnumConstants();
+	boolean isInterface();
 
 }
