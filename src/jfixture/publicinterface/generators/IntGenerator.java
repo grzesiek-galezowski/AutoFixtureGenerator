@@ -18,6 +18,7 @@ public class IntGenerator implements InstanceGenerator {
 				|| typeToken.isRawTypeAssignableFrom(Long.class);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T next(InstanceType<T> typeToken, Fixture fixture) {
 		return (T)(startingInteger++);

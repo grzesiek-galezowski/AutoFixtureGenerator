@@ -1,25 +1,20 @@
 package jfixture.specification.acceptance;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+
 import java.util.HashSet;
-import java.util.Set;
 
 import jfixture.publicinterface.Fixture;
 import jfixture.specification.acceptance.matchers.HasArrayLengthMatcher;
-import jfixture.specification.acceptance.testfixtures.GenericObject;
 import jfixture.specification.acceptance.testfixtures.ObjectWithCollectionConstructorParameters;
 import jfixture.specification.acceptance.testfixtures.ObjectWithGenericConstructorParameters;
 import jfixture.specification.acceptance.testfixtures.ObjectWithPrimitiveConstructorParameters;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
 
-import com.google.common.reflect.Invokable;
-import com.google.common.reflect.Parameter;
 import com.google.common.reflect.TypeToken;
 
 public class ConcreteObjectGenerationSpecification {

@@ -14,6 +14,7 @@ public class ByteAndCharGenerator implements InstanceGenerator {
 				|| typeToken.isRawTypeAssignableFrom(char.class)
 				|| typeToken.isRawTypeAssignableFrom(Character.class);
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T next(InstanceType<T> typeToken, Fixture fixture) {
 		return (T)(startingByte++);

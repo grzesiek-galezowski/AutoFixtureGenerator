@@ -6,6 +6,8 @@ import jfixture.publicinterface.Fixture;
 import jfixture.publicinterface.InstanceType;
 
 public class StringGenerator implements InstanceGenerator {
+	
+	@SuppressWarnings("unchecked")
 	public <T> T next(InstanceType<T> clazz, Fixture fixture) {
 		return (T)UUID.randomUUID().toString();
 	}

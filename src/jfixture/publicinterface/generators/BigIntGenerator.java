@@ -11,6 +11,7 @@ public class BigIntGenerator implements InstanceGenerator {
 		return typeToken.isAssignableFrom(BigInteger.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T next(InstanceType<T> typeToken, Fixture fixture) {
 		return (T) new BigInteger(fixture.create(Integer.class).toString());

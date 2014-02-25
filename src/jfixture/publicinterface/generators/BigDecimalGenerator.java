@@ -12,6 +12,7 @@ public class BigDecimalGenerator implements InstanceGenerator {
 		return typeToken.isAssignableFrom(BigDecimal.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T next(InstanceType<T> typeToken, Fixture fixture) {
 		return (T) new BigDecimal(fixture.create(Integer.class));

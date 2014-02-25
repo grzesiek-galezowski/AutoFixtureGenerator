@@ -28,6 +28,7 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	private <T> T createInstanceOf(InstanceType<T> type,
 			Invokable<?, ?> currentConstructor, ArrayList<Object> arguments) {
 		try {

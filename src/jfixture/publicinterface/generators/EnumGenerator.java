@@ -1,7 +1,5 @@
 package jfixture.publicinterface.generators;
 
-import java.util.Random;
-
 import jfixture.publicinterface.Fixture;
 import jfixture.publicinterface.InstanceType;
 

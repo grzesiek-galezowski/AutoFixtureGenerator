@@ -12,6 +12,7 @@ public class BooleanGenerator implements InstanceGenerator {
 				|| typeToken.isAssignableFrom(Boolean.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T next(InstanceType<T> typeToken, Fixture fixture) {
 		currentValue = !currentValue;

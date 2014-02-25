@@ -1,4 +1,4 @@
-package jfixture.publicinterface.generators;
+package jfixture.publicinterface.generators.implementationdetails;
 
 import jfixture.publicinterface.InstanceType;
 
@@ -8,14 +8,13 @@ public class CircularList<T> {
 	private int currentIndex = 0;
 
 	public static <TListElement> CircularList<TListElement> createFromEnum(InstanceType<TListElement> type) {
-		Object[] enumConstants = type.getEnumConstants();
+		TListElement[] enumConstants = type.getEnumConstants();
 		
 		return new CircularList<TListElement>(enumConstants);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public CircularList(Object[] enumConstants) {
-		this.enumConstants = (T[]) enumConstants;
+	public CircularList(T[] enumConstants) {
+		this.enumConstants = enumConstants;
 		currentIndex = 0;
 	}
 	

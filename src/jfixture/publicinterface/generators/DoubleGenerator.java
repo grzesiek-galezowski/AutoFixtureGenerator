@@ -13,6 +13,8 @@ public class DoubleGenerator implements InstanceGenerator {
 				|| typeToken.isRawTypeAssignableFrom(float.class)
 				|| typeToken.isRawTypeAssignableFrom(Float.class); 
 	}
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T next(InstanceType<T> typeToken, Fixture fixture) {
 		return (T)(startingNumber++);

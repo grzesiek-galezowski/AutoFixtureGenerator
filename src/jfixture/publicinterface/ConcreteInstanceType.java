@@ -4,7 +4,6 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.math.BigDecimal;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,68 +33,43 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 	}
 
 	//TODO reduce even further
-	/* (non-Javadoc)
-	 * @see jfixture.publicinterface.IInstanceType#getArrayElementType()
-	 */
 	@Override
 	public InstanceType<?> getArrayElementType() {
-		return new ConcreteInstanceType(typeToken.getComponentType());
+		return ConcreteInstanceType.from(typeToken.getComponentType());
 	}
 
-	/* (non-Javadoc)
-	 * @see jfixture.publicinterface.IInstanceType#isAssignableFrom(java.lang.Class)
-	 */
 	@Override
 	public <TAssignable> boolean isAssignableFrom(Class<TAssignable> clazz) {
 		return typeToken.isAssignableFrom(clazz);
 	}
 
-	/* (non-Javadoc)
-	 * @see jfixture.publicinterface.IInstanceType#getRawType()
-	 */
 	@Override
 	public Class<? super T> getRawType() {
 		return typeToken.getRawType();
 	}
 
-	/* (non-Javadoc)
-	 * @see jfixture.publicinterface.IInstanceType#getToken()
-	 */
 	@Override
 	public TypeToken<? super T> getToken() {
 		return typeToken;
 	}
 	
-	/* (non-Javadoc)
-	 * @see jfixture.publicinterface.IInstanceType#getType()
-	 */
 	@Override
 	public Type getType() {
 		return typeToken.getType();
 	}
 
-	/* (non-Javadoc)
-	 * @see jfixture.publicinterface.IInstanceType#isArray()
-	 */
 	@Override
 	public boolean isArray() {
 		return typeToken.isArray();
 	}
 
-	/* (non-Javadoc)
-	 * @see jfixture.publicinterface.IInstanceType#constructor(java.lang.reflect.Constructor)
-	 */
 	@Override
 	public Invokable<T, T> constructor(Constructor<?> constructor) {
 		return typeToken.constructor(constructor);
 	}
 
-	/* (non-Javadoc)
-	 * @see jfixture.publicinterface.IInstanceType#createArray(java.lang.Object[])
-	 */
 	@Override
 	public Object createArray(Object[] objects) {
-		
 		Object array = Array.newInstance(typeToken.getRawType(), objects.length);
 		for(int i = 0 ; i < objects.length ; ++i) {
 			Array.set(array, i, objects[i]);
@@ -103,25 +77,17 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 		return array;
 	}
 
-	/* (non-Javadoc)
-	 * @see jfixture.publicinterface.IInstanceType#IsAssignableTo(java.lang.Class)
-	 */
 	@Override
 	public boolean IsAssignableTo(Class<?> clazz) {
 		return clazz.isAssignableFrom(typeToken.getRawType());
 	}
 
-	/* (non-Javadoc)
-	 * @see jfixture.publicinterface.IInstanceType#isRawTypeAssignableFrom(java.lang.Class)
-	 */
 	@Override
 	public boolean isRawTypeAssignableFrom(Class<?> clazz) {
 		return typeToken.getRawType().isAssignableFrom(clazz);
 	}
 	
-	/* (non-Javadoc)
-	 * @see jfixture.publicinterface.IInstanceType#createCollection()
-	 */
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Collection createCollection() {
 		Collection collection;
@@ -174,6 +140,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		@SuppressWarnings("rawtypes")
 		ConcreteInstanceType other = (ConcreteInstanceType) obj;
 		if (typeToken == null) {
 			if (other.typeToken != null)
@@ -183,21 +150,19 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see jfixture.publicinterface.IInstanceType#getNestedGenericType()
-	 */
 	@Override
 	public InstanceType<?> getNestedGenericType() {
 		ParameterizedType genericTypeDefinition = (ParameterizedType)(this.getType());
 		Type nestedGenericType = genericTypeDefinition.getActualTypeArguments()[0];
 		
 		TypeToken<?> nestedGenericTypeToken = TypeToken.of(nestedGenericType);
-		return new ConcreteInstanceType(nestedGenericTypeToken);
+		return ConcreteInstanceType.from(nestedGenericTypeToken);
 	}
 
-	/* (non-Javadoc)
-	 * @see jfixture.publicinterface.IInstanceType#findPublicConstructorWithLeastArguments()
-	 */
+	private static <TWrappedType> InstanceType<TWrappedType> from(TypeToken<TWrappedType> typeToken) {
+		return new ConcreteInstanceType<TWrappedType>(typeToken);
+	}
+
 	@Override
 	public Invokable<T, T> findPublicConstructorWithLeastArguments() {
 		Constructor<?>[] constructors = this.getRawType().getConstructors();
@@ -220,20 +185,15 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 		return currentConstructor.get();
 	}
 
-	/* (non-Javadoc)
-	 * @see jfixture.publicinterface.IInstanceType#isEnum()
-	 */
 	@Override
 	public boolean isEnum() {
 		return typeToken.getRawType().isEnum();
 	}
 
-	/* (non-Javadoc)
-	 * @see jfixture.publicinterface.IInstanceType#getEnumConstants()
-	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public Object[] getEnumConstants() {
-		return typeToken.getRawType().getEnumConstants();
+	public T[] getEnumConstants() {
+		return (T[])(typeToken.getRawType().getEnumConstants());
 	}
 	
 	

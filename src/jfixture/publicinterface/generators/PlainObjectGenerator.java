@@ -10,6 +10,7 @@ public class PlainObjectGenerator implements InstanceGenerator {
 		return typeToken.isRawTypeAssignableFrom(Object.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T next(InstanceType<T> typeToken, Fixture fixture) {
 		return (T)new Object();

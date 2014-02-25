@@ -1,9 +1,9 @@
-package jfixture.publicinterface.generators;
+package jfixture.publicinterface.generators.implementationdetails;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import jfixture.publicinterface.InstanceType;
+import jfixture.publicinterface.generators.EnumCache;
 
 public class InMemoryEnumCache implements EnumCache {
 
@@ -16,10 +16,9 @@ public class InMemoryEnumCache implements EnumCache {
 		}		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T retrieveNextValueOf(InstanceType<T> instanceType) {
 		return (T) sequences.get(instanceType).next();
 	}
-
-
 }

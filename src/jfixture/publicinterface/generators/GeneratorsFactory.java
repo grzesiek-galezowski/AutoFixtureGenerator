@@ -18,6 +18,7 @@ import jfixture.publicinterface.generators.InstanceGenerator;
 import jfixture.publicinterface.generators.IntGenerator;
 import jfixture.publicinterface.generators.PlainObjectGenerator;
 import jfixture.publicinterface.generators.StringGenerator;
+import jfixture.publicinterface.generators.implementationdetails.InMemoryEnumCache;
 
 public class GeneratorsFactory {
 	public GeneratorsPipeline createBuiltinGenerators() {

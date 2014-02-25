@@ -8,8 +8,6 @@ import com.google.common.reflect.Invokable;
 import com.google.common.reflect.TypeToken;
 
 public interface InstanceType<T> {
-
-	//TODO reduce even further
 	InstanceType<?> getArrayElementType();
 	<TAssignable> boolean isAssignableFrom(
 			Class<TAssignable> clazz);
@@ -21,10 +19,11 @@ public interface InstanceType<T> {
 	Object createArray(Object[] objects);
 	boolean IsAssignableTo(Class<?> clazz);
 	boolean isRawTypeAssignableFrom(Class<?> clazz);
+	@SuppressWarnings("rawtypes")
 	Collection createCollection();
 	InstanceType<?> getNestedGenericType();
 	Invokable<T, T> findPublicConstructorWithLeastArguments();
 	boolean isEnum();
-	Object[] getEnumConstants();
+	T[] getEnumConstants();
 
 }

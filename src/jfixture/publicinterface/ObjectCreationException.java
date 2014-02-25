@@ -1,7 +1,7 @@
 package jfixture.publicinterface;
 
-import com.google.common.reflect.TypeToken;
 
+@SuppressWarnings("serial")
 public class ObjectCreationException extends RuntimeException {
 
 	public ObjectCreationException(InstanceType<?> instanceType) {

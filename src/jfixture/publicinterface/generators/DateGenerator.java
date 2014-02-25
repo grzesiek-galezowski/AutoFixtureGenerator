@@ -15,6 +15,7 @@ public class DateGenerator implements InstanceGenerator {
 		return typeToken.isRawTypeAssignableFrom(Date.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T next(InstanceType<T> typeToken, Fixture fixture) {
 		calendar.add(Calendar.SECOND, 1);

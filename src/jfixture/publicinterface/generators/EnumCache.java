@@ -1,7 +1,6 @@
 package jfixture.publicinterface.generators;
 
 import jfixture.publicinterface.InstanceType;
-import jfixture.specification.acceptance.EnumTypesGenerationSpecification.Eon;
 
 public interface EnumCache {
 

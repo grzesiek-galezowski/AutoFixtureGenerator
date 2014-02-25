@@ -10,6 +10,7 @@ public class ArrayGenerator implements InstanceGenerator {
 		return clazz.isArray();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T next(InstanceType<T> type, Fixture fixture) {
 		InstanceType<?> componentType = type.getArrayElementType();
