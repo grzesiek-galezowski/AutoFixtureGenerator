@@ -21,11 +21,9 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
 
 	@Override
 	public <T> T next(InstanceType<T> type, Fixture fixture) {
-
 		Invokable<T, T> currentConstructor = type.findPublicConstructorWithLeastArguments();
 		ArrayList<Object> arguments = prepareArgumentsOf(currentConstructor, fixture);
 		return createInstanceOf(type, currentConstructor, arguments);
-		
 	}
 
 	@SuppressWarnings("unchecked")

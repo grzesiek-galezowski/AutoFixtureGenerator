@@ -32,12 +32,12 @@ Example of new integer generation customization that always returns 12:
 
     fixture.register(new InstanceGenerator() {
       @Override
-      public <T> boolean AppliesTo(TypeToken<T> arg) {
-        return arg.getRawType() == int.class;
+      public <T> boolean AppliesTo(InstanceType<T> type) {
+        return type.isRawTypeAssignableFrom(int.class);
       }
       
       @Override
-      public <T> T next(TypeToken<T> arg0, Fixture arg1) {
+      public <T> T next(InstanceType<T> type, Fixture fixture) {
         //note the cast to T:
         return (T) Integer.valueOf(12);
       }
