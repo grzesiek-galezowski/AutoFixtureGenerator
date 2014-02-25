@@ -6,8 +6,7 @@ import jfixture.publicinterface.generators.InstanceGenerator;
 
 import com.google.common.reflect.TypeToken;
 
-public class Fixture {
-
+public class Fixture implements FixtureContract {
 	private GeneratorsFactory generatorsFactory = new GeneratorsFactory();
 
 	GeneratorsPipeline instanceGenerators = generatorsFactory.createBuiltinGenerators();
@@ -19,7 +18,6 @@ public class Fixture {
 	public <T> T create(TypeToken<T> typeToken) {
 		return create(new ConcreteInstanceType<T>(typeToken));
 	}
-	
 	
 	public void register(InstanceGenerator instanceGenerator) {
 		instanceGenerators.registerCustomization(instanceGenerator);
@@ -33,5 +31,4 @@ public class Fixture {
 		return instanceGenerators.executeFor(instanceType, this);
 	}
 
-	
 }

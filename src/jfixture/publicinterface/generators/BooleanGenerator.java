@@ -1,6 +1,6 @@
 package jfixture.publicinterface.generators;
 
-import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.FixtureContract;
 import jfixture.publicinterface.InstanceType;
 
 public class BooleanGenerator implements InstanceGenerator {
@@ -14,7 +14,7 @@ public class BooleanGenerator implements InstanceGenerator {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T next(InstanceType<T> typeToken, Fixture fixture) {
+	public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {
 		currentValue = !currentValue;
 		return (T) currentValue;
 	}

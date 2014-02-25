@@ -1,6 +1,6 @@
 package jfixture.publicinterface.generators;
 
-import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.FixtureContract;
 import jfixture.publicinterface.InstanceType;
 
 public class PlainObjectGenerator implements InstanceGenerator {
@@ -12,7 +12,7 @@ public class PlainObjectGenerator implements InstanceGenerator {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T next(InstanceType<T> typeToken, Fixture fixture) {
+	public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {
 		return (T)new Object();
 	}
 }

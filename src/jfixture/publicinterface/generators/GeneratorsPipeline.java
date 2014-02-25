@@ -2,7 +2,7 @@ package jfixture.publicinterface.generators;
 
 import java.util.LinkedList;
 
-import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.FixtureContract;
 import jfixture.publicinterface.InstanceType;
 import jfixture.publicinterface.ObjectCreationException;
 
@@ -15,7 +15,7 @@ public class GeneratorsPipeline {
 		this.generators = generators;
 	}
 
-	public <T> T executeFor(InstanceType<T> instanceType, Fixture fixture) {
+	public <T> T executeFor(InstanceType<T> instanceType, FixtureContract fixture) {
 		for(InstanceGenerator generator : generators) {
 			if(generator.AppliesTo(instanceType)) {
 				return (T)generator.next(instanceType, fixture);

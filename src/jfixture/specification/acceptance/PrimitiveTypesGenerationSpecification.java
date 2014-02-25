@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.FixtureContract;
 import jfixture.publicinterface.InstanceType;
 import jfixture.publicinterface.generators.InstanceGenerator;
 
@@ -42,7 +43,7 @@ public class PrimitiveTypesGenerationSpecification {
 			
 			@SuppressWarnings("unchecked")
 			@Override
-			public <T> T next(InstanceType<T> type, Fixture fixture) {
+			public <T> T next(InstanceType<T> type, FixtureContract fixture) {
 				return (T) Integer.valueOf(9999);
 			}
 			

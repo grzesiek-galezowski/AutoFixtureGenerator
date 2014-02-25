@@ -1,6 +1,6 @@
 package jfixture.publicinterface.generators;
 
-import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.FixtureContract;
 import jfixture.publicinterface.InstanceType;
 
 public class ArrayGenerator implements InstanceGenerator {
@@ -12,7 +12,7 @@ public class ArrayGenerator implements InstanceGenerator {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T next(InstanceType<T> type, Fixture fixture) {
+	public <T> T next(InstanceType<T> type, FixtureContract fixture) {
 		InstanceType<?> componentType = type.getArrayElementType();
 		
 		Object array = componentType.createArray(new Object[] {

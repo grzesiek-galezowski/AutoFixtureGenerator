@@ -8,6 +8,7 @@ import static org.junit.Assert.assertThat;
 import java.util.HashSet;
 
 import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.FixtureContract;
 import jfixture.specification.acceptance.matchers.HasArrayLengthMatcher;
 import jfixture.specification.acceptance.testfixtures.ObjectWithCollectionConstructorParameters;
 import jfixture.specification.acceptance.testfixtures.ObjectWithGenericConstructorParameters;

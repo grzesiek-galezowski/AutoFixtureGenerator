@@ -29,6 +29,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.PriorityBlockingQueue;
 
 import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.FixtureContract;
 import jfixture.specification.acceptance.matchers.HasArrayLengthMatcher;
 import jfixture.specification.acceptance.matchers.HasArrayUniqueItemsMatcher;
 

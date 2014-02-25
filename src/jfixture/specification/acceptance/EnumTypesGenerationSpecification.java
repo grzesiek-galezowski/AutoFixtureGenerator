@@ -5,6 +5,7 @@ import static org.junit.Assert.assertArrayEquals;
 import java.util.ArrayList;
 
 import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.FixtureContract;
 
 import org.junit.Test;
 

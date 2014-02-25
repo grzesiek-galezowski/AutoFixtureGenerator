@@ -2,7 +2,7 @@ package jfixture.publicinterface.generators;
 
 import java.math.BigDecimal;
 
-import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.FixtureContract;
 import jfixture.publicinterface.InstanceType;
 
 public class BigDecimalGenerator implements InstanceGenerator {
@@ -14,7 +14,7 @@ public class BigDecimalGenerator implements InstanceGenerator {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T next(InstanceType<T> typeToken, Fixture fixture) {
+	public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {
 		return (T) new BigDecimal(fixture.create(Integer.class));
 	}
 }

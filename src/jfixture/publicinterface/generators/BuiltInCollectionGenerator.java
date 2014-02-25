@@ -2,7 +2,7 @@ package jfixture.publicinterface.generators;
 
 import java.util.Collection;
 
-import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.FixtureContract;
 import jfixture.publicinterface.InstanceType;
 
 public class BuiltInCollectionGenerator implements InstanceGenerator {
@@ -14,7 +14,7 @@ public class BuiltInCollectionGenerator implements InstanceGenerator {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public <T> T next(InstanceType<T> type, Fixture fixture) {
+	public <T> T next(InstanceType<T> type, FixtureContract fixture) {
 		//TODO make same as array generation
 		Collection collection = type.createCollection();
 		

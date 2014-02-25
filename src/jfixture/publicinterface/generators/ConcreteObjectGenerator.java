@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 
-import jfixture.publicinterface.Fixture;
+import jfixture.publicinterface.FixtureContract;
 import jfixture.publicinterface.InstanceType;
 import jfixture.publicinterface.ObjectCreationException;
 
@@ -20,7 +20,7 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
 	}
 
 	@Override
-	public <T> T next(InstanceType<T> type, Fixture fixture) {
+	public <T> T next(InstanceType<T> type, FixtureContract fixture) {
 		Invokable<T, T> currentConstructor = type.findPublicConstructorWithLeastArguments();
 		ArrayList<Object> arguments = prepareArgumentsOf(currentConstructor, fixture);
 		return createInstanceOf(type, currentConstructor, arguments);
@@ -38,7 +38,7 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
 	}
 
 	private <T> ArrayList<Object> prepareArgumentsOf(
-			Invokable<T, T> currentConstructor, Fixture fixture) {
+			Invokable<T, T> currentConstructor, FixtureContract fixture) {
 		ArrayList<Object> arguments = new ArrayList<Object>();
 		
 		for(Parameter parameter : currentConstructor.getParameters()) {
@@ -49,7 +49,7 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
 	}
 
 	private void AddInstanceOf(Parameter parameter,
-			ArrayList<Object> arguments, Fixture fixture) {
+			ArrayList<Object> arguments, FixtureContract fixture) {
 		if(IsParameterized(parameter)) {
 			  arguments.add(fixture.create(RealTypeOf(parameter)));
 		  } else {
