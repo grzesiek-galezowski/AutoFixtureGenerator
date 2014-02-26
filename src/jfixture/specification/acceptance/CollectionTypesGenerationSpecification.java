@@ -48,7 +48,7 @@ public class CollectionTypesGenerationSpecification {
 	Fixture fixture = new Fixture();
 	
 	@Test
-	public void ShouldGenerateArraysWithThreeUniqueElements() {
+	public void shouldGenerateArraysWithThreeUniqueElements() {
 		String[] array = fixture.create(TypeToken.of(String[].class));
 		
 		assertThat(array, hasLength(3));
@@ -56,7 +56,7 @@ public class CollectionTypesGenerationSpecification {
 	}
 	
 	@Theory
-	public <T extends Collection<String>> void ShouldGenerateCollectionsWithThreeUniqueElements(
+	public <T extends Collection<String>> void shouldGenerateCollectionsWithThreeUniqueElements(
 			TypeToken<T> collectionClass) {
 		System.out.println(collectionClass);
 		

@@ -16,7 +16,7 @@ public class EnumTypesGenerationSpecification {
 	public enum Eon { HADEAN, ARCHAEAN, PROTEROZOIC, PHANEROZOIC }
 	
 	@Test
-	public void ShouldGenerateDistinctEnumsInACyclicManner() {
+	public void shouldGenerateDistinctEnumsInACyclicManner() {
 		ArrayList<Eon> generatedEons = new ArrayList<>();
 		
 		generatedEons.add(fixture.create(TypeToken.of(Eon.class)));
