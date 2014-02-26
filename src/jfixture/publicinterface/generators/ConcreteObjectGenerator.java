@@ -1,16 +1,9 @@
 package jfixture.publicinterface.generators;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 
 import jfixture.publicinterface.FixtureContract;
 import jfixture.publicinterface.InstanceType;
-import jfixture.publicinterface.ObjectCreationException;
-
-import com.google.common.reflect.Invokable;
-import com.google.common.reflect.Parameter;
-import com.google.common.reflect.TypeToken;
 
 public class ConcreteObjectGenerator implements InstanceGenerator {
 
@@ -21,49 +14,22 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
 
 	@Override
 	public <T> T next(InstanceType<T> type, FixtureContract fixture) {
-		Invokable<T, T> currentConstructor = type.findPublicConstructorWithLeastArguments();
-		ArrayList<Object> arguments = prepareArgumentsOf(currentConstructor, fixture);
-		return createInstanceOf(type, currentConstructor, arguments);
+		Call<T, T> currentConstructor = type.findPublicConstructorWithLeastParameters();
+		T instance = currentConstructor.invokeWithArgumentsCreatedUsing(fixture, null);
+		ArrayList<Call<T, Object>> setters = type.getAllSetters();
+		for(Call<T, Object> setter : setters) {
+			makeBestEffortAttemptToInvoke(setter, instance, fixture);
+		}
+		return instance;
 	}
 
-	@SuppressWarnings("unchecked")
-	private <T> T createInstanceOf(InstanceType<T> type,
-			Invokable<?, ?> currentConstructor, ArrayList<Object> arguments) {
+	private <T> void makeBestEffortAttemptToInvoke(Call<T, Object> setter,
+			T instance, FixtureContract fixture) {
 		try {
-			T instance = (T) currentConstructor.invoke(null, arguments.toArray());
-			return instance;
-		} catch (InvocationTargetException | IllegalAccessException e) {
-			throw new ObjectCreationException(type, e);
+			setter.invokeWithArgumentsCreatedUsing(fixture, instance);
+		} catch(Throwable t) {
+			//silently invoke any failed attempt
 		}
 	}
-
-	private <T> ArrayList<Object> prepareArgumentsOf(
-			Invokable<T, T> currentConstructor, FixtureContract fixture) {
-		ArrayList<Object> arguments = new ArrayList<Object>();
-		
-		for(Parameter parameter : currentConstructor.getParameters()) {
-			  AddInstanceOf(parameter, arguments, fixture);
-		}
-		
-		return arguments;
-	}
-
-	private void AddInstanceOf(Parameter parameter,
-			ArrayList<Object> arguments, FixtureContract fixture) {
-		if(IsParameterized(parameter)) {
-			  arguments.add(fixture.create(RealTypeOf(parameter)));
-		  } else {
-			  arguments.add(fixture.create(parameter.getType()));
-		  }
-	}
-
-	private TypeToken<?> RealTypeOf(Parameter parameter) {
-		return TypeToken.of(parameter.getType().getType());
-	}
-
-	private boolean IsParameterized(Parameter parameter) {
-		return parameter.getType().getType() instanceof ParameterizedType;
-	}
-
-
+	
 }

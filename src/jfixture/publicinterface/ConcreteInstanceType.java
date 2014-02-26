@@ -2,6 +2,7 @@ package jfixture.publicinterface;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayDeque;
@@ -20,7 +21,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.PriorityBlockingQueue;
 
+import jfixture.publicinterface.generators.Call;
+
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableCollection;
+import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.TypeToken;
 
@@ -164,7 +169,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 	}
 
 	@Override
-	public Invokable<T, T> findPublicConstructorWithLeastArguments() {
+	public Call<T, T> findPublicConstructorWithLeastParameters() {
 		Constructor<?>[] constructors = this.getRawType().getConstructors();
 		
 		int currentArgumentCount = 10000;
@@ -182,7 +187,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 		if(!currentConstructor.isPresent()) {
 			throw new ObjectCreationException(this, "Could not find any public constructor");
 		}
-		return currentConstructor.get();
+		return MethodCall.to(currentConstructor.get());
 	}
 
 	@Override
@@ -199,6 +204,43 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 	@Override
 	public boolean isInterface() {
 		return typeToken.getRawType().isInterface();
+	}
+
+	@Override
+	public ArrayList<Call<T, Object>> getAllSetters() {
+		ArrayList<Call<T, Object>> setters = new ArrayList<>();
+		
+		Method[] methods = typeToken.getRawType().getMethods();
+		
+		for(Method mtd : methods) {
+			Invokable<T, Object> invokable = typeToken.method(mtd);
+			if(isSetter(invokable)) {
+				setters.add(MethodCall.to(invokable));
+			}
+		}
+		return setters;
+	}
+
+	private boolean isSetter(Invokable<T, Object> invokable) {
+		return isNamedLikeASetter(invokable) 
+				&& hasSingleArgument(invokable) 
+				&& hasNoReturnValue(invokable);
+	}
+
+	private boolean hasNoReturnValue(Invokable<T, Object> invokable) {
+		return invokable.getReturnType().getRawType() == void.class;
+	}
+
+	private boolean hasSingleArgument(Invokable<T, Object> invokable) {
+		return invokable.getParameters().size() == 1;
+	}
+
+	private boolean isNamedLikeASetter(Invokable<T, Object> invokable) {
+		String name = invokable.getName();
+		return 
+				name.length() > 3 
+				&&  name.startsWith("set") 
+				&& Character.isUpperCase(name.charAt(3));
 	}
 	
 	

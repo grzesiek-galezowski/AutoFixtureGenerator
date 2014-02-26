@@ -8,11 +8,11 @@ import static org.junit.Assert.assertThat;
 import java.util.HashSet;
 
 import jfixture.publicinterface.Fixture;
-import jfixture.publicinterface.FixtureContract;
 import jfixture.specification.acceptance.matchers.HasArrayLengthMatcher;
 import jfixture.specification.acceptance.testfixtures.ObjectWithCollectionConstructorParameters;
 import jfixture.specification.acceptance.testfixtures.ObjectWithGenericConstructorParameters;
 import jfixture.specification.acceptance.testfixtures.ObjectWithPrimitiveConstructorParameters;
+import jfixture.specification.acceptance.testfixtures.ObjectWithSetters;
 
 import org.junit.Test;
 
@@ -70,6 +70,16 @@ public class ConcreteObjectGenerationSpecification {
 		assertThat(obj1.stringArrayParameter[2], hasManyItems());
 	}
 
+	@Test
+	public void shouldSetPropertiesOfCreatedConcreteObjectUsingSetters() {
+		ObjectWithSetters instance = fixture.create(ObjectWithSetters.class);
+		
+		assertThat(instance, is(notNullValue()));
+		assertThat(instance.getAge(), is(not(0)));
+		assertThat(instance.getName(), is(notNullValue()));
+		assertThat(instance.getName(), is(not("")));
+	}
+	
 	private HasArrayLengthMatcher<Object> hasManyItems() {
 		return new HasArrayLengthMatcher<>(3);
 	}
