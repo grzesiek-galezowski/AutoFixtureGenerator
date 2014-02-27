@@ -1,9 +1,5 @@
 package jfixture.publicinterface;
 
-import jfixture.publicinterface.generators.GeneratorsFactory;
-import jfixture.publicinterface.generators.GeneratorsPipeline;
-import jfixture.publicinterface.generators.InstanceGenerator;
-
 import com.google.common.reflect.TypeToken;
 
 public interface FixtureContract {

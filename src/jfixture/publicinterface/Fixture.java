@@ -2,7 +2,8 @@ package jfixture.publicinterface;
 
 import jfixture.publicinterface.generators.GeneratorsFactory;
 import jfixture.publicinterface.generators.GeneratorsPipeline;
-import jfixture.publicinterface.generators.InstanceGenerator;
+import jfixture.publicinterface.InstanceGenerator;
+import jfixture.publicinterface.generators.implementationdetails.ConcreteInstanceType;
 
 import com.google.common.reflect.TypeToken;
 
@@ -29,6 +30,10 @@ public class Fixture implements FixtureContract {
 
 	public <T> T create(InstanceType<T> instanceType) {
 		return instanceGenerators.executeFor(instanceType, this);
+	}
+
+	public <T> T createWith(InlineInstanceGenerator<T> inlineGenerator) {
+		return inlineGenerator.next(this);
 	}
 
 }

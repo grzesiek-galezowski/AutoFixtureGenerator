@@ -14,7 +14,7 @@ import jfixture.publicinterface.generators.ConcreteObjectGenerator;
 import jfixture.publicinterface.generators.DateGenerator;
 import jfixture.publicinterface.generators.DoubleGenerator;
 import jfixture.publicinterface.generators.EnumGenerator;
-import jfixture.publicinterface.generators.InstanceGenerator;
+import jfixture.publicinterface.InstanceGenerator;
 import jfixture.publicinterface.generators.IntGenerator;
 import jfixture.publicinterface.generators.PlainObjectGenerator;
 import jfixture.publicinterface.generators.StringGenerator;

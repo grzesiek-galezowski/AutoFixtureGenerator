@@ -13,8 +13,8 @@ public class CircularList<T> {
 		return new CircularList<TListElement>(enumConstants);
 	}
 	
-	public CircularList(T[] enumConstants) {
-		this.enumConstants = enumConstants;
+	public CircularList(T[] values) {
+		this.enumConstants = values;
 		currentIndex = 0;
 	}
 	

@@ -3,12 +3,13 @@ package jfixture.publicinterface.generators;
 import java.util.ArrayList;
 
 import jfixture.publicinterface.FixtureContract;
+import jfixture.publicinterface.InstanceGenerator;
 import jfixture.publicinterface.InstanceType;
 
 public class ConcreteObjectGenerator implements InstanceGenerator {
 
 	@Override
-	public <T> boolean AppliesTo(InstanceType<T> typeToken) {
+	public <T> boolean appliesTo(InstanceType<T> typeToken) {
 		return true;
 	}
 

@@ -3,13 +3,14 @@ package jfixture.publicinterface.generators;
 import java.util.Collection;
 
 import jfixture.publicinterface.FixtureContract;
+import jfixture.publicinterface.InstanceGenerator;
 import jfixture.publicinterface.InstanceType;
 
 public class BuiltInCollectionGenerator implements InstanceGenerator {
 
 	@Override
-	public <T> boolean AppliesTo(InstanceType<T> clazz) {
-		return clazz.IsAssignableTo(Collection.class);
+	public <T> boolean appliesTo(InstanceType<T> clazz) {
+		return clazz.isAssignableTo(Collection.class);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

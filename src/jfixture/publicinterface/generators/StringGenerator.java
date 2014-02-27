@@ -3,6 +3,7 @@ package jfixture.publicinterface.generators;
 import java.util.UUID;
 
 import jfixture.publicinterface.FixtureContract;
+import jfixture.publicinterface.InstanceGenerator;
 import jfixture.publicinterface.InstanceType;
 
 public class StringGenerator implements InstanceGenerator {
@@ -13,7 +14,7 @@ public class StringGenerator implements InstanceGenerator {
 	}
 
 	@Override
-	public <T> boolean AppliesTo(InstanceType<T> clazz) {
+	public <T> boolean appliesTo(InstanceType<T> clazz) {
 		return clazz.isRawTypeAssignableFrom(String.class);
 	}
 	

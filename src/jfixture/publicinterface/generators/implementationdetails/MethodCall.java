@@ -1,4 +1,4 @@
-package jfixture.publicinterface;
+package jfixture.publicinterface.generators.implementationdetails;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
@@ -10,6 +10,8 @@ import com.google.common.reflect.Invokable;
 import com.google.common.reflect.Parameter;
 import com.google.common.reflect.TypeToken;
 
+import jfixture.publicinterface.FixtureContract;
+import jfixture.publicinterface.ObjectCreationException;
 import jfixture.publicinterface.generators.Call;
 
 public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TReturnType> {

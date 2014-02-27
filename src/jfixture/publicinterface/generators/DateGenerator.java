@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import jfixture.publicinterface.FixtureContract;
+import jfixture.publicinterface.InstanceGenerator;
 import jfixture.publicinterface.InstanceType;
 
 public class DateGenerator implements InstanceGenerator {
@@ -11,7 +12,7 @@ public class DateGenerator implements InstanceGenerator {
 	Calendar calendar = Calendar.getInstance();
 	
 	@Override
-	public <T> boolean AppliesTo(InstanceType<T> typeToken) {
+	public <T> boolean appliesTo(InstanceType<T> typeToken) {
 		return typeToken.isRawTypeAssignableFrom(Date.class);
 	}
 

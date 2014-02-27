@@ -1,4 +1,4 @@
-package jfixture.publicinterface;
+package jfixture.publicinterface.generators.implementationdetails;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -21,6 +21,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.PriorityBlockingQueue;
 
+import jfixture.publicinterface.InstanceType;
+import jfixture.publicinterface.ObjectCreationException;
 import jfixture.publicinterface.generators.Call;
 
 import com.google.common.base.Optional;
@@ -83,7 +85,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 	}
 
 	@Override
-	public boolean IsAssignableTo(Class<?> clazz) {
+	public boolean isAssignableTo(Class<?> clazz) {
 		return clazz.isAssignableFrom(typeToken.getRawType());
 	}
 

@@ -1,4 +1,4 @@
-package jfixture.publicinterface;
+package jfixture.implementationdetails;
 
 public class BogusMain {
 

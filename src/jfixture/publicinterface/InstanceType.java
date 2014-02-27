@@ -21,7 +21,7 @@ public interface InstanceType<T> {
 	boolean isArray();
 	Invokable<T, T> constructor(Constructor<?> constructor);
 	Object createArray(Object[] objects);
-	boolean IsAssignableTo(Class<?> clazz);
+	boolean isAssignableTo(Class<?> clazz);
 	boolean isRawTypeAssignableFrom(Class<?> clazz);
 	@SuppressWarnings("rawtypes")
 	Collection createCollection();

@@ -11,10 +11,12 @@ import java.util.Date;
 
 import jfixture.publicinterface.Fixture;
 import jfixture.publicinterface.FixtureContract;
+import jfixture.publicinterface.InlineInstanceGenerator;
+import jfixture.publicinterface.InstanceGenerator;
 import jfixture.publicinterface.InstanceType;
-import jfixture.publicinterface.generators.InstanceGenerator;
 
-import org.junit.After;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.experimental.theories.Theories;
@@ -26,7 +28,7 @@ import com.google.common.reflect.TypeToken;
 @RunWith(Theories.class)
 public class PrimitiveTypesGenerationSpecification {
 	Fixture fixture = new Fixture();
-	
+	Mockery context = new Mockery();
 	//TODO generate instances of classes and generic methods
 	
 	@Theory
@@ -48,7 +50,7 @@ public class PrimitiveTypesGenerationSpecification {
 			}
 			
 			@Override
-			public <T> boolean AppliesTo(InstanceType<T> type) {
+			public <T> boolean appliesTo(InstanceType<T> type) {
 				return type.isRawTypeAssignableFrom(int.class);
 			}
 		});
@@ -58,9 +60,18 @@ public class PrimitiveTypesGenerationSpecification {
 		assertThat(anInt, is(9999));
 	}
 
-	@After
-	public void deregisterAllCustomizations() {
-		fixture.clearCustomizations();
+	@Test
+	public void shouldGivePrecedenseToRegisteredGeneratorsWhenCreatingWithInlineGenerator() {
+		final InlineInstanceGenerator<Integer> inlineGeneratorStub = 
+				(InlineInstanceGenerator<Integer>)(context.mock(InlineInstanceGenerator.class));
+		
+		context.checking(new Expectations() {{
+			allowing(inlineGeneratorStub).next(fixture); will(returnValue(9999));
+		}});
+		
+		Integer anInt = fixture.createWith(inlineGeneratorStub);
+		
+		assertThat(anInt, is(9999));
 	}
 	
 	@DataPoint

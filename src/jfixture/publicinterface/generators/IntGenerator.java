@@ -1,6 +1,7 @@
 package jfixture.publicinterface.generators;
 
 import jfixture.publicinterface.FixtureContract;
+import jfixture.publicinterface.InstanceGenerator;
 import jfixture.publicinterface.InstanceType;
 
 public class IntGenerator implements InstanceGenerator {
@@ -8,7 +9,7 @@ public class IntGenerator implements InstanceGenerator {
 	public Integer startingInteger = 1;
 
 	@Override
-	public <T> boolean AppliesTo(InstanceType<T> typeToken) {
+	public <T> boolean appliesTo(InstanceType<T> typeToken) {
 		// TODO Auto-generated method stub
 		return typeToken.isRawTypeAssignableFrom(int.class)
 				|| typeToken.isRawTypeAssignableFrom(Integer.class)

@@ -4,13 +4,14 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import jfixture.publicinterface.FixtureContract;
+import jfixture.publicinterface.InstanceGenerator;
 import jfixture.publicinterface.InstanceType;
 
 public class CalendarGenerator implements InstanceGenerator {
 	int secondsToAdd = 0;
 	
 	@Override
-	public <T> boolean AppliesTo(InstanceType<T> typeToken) {
+	public <T> boolean appliesTo(InstanceType<T> typeToken) {
 		return typeToken.isRawTypeAssignableFrom(Calendar.class);
 	}
 
