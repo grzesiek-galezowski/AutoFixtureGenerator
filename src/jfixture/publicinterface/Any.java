@@ -7,55 +7,55 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import jfixture.publicinterface.generators.implementationdetails.CircularList;
 import jfixture.publicinterface.generators.implementationdetails.ConcreteInstanceType;
+import jfixture.publicinterface.generators.inline.AlphaCharacterGenerator;
+import jfixture.publicinterface.generators.inline.AlphaStringGenerator;
+import jfixture.publicinterface.generators.inline.ExplodingInstanceGenerator;
+import jfixture.publicinterface.generators.inline.OtherThanGenerator;
 import jfixture.publicinterface.generators.inline.PortNumberGenerator;
+import jfixture.publicinterface.generators.inline.StringContainingSubstringGenerator;
+import jfixture.publicinterface.generators.inline.StringNotContainingSubsctringsGenerator;
+import jfixture.publicinterface.generators.inline.StringOfLengthGenerator;
 
 import com.google.common.reflect.Reflection;
 
 public class Any {
 	private static final Fixture fixture = new Fixture();
-	private static InlineInstanceGenerator<Integer> portNumberGenerator = new PortNumberGenerator();
-
+	private static final InlineInstanceGenerator<Integer> portNumberGenerator = new PortNumberGenerator();
+	private static final InlineInstanceGenerator<Character> alphaCharGenerator = new AlphaCharacterGenerator();
+	
+	
 	public static String string() {
 		return fixture.create(String.class);
 	}
 
 	public static String stringOfLength(int charactersCount) {
-		StringBuilder result = new StringBuilder();
-		while (result.length() < charactersCount) {
-			result.append(string());
-		}
-		return result.substring(0, charactersCount);
+		return fixture.createWith(new StringOfLengthGenerator(charactersCount));
 	}
 
 	public static String stringNotContaining(String... excludedSubstrings) {
-		String result;
-		do {
-			result = string();
-		} while (thereAreAnyOccurencesOf(excludedSubstrings, result));
-		return result;
+		return fixture.createWith(new StringNotContainingSubsctringsGenerator(excludedSubstrings));
 	}
 
+	public static String stringContaining(String str) {
+		return fixture.createWith(new StringContainingSubstringGenerator(str));
+	}
+	
+	public static Character alphaChar() {
+		return fixture.createWith(alphaCharGenerator);
+	}
+	
+	public static String alphaString() {
+		return fixture.createWith(new AlphaStringGenerator(alphaCharGenerator, string().length()));
+	}
+	
+	public static String alphaString(int length) {
+		return fixture.createWith(new AlphaStringGenerator(alphaCharGenerator, length));
+	}
+
+	
 /* TODO
-    public static string StringContaining(string str)
-    {
-      return String() + str + String();
-    }
-
-    public static string AlphaString()
-    {
-      return AlphaString(String().Length);
-    }
-
-    public static string AlphaString(int maxLength)
-    {
-      var result = System.String.Empty;
-      for (var i = 0; i < maxLength; ++i)
-      {
-        result += AlphaChar();
-      }
-      return result;
-    }
 
     public static string Identifier()
     {
@@ -137,11 +137,7 @@ public class Any {
 
 	@SafeVarargs
 	public static <T> T otherThan(T... omittedValues) {
-		T currentValue;
-		do {
-			currentValue = fixture.create(new InstanceOf<T>());
-		} while (Arrays.asList(omittedValues).contains(currentValue));
-		return currentValue;
+		return fixture.createWith(new OtherThanGenerator<T>(omittedValues));
 	}
 
 	public static Date date() {
@@ -153,15 +149,8 @@ public class Any {
 		return exploding(new InstanceOf<T>());
 	}
 
-	@SuppressWarnings("unchecked")
 	public static <T> T exploding(InstanceOf<T> instance) {
-		if (instance.isInterface()) {
-			throw new InterfacesNotSupportedException(
-					"Exploding instances can be created out of interfaces only!");
-		} else {
-			return (T) Reflection.newProxy(instance.getRawType(),
-					new ExplodingInstanceHandler());
-		}
+		return fixture.createWith(new ExplodingInstanceGenerator<T>(instance));
 	}
 
 	public static Exception exception() {
@@ -225,15 +214,5 @@ public class Any {
 	 * FakeChain<T>.NewInstance(CachedGeneration, NestingLimit).Resolve(); }
 	 */
 	
-	private static boolean thereAreAnyOccurencesOf(
-			String[] excludedSubstrings,
-			String result) {
-		for (String str : excludedSubstrings) {
-			if (result.contains(str)) {
-				return true;
-			}
-		}
-		return false;
-	}
 	
 }
