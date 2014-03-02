@@ -20,6 +20,65 @@ public class Any {
 		return fixture.create(String.class);
 	}
 
+	public static String stringOfLength(int charactersCount) {
+		StringBuilder result = new StringBuilder();
+		while (result.length() < charactersCount) {
+			result.append(string());
+		}
+		return result.substring(0, charactersCount);
+	}
+
+	public static String stringNotContaining(String... excludedSubstrings) {
+		String result;
+		do {
+			result = string();
+		} while (thereAreAnyOccurencesOf(excludedSubstrings, result));
+		return result;
+	}
+
+/* TODO
+    public static string StringContaining(string str)
+    {
+      return String() + str + String();
+    }
+
+    public static string AlphaString()
+    {
+      return AlphaString(String().Length);
+    }
+
+    public static string AlphaString(int maxLength)
+    {
+      var result = System.String.Empty;
+      for (var i = 0; i < maxLength; ++i)
+      {
+        result += AlphaChar();
+      }
+      return result;
+    }
+
+    public static string Identifier()
+    {
+      string result = AlphaChar().ToString(CultureInfo.InvariantCulture);
+      for (var i = 0; i < 5; ++i)
+      {
+        result += DigitChar();
+        result += AlphaChar();
+      }
+      return result;
+    }
+
+    public static char AlphaChar()
+    {
+      return Letters.Next();
+    }
+
+    public static char DigitChar()
+    {
+      return Digits.Next();
+    }*/
+	
+	
 	public static Integer integer() {
 		return fixture.create(int.class);
 	}
@@ -34,6 +93,34 @@ public class Any {
 
 	public static Float floatingPointNumber() {
 		return fixture.create(float.class);
+	}
+
+	public static Long longInteger() {
+		return fixture.create(long.class);
+	}
+
+	public static Long longIntegerOtherThan(long other) {
+		return otherThan(other);
+	}
+
+	public static String stringOtherThan(String other) {
+		return otherThan(other);
+	}
+
+	public static Integer integerOtherThan(int other) {
+		return otherThan(other);
+	}
+
+	public static Short shortInteger(short other) {
+		return otherThan(other);
+	}
+
+	public static Double doubleNumber(double other) {
+		return otherThan(other);
+	}
+
+	public static Float floatingPointNumber(float other) {
+		return otherThan(other);
 	}
 
 	public static <T> T[] arrayOf(Class<T> clazz) {
@@ -72,8 +159,7 @@ public class Any {
 			throw new InterfacesNotSupportedException(
 					"Exploding instances can be created out of interfaces only!");
 		} else {
-			return (T) Reflection.newProxy(
-					instance.getRawType(),
+			return (T) Reflection.newProxy(instance.getRawType(),
 					new ExplodingInstanceHandler());
 		}
 	}
@@ -85,15 +171,15 @@ public class Any {
 	public static Error error() {
 		return fixture.create(Error.class);
 	}
-	
+
 	public static Boolean bool() {
 		return fixture.create(Boolean.class);
 	}
-	
+
 	public static Object object() {
 		return fixture.create(Object.class);
 	}
-	
+
 	public static URI uri() {
 		return fixture.create(URI.class);
 	}
@@ -101,15 +187,15 @@ public class Any {
 	public static URL url() {
 		return fixture.create(URL.class);
 	}
-	
+
 	public static int port() {
 		return fixture.createWith(portNumberGenerator);
 	}
-	
+
 	public static InetAddress ip() {
 		return fixture.create(InetAddress.class);
 	}
-	
+
 	/*
 	 * TODO
 	 * 
@@ -123,13 +209,10 @@ public class Any {
 	 * latestArraysWithPossibleValues.PickNextElementFrom(possibleValues);
 	 * return result; }
 	 * 
-	 * public static TimeSpan TimeSpan() { return ValueOf<TimeSpan>(); }
-	 * 
 	 * public static T ValueOf<T>() { //bug: add support for creating generic
 	 * structs with interfaces return Generator.Create<T>(); }
 	 * 
 	 * public static string LegalXmlTagName() { return Identifier(); }
-	 * 
 	 * 
 	 * public static MethodInfo Method() { return ValueOf<MethodInfo>(); }
 	 * 
@@ -140,11 +223,17 @@ public class Any {
 	 * 
 	 * public static T Instance<T>() { return
 	 * FakeChain<T>.NewInstance(CachedGeneration, NestingLimit).Resolve(); }
-	 * 
-	 * public static int Port() { return RandomGenerator.Next(65535); }
-	 * 
-	 * public static string Ip() { return RandomGenerator.Next(256) + "." +
-	 * RandomGenerator.Next(256) + "." + RandomGenerator.Next(256) + "." +
-	 * RandomGenerator.Next(256); }
 	 */
+	
+	private static boolean thereAreAnyOccurencesOf(
+			String[] excludedSubstrings,
+			String result) {
+		for (String str : excludedSubstrings) {
+			if (result.contains(str)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }
