@@ -1,8 +1,12 @@
 package jfixture.publicinterface;
 
+import java.net.URI;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import jfixture.publicinterface.generators.implementationdetails.ConcreteInstanceType;
 
 import com.google.common.reflect.Reflection;
 
@@ -54,16 +58,48 @@ public class Any {
 		return fixture.create(Date.class);
 	}
 
-	//TODO add exploding for generic types
+	// TODO add exploding for generic types
 	public static <T> T exploding(Class<T> clazz) {
-		if (clazz.isInterface()) {
+		return exploding(new InstanceOf<T>());
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> T exploding(InstanceOf<T> instance) {
+		if (instance.isInterface()) {
 			throw new InterfacesNotSupportedException(
 					"Exploding instances can be created out of interfaces only!");
 		} else {
-			return Reflection.newProxy(clazz, new ExplodingInstanceHandler());
+			return (T) Reflection.newProxy(
+					instance.getRawType(),
+					new ExplodingInstanceHandler());
 		}
 	}
 
+	public static Exception exception() {
+		return fixture.create(Exception.class);
+	}
+
+	public static Error error() {
+		return fixture.create(Error.class);
+	}
+	
+	public static Boolean bool() {
+		return fixture.create(Boolean.class);
+	}
+	
+	public static Object object() {
+		return fixture.create(Object.class);
+	}
+	
+	public static URI uri() {
+		return fixture.create(URI.class);
+	}
+
+	public static URL url() {
+		return fixture.create(URL.class);
+	}
+	
+	
 	/*
 	 * TODO
 	 * 
@@ -84,10 +120,6 @@ public class Any {
 	 * 
 	 * public static string LegalXmlTagName() { return Identifier(); }
 	 * 
-	 * public static bool Boolean() { return ValueOf<bool>(); }
-	 * 
-	 * public static object Object() { return ValueOf<object>(); }
-	 * 
 	 * 
 	 * public static MethodInfo Method() { return ValueOf<MethodInfo>(); }
 	 * 
@@ -103,7 +135,6 @@ public class Any {
 	 * 
 	 * public static string UrlString() { return Uri().ToString(); }
 	 * 
-	 * public static Exception Exception() { return Any.ValueOf<Exception>(); }
 	 * 
 	 * public static int Port() { return RandomGenerator.Next(65535); }
 	 * 

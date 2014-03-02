@@ -8,7 +8,7 @@ public class ObjectCreationException extends RuntimeException {
 		super("Cannot create an instance of " + instanceType);
 	}
 
-	public ObjectCreationException(InstanceType<?> typeToken, ReflectiveOperationException e) {
+	public ObjectCreationException(InstanceType<?> typeToken, Exception e) {
 		super("Cannot create an instance of " + typeToken, e);
 	}
 

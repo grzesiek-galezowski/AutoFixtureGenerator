@@ -25,6 +25,8 @@ public class GeneratorsFactory {
 		return new GeneratorsPipeline(
 				new LinkedList<InstanceGenerator>(Arrays.asList(new InstanceGenerator[] {
 						new EnumGenerator(new InMemoryEnumCache()),
+						new ExceptionGenerator(),
+						new ErrorGenerator(),
 						new StringGenerator(),
 						new IntGenerator(),
 						new DoubleGenerator(),
@@ -35,6 +37,7 @@ public class GeneratorsFactory {
 						new PlainObjectGenerator(),
 						new ByteAndCharGenerator(),
 						new BooleanGenerator(),
+						new UrlGenerator(),
 						new ArrayGenerator(),
 						new BuiltInCollectionGenerator(),
 						new ConcreteObjectGenerator()
