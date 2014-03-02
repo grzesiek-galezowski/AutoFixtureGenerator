@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -44,6 +45,17 @@ public class CustomLibraryObjectGenerationSpecification {
 		assertThat(url2, is(notNullValue()));
 		assertThat(url1, is(not(url2)));
 	}
+
+	@Test
+	public void shouldCreateValidAndDifferentIps() {
+		InetAddress ip1 = fixture.create(InetAddress.class);
+		InetAddress ip2 = fixture.create(InetAddress.class);
+		
+		assertThat(ip1, is(notNullValue()));
+		assertThat(ip2, is(notNullValue()));
+		assertThat(ip1, is(not(ip2)));
+	}
+	
 	
 	@SafeVarargs
 	static <E> E[] array(E... array)

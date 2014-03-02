@@ -1,5 +1,6 @@
 package jfixture.publicinterface;
 
+import java.net.InetAddress;
 import java.net.URI;
 import java.net.URL;
 import java.util.Arrays;
@@ -7,11 +8,13 @@ import java.util.Date;
 import java.util.List;
 
 import jfixture.publicinterface.generators.implementationdetails.ConcreteInstanceType;
+import jfixture.publicinterface.generators.inline.PortNumberGenerator;
 
 import com.google.common.reflect.Reflection;
 
 public class Any {
 	private static final Fixture fixture = new Fixture();
+	private static InlineInstanceGenerator<Integer> portNumberGenerator = new PortNumberGenerator();
 
 	public static String string() {
 		return fixture.create(String.class);
@@ -99,6 +102,13 @@ public class Any {
 		return fixture.create(URL.class);
 	}
 	
+	public static int port() {
+		return fixture.createWith(portNumberGenerator);
+	}
+	
+	public static InetAddress ip() {
+		return fixture.create(InetAddress.class);
+	}
 	
 	/*
 	 * TODO
@@ -130,11 +140,6 @@ public class Any {
 	 * 
 	 * public static T Instance<T>() { return
 	 * FakeChain<T>.NewInstance(CachedGeneration, NestingLimit).Resolve(); }
-	 * 
-	 * public static Uri Uri() { return ValueOf<Uri>(); }
-	 * 
-	 * public static string UrlString() { return Uri().ToString(); }
-	 * 
 	 * 
 	 * public static int Port() { return RandomGenerator.Next(65535); }
 	 * 

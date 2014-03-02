@@ -40,6 +40,7 @@ public class GeneratorsFactory {
 						new UrlGenerator(),
 						new ArrayGenerator(),
 						new BuiltInCollectionGenerator(),
+						new InetAddressGenerator(),
 						new ConcreteObjectGenerator()
 						})));
 	}
