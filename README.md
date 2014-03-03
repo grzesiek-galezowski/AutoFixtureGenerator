@@ -55,7 +55,7 @@ Any method helpers
 
 Starting with version 0.3.0, new "any" method helpers are available. two simple examples:
 
-    import static jfixture.publicinterface.AnyGenerationMethods.any;
+    import static jfixture.publicinterface.AnyGenerationMethods.*;
     
     public class AnyGenerationMethodsSpecification {
       @Test
