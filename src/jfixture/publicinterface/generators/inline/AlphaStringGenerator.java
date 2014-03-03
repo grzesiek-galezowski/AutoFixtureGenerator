@@ -16,11 +16,11 @@ public class AlphaStringGenerator implements InlineInstanceGenerator<String> {
 
 	@Override
 	public String next(FixtureContract fixture) {
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		for (int i = 0; i < length; ++i) {
-			result += alphaCharGenerator.next(fixture);
+			result.append(alphaCharGenerator.next(fixture));
 		}
-		return result;
+		return result.toString();
 	}
 
 }

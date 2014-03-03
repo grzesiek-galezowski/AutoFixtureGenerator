@@ -2,7 +2,6 @@ package jfixture.specification.acceptance;
 
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-
 import java.util.AbstractCollection;
 import java.util.AbstractList;
 import java.util.AbstractQueue;

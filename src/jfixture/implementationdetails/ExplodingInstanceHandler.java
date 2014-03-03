@@ -1,7 +1,9 @@
-package jfixture.publicinterface;
+package jfixture.implementationdetails;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+
+import jfixture.publicinterface.BoooomException;
 
 public class ExplodingInstanceHandler implements InvocationHandler {
 

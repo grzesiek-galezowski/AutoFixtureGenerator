@@ -3,12 +3,12 @@ package jfixture.publicinterface.generators.inline;
 import jfixture.publicinterface.FixtureContract;
 import jfixture.publicinterface.InlineInstanceGenerator;
 
-public class StringNotContainingSubsctringsGenerator implements
+public class StringNotContainingSubstringsGenerator implements
 		InlineInstanceGenerator<String> {
 
 	private String[] excludedSubstrings;
 
-	public StringNotContainingSubsctringsGenerator(String[] excludedSubstrings) {
+	public StringNotContainingSubstringsGenerator(String[] excludedSubstrings) {
 		this.excludedSubstrings = excludedSubstrings;
 	}
 

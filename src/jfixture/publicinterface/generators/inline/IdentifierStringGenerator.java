@@ -20,17 +20,17 @@ public class IdentifierStringGenerator implements
 
 	@Override
 	public String next(FixtureContract fixture) {
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		for(int i = 0 ; i < length/2 ; ++i) {
-			result += alphaCharGenerator.next(fixture);
-			result += digitCharGenerator.next(fixture);
+			result.append(alphaCharGenerator.next(fixture));
+			result.append(digitCharGenerator.next(fixture));
 		}
 		
 		if(result.length() < length) {
-			result += alphaCharGenerator.next(fixture);
+			result.append(alphaCharGenerator.next(fixture));
 		}
 		
-		return result;
+		return result.toString();
 	}
 
 }
