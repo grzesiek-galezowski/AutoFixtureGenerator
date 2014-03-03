@@ -30,21 +30,49 @@ Customizations always take precedence over built-in generators.
 
 Example of new integer generation customization that always returns 12:
 
-    fixture.register(new InstanceGenerator() {
+    f.register(new InstanceGenerator() {
+    
       @Override
-      public <T> boolean AppliesTo(InstanceType<T> type) {
-        return type.isRawTypeAssignableFrom(int.class);
+      public <T> boolean appliesTo(InstanceType<T> arg0) {
+        return arg0.getRawType() == int.class;
       }
-      
+    
+      @SuppressWarnings("unchecked")
       @Override
-      public <T> T next(InstanceType<T> type, Fixture fixture) {
-        //note the cast to T:
+      public <T> T next(InstanceType<T> arg0, FixtureContract arg1) {
         return (T) Integer.valueOf(12);
       }
     });
 
+
 Clearing all customizations:
 
     fixture.clearCustomizations();
+
+
+Any method helpers
+-
+
+Starting with version 0.3.0, new "any" method helpers are available. two simple examples:
+
+    import static jfixture.publicinterface.AnyGenerationMethods.any;
+    
+    public class AnyGenerationMethodsSpecification {
+      @Test
+      public void shouldGenerateEachTimeDifferentString() {
+        String str1 = anyString();
+        String str2 = anyString();
+    
+        assertThat(str1, is(not(str2)));
+      }
+	  
+      @Test
+      public void shouldGenerateEachTimeDifferentInstance() {
+        GenericObject<Integer> o1 = any(new InstanceOf<GenericObject<Integer>>() {});
+        GenericObject<Integer> o2 = any(new InstanceOf<GenericObject<Integer>>() {});
+      
+        assertThat(o1, is(not(o2)));
+      }
+}
 
 
