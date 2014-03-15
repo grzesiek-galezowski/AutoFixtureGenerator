@@ -1,6 +1,6 @@
 package jfixture.specification.acceptance;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -13,6 +13,7 @@ import jfixture.specification.acceptance.testfixtures.ObjectWithCollectionConstr
 import jfixture.specification.acceptance.testfixtures.ObjectWithGenericConstructorParameters;
 import jfixture.specification.acceptance.testfixtures.ObjectWithPrimitiveConstructorParameters;
 import jfixture.specification.acceptance.testfixtures.ObjectWithSetters;
+import jfixture.specification.acceptance.testfixtures.ValueObjectWithSingleParameterConstructorAndParameterlessOne;
 
 import org.junit.Test;
 
@@ -91,6 +92,17 @@ public class ConcreteObjectGenerationSpecification {
 		
 		assertThat(obj.parameter1.instance, is(notNullValue()));
 		assertThat(obj.parameter1.instance, is(not("")));
+	}
+	
+	@Test
+	public void shouldPickSingleParameterConstructorOverParameterlessOneWhenBothExist() {
+		ValueObjectWithSingleParameterConstructorAndParameterlessOne obj1
+		 = fixture.create(ValueObjectWithSingleParameterConstructorAndParameterlessOne.class);
+		
+		ValueObjectWithSingleParameterConstructorAndParameterlessOne obj2
+		 = fixture.create(ValueObjectWithSingleParameterConstructorAndParameterlessOne.class);
+		
+		assertThat(obj1, is(not(equalTo(obj2))));
 	}
 	
 	@SafeVarargs

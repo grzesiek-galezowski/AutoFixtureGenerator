@@ -7,7 +7,9 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -172,15 +174,21 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 
 	@Override
 	public Call<T, T> findPublicConstructorWithLeastParameters() {
-		Constructor<?>[] constructors = this.getRawType().getConstructors();
+		Constructor<?>[] constructors = 
+				getConstructorsSortedFromLongestToShortestParametersCount();
 		
-		int currentArgumentCount = 10000;
-		Optional<Invokable<T, T>> currentConstructor = Optional.absent(); 
+		int currentArgumentCount = Integer.MAX_VALUE;
+		Optional<Invokable<T, T>> currentConstructor = Optional.absent();
 		
 		for(Constructor<?> constructor : constructors) {
 			Invokable<T, T> invokable = typeToken.constructor(constructor);
 			int invokableParametersCount = invokable.getParameters().size();
 			if(invokable.isPublic() && invokableParametersCount < currentArgumentCount) {
+				
+				if(currentConstructor.isPresent() && invokableParametersCount == 0) {
+					continue;
+				}
+				
 				currentArgumentCount = invokableParametersCount;
 				currentConstructor = Optional.of(invokable);
 			}
@@ -190,6 +198,24 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 			throw new ObjectCreationException(this, "Could not find any public constructor");
 		}
 		return MethodCall.to(currentConstructor.get());
+	}
+
+	private Constructor<?>[] getConstructorsSortedFromLongestToShortestParametersCount() {
+		Constructor<?>[] constructors = this.getRawType().getConstructors();
+
+		Arrays.sort(constructors, new Comparator<Constructor<?>>() {
+
+			@Override
+			public int compare(Constructor<?> arg0, Constructor<?> arg1) {
+				Invokable<T, T> invokable1 = typeToken.constructor(arg0);
+				Invokable<T, T> invokable2 = typeToken.constructor(arg1);
+				return Integer.compare(
+						invokable2.getParameters().size(),
+						invokable1.getParameters().size());
+			}
+			
+		});
+		return constructors;
 	}
 
 	@Override
