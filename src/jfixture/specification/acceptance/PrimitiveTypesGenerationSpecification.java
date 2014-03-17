@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
 
 import jfixture.publicinterface.Fixture;
 import jfixture.publicinterface.FixtureContract;
@@ -116,5 +118,9 @@ public class PrimitiveTypesGenerationSpecification {
 	public static Class<Character> charClass = char.class;
 	@DataPoint
 	public static Class<Character> charClass1 = Character.class;
+	@DataPoint
+	public static Class<UUID> uuidClass = UUID.class;
+	@DataPoint
+	public static Class<Locale> localeClass = Locale.class;
 	
 }
