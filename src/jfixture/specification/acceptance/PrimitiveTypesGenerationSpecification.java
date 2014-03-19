@@ -2,6 +2,7 @@ package jfixture.specification.acceptance;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.startsWith;
 import static org.junit.Assert.assertThat;
 
 import java.math.BigDecimal;
@@ -74,6 +75,16 @@ public class PrimitiveTypesGenerationSpecification {
 		Integer anInt = fixture.createWith(inlineGeneratorStub);
 		
 		assertThat(anInt, is(9999));
+	}
+	
+	@Test
+	public void shouldAllowGeneratingStringsWithPrefixForBetterIdentificationInErrorMessages() {
+		String prefixedString1 = fixture.create("prefix");
+		String prefixedString2 = fixture.create("prefix");
+		
+		assertThat(prefixedString1, startsWith("prefix"));
+		assertThat(prefixedString2, startsWith("prefix"));
+		assertThat(prefixedString1, is(not(prefixedString2)));
 	}
 	
 	@DataPoint

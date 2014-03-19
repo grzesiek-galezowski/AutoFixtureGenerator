@@ -36,4 +36,8 @@ public class Fixture implements FixtureContract {
 		return inlineGenerator.next(this);
 	}
 
+	public String create(String prefix) {
+		return prefix + create(String.class);
+	}
+
 }
