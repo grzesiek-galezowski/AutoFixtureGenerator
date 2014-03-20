@@ -92,7 +92,7 @@
             <classpath refid="jfixture.classpath"/>
         </junit>
     </target>
-    <target name="test">
+    <target name="jfixture">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
