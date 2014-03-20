@@ -1,5 +1,4 @@
 language: java
-script: "ant jfixture"
 jdk:
   - oraclejdk7
   - openjdk7
