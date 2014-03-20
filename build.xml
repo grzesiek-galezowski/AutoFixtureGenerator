@@ -1,117 +1,65 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- WARNING: Eclipse auto-generated file.
-              Any modifications will be overwritten.
-              To include a user specific buildfile here, simply create one in the same
-              directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="jfixture">
-    <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../../Pobrane/eclipse/"/>
-    <property name="junit.output.dir" value="junit"/>
-    <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.7"/>
-    <property name="source" value="1.7"/>
-    <path id="JUnit 4.libraryclasspath">
-        <pathelement location="${ECLIPSE_HOME}plugins/org.junit_4.11.0.v201303080030/junit.jar"/>
-        <pathelement location="${ECLIPSE_HOME}plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
-    </path>
-    <path id="jfixture.classpath">
-        <pathelement location="bin"/>
-        <path refid="JUnit 4.libraryclasspath"/>
-        <pathelement location="Lib/guava-16.0.1.jar"/>
-        <pathelement location="Lib/jmock-2.6.0/jmock-2.6.0.jar"/>
-    </path>
-    <target name="init">
-        <mkdir dir="bin"/>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="src">
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="clean">
-        <delete dir="bin"/>
-    </target>
-    <target depends="clean" name="cleanall"/>
-    <target depends="build-subprojects,build-project" name="build"/>
-    <target name="build-subprojects"/>
-    <target depends="init" name="build-project">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
-            <src path="src"/>
-            <classpath refid="jfixture.classpath"/>
-        </javac>
-    </target>
-    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-        <copy todir="${ant.library.dir}">
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </copy>
-        <unzip dest="${ant.library.dir}">
-            <patternset includes="jdtCompilerAdapter.jar"/>
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </unzip>
-    </target>
-    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
-        <antcall target="build"/>
-    </target>
-    <target name="PrimitiveTypesGenerationSpecification">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="jfixture.specification.acceptance.PrimitiveTypesGenerationSpecification" todir="${junit.output.dir}"/>
-            <classpath refid="jfixture.classpath"/>
-        </junit>
-    </target>
-    <target name="CollectionTypesGenerationSpecification">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="jfixture.specification.acceptance.CollectionTypesGenerationSpecification" todir="${junit.output.dir}"/>
-            <classpath refid="jfixture.classpath"/>
-        </junit>
-    </target>
-    <target name="FixtureSpecification (1)">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="jfixture.specification.acceptance.FixtureSpecification" todir="${junit.output.dir}"/>
-            <classpath refid="jfixture.classpath"/>
-        </junit>
-    </target>
-    <target name="BogusMain">
-        <java classname="jfixture.publicinterface.BogusMain" failonerror="true" fork="yes">
-            <classpath refid="jfixture.classpath"/>
-        </java>
-    </target>
-    <target name="ConcreteObjectGenerationSpecification">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="jfixture.specification.acceptance.ConcreteObjectGenerationSpecification" todir="${junit.output.dir}"/>
-            <classpath refid="jfixture.classpath"/>
-        </junit>
-    </target>
-    <target name="jfixture">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="jfixture.specification.acceptance.AnyGenerationMethodsSpecification" todir="${junit.output.dir}"/>
-            <test name="jfixture.specification.acceptance.CollectionTypesGenerationSpecification" todir="${junit.output.dir}"/>
-            <test name="jfixture.specification.acceptance.ConcreteObjectGenerationSpecification" todir="${junit.output.dir}"/>
-            <test name="jfixture.specification.acceptance.CustomLibraryObjectGenerationSpecification" todir="${junit.output.dir}"/>
-            <test name="jfixture.specification.acceptance.EnumTypesGenerationSpecification" todir="${junit.output.dir}"/>
-            <test name="jfixture.specification.acceptance.InterfaceImplementationGenerationSpecification" todir="${junit.output.dir}"/>
-            <test name="jfixture.specification.acceptance.PrimitiveTypesGenerationSpecification" todir="${junit.output.dir}"/>
-            <classpath refid="jfixture.classpath"/>
-        </junit>
-    </target>
-    <target name="junitreport">
-        <junitreport todir="${junit.output.dir}">
-            <fileset dir="${junit.output.dir}">
-                <include name="TEST-*.xml"/>
-            </fileset>
-            <report format="frames" todir="${junit.output.dir}"/>
-        </junitreport>
-    </target>
+<?xml version="1.0"?>   
+<project name="java-junit-template-project" default="test" basedir=".">
+  <property name="main.build.dir" value="build/main" />  
+  <property name="main.src.dir" value="src" />
+  <property name="test.build.dir" value="build/test" />
+  <property name="test.src.dir" value="src" />
+
+  <path id="classpath.base" >
+    <pathelement location="Lib/junit-4.11.jar" />
+    <pathelement location="Lib/hamcrest-core-1.3.jar" />
+  	<pathelement location="Lib/jmock-2.6.0/jmock-2.6.0.jar" />
+  	<pathelement location="Lib/guava-16.0.1.jar" />
+    <pathelement location="${main.build.dir}"/>
+  </path>
+
+  <path id="classpath.test">
+    <pathelement location="Lib/junit-4.11.jar" />
+    <pathelement location="Lib/hamcrest-core-1.3.jar" />
+  	<pathelement location="Lib/jmock-2.6.0/jmock-2.6.0.jar" />
+  	<pathelement location="Lib/guava-16.0.1.jar" />
+    <pathelement location="${main.build.dir}"/>
+    <path refid="classpath.base" />
+  </path>
+
+  <target name="test" depends="run, clean" />
+
+  <target name="compile">
+    <mkdir dir="${main.build.dir}"/>
+    <javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false">
+      <classpath refid="classpath.base"/>
+    </javac>
+  </target>
+
+  <target name="build" depends="compile">
+    <mkdir dir="${test.build.dir}"/>
+    <javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false">
+        <classpath refid="classpath.test"/>
+    </javac>
+    <echo message="Build done" />
+  </target>
+   
+  <!-- Test and build all files  -->
+  <!-- To run this: use "ant" (default) or "ant run" -->
+  <target name="run" depends="build">
+    <junit printsummary="on" haltonfailure="yes">
+        <classpath>
+          <path refid="classpath.test" />
+          <pathelement location="${test.build.dir}"/>
+        </classpath>
+        <formatter type="brief" usefile="false" />
+        <batchtest>
+            <fileset dir="${test.src.dir}" includes="**/*Specification*.java" />
+        </batchtest>
+    </junit>
+  </target>
+   
+  <!-- delete all class files -->
+  <!-- To run this: use "ant clean" -->
+  <target name="clean">
+    <delete>
+        <fileset dir="${basedir}" includes="**/*.class" />
+    </delete>
+    <echo message="clean done" />
+  </target>
 </project>
