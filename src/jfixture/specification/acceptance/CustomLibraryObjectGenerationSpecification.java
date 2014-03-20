@@ -9,18 +9,10 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.util.HashSet;
 
 import jfixture.publicinterface.Fixture;
-import jfixture.specification.acceptance.matchers.HasArrayLengthMatcher;
-import jfixture.specification.acceptance.testfixtures.ObjectWithCollectionConstructorParameters;
-import jfixture.specification.acceptance.testfixtures.ObjectWithGenericConstructorParameters;
-import jfixture.specification.acceptance.testfixtures.ObjectWithPrimitiveConstructorParameters;
-import jfixture.specification.acceptance.testfixtures.ObjectWithSetters;
 
 import org.junit.Test;
-
-import com.google.common.reflect.TypeToken;
 
 public class CustomLibraryObjectGenerationSpecification {
 
