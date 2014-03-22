@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 
 import jfixture.publicinterface.FixtureContract;
 
+import com.google.common.base.Objects;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.TypeToken;
 
@@ -23,6 +24,8 @@ public class InterfaceHandler implements InvocationHandler {
 		
 		if("hashCode".equals(mtd.getName())) {
 			returnValue = System.identityHashCode(proxy);
+		} else if("equals".equals(mtd.getName()) && arguments.length == 1) {
+			returnValue = proxy == arguments[0];			
 		} else if(memoizedResults.containAResultFor(proxy, mtd)) {
 			returnValue = memoizedResults.getResultFor(proxy, mtd);
 		} else {

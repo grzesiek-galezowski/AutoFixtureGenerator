@@ -41,6 +41,7 @@ public class GeneratorsFactory {
 						new ArrayGenerator(),
 						new BuiltInCollectionGenerator(),
 						new InetAddressGenerator(),
+						new InterfaceImplementationGenerator(),
 						new ConcreteObjectGenerator()
 						})));
 	}
