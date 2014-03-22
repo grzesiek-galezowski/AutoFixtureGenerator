@@ -10,7 +10,9 @@ public class BuiltInCollectionGenerator implements InstanceGenerator {
 
 	@Override
 	public <T> boolean appliesTo(InstanceType<T> clazz) {
-		return clazz.isAssignableTo(Collection.class);
+		return 
+				clazz.isAssignableTo(Collection.class)
+				|| Iterable.class.isAssignableFrom(clazz.getRawType());
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

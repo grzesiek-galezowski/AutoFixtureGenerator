@@ -141,11 +141,15 @@ public class CollectionTypesGenerationSpecification {
 	@SuppressWarnings("serial")
 	@DataPoint
 	public static TypeToken<Stack<String>> stackClass = new TypeToken<Stack<String>>() {};
+	@SuppressWarnings("serial")
+	@DataPoint
+	public static TypeToken<Iterable<String>> iterableClass = new TypeToken<Iterable<String>>() {};
 
+	
+	
 	private String[] TypeOfString() {
 		return new String[]{};
 	}
-	
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private Matcher<? super String[]> hasUniqueItems() {
@@ -156,7 +160,5 @@ public class CollectionTypesGenerationSpecification {
 	private Matcher<? super String[]> hasLength(int i) {
 		return new HasArrayLengthMatcher(i);
 	}
-
-	
 	
 }
