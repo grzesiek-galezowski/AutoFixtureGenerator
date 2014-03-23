@@ -15,5 +15,8 @@ public interface Call<TOwnerType, TReturnType> {
 	TReturnType invokeWithArgumentsCreatedUsing(
 			FixtureContract fixture,
 			TOwnerType returnType);
-  
+	TReturnType invokeWithArgumentsCreatedUsing(
+			FixtureContract fixture);
+
+	
 }

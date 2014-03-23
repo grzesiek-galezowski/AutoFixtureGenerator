@@ -40,7 +40,7 @@ public class CircularList<T> {
 		   }
 		   Character[] array = new Character[s.length()];
 		   for (int i = 0; i < s.length(); i++) {
-		      array[i] = new Character(s.charAt(i));
+		      array[i] = Character.valueOf(s.charAt(i));
 		   }
 
 		   return array;

@@ -78,5 +78,10 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
 		return parameter.getType().getType() instanceof ParameterizedType;
 	}
 
+	@Override
+	public TReturnType invokeWithArgumentsCreatedUsing(FixtureContract fixture) {
+		return invokeWithArgumentsCreatedUsing(fixture, null);
+	}
+
 	
 }

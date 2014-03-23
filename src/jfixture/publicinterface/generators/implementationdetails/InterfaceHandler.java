@@ -20,22 +20,35 @@ public class InterfaceHandler implements InvocationHandler {
 
 	@Override
 	public Object invoke(Object proxy, Method mtd, Object[] arguments)	throws Throwable {
-		Object returnValue = null;
 		
-		if("hashCode".equals(mtd.getName())) {
-			returnValue = System.identityHashCode(proxy);
-		} else if("equals".equals(mtd.getName()) && arguments.length == 1) {
-			returnValue = proxy == arguments[0];			
-		} else if(memoizedResults.containAResultFor(proxy, mtd)) {
-			returnValue = memoizedResults.getResultFor(proxy, mtd);
-		} else {
-			returnValue = generateValueFor(proxy, mtd);
+		if(isHashCodeMethod(mtd)) {
+			return System.identityHashCode(proxy);
+		} 
+		
+		if(isEqualsMethod(mtd, arguments)) {
+			return proxy == arguments[0];			
 		}
 		
-		return returnValue;
+		if(wasCalledAtLeastOnceOn(proxy, mtd)) {
+			return memoizedResults.getResultFor(proxy, mtd);
+		}
+
+		return generateFreshValueFor(proxy, mtd);
 	}
 
-	private Object generateValueFor(Object proxy, Method mtd) {
+	private boolean isHashCodeMethod(Method mtd) {
+		return "hashCode".equals(mtd.getName());
+	}
+
+	private boolean wasCalledAtLeastOnceOn(Object proxy, Method mtd) {
+		return memoizedResults.containAResultFor(proxy, mtd);
+	}
+
+	private boolean isEqualsMethod(Method mtd, Object[] arguments) {
+		return "equals".equals(mtd.getName()) && arguments.length == 1;
+	}
+
+	private Object generateFreshValueFor(Object proxy, Method mtd) {
 		Object returnValue;
 		Object freshReturnValue = createReturnValue(fixture, mtd);
 		if(freshReturnValue != null) {

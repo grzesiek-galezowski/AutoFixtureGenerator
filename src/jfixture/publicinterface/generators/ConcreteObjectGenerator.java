@@ -15,13 +15,23 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
 
 	@Override
 	public <T> T next(InstanceType<T> type, FixtureContract fixture) {
+		T instance = createInstanceOf(type, fixture);
+		makeBestEffortAttemptToInvokeAllSettersOn(instance, type, fixture);
+		return instance;
+	}
+
+	private <T> T createInstanceOf(InstanceType<T> type, FixtureContract fixture) {
 		Call<T, T> currentConstructor = type.findPublicConstructorWithLeastParameters();
-		T instance = currentConstructor.invokeWithArgumentsCreatedUsing(fixture, null);
+		T instance = currentConstructor.invokeWithArgumentsCreatedUsing(fixture);
+		return instance;
+	}
+
+	private <T> void makeBestEffortAttemptToInvokeAllSettersOn(T instance,
+			InstanceType<T> type, FixtureContract fixture) {
 		ArrayList<Call<T, Object>> setters = type.getAllSetters();
 		for(Call<T, Object> setter : setters) {
 			makeBestEffortAttemptToInvoke(setter, instance, fixture);
 		}
-		return instance;
 	}
 
 	private <T> void makeBestEffortAttemptToInvoke(Call<T, Object> setter,
