@@ -1,5 +1,4 @@
-
-JFixture [![Build Status](https://travis-ci.org/grzesiek-galezowski/jfixture.svg?branch=master)](https://travis-ci.org/grzesiek-galezowski/jfixture)
+AutoFixtureGenerator [![Build Status](https://travis-ci.org/grzesiek-galezowski/jfixture.svg?branch=master)](https://travis-ci.org/grzesiek-galezowski/jfixture)
 ========
 
 An attempt to reimplement core features of a popular .NET anonymous value generator - AutoFixture - in Java
