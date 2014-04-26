@@ -1,42 +1,45 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>AutoFixture</groupId>
-  <artifactId>AutoFixture</artifactId>
+  <groupId>com.github.AutoFixture</groupId>
+  <artifactId>AutoFixtureGenerator</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>AutoFixtureGenerator</name>
+  
+  <licenses>
+    <license>
+      <name>The MIT License (MIT)</name>
+      <url>http://opensource.org/licenses/MIT</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
   <dependencies>
-    <dependency>
-      <scope>system</scope>
-      <groupId>group-a</groupId>
-      <artifactId>guava</artifactId>
-      <version>16.0.1</version>
-      <systemPath>${basedir}/Lib/guava-16.0.1.jar</systemPath>
-    </dependency>
-    <dependency>
-      <scope>system</scope>
-      <groupId>group-a</groupId>
+	<dependency>
+      <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
-      <systemPath>${basedir}/Lib/junit-4.11.jar</systemPath>
+      <scope>test</scope>
     </dependency>
+	<dependency>
+		<groupId>com.google.guava</groupId>
+		<artifactId>guava</artifactId>
+		<version>17.0</version>
+	</dependency>
     <dependency>
-      <scope>system</scope>
-      <groupId>group-a</groupId>
+      <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-core</artifactId>
       <version>1.3</version>
-      <systemPath>${basedir}/Lib/hamcrest-core-1.3.jar</systemPath>
-    </dependency>
+	</dependency>
     <dependency>
-      <scope>system</scope>
-      <groupId>group-a</groupId>
+      <groupId>org.jmock</groupId>
       <artifactId>jmock</artifactId>
       <version>2.6.0</version>
-      <systemPath>${basedir}/Lib/jmock-2.6.0/jmock-2.6.0.jar</systemPath>
+      <scope>test</scope>
     </dependency>
-    
   </dependencies>
   <build>
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <testSourceDirectory>src/test/java</testSourceDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -46,6 +49,59 @@
           <target>1.7</target>
         </configuration>
       </plugin>
+	  <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.17</version>
+        <configuration>
+	        <includes>
+			 <include>**/Test*.java</include>
+			 <include>**/*Test.java</include>
+			 <include>**/*TestCase.java</include>
+			 <include>**/*Specification.java</include>
+			</includes>        
+        </configuration>
+      </plugin>
+		<plugin>
+	      <artifactId>maven-deploy-plugin</artifactId>
+	      <version>2.8.1</version>
+	    </plugin>
+	    <plugin>
+	      <artifactId>maven-install-plugin</artifactId>
+	      <version>2.5.1</version>
+	    </plugin>
+	    <plugin>
+	      <artifactId>maven-jar-plugin</artifactId>
+	      <version>2.4</version>
+	    </plugin>
+	    <plugin>
+	      <artifactId>maven-javadoc-plugin</artifactId>
+	      <version>2.9.1</version>
+	    </plugin>
+	    <plugin>                
+	      <artifactId>maven-release-plugin</artifactId>
+	      <version>2.5</version>
+	    </plugin>    	                  
+		<plugin>
+	      <artifactId>maven-assembly-plugin</artifactId>
+	      <configuration>
+	        <descriptorRefs>
+	          <descriptorRef>jar-with-dependencies</descriptorRef>
+	        </descriptorRefs>
+	        <archive>
+	          <manifest>
+	            <mainClass>autofixture.implementationdetails.BogusMain</mainClass>
+	          </manifest>
+	        </archive>
+	      </configuration>
+	      <executions>
+	        <execution>
+	          <phase>package</phase>
+	          <goals>
+	            <goal>single</goal>
+	          </goals>
+	        </execution>
+	      </executions>	      
+	    </plugin>            
     </plugins>
   </build>
 </project>

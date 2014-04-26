@@ -2,8 +2,8 @@ package autofixture.specification.acceptance;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.startsWith;
-import static org.junit.Assert.assertThat;
+//import static org.hamcrest.CoreMatchers.startsWith;
+import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -14,6 +14,7 @@ import java.util.UUID;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.experimental.theories.Theories;
@@ -82,8 +83,8 @@ public class PrimitiveTypesGenerationSpecification {
 		String prefixedString1 = fixture.create("prefix");
 		String prefixedString2 = fixture.create("prefix");
 		
-		assertThat(prefixedString1, startsWith("prefix"));
-		assertThat(prefixedString2, startsWith("prefix"));
+		assertTrue(prefixedString1.startsWith("prefix"));
+		assertTrue(prefixedString2.startsWith("prefix"));
 		assertThat(prefixedString1, is(not(prefixedString2)));
 	}
 	

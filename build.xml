@@ -1,9 +1,9 @@
 <?xml version="1.0"?>   
 <project name="java-junit-template-project" default="test" basedir=".">
   <property name="main.build.dir" value="build/main" />  
-  <property name="main.src.dir" value="src" />
+  <property name="main.src.dir" value="src/main/java" />
   <property name="test.build.dir" value="build/test" />
-  <property name="test.src.dir" value="src" />
+  <property name="test.src.dir" value="src/test/java" />
 
   <path id="classpath.base" >
     <pathelement location="Lib/junit-4.11.jar" />
