@@ -1,4 +1,4 @@
-AutoFixtureGenerator [![Build Status](https://travis-ci.org/grzesiek-galezowski/jfixture.svg?branch=master)](https://travis-ci.org/grzesiek-galezowski/jfixture)
+AutoFixtureGenerator [![Build Status](https://travis-ci.org/grzesiek-galezowski/AutoFixtureGenerator.svg?branch=master)](https://travis-ci.org/grzesiek-galezowski/AutoFixtureGenerator)
 ========
 
 An attempt to reimplement core features of a popular .NET anonymous value generator - AutoFixture - in Java
@@ -55,7 +55,7 @@ Any method helpers
 
 Starting with version 0.3.0, new "any" method helpers are available. two simple examples:
 
-    import static jfixture.publicinterface.AnyGenerationMethods.*;
+    import static autofixture.publicinterface.AnyGenerationMethods.*;
     
     public class AnyGenerationMethodsSpecification {
       @Test
