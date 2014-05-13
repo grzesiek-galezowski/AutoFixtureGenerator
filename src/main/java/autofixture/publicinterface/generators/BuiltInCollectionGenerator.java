@@ -33,6 +33,12 @@ public class BuiltInCollectionGenerator implements InstanceGenerator {
 		return (T) collection;
 	}
 
+	@Override
+	public void setOmittingAutoProperties(boolean isOn) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }

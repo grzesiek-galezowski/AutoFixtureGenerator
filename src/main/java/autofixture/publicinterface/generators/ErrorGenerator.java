@@ -17,4 +17,10 @@ public class ErrorGenerator implements InstanceGenerator {
 		return (T) new Error(fixture.create(String.class));
 	}
 
+	@Override
+	public void setOmittingAutoProperties(boolean isOn) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

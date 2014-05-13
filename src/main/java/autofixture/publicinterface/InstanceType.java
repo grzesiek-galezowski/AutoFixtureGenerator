@@ -1,13 +1,13 @@
 package autofixture.publicinterface;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import autofixture.publicinterface.generators.Call;
 
-import com.google.common.collect.ImmutableCollection;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.TypeToken;
 
@@ -31,4 +31,5 @@ public interface InstanceType<T> {
 	T[] getEnumConstants();
 	boolean isInterface();
 	ArrayList<Call<T, Object>> getAllSetters();
+	ArrayList<Field> getAllPublicFields();
 }

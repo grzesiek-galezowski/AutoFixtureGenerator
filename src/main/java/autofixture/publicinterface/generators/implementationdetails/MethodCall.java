@@ -3,8 +3,6 @@ package autofixture.publicinterface.generators.implementationdetails;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.Collection;
-
 import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.ObjectCreationException;
 import autofixture.publicinterface.generators.Call;
@@ -38,7 +36,11 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
 			return invokable.invoke(ownerType, arguments.toArray());
 		} catch (InvocationTargetException | IllegalAccessException e) {
 			throw new ObjectCreationException(
-					new ConcreteInstanceType(invokable.getOwnerType()), e);
+					new ConcreteInstanceType<TOwnerType>(invokable.getOwnerType()), e);
+		} catch (IllegalArgumentException e) {
+			throw new ObjectCreationException(
+					new ConcreteInstanceType<TOwnerType>(invokable.getOwnerType()), 
+							"Inner classes are not supported for now. \nCaused by " + e.toString());
 		}
 	}
 	
@@ -64,13 +66,13 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
 	private void AddInstanceOf(Parameter parameter,
 			ArrayList<Object> arguments, FixtureContract fixture) {
 		if(IsParameterized(parameter)) {
-			  arguments.add(fixture.create(RealTypeOf(parameter)));
+			  arguments.add(fixture.create(realTypeOf(parameter)));
 		  } else {
 			  arguments.add(fixture.create(parameter.getType()));
 		  }
 	}
 	
-	private TypeToken<?> RealTypeOf(Parameter parameter) {
+	private TypeToken<?> realTypeOf(Parameter parameter) {
 		return TypeToken.of(parameter.getType().getType());
 	}
 

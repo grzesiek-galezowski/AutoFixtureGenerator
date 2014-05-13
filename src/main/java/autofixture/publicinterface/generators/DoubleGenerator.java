@@ -20,4 +20,10 @@ public class DoubleGenerator implements InstanceGenerator {
 	public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {
 		return (T)(startingNumber++);
 	}
+
+	@Override
+	public void setOmittingAutoProperties(boolean isOn) {
+		// TODO Auto-generated method stub
+		
+	}
 }

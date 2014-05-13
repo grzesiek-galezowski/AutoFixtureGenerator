@@ -19,4 +19,10 @@ public class BooleanGenerator implements InstanceGenerator {
 		currentValue = !currentValue;
 		return (T) currentValue;
 	}
+
+	@Override
+	public void setOmittingAutoProperties(boolean isOn) {
+		// TODO Auto-generated method stub
+		
+	}
 }

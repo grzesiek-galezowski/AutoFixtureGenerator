@@ -21,4 +21,10 @@ public class InterfaceImplementationGenerator implements InstanceGenerator{
 		return (T) proxy;
 	}
 
+	@Override
+	public void setOmittingAutoProperties(boolean isOn) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

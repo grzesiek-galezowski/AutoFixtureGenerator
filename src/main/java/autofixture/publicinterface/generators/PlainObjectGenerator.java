@@ -16,4 +16,10 @@ public class PlainObjectGenerator implements InstanceGenerator {
 	public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {
 		return (T)new Object();
 	}
+
+	@Override
+	public void setOmittingAutoProperties(boolean isOn) {
+		// TODO Auto-generated method stub
+		
+	}
 }

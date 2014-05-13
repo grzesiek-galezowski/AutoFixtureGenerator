@@ -34,4 +34,10 @@ public class InetAddressGenerator implements InstanceGenerator {
 		return (T) address;
 	}
 
+	@Override
+	public void setOmittingAutoProperties(boolean isOn) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

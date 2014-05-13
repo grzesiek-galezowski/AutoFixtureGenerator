@@ -40,4 +40,9 @@ public class Fixture implements FixtureContract {
 		return prefix + create(String.class);
 	}
 
+	public void setOmittingAutoProperties(boolean isOn) {
+		instanceGenerators.setOmittingAutoProperties(isOn);
+		
+	}
+
 }

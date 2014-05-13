@@ -88,8 +88,8 @@ public class ConcreteObjectGenerationSpecification {
 		ObjectWithGenericConstructorParameters obj 
 			= fixture.create(TypeToken.of(ObjectWithGenericConstructorParameters.class));
 		
-		assertThat(obj.parameter1.instance, is(notNullValue()));
-		assertThat(obj.parameter1.instance, is(not("")));
+		assertThat(obj.parameter1.getInstance(), is(notNullValue()));
+		assertThat(obj.parameter1.getInstance(), is(not("")));
 	}
 	
 	@Test

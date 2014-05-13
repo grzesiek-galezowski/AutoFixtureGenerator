@@ -11,6 +11,7 @@ public class GeneratorsPipeline {
 
 	private int customizationsCount = 0;
 	private final LinkedList<InstanceGenerator> generators;
+	private boolean autoPropertiesDisabled = false;
 
 	public GeneratorsPipeline(LinkedList<InstanceGenerator> generators) {
 		this.generators = generators;
@@ -29,6 +30,7 @@ public class GeneratorsPipeline {
 
 	public void registerCustomization(InstanceGenerator instanceGenerator) {
 		generators.add(0, instanceGenerator);
+		instanceGenerator.setOmittingAutoProperties(this.autoPropertiesDisabled);
 		customizationsCount++;		
 	}
 
@@ -37,6 +39,14 @@ public class GeneratorsPipeline {
 			generators.remove(0);
 		}
 		customizationsCount = 0;
+	}
+
+	public void setOmittingAutoProperties(boolean isOn) {
+		autoPropertiesDisabled = isOn;
+		for(InstanceGenerator generator : generators) {
+			generator.setOmittingAutoProperties(isOn);
+		}
+		
 	}
 	
 }

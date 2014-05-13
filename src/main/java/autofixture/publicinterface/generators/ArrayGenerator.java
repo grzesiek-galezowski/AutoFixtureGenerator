@@ -25,4 +25,10 @@ public class ArrayGenerator implements InstanceGenerator {
 		return (T)array;
 	}
 
+	@Override
+	public void setOmittingAutoProperties(boolean isOn) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

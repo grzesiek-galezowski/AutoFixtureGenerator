@@ -30,4 +30,10 @@ public class EnumGenerator implements InstanceGenerator {
 		//TODO make it sequential! Random is bad...*/
 	}
 
+	@Override
+	public void setOmittingAutoProperties(boolean isOn) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

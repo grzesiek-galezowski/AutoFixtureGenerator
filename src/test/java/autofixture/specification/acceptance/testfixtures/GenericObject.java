@@ -1,7 +1,12 @@
 package autofixture.specification.acceptance.testfixtures;
 
 public class GenericObject<T> {
-   public T instance;
+   private T instance;
+   
+   public T getInstance() {
+	   return instance;
+   }
+   
 
    public GenericObject(T instance) {
 	 this.instance = instance;

@@ -22,4 +22,10 @@ public class DateGenerator implements InstanceGenerator {
 		calendar.add(Calendar.SECOND, 1);
 		return (T)calendar.getTime();
 	}
+
+	@Override
+	public void setOmittingAutoProperties(boolean isOn) {
+		// TODO Auto-generated method stub
+		
+	}
 }

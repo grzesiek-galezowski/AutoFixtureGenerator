@@ -57,6 +57,12 @@ public class PrimitiveTypesGenerationSpecification {
 			public <T> boolean appliesTo(InstanceType<T> type) {
 				return type.isRawTypeAssignableFrom(int.class);
 			}
+
+			@Override
+			public void setOmittingAutoProperties(boolean isOn) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 		
 		Integer anInt = fixture.create(TypeToken.of(int.class));

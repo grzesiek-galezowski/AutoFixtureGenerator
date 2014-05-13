@@ -17,5 +17,11 @@ public class StringGenerator implements InstanceGenerator {
 	public <T> boolean appliesTo(InstanceType<T> clazz) {
 		return clazz.isRawTypeAssignableFrom(String.class);
 	}
+
+	@Override
+	public void setOmittingAutoProperties(boolean isOn) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
