@@ -72,9 +72,6 @@ public class OmitingAutoPropertiesSpecification {
       assertThat(data.getY(), not(equalTo(0)));
       assertThat(data.z, not(equalTo(0)));
     }
-    
-    
-    //TODO test for generic structures as well!!!
 }
 
 
