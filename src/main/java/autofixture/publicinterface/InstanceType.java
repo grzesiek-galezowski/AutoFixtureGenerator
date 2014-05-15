@@ -6,6 +6,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import autofixture.implementationdetails.InstanceField;
 import autofixture.publicinterface.generators.Call;
 
 import com.google.common.reflect.Invokable;
@@ -31,5 +32,6 @@ public interface InstanceType<T> {
 	T[] getEnumConstants();
 	boolean isInterface();
 	ArrayList<Call<T, Object>> getAllSetters();
-	ArrayList<Field> getAllPublicFields();
+	ArrayList<InstanceField<T>> getAllPublicFieldsOf(T instance);
+	TypeToken<?> ResolveActualTypeOf(Field field);
 }

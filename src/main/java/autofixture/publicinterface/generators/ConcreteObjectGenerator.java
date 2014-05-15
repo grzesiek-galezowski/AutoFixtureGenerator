@@ -1,12 +1,8 @@
 package autofixture.publicinterface.generators;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 
-import com.google.common.reflect.Parameter;
-import com.google.common.reflect.TypeToken;
-
+import autofixture.implementationdetails.InstanceField;
 import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.InstanceType;
@@ -30,21 +26,19 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
 				makeBestEffortAttemptToSetAllPublicFields(instance, type, fixture);
 			}
 
-		} catch (IllegalArgumentException | IllegalAccessException e) {
+		} catch (IllegalAccessException e) {
 			throw new ObjectCreationException(type, e);
 		}
 		return instance;
 	}
 
 	private <T> void makeBestEffortAttemptToSetAllPublicFields(T instance,
-			InstanceType<T> type, FixtureContract fixture) throws IllegalArgumentException, IllegalAccessException {
-		ArrayList<Field> publicFields = type.getAllPublicFields();
-		for(Field publicField : publicFields) {
-			set(publicField, instance, fixture);
+			InstanceType<T> type, FixtureContract fixture) throws IllegalAccessException {
+		ArrayList<InstanceField<T>> publicFields = type.getAllPublicFieldsOf(instance);
+		for(InstanceField<T> publicField : publicFields) {
+			publicField.setValueUsing(fixture);
 		}
-		
 	}
-	
 	
 	private <T> T createInstanceOf(InstanceType<T> type, FixtureContract fixture) {
 		Call<T, T> currentConstructor = type.findPublicConstructorWithLeastParameters();
@@ -58,24 +52,6 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
 		for(Call<T, Object> setter : setters) {
 			makeBestEffortAttemptToInvoke(setter, instance, fixture);
 		}
-	}
-
-	private <T> void set(Field field, T instance, FixtureContract fixture) throws IllegalArgumentException, IllegalAccessException {
-		if(IsParameterized(field)) {
-			field.set(instance, fixture.create(realTypeOf(field)));
- 		} else {
-			field.set(instance, fixture.create(field.getType()));
-		}
-	}
-
-	private TypeToken<?> realTypeOf(Field field) {
-		return TypeToken.of(field.getGenericType());
-	}
-
-		
-	
-	private boolean IsParameterized(Field field) {
-		return field.getGenericType() instanceof ParameterizedType;
 	}
 
 	private <T> void makeBestEffortAttemptToInvoke(Call<T, Object> setter,

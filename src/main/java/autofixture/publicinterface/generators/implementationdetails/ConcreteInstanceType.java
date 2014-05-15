@@ -26,6 +26,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.PriorityBlockingQueue;
 
+import autofixture.implementationdetails.InstanceField;
 import autofixture.publicinterface.InstanceType;
 import autofixture.publicinterface.ObjectCreationException;
 import autofixture.publicinterface.generators.Call;
@@ -275,15 +276,20 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 	}
 
 	@Override
-	public ArrayList<Field> getAllPublicFields() {
-		ArrayList<Field> fields = new ArrayList<Field>();
-		Field[] fieldsArray = typeToken.getRawType().getFields();
+	public ArrayList<InstanceField<T>> getAllPublicFieldsOf(T instance) {
+		ArrayList<InstanceField<T>> fields = new ArrayList<InstanceField<T>>();
+		Field[] fieldsArray = typeToken.getRawType().getDeclaredFields();
 		for(Field field : fieldsArray) {
 			if(Modifier.isPublic(field.getModifiers()) && ! Modifier.isStatic(field.getModifiers())) {
-				fields.add(field);
+				fields.add(new InstanceField<T>(field, this, instance));
 			}
 		}
 		return fields;
+	}
+
+	@Override
+	public TypeToken<?> ResolveActualTypeOf(Field field) {
+		return this.typeToken.resolveType(field.getGenericType());
 	}
 	
 	

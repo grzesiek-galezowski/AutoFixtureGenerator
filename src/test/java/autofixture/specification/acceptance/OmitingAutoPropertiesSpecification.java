@@ -6,15 +6,18 @@ import static org.hamcrest.Matchers.*;
 import org.junit.Test;
 
 import autofixture.publicinterface.Fixture;
+import autofixture.publicinterface.InstanceOf;
 import autofixture.specification.acceptance.testfixtures.DataStructure;
+import autofixture.specification.acceptance.testfixtures.GenericDataStructure;
 
 public class OmitingAutoPropertiesSpecification {
 
+    private Fixture fixture = new Fixture();
+    
     @Test
     public void shouldNotSetPropertiesAndPublicFieldsWhenAutoPropertiesAreOmitted()
     {
       //GIVEN
-      Fixture fixture = new Fixture();
       fixture.setOmittingAutoProperties(true);
 
       //WHEN
@@ -29,7 +32,7 @@ public class OmitingAutoPropertiesSpecification {
     public void shouldSetPropertiesAndPublicFieldsWhenAutoPropertiesAreNotOmitted()
     {
       //GIVEN
-      Fixture fixture = new Fixture();
+      fixture.setOmittingAutoProperties(true);
       fixture.setOmittingAutoProperties(false);
 
       //WHEN
@@ -39,6 +42,37 @@ public class OmitingAutoPropertiesSpecification {
       assertThat(data.getY(), not(equalTo(0)));
       assertThat(data.z, not(equalTo(0)));
     }
+
+    @Test
+    public void shouldNotSetGenericPropertiesAndPublicFieldsWhenAutoPropertiesAreOmitted()
+    {
+      //GIVEN
+      fixture.setOmittingAutoProperties(true);
+
+      //WHEN
+      GenericDataStructure<Integer> data 
+      	= fixture.create(new InstanceOf<GenericDataStructure<Integer>>() {});
+      
+      //THEN
+      assertThat(data.getY(), equalTo(null));
+      assertThat(data.z, equalTo(null));
+    }
+    
+    @Test
+    public void shouldSetGenericPropertiesAndPublicFieldsWhenAutoPropertiesAreNotOmitted()
+    {
+      //GIVEN
+      fixture.setOmittingAutoProperties(false);
+
+      //WHEN
+      GenericDataStructure<Integer> data 
+    	= fixture.create(new InstanceOf<GenericDataStructure<Integer>>() {});
+      
+      //THEN
+      assertThat(data.getY(), not(equalTo(0)));
+      assertThat(data.z, not(equalTo(0)));
+    }
+    
     
     //TODO test for generic structures as well!!!
 }
