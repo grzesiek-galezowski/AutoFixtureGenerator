@@ -46,6 +46,7 @@ public class RecursionGuard {
     }
 
     private <T> boolean maxRecursionDepthIsReachedFor(InstanceType<T> instanceType) {
+        initializeCounterFor(instanceType);
         return recursionCounters.get(instanceType) > maxRecursionDepth;
     }
 

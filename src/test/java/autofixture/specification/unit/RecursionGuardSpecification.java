@@ -104,7 +104,7 @@ public class RecursionGuardSpecification {
 
         context.checking(new Expectations() {{
             allowing(generatorPipeline).executeFor(integerInstanceType, anyFixture); will(returnValue(anyInteger));
-            allowing(generatorPipeline).executeFor(integerInstanceType, anyFixture); will(returnValue(anyString));
+            allowing(generatorPipeline).executeFor(stringInstanceType, anyFixture); will(returnValue(anyString));
         }});
 
         recursionGuard.addDepthLevelTo(integerInstanceType);
