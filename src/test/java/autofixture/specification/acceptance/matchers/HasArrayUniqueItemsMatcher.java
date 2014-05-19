@@ -1,7 +1,6 @@
 package autofixture.specification.acceptance.matchers;
 
 import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
 public class HasArrayUniqueItemsMatcher<T> extends TypeSafeMatcher<T[]> {

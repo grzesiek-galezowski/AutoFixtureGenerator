@@ -1,9 +1,14 @@
 package autofixture.specification.acceptance;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-//import static org.hamcrest.CoreMatchers.startsWith;
-import static org.junit.Assert.*;
+import autofixture.publicinterface.*;
+import com.google.common.reflect.TypeToken;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.junit.Test;
+import org.junit.experimental.theories.DataPoint;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -12,22 +17,12 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.theories.DataPoint;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
-import autofixture.publicinterface.Fixture;
-import autofixture.publicinterface.FixtureContract;
-import autofixture.publicinterface.InlineInstanceGenerator;
-import autofixture.publicinterface.InstanceGenerator;
-import autofixture.publicinterface.InstanceType;
-
-import com.google.common.reflect.TypeToken;
+//import static org.hamcrest.CoreMatchers.startsWith;
 
 @RunWith(Theories.class)
 public class PrimitiveTypesGenerationSpecification {
@@ -71,7 +66,7 @@ public class PrimitiveTypesGenerationSpecification {
 	}
 
 	@Test
-	public void shouldGivePrecedenseToRegisteredGeneratorsWhenCreatingWithInlineGenerator() {
+	public void shouldGivePrecedenceToRegisteredGeneratorsWhenCreatingWithInlineGenerator() {
 		final InlineInstanceGenerator<Integer> inlineGeneratorStub = 
 				(InlineInstanceGenerator<Integer>)(context.mock(InlineInstanceGenerator.class));
 		

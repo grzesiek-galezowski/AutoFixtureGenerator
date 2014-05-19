@@ -1,33 +1,9 @@
 package autofixture.specification.acceptance;
 
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import java.util.AbstractCollection;
-import java.util.AbstractList;
-import java.util.AbstractQueue;
-import java.util.AbstractSequentialList;
-import java.util.AbstractSet;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.NavigableSet;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.Stack;
-import java.util.TreeSet;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ConcurrentSkipListSet;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.concurrent.PriorityBlockingQueue;
-
+import autofixture.publicinterface.Fixture;
+import autofixture.specification.acceptance.matchers.HasArrayLengthMatcher;
+import autofixture.specification.acceptance.matchers.HasArrayUniqueItemsMatcher;
+import com.google.common.reflect.TypeToken;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
@@ -35,11 +11,11 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
-import autofixture.publicinterface.Fixture;
-import autofixture.specification.acceptance.matchers.HasArrayLengthMatcher;
-import autofixture.specification.acceptance.matchers.HasArrayUniqueItemsMatcher;
+import java.util.*;
+import java.util.concurrent.*;
 
-import com.google.common.reflect.TypeToken;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Theories.class)
 public class CollectionTypesGenerationSpecification {
@@ -57,9 +33,7 @@ public class CollectionTypesGenerationSpecification {
 	@Theory
 	public <T extends Collection<String>> void shouldGenerateCollectionsWithThreeUniqueElements(
 			TypeToken<T> collectionClass) {
-		System.out.println(collectionClass);
-		
-		T collection = (T)fixture.create(collectionClass);
+		T collection = fixture.create(collectionClass);
 		
 		assertTrue("Cannot assign " + collection.getClass()+ " to " + collectionClass, 
 				collectionClass.getRawType().isAssignableFrom(collection.getClass()));
@@ -146,8 +120,6 @@ public class CollectionTypesGenerationSpecification {
 	@DataPoint
 	public static TypeToken<Iterable<String>> iterableClass = new TypeToken<Iterable<String>>() {};
 
-	
-	
 	private String[] TypeOfString() {
 		return new String[]{};
 	}

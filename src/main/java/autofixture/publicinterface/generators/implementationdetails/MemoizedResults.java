@@ -11,16 +11,16 @@ public class MemoizedResults {
 		return data.containsKey(proxy) && data.get(proxy).containsKey(mtd);
 	}
 
-	public Object getResultFor(Object proxy, Method mtd) {
-		return data.get(proxy).get(mtd);
+	public Object getResultFor(Object proxy, Method method) {
+		return data.get(proxy).get(method);
 	}
 
-	public void set(Object proxy, Method mtd, Object freshReturnValue) {
+	public void set(Object proxy, Method method, Object freshReturnValue) {
 		if(!data.containsKey(proxy)) {
 			data.put(proxy, new HashMap<Method, Object>());
 		}
 		
-		data.get(proxy).put(mtd, freshReturnValue);
+		data.get(proxy).put(method, freshReturnValue);
 	}
 
 }

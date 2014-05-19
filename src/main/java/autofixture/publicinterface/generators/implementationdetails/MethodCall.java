@@ -1,16 +1,16 @@
 package autofixture.publicinterface.generators.implementationdetails;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.ObjectCreationException;
 import autofixture.publicinterface.generators.Call;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.Parameter;
 import com.google.common.reflect.TypeToken;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 
 public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TReturnType> {
 
@@ -22,7 +22,7 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
 
 	public static <TElement1, TElement2>   
 	Call<TElement1, TElement2> to(Invokable<TElement1, TElement2> invokable) {
-			return new MethodCall<TElement1, TElement2>(invokable);
+			return new MethodCall<>(invokable);
 	}
 
 	@Override
@@ -36,10 +36,10 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
 			return invokable.invoke(ownerType, arguments.toArray());
 		} catch (InvocationTargetException | IllegalAccessException e) {
 			throw new ObjectCreationException(
-					new ConcreteInstanceType<TOwnerType>(invokable.getOwnerType()), e);
+					new ConcreteInstanceType<>(invokable.getOwnerType()), e);
 		} catch (IllegalArgumentException e) {
 			throw new ObjectCreationException(
-					new ConcreteInstanceType<TOwnerType>(invokable.getOwnerType()), 
+					new ConcreteInstanceType<>(invokable.getOwnerType()),
 							"Inner classes are not supported for now. \nCaused by " + e.toString());
 		}
 	}
@@ -54,7 +54,7 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
 
 	private ArrayList<Object> prepareArgumentsOf(
 			Call<TOwnerType, TReturnType> invokable, FixtureContract fixture) {
-		ArrayList<Object> arguments = new ArrayList<Object>();
+		ArrayList<Object> arguments = new ArrayList<>();
 		
 		for(Parameter parameter : invokable.getParameters()) {
 			  AddInstanceOf(parameter, arguments, fixture);

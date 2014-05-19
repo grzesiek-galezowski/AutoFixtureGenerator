@@ -10,7 +10,7 @@ public class CircularList<T> {
 	public static <TListElement> CircularList<TListElement> createFromEnum(InstanceType<TListElement> type) {
 		TListElement[] enumConstants = type.getEnumConstants();
 		
-		return new CircularList<TListElement>(enumConstants);
+		return new CircularList<>(enumConstants);
 	}
 	
 	public CircularList(T[] values) {
@@ -30,7 +30,7 @@ public class CircularList<T> {
 
 	public static CircularList<Character> fromCharactersIn(String string) {
 		Character[] characters = toCharacterArray(string); 
-		return new CircularList<Character>(characters);
+		return new CircularList<>(characters);
 	}
 
 	
@@ -40,7 +40,7 @@ public class CircularList<T> {
 		   }
 		   Character[] array = new Character[s.length()];
 		   for (int i = 0; i < s.length(); i++) {
-		      array[i] = Character.valueOf(s.charAt(i));
+		      array[i] = s.charAt(i);
 		   }
 
 		   return array;

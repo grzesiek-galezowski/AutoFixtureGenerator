@@ -1,33 +1,12 @@
 package autofixture.publicinterface;
 
+import autofixture.publicinterface.generators.inline.*;
+import com.google.common.reflect.TypeToken;
+
 import java.net.InetAddress;
 import java.net.URI;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Deque;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.SortedSet;
-
-import autofixture.publicinterface.generators.implementationdetails.CircularList;
-import autofixture.publicinterface.generators.implementationdetails.ConcreteInstanceType;
-import autofixture.publicinterface.generators.inline.AlphaStringGenerator;
-import autofixture.publicinterface.generators.inline.CharacterGenerator;
-import autofixture.publicinterface.generators.inline.ExplodingInstanceGenerator;
-import autofixture.publicinterface.generators.inline.IdentifierStringGenerator;
-import autofixture.publicinterface.generators.inline.OtherThanGenerator;
-import autofixture.publicinterface.generators.inline.PortNumberGenerator;
-import autofixture.publicinterface.generators.inline.StringContainingSubstringGenerator;
-import autofixture.publicinterface.generators.inline.StringNotContainingSubstringsGenerator;
-import autofixture.publicinterface.generators.inline.StringOfLengthGenerator;
-
-import com.google.common.reflect.Reflection;
-import com.google.common.reflect.TypeToken;
+import java.util.*;
 
 public class AnyGenerationMethods {
 	private static final String AllLetters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
@@ -49,7 +28,7 @@ public class AnyGenerationMethods {
 
 	@SafeVarargs
 	public static <T> T anyOtherThan(T... omittedValues) {
-		return fixture.createWith(new OtherThanGenerator<T>(omittedValues));
+		return fixture.createWith(new OtherThanGenerator<>(omittedValues));
 	}
 	
 	public static String anyString() {
@@ -153,7 +132,7 @@ public class AnyGenerationMethods {
 	}
 
 	public static <T> T anyExploding(TypeToken<T> instance) {
-		return fixture.createWith(new ExplodingInstanceGenerator<T>(instance));
+		return fixture.createWith(new ExplodingInstanceGenerator<>(instance));
 	}
 
 	public static Exception anyException() {

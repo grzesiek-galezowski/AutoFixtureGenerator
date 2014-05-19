@@ -1,18 +1,14 @@
 package autofixture.specification.acceptance;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import autofixture.publicinterface.Fixture;
+import autofixture.publicinterface.InstanceOf;
+import autofixture.specification.acceptance.testfixtures.NonGenericInterface;
+import org.junit.Test;
 
 import java.util.Iterator;
 
-import org.junit.Test;
-
-import autofixture.publicinterface.Fixture;
-import autofixture.publicinterface.InstanceOf;
-import autofixture.publicinterface.generators.InterfaceImplementationGenerator;
-import autofixture.specification.acceptance.testfixtures.NonGenericInterface;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertThat;
 
 public class InterfaceImplementationGenerationSpecification {
 	Fixture fixture = new Fixture();

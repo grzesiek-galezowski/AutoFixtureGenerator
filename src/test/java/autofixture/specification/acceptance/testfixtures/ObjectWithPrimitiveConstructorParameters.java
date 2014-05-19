@@ -1,8 +1,5 @@
 package autofixture.specification.acceptance.testfixtures;
 
-import java.util.AbstractList;
-import java.util.Set;
-
 public class ObjectWithPrimitiveConstructorParameters {
 
 	public int intParameter;

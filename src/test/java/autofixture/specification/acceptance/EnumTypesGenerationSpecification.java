@@ -1,15 +1,12 @@
 package autofixture.specification.acceptance;
 
-import static org.junit.Assert.assertArrayEquals;
+import autofixture.publicinterface.Fixture;
+import com.google.common.reflect.TypeToken;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
-import org.junit.Test;
-
-import autofixture.publicinterface.Fixture;
-import autofixture.publicinterface.FixtureContract;
-
-import com.google.common.reflect.TypeToken;
+import static org.junit.Assert.assertArrayEquals;
 
 public class EnumTypesGenerationSpecification {
 	private Fixture fixture = new Fixture();

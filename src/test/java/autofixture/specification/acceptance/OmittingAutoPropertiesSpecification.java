@@ -1,16 +1,16 @@
 package autofixture.specification.acceptance;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-
-import org.junit.Test;
-
 import autofixture.publicinterface.Fixture;
 import autofixture.publicinterface.InstanceOf;
 import autofixture.specification.acceptance.testfixtures.DataStructure;
 import autofixture.specification.acceptance.testfixtures.GenericDataStructure;
+import org.junit.Test;
 
-public class OmitingAutoPropertiesSpecification {
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
+
+public class OmittingAutoPropertiesSpecification {
 
     private Fixture fixture = new Fixture();
     

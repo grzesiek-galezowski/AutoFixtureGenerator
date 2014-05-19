@@ -22,18 +22,11 @@ public class EnumGenerator implements InstanceGenerator {
 		
 		enumCache.registerIfNotPresent(type);
 		return enumCache.retrieveNextValueOf(type);
-		
-		/*
-		Object[] enumElements = type.getEnumConstants();
-		int idx = new Random().nextInt(enumElements.length);
-		return (T)(enumElements[idx]);
-		//TODO make it sequential! Random is bad...*/
 	}
 
 	@Override
 	public void setOmittingAutoProperties(boolean isOn) {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

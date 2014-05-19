@@ -1,16 +1,14 @@
 package autofixture.publicinterface.generators;
 
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Random;
-
 import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.InstanceType;
 import autofixture.publicinterface.ObjectCreationException;
 
-import com.google.common.net.InetAddresses;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Random;
 
 public class InetAddressGenerator implements InstanceGenerator {
 	Random random = new Random();

@@ -1,7 +1,5 @@
 package autofixture.specification.acceptance.testfixtures;
 
-import com.google.common.base.Objects;
-
 public class ValueObjectWithSingleParameterConstructorAndParameterlessOne {
 	private int field;
 

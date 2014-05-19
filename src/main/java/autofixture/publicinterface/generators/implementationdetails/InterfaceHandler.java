@@ -1,13 +1,11 @@
 package autofixture.publicinterface.generators.implementationdetails;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-
 import autofixture.publicinterface.FixtureContract;
-
-import com.google.common.base.Objects;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.TypeToken;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 
 public class InterfaceHandler implements InvocationHandler {
 

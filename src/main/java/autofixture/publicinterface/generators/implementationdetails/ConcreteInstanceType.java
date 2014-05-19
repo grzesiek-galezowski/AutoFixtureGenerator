@@ -1,41 +1,16 @@
 package autofixture.publicinterface.generators.implementationdetails;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
-import java.util.Properties;
-import java.util.Stack;
-import java.util.TreeSet;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ConcurrentSkipListSet;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.concurrent.PriorityBlockingQueue;
-
 import autofixture.implementationdetails.InstanceField;
 import autofixture.publicinterface.InstanceType;
 import autofixture.publicinterface.ObjectCreationException;
 import autofixture.publicinterface.generators.Call;
-
 import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableCollection;
-import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.TypeToken;
+
+import java.lang.reflect.*;
+import java.util.*;
+import java.util.concurrent.*;
 
 public class ConcreteInstanceType<T> implements InstanceType<T> {
 
@@ -173,7 +148,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 	}
 
 	private static <TWrappedType> InstanceType<TWrappedType> from(TypeToken<TWrappedType> typeToken) {
-		return new ConcreteInstanceType<TWrappedType>(typeToken);
+		return new ConcreteInstanceType<>(typeToken);
 	}
 
 	@Override
@@ -277,11 +252,11 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 
 	@Override
 	public ArrayList<InstanceField<T>> getAllPublicFieldsOf(T instance) {
-		ArrayList<InstanceField<T>> fields = new ArrayList<InstanceField<T>>();
+		ArrayList<InstanceField<T>> fields = new ArrayList<>();
 		Field[] fieldsArray = typeToken.getRawType().getDeclaredFields();
 		for(Field field : fieldsArray) {
 			if(Modifier.isPublic(field.getModifiers()) && ! Modifier.isStatic(field.getModifiers())) {
-				fields.add(new InstanceField<T>(field, this, instance));
+				fields.add(new InstanceField<>(field, this, instance));
 			}
 		}
 		return fields;
