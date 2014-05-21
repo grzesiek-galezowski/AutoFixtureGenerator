@@ -10,8 +10,8 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Test;
 
-import static autofixture.publicinterface.AnyGenerationMethods.any;
-import static autofixture.publicinterface.AnyGenerationMethods.anyString;
+import static autofixture.publicinterface.Generate.any;
+import static autofixture.publicinterface.Generate.anyString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -25,7 +25,7 @@ public class RecursionGuardSpecification {
     @Test
     public void shouldReturnValueFromFixtureWhenRecursionForTypeIsNotReached() {
         //GIVEN
-        RecursionGuard recursionGuard = new RecursionGuard(3);
+        final RecursionGuard recursionGuard = new RecursionGuard(3);
         final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
         final FixtureContract anyFixture = any(FixtureContract.class);
 
@@ -48,7 +48,7 @@ public class RecursionGuardSpecification {
     @Test
     public void shouldReturnValueFromFixtureWhenRecursionForTypeIsNotReachedBecauseOfRemovingDepthLevel() {
         //GIVEN
-        RecursionGuard recursionGuard = new RecursionGuard(3);
+        final RecursionGuard recursionGuard = new RecursionGuard(3);
         final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
         final FixtureContract anyFixture = any(FixtureContract.class);
 
@@ -74,7 +74,7 @@ public class RecursionGuardSpecification {
     @Test
     public void shouldReturnNullWhenRecursionForTypeIsReached() {
         //GIVEN
-        RecursionGuard recursionGuard = new RecursionGuard(3);
+        final RecursionGuard recursionGuard = new RecursionGuard(3);
         final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
         final FixtureContract anyFixture = any(FixtureContract.class);
 
@@ -98,7 +98,7 @@ public class RecursionGuardSpecification {
     @Test
     public void shouldReturnProperValueForTypeOtherThanOneThatReachedRecursionLimit() {
         //GIVEN
-        RecursionGuard recursionGuard = new RecursionGuard(3);
+        final RecursionGuard recursionGuard = new RecursionGuard(3);
         final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
         final FixtureContract anyFixture = any(FixtureContract.class);
 
@@ -127,8 +127,4 @@ public class RecursionGuardSpecification {
     private static InstanceType<Integer> IntegerType() {
         return new ConcreteInstanceType<>(TypeToken.of(Integer.class));
     }
-
-
-    //todo separate recursion for different types
-
 }

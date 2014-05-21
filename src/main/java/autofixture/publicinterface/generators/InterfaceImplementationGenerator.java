@@ -4,7 +4,6 @@ import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.InstanceType;
 import autofixture.publicinterface.generators.implementationdetails.InterfaceHandler;
-
 import com.google.common.reflect.Reflection;
 
 public class InterfaceImplementationGenerator implements InstanceGenerator{
@@ -23,8 +22,6 @@ public class InterfaceImplementationGenerator implements InstanceGenerator{
 
 	@Override
 	public void setOmittingAutoProperties(boolean isOn) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

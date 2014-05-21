@@ -10,7 +10,6 @@ public class IntGenerator implements InstanceGenerator {
 
 	@Override
 	public <T> boolean appliesTo(InstanceType<T> typeToken) {
-		// TODO Auto-generated method stub
 		return typeToken.isRawTypeAssignableFrom(int.class)
 				|| typeToken.isRawTypeAssignableFrom(Integer.class)
 				|| typeToken.isRawTypeAssignableFrom(short.class)
@@ -27,8 +26,6 @@ public class IntGenerator implements InstanceGenerator {
 
 	@Override
 	public void setOmittingAutoProperties(boolean isOn) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

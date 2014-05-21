@@ -8,7 +8,7 @@ import java.net.URI;
 import java.net.URL;
 import java.util.*;
 
-public class AnyGenerationMethods {
+public class Generate {
 	private static final String AllLetters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
 	private static final String AllDigits = "1029384756";
 	private static final Fixture fixture = new Fixture();

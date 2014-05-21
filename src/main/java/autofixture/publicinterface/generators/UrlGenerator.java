@@ -1,12 +1,12 @@
 package autofixture.publicinterface.generators;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.InstanceType;
 import autofixture.publicinterface.ObjectCreationException;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class UrlGenerator implements InstanceGenerator {
 
@@ -27,8 +27,6 @@ public class UrlGenerator implements InstanceGenerator {
 
 	@Override
 	public void setOmittingAutoProperties(boolean isOn) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

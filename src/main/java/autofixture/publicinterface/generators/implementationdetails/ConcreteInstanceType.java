@@ -20,7 +20,6 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 		this.typeToken = typeToken;
 	}
 
-	//TODO reduce even further
 	@Override
 	public InstanceType<?> getArrayElementType() {
 		return ConcreteInstanceType.from(typeToken.getComponentType());
@@ -266,8 +265,10 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 	public TypeToken<?> ResolveActualTypeOf(Field field) {
 		return this.typeToken.resolveType(field.getGenericType());
 	}
-	
-	
-	//TODO reimplement toString();
+
+    @Override
+    public String toString() {
+        return typeToken.toString();
+    }
 
 }

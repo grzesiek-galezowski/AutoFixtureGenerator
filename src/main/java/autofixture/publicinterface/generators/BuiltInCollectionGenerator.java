@@ -1,10 +1,10 @@
 package autofixture.publicinterface.generators;
 
-import java.util.Collection;
-
 import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.InstanceType;
+
+import java.util.Collection;
 
 public class BuiltInCollectionGenerator implements InstanceGenerator {
 
@@ -35,8 +35,6 @@ public class BuiltInCollectionGenerator implements InstanceGenerator {
 
 	@Override
 	public void setOmittingAutoProperties(boolean isOn) {
-		// TODO Auto-generated method stub
-		
 	}
 
 

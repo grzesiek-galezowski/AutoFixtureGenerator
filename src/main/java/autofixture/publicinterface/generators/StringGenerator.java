@@ -1,10 +1,10 @@
 package autofixture.publicinterface.generators;
 
-import java.util.UUID;
-
 import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.InstanceType;
+
+import java.util.UUID;
 
 public class StringGenerator implements InstanceGenerator {
 	
@@ -20,8 +20,6 @@ public class StringGenerator implements InstanceGenerator {
 
 	@Override
 	public void setOmittingAutoProperties(boolean isOn) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

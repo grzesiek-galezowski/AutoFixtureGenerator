@@ -38,12 +38,4 @@ public class InterfaceImplementationGenerationSpecification {
 		assertThat(it2, is(notNullValue()));
         assertThat(it1, not(is(it2)));
 	}
-	
-
 }
-
-
-//TODO non generic ones
-//TODO generic ones
-
-

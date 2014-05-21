@@ -1,10 +1,10 @@
 package autofixture.publicinterface.generators;
 
-import java.math.BigInteger;
-
 import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.InstanceType;
+
+import java.math.BigInteger;
 
 public class BigIntGenerator implements InstanceGenerator {
 	@Override
@@ -20,7 +20,5 @@ public class BigIntGenerator implements InstanceGenerator {
 
 	@Override
 	public void setOmittingAutoProperties(boolean isOn) {
-		// TODO Auto-generated method stub
-		
 	}
 }

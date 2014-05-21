@@ -28,8 +28,7 @@ import static org.junit.Assert.assertTrue;
 public class PrimitiveTypesGenerationSpecification {
 	Fixture fixture = new Fixture();
 	Mockery context = new Mockery();
-	//TODO generate instances of classes and generic methods
-	
+
 	@Theory
 	public void shouldGenerateDifferentValuesEachTime(Class<?> clazz) {
 		Object value1 = fixture.create(TypeToken.of(clazz));
@@ -55,8 +54,6 @@ public class PrimitiveTypesGenerationSpecification {
 
 			@Override
 			public void setOmittingAutoProperties(boolean isOn) {
-				// TODO Auto-generated method stub
-				
 			}
 		});
 		

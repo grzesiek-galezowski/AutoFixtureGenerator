@@ -1,11 +1,11 @@
 package autofixture.publicinterface.generators;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.InstanceType;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class DateGenerator implements InstanceGenerator {
 	
@@ -25,7 +25,5 @@ public class DateGenerator implements InstanceGenerator {
 
 	@Override
 	public void setOmittingAutoProperties(boolean isOn) {
-		// TODO Auto-generated method stub
-		
 	}
 }
