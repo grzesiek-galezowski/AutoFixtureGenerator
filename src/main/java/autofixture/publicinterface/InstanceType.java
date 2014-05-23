@@ -1,16 +1,15 @@
 package autofixture.publicinterface;
 
+import autofixture.implementationdetails.InstanceField;
+import autofixture.publicinterface.generators.Call;
+import com.google.common.reflect.Invokable;
+import com.google.common.reflect.TypeToken;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
-
-import autofixture.implementationdetails.InstanceField;
-import autofixture.publicinterface.generators.Call;
-
-import com.google.common.reflect.Invokable;
-import com.google.common.reflect.TypeToken;
 
 public interface InstanceType<T> {
 	InstanceType<?> getArrayElementType();
@@ -25,7 +24,7 @@ public interface InstanceType<T> {
 	boolean isAssignableTo(Class<?> clazz);
 	boolean isRawTypeAssignableFrom(Class<?> clazz);
 	@SuppressWarnings("rawtypes")
-	Collection createCollection();
+	Collection createCollection(int repeatCount);
 	InstanceType<?> getNestedGenericType();
 	Call<T, T> findPublicConstructorWithLeastParameters();
 	boolean isEnum();

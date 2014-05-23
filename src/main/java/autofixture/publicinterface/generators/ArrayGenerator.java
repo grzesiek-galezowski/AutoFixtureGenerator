@@ -15,14 +15,9 @@ public class ArrayGenerator implements InstanceGenerator {
 	@Override
 	public <T> T next(InstanceType<T> type, FixtureContract fixture) {
 		InstanceType<?> componentType = type.getArrayElementType();
-		
-		Object array = componentType.createArray(new Object[] {
-			fixture.create(componentType), 
-			fixture.create(componentType), 
-			fixture.create(componentType)
-		});
-		
-		return (T)array;
+        Object array = componentType.createArray(fixture.createMany(componentType).toArray());
+        T stronglyTypedArray = (T)array;
+        return stronglyTypedArray;
 	}
 
 	@Override

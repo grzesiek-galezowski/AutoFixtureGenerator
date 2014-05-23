@@ -4,3 +4,5 @@ bin/
 workspace.xml
 .DS_Store
 /target
+.idea
+.idea/*

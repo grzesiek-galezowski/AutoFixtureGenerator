@@ -76,7 +76,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 	
 	@SuppressWarnings("rawtypes")
 	@Override
-	public Collection createCollection() {
+	public Collection createCollection(int repeatCount) {
 		Collection collection;
 		if(this.isRawTypeAssignableFrom(HashSet.class)) {
 			collection = new HashSet();
@@ -99,7 +99,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 		} else if(this.isRawTypeAssignableFrom(LinkedHashSet.class)) {
 			collection = new LinkedHashSet();
 		} else if(this.isRawTypeAssignableFrom(ArrayBlockingQueue.class)) {
-			collection = new ArrayBlockingQueue(3);
+			collection = new ArrayBlockingQueue(repeatCount);
 		} else if(this.isRawTypeAssignableFrom(ArrayDeque.class)) {
 			collection = new ArrayDeque();
 		} else if(this.isRawTypeAssignableFrom(Stack.class)) {
