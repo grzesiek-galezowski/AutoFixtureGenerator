@@ -73,7 +73,12 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 	public boolean isRawTypeAssignableFrom(Class<?> clazz) {
 		return typeToken.getRawType().isAssignableFrom(clazz);
 	}
-	
+
+    @Override
+    public <TOther> boolean isSameAsThatOf(TOther injectedValue) {
+        return typeToken.getRawType().equals(injectedValue.getClass());
+    }
+
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Collection createCollection(int repeatCount) {

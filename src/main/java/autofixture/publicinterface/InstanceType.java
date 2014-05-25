@@ -33,4 +33,5 @@ public interface InstanceType<T> {
 	ArrayList<Call<T, Object>> getAllSetters();
 	ArrayList<InstanceField<T>> getAllPublicFieldsOf(T instance);
 	TypeToken<?> ResolveActualTypeOf(Field field);
+    <TOther> boolean isSameAsThatOf(TOther injectedValue);
 }

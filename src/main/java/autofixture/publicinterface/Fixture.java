@@ -4,6 +4,7 @@ import autofixture.publicinterface.generators.GeneratorsFactory;
 import autofixture.publicinterface.generators.GeneratorsPipeline;
 import autofixture.publicinterface.generators.RecursionGuard;
 import autofixture.publicinterface.generators.implementationdetails.ConcreteInstanceType;
+import com.google.common.primitives.Primitives;
 import com.google.common.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -16,14 +17,24 @@ public class Fixture implements FixtureContract {
     private int repeatCount = 3;
 
     public <T> T create(Class<T> clazz) {
-		return this.create(TypeToken.of(clazz));
+		return this.create(TypeToken.of(Primitives.wrap(clazz)));
 	}
 
-	public <T> T create(TypeToken<T> typeToken) {
+    public <T> T create(TypeToken<T> typeToken) {
 		return create(new ConcreteInstanceType<>(typeToken));
 	}
-	
-	public void register(InstanceGenerator instanceGenerator) {
+
+    public <T> T freeze(TypeToken<T> clazz) {
+        T value = create(clazz);
+        inject(value);
+        return value;
+    }
+
+    public <T> T freeze(Class<T> clazz) {
+        return freeze(TypeToken.of(Primitives.wrap(clazz)));
+    }
+
+    public void register(InstanceGenerator instanceGenerator) {
 		instanceGenerators.registerCustomization(instanceGenerator);
 	}
 
@@ -53,6 +64,26 @@ public class Fixture implements FixtureContract {
     @Override
     public int getRepeatCount() {
         return repeatCount;
+    }
+
+    @Override
+    public <T> void inject(final T injectedValue) {
+        register(new InstanceGenerator() {
+            @Override
+            public <T2> boolean appliesTo(InstanceType<T2> instanceType) {
+                return instanceType.isSameAsThatOf(injectedValue);
+            }
+
+            @Override
+            public <T2> T2 next(InstanceType<T2> instanceType, FixtureContract fixture) {
+                return (T2)injectedValue;
+            }
+
+            @Override
+            public void setOmittingAutoProperties(boolean isOn) {
+
+            }
+        });
     }
 
     public <T> T createWith(InlineInstanceGenerator<T> inlineGenerator) {
