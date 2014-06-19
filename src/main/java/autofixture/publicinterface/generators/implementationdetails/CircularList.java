@@ -2,9 +2,12 @@ package autofixture.publicinterface.generators.implementationdetails;
 
 import autofixture.publicinterface.InstanceType;
 
+import java.util.Random;
+
 public class CircularList<T> {
 
 	private T[] enumConstants;
+    private Random random = new Random();
 	private int currentIndex = 0;
 
 	public static <TListElement> CircularList<TListElement> createFromEnum(InstanceType<TListElement> type) {
@@ -15,7 +18,7 @@ public class CircularList<T> {
 	
 	public CircularList(T[] values) {
 		this.enumConstants = values;
-		currentIndex = 0;
+		currentIndex = random.nextInt(values.length);
 	}
 	
 	public T next() {

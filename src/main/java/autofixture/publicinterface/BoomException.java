@@ -1,8 +1,8 @@
 package autofixture.publicinterface;
 
-public class BoooomException extends RuntimeException {
+public class BoomException extends RuntimeException {
 
-	public BoooomException(String message) {
+	public BoomException(String message) {
 		super(message);
 	}
 	/**

@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 public class InterfaceHandler implements InvocationHandler {
 
 	private final FixtureContract fixture;
-	private final MemoizedResults memoizedResults = new MemoizedResults();
+	private final MethodsInvocationResultCache methodsInvocationResultCache = new MethodsInvocationResultCache();
 	
 	public InterfaceHandler(FixtureContract fixture) {
 		this.fixture = fixture;
@@ -28,18 +28,18 @@ public class InterfaceHandler implements InvocationHandler {
 		}
 		
 		if(wasCalledAtLeastOnceOn(proxy, mtd)) {
-			return memoizedResults.getResultFor(proxy, mtd);
+			return methodsInvocationResultCache.getResultFor(proxy, mtd);
 		}
 
 		return generateFreshValueFor(proxy, mtd);
 	}
 
-	private boolean isHashCodeMethod(Method mtd) {
-		return "hashCode".equals(mtd.getName());
+	private boolean isHashCodeMethod(Method method) {
+		return "hashCode".equals(method.getName());
 	}
 
 	private boolean wasCalledAtLeastOnceOn(Object proxy, Method mtd) {
-		return memoizedResults.containAResultFor(proxy, mtd);
+		return methodsInvocationResultCache.containAResultFor(proxy, mtd);
 	}
 
 	private boolean isEqualsMethod(Method mtd, Object[] arguments) {
@@ -50,7 +50,7 @@ public class InterfaceHandler implements InvocationHandler {
 		Object returnValue;
 		Object freshReturnValue = createReturnValue(fixture, mtd);
 		if(freshReturnValue != null) {
-			memoizedResults.set(proxy, mtd, freshReturnValue);
+			methodsInvocationResultCache.set(proxy, mtd, freshReturnValue);
 		}
 		returnValue = freshReturnValue;
 		return returnValue;

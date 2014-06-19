@@ -10,14 +10,18 @@ public class IntGenerator implements InstanceGenerator {
 
 	@Override
 	public <T> boolean appliesTo(InstanceType<T> typeToken) {
-		return typeToken.isRawTypeAssignableFrom(int.class)
-				|| typeToken.isRawTypeAssignableFrom(Integer.class)
-				|| typeToken.isRawTypeAssignableFrom(short.class)
-				|| typeToken.isRawTypeAssignableFrom(Short.class)
-				|| typeToken.isRawTypeAssignableFrom(long.class)
-				|| typeToken.isRawTypeAssignableFrom(Long.class);
+		return typeToken.getWrapper() == Integer.class
+                || typeToken.getWrapper() == Short.class
+                || typeToken.getWrapper() == Long.class;
 	}
-	
+
+    public static <T> boolean instanceType(InstanceType<T> typeToken) {
+        return typeToken.getWrapper() == Integer.class
+                || typeToken.getWrapper() == Short.class
+                || typeToken.getWrapper() == Long.class;
+    }
+
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {

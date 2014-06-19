@@ -19,7 +19,7 @@ public class BigDecimalGenerator implements InstanceGenerator {
 		return (T) new BigDecimal(fixture.create(Integer.class));
 	}
 
-	@Override
-	public void setOmittingAutoProperties(boolean isOn) {
-	}
+    @Override
+    public void setOmittingAutoProperties(boolean isOn) {
+    }
 }

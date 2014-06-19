@@ -10,10 +10,8 @@ public class ByteAndCharGenerator implements InstanceGenerator {
 
 	@Override
 	public <T> boolean appliesTo(InstanceType<T> typeToken) {
-		return typeToken.isRawTypeAssignableFrom(byte.class)
-				|| typeToken.isRawTypeAssignableFrom(Byte.class)
-				|| typeToken.isRawTypeAssignableFrom(char.class)
-				|| typeToken.isRawTypeAssignableFrom(Character.class);
+		return typeToken.getWrapper() == Byte.class
+				|| typeToken.getWrapper() == Character.class;
 	}
 	@SuppressWarnings("unchecked")
 	@Override

@@ -31,7 +31,8 @@ public class PrimitiveTypesGenerationSpecification {
 
 	@Theory
 	public void shouldGenerateDifferentValuesEachTime(Class<?> clazz) {
-		Object value1 = fixture.create(TypeToken.of(clazz));
+		System.out.println(clazz);
+        Object value1 = fixture.create(TypeToken.of(clazz));
 		Object value2 = fixture.create(TypeToken.of(clazz));
 		 
 		assertThat(value1, not(is(value2)));

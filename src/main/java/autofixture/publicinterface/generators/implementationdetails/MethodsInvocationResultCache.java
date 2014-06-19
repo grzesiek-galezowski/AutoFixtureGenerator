@@ -3,7 +3,7 @@ package autofixture.publicinterface.generators.implementationdetails;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
-public class MemoizedResults {
+public class MethodsInvocationResultCache {
 
 	HashMap<Object, HashMap<Method, Object>> data = new HashMap<>();
 	

@@ -57,15 +57,15 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
 		ArrayList<Object> arguments = new ArrayList<>();
 		
 		for(Parameter parameter : invokable.getParameters()) {
-			  AddInstanceOf(parameter, arguments, fixture);
+			  addInstanceOf(parameter, arguments, fixture);
 		}
 		
 		return arguments;
 	}
 
-	private void AddInstanceOf(Parameter parameter,
-			ArrayList<Object> arguments, FixtureContract fixture) {
-		if(IsParameterized(parameter)) {
+	private void addInstanceOf(Parameter parameter,
+                               ArrayList<Object> arguments, FixtureContract fixture) {
+		if(isParameterized(parameter)) {
 			  arguments.add(fixture.create(realTypeOf(parameter)));
 		  } else {
 			  arguments.add(fixture.create(parameter.getType()));
@@ -76,7 +76,7 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
 		return TypeToken.of(parameter.getType().getType());
 	}
 
-	private boolean IsParameterized(Parameter parameter) {
+	private boolean isParameterized(Parameter parameter) {
 		return parameter.getType().getType() instanceof ParameterizedType;
 	}
 

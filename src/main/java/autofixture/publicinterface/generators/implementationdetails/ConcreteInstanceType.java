@@ -5,6 +5,7 @@ import autofixture.publicinterface.InstanceType;
 import autofixture.publicinterface.ObjectCreationException;
 import autofixture.publicinterface.generators.Call;
 import com.google.common.base.Optional;
+import com.google.common.primitives.Primitives;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.TypeToken;
 
@@ -77,6 +78,10 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
     @Override
     public <TOther> boolean isSameAsThatOf(TOther injectedValue) {
         return typeToken.getRawType().equals(injectedValue.getClass());
+    }
+
+    public Type getWrapper() {
+        return Primitives.wrap(this.getRawType());
     }
 
 	@SuppressWarnings("rawtypes")

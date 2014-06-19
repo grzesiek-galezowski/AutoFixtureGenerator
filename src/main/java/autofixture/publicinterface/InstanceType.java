@@ -18,6 +18,7 @@ public interface InstanceType<T> {
 	Class<? super T> getRawType();
 	TypeToken<? super T> getToken();
 	Type getType();
+    Type getWrapper();
 	boolean isArray();
 	Invokable<T, T> constructor(Constructor<?> constructor);
 	Object createArray(Object[] objects);
