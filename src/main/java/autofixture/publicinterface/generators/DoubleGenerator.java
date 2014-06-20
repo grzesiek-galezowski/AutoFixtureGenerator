@@ -9,10 +9,7 @@ public class DoubleGenerator implements InstanceGenerator {
 
 	@Override
 	public <T> boolean appliesTo(InstanceType<T> typeToken) {
-		return typeToken.isRawTypeAssignableFrom(double.class)
-				|| typeToken.isRawTypeAssignableFrom(Double.class)
-				|| typeToken.isRawTypeAssignableFrom(float.class)
-				|| typeToken.isRawTypeAssignableFrom(Float.class); 
+		return typeToken.isCompatibleWithAnyOf(Double.class, Float.class);
 	}
 	
 	@SuppressWarnings("unchecked")

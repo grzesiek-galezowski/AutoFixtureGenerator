@@ -80,6 +80,21 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
         return typeToken.getRawType().equals(injectedValue.getClass());
     }
 
+    @Override
+    public boolean isCompatibleWith(Class<?> clazz) {
+        return Primitives.wrap(this.typeToken.getRawType()) == Primitives.wrap(clazz);
+    }
+
+    @Override
+    public boolean isCompatibleWithAnyOf(Class<?>... clazzes) {
+        for(Class<?> clazz : clazzes) {
+            if(this.isCompatibleWith(clazz)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Type getWrapper() {
         return Primitives.wrap(this.getRawType());
     }

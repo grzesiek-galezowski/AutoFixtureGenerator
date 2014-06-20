@@ -9,9 +9,8 @@ public class ByteAndCharGenerator implements InstanceGenerator {
 	public Byte startingByte = 1;
 
 	@Override
-	public <T> boolean appliesTo(InstanceType<T> typeToken) {
-		return typeToken.getWrapper() == Byte.class
-				|| typeToken.getWrapper() == Character.class;
+	public <T> boolean appliesTo(InstanceType<T> type) {
+		return type.isCompatibleWithAnyOf(Byte.class, Character.class);
 	}
 	@SuppressWarnings("unchecked")
 	@Override

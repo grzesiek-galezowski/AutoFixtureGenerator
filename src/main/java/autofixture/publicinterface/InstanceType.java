@@ -35,4 +35,6 @@ public interface InstanceType<T> {
 	ArrayList<InstanceField<T>> getAllPublicFieldsOf(T instance);
 	TypeToken<?> ResolveActualTypeOf(Field field);
     <TOther> boolean isSameAsThatOf(TOther injectedValue);
+    boolean isCompatibleWith(Class<?> clazz);
+    boolean isCompatibleWithAnyOf(Class<?>... clazzes);
 }

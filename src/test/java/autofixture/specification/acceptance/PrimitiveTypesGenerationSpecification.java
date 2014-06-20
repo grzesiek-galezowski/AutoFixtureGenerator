@@ -22,8 +22,6 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-//import static org.hamcrest.CoreMatchers.startsWith;
-
 @RunWith(Theories.class)
 public class PrimitiveTypesGenerationSpecification {
 	Fixture fixture = new Fixture();
@@ -39,7 +37,7 @@ public class PrimitiveTypesGenerationSpecification {
 	}
 
 	@Test
-	public void shouldGivePrecedenseToRegisteredGenerators() {
+	public void shouldGivePrecedenceToRegisteredGenerators() {
 		fixture.register(new InstanceGenerator() {
 			
 			@SuppressWarnings("unchecked")

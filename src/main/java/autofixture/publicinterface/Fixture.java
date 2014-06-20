@@ -66,6 +66,10 @@ public class Fixture implements FixtureContract {
         return repeatCount;
     }
 
+    public void setRepeatCount(int repeatCount) {
+        this.repeatCount = repeatCount;
+    }
+
     @Override
     public <T> void inject(final T injectedValue) {
         register(new InstanceGenerator() {
@@ -96,14 +100,10 @@ public class Fixture implements FixtureContract {
 
 	public void setOmittingAutoProperties(boolean isOn) {
 		instanceGenerators.setOmittingAutoProperties(isOn);
-		
+
 	}
 
     public void setRecursionDepth(int depth) {
         this.recursionGuard.setMaxDepth(depth);
-    }
-
-    public void setRepeatCount(int repeatCount) {
-        this.repeatCount = repeatCount;
     }
 }

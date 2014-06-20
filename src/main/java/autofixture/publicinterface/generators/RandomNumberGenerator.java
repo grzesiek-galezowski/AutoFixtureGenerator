@@ -119,25 +119,26 @@ public class RandomNumberGenerator implements InstanceGenerator {
 
     @Override
     public <T> boolean appliesTo(InstanceType<T> instanceType) {
-        return instanceType.getWrapper() == Byte.class
-                || instanceType.getWrapper() == Character.class
-                || instanceType.getWrapper() == Integer.class
-                || instanceType.getWrapper() == Long.class
-                || instanceType.getWrapper() == Short.class;
+        return instanceType.isCompatibleWithAnyOf(
+                Byte.class,
+                Character.class,
+                Integer.class,
+                Long.class,
+                Short.class);
     }
 
     @Override
     public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
         try {
-            if(instanceType.getWrapper() == Integer.class) {
+            if(instanceType.isCompatibleWith(Integer.class)) {
                 return (T)Integer.valueOf(this.getNextRandom().intValue());
-            } else if(instanceType.getWrapper() == Short.class) {
+            } else if(instanceType.isCompatibleWith(Short.class)) {
                 return (T)Short.valueOf(getNextRandom().shortValue());
-            } else if(instanceType.getWrapper() == Long.class) {
+            } else if(instanceType.isCompatibleWith(Long.class)) {
                 return (T)getNextRandom();
-            } else if(instanceType.getWrapper() == Byte.class) {
+            } else if(instanceType.isCompatibleWith(Byte.class)) {
                 return (T)Byte.valueOf(getNextRandom().byteValue());
-            } else if(instanceType.getWrapper() == Character.class) {
+            } else if(instanceType.isCompatibleWith(Character.class)) {
                 return (T)Character.valueOf(new String(
                         new byte[] {getNextRandom().byteValue()}).charAt(0));
             }

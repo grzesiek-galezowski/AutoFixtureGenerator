@@ -9,8 +9,7 @@ public class BooleanGenerator implements InstanceGenerator {
 	
 	@Override
 	public <T> boolean appliesTo(InstanceType<T> typeToken) {
-		return typeToken.isAssignableFrom(boolean.class)
-				|| typeToken.isAssignableFrom(Boolean.class);
+		return typeToken.isCompatibleWith(Boolean.class);
 	}
 
 	@SuppressWarnings("unchecked")
