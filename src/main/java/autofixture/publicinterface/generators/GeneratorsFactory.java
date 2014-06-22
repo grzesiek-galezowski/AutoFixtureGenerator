@@ -10,18 +10,18 @@ public class GeneratorsFactory {
 		return new RecursionGuarded(
                 new DefaultGeneratorsPipeline(
 				    new LinkedList<>(Arrays.asList(
-                        new EnumGenerator(new InMemoryEnumCache()),
+                        new EnumSequenceGenerator(new InMemoryEnumCache()),
                         new ExceptionGenerator(),
                         new ErrorGenerator(),
                         new StringGenerator(),
-                        new IntGenerator(),
-                        new DoubleGenerator(),
+                        new IntSequenceGenerator(),
+                        new DoubleSequenceGenerator(),
                         new BigIntGenerator(),
                         new BigDecimalGenerator(),
                         new DateGenerator(),
                         new CalendarGenerator(),
                         new PlainObjectGenerator(),
-                        new ByteAndCharGenerator(),
+                        new ByteAndCharSequenceGenerator(),
                         new BooleanGenerator(),
                         new UrlGenerator(),
                         new ArrayGenerator(),

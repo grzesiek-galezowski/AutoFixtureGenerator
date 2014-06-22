@@ -42,6 +42,9 @@ Example of new integer generation customization that always returns 12:
       public <T> T next(InstanceType<T> arg0, FixtureContract arg1) {
         return (T) Integer.valueOf(12);
       }
+
+      @Override
+      void setOmittingAutoProperties(boolean isOn) {}
     });
 
 
@@ -55,7 +58,7 @@ Any method helpers
 
 Starting with version 0.3.0, new "any" method helpers are available. two simple examples:
 
-    import static autofixture.publicinterface.AnyGenerationMethods.*;
+    import static autofixture.publicinterface.Generate.*;
     
     public class AnyGenerationMethodsSpecification {
       @Test
