@@ -27,4 +27,5 @@ public class AnyGenerationMethodsSpecification {
 		assertThat(o1, is(not(o2)));
 	}
 
+
 }

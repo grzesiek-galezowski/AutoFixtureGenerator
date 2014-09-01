@@ -22,7 +22,7 @@ public class Generate {
 		return fixture.create(instanceType);
 	}
 
-	public static <T> T any(Class<T> clazz) {
+    public static <T> T any(Class<T> clazz) {
 		return fixture.create(clazz);
 	}
 
