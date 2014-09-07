@@ -206,18 +206,13 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 	private Constructor<?>[] getConstructorsSortedFromLongestToShortestParametersCount() {
 		Constructor<?>[] constructors = this.getRawType().getConstructors();
 
-		Arrays.sort(constructors, new Comparator<Constructor<?>>() {
-
-			@Override
-			public int compare(Constructor<?> arg0, Constructor<?> arg1) {
-				Invokable<T, T> invokable1 = typeToken.constructor(arg0);
-				Invokable<T, T> invokable2 = typeToken.constructor(arg1);
-				return Integer.compare(
-						invokable2.getParameters().size(),
-						invokable1.getParameters().size());
-			}
-			
-		});
+		Arrays.sort(constructors, (arg0, arg1) -> {
+            Invokable<T, T> invokable1 = typeToken.constructor(arg0);
+            Invokable<T, T> invokable2 = typeToken.constructor(arg1);
+            return Integer.compare(
+                    invokable2.getParameters().size(),
+                    invokable1.getParameters().size());
+        });
 		return constructors;
 	}
 

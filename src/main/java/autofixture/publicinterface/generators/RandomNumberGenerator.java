@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Ported from
+ * Ported from https://github.com/AutoFixture/AutoFixture
  */
 
 public class RandomNumberGenerator implements InstanceGenerator {
@@ -106,7 +106,7 @@ public class RandomNumberGenerator implements InstanceGenerator {
     }
 
     private long getNextInt64InRange() {
-        long range = (long) (this.upper - this.lower);
+        long range = this.upper - this.lower;
         long limit = Long.MAX_VALUE - Long.MAX_VALUE % range;
         long number;
         do {
@@ -156,7 +156,7 @@ public class RandomNumberGenerator implements InstanceGenerator {
     private long bytesToLong(byte[] bytes) {
         ByteBuffer buffer = ByteBuffer.allocate(8);
         buffer.put(bytes);
-        buffer.flip();//need flip
+        buffer.flip();
         return buffer.getLong();
     }
 }

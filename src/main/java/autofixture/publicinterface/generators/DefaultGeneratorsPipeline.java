@@ -5,15 +5,15 @@ import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.InstanceType;
 import autofixture.publicinterface.ObjectCreationException;
 
-import java.util.LinkedList;
+import java.util.List;
 
 public class DefaultGeneratorsPipeline implements GeneratorsPipeline {
 
 	private int customizationsCount = 0;
-	private final LinkedList<InstanceGenerator> generators;
+	private final List<InstanceGenerator> generators;
 	private boolean autoPropertiesDisabled = false;
 
-	public DefaultGeneratorsPipeline(LinkedList<InstanceGenerator> generators) {
+	public DefaultGeneratorsPipeline(List<InstanceGenerator> generators) {
 		this.generators = generators;
 	}
 

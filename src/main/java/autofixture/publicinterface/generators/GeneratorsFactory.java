@@ -1,39 +1,53 @@
 package autofixture.publicinterface.generators;
 
+import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.generators.implementationdetails.InMemoryEnumCache;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 public class GeneratorsFactory {
-	public GeneratorsPipeline createBuiltinGenerators(RecursionGuard recursionGuard) {
-		return recursionGuarded(
-                new DefaultGeneratorsPipeline(
-                        new LinkedList<>(Arrays.asList(
-                                enums(),
-                                exceptions(),
-                                errors(),
-                                strings(),
-                                integers(),
-                                doubles(),
-                                bigIntegers(),
-                                bigDecimals(),
-                                dates(),
-                                calendars(),
-                                objects(),
-                                bytesAndChars(),
-                                booleans(),
-                                urls(),
-                                arrays(),
-                                builtInCollections(),
-                                inetAddresses(),
-                                interfaceImplementations(),
-                                concreteObjects()))),
-                recursionGuard);
-	}
+    public GeneratorsPipeline createBuiltinGenerators(RecursionGuard recursionGuard) {
+        return
+          protectedBy(recursionGuard,
+              pipelineOfGeneratorsForTypes(
+                  matchedInTheFollowingOrder(
+                      integers(),
+                      enums(),
+                      exceptions(),
+                      errors(),
+                      strings(),
+                      doubles(),
+                      bigIntegers(),
+                      bigDecimals(),
+                      dates(),
+                      calendars(),
+                      objects(),
+                      booleans(),
+                      urls(),
+                      arrays(),
+                      builtInCollections(),
+                      inetAddresses(),
+                      interfaceImplementations(),
+                      concreteObjects()))
+          );
+    }
 
-    private GeneratorsPipeline recursionGuarded(
-            DefaultGeneratorsPipeline defaultGeneratorsPipeline, RecursionGuard recursionGuard) {
+    private DefaultGeneratorsPipeline pipelineOfGeneratorsForTypes(List<InstanceGenerator> generators) {
+        return new DefaultGeneratorsPipeline(generators);
+    }
+
+    public java.util.List<InstanceGenerator> matchedInTheFollowingOrder(InstanceGenerator... ts) {
+        return new LinkedList<>(Arrays.asList(ts));
+    }
+
+    private RandomNumberGenerator integers() {
+        return new RandomNumberGenerator();
+    }
+
+    private GeneratorsPipeline protectedBy(
+            RecursionGuard recursionGuard, DefaultGeneratorsPipeline defaultGeneratorsPipeline) {
         return new RecursionGuarded(defaultGeneratorsPipeline, recursionGuard);
     }
 
@@ -91,10 +105,6 @@ public class GeneratorsFactory {
 
     private DoubleSequenceGenerator doubles() {
         return new DoubleSequenceGenerator();
-    }
-
-    private IntSequenceGenerator integers() {
-        return new IntSequenceGenerator();
     }
 
     private StringGenerator strings() {

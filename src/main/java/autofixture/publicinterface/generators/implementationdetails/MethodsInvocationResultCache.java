@@ -17,7 +17,7 @@ public class MethodsInvocationResultCache {
 
 	public void setFor(Object proxy, Method method, Object freshReturnValue) {
 		if(!data.containsKey(proxy)) {
-			data.put(proxy, new HashMap<Method, Object>());
+			data.put(proxy, new HashMap<>());
 		}
 		
 		data.get(proxy).put(method, freshReturnValue);

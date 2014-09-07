@@ -30,8 +30,7 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
 		return invokable.getParameters();
 	}
 
-	@Override
-	public TReturnType invoke(TOwnerType ownerType, ArrayList<Object> arguments) {
+	private TReturnType invoke(TOwnerType ownerType, ArrayList<Object> arguments) {
 		try {
 			return invokable.invoke(ownerType, arguments.toArray());
 		} catch (InvocationTargetException | IllegalAccessException e) {
