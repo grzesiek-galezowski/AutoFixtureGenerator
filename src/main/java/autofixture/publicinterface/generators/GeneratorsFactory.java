@@ -27,11 +27,21 @@ public class GeneratorsFactory {
                       booleans(),
                       urls(),
                       arrays(),
+                      optionals(),
                       builtInCollections(),
                       inetAddresses(),
                       interfaceImplementations(),
+                      colorSpaces(),
                       concreteObjects()))
           );
+    }
+
+    private InstanceGenerator colorSpaces() {
+        return new ColorSpaceGenerator();
+    }
+
+    private InstanceGenerator optionals() {
+        return new OptionalsGenerator();
     }
 
     private DefaultGeneratorsPipeline pipelineOfGeneratorsForTypes(List<InstanceGenerator> generators) {

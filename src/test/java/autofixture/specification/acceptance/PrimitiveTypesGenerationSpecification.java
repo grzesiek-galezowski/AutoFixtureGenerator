@@ -17,8 +17,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -32,7 +31,9 @@ public class PrimitiveTypesGenerationSpecification {
 		System.out.println(clazz);
         Object value1 = fixture.create(TypeToken.of(clazz));
 		Object value2 = fixture.create(TypeToken.of(clazz));
-		 
+
+        assertThat(value1, notNullValue());
+        assertThat(value2, notNullValue());
 		assertThat(value1, not(is(value2)));
 	}
 

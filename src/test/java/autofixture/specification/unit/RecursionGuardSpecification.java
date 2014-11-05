@@ -1,6 +1,7 @@
 package autofixture.specification.unit;
 
 import autofixture.publicinterface.FixtureContract;
+import autofixture.publicinterface.InstanceOf;
 import autofixture.publicinterface.InstanceType;
 import autofixture.publicinterface.generators.GeneratorsPipeline;
 import autofixture.publicinterface.generators.RecursionGuard;
@@ -76,7 +77,8 @@ public class RecursionGuardSpecification {
         //GIVEN
         final RecursionGuard recursionGuard = new RecursionGuard(3);
         final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
-        final FixtureContract anyFixture = any(FixtureContract.class);
+        final FixtureContract anyFixture = any(new InstanceOf<FixtureContract>() {
+        });
 
         context.checking(new Expectations() {{
             allowing(generatorPipeline).executeFor(integerInstanceType, anyFixture); will(returnValue(anyInteger));
@@ -100,7 +102,7 @@ public class RecursionGuardSpecification {
         //GIVEN
         final RecursionGuard recursionGuard = new RecursionGuard(3);
         final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
-        final FixtureContract anyFixture = any(FixtureContract.class);
+        final FixtureContract anyFixture = any(new InstanceOf<FixtureContract>() {});
 
         context.checking(new Expectations() {{
             allowing(generatorPipeline).executeFor(integerInstanceType, anyFixture); will(returnValue(anyInteger));

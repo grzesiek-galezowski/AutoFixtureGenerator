@@ -8,7 +8,7 @@ import java.util.Random;
 public class CircularList<T> {
 
     private T[] enumConstants;
-    private Random random = new Random();
+    private static Random random = new Random();
     private int currentIndex = 0;
 
     public static <TListElement> CircularList<TListElement> createFromEnum(InstanceType<TListElement> type) {
@@ -35,7 +35,7 @@ public class CircularList<T> {
     public static CircularList<Character> fromCharactersIn(String string) {
         ArrayList<Character> chars = new ArrayList<>();
         string.chars().forEachOrdered(i -> chars.add((char)i));
-        return new CircularList<>(chars.toArray(new Character[]{}));
+        return new CircularList<>(chars.toArray(new Character[chars.size()]));
     }
 
 
