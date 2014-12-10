@@ -7,36 +7,36 @@ import java.util.Random;
 
 public class CircularList<T> {
 
-    private T[] enumConstants;
-    private static Random random = new Random();
-    private int currentIndex = 0;
+  private static Random random = new Random();
+  private T[] enumConstants;
+  private int currentIndex = 0;
 
-    public static <TListElement> CircularList<TListElement> createFromEnum(InstanceType<TListElement> type) {
-        TListElement[] enumConstants = type.getEnumConstants();
+  public CircularList(T[] values) {
+    this.enumConstants = values;
+    currentIndex = random.nextInt(values.length);
+  }
 
-        return new CircularList<>(enumConstants);
+  public static <TListElement> CircularList<TListElement> createFromEnum(InstanceType<TListElement> type) {
+    TListElement[] enumConstants = type.getEnumConstants();
+
+    return new CircularList<>(enumConstants);
+  }
+
+  public static CircularList<Character> fromCharactersIn(String string) {
+    ArrayList<Character> chars = new ArrayList<>();
+    string.chars().forEachOrdered(i -> chars.add((char) i));
+    return new CircularList<>(chars.toArray(new Character[chars.size()]));
+  }
+
+  public T next() {
+    if (currentIndex >= enumConstants.length) {
+      currentIndex = 0;
     }
 
-    public CircularList(T[] values) {
-        this.enumConstants = values;
-        currentIndex = random.nextInt(values.length);
-    }
-
-    public T next() {
-        if (currentIndex >= enumConstants.length) {
-            currentIndex = 0;
-        }
-
-        T nextElement = enumConstants[currentIndex];
-        currentIndex++;
-        return nextElement;
-    }
-
-    public static CircularList<Character> fromCharactersIn(String string) {
-        ArrayList<Character> chars = new ArrayList<>();
-        string.chars().forEachOrdered(i -> chars.add((char)i));
-        return new CircularList<>(chars.toArray(new Character[chars.size()]));
-    }
+    T nextElement = enumConstants[currentIndex];
+    currentIndex++;
+    return nextElement;
+  }
 
 
 }

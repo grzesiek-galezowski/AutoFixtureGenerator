@@ -17,32 +17,29 @@ import static org.junit.Assert.assertThat;
 @RunWith(Theories.class)
 public class CustomLibraryObjectGenerationSpecification {
 
-	Fixture fixture = new Fixture();
-	
-	@Theory
-	public void shouldGenerateDifferentValuesEachTime(Class<?> clazz) {
-		System.out.println(clazz);
-		
-		Object value1 = fixture.create(TypeToken.of(clazz));
-		Object value2 = fixture.create(TypeToken.of(clazz));
-		
-		assertThat(value1, is(notNullValue()));
-		assertThat(value2, is(notNullValue()));
-        assertThat(value1, is(not(equalTo(value2))));
-	}
-	
+  @DataPoint
+  public static Class<URI> uriClass = URI.class;
+  @DataPoint
+  public static Class<URL> urlClass = URL.class;
+  @DataPoint
+  public static Class<InetAddress> ipClass = InetAddress.class;
+  Fixture fixture = new Fixture();
 
-	@DataPoint
-	public static Class<URI> uriClass = URI.class;
-	@DataPoint
-	public static Class<URL> urlClass = URL.class;
-	@DataPoint
-	public static Class<InetAddress> ipClass = InetAddress.class;
-	
-	@SafeVarargs
-	static <E> E[] array(E... array)
-	{
-	    return array;
-	}
-	
+  @SafeVarargs
+  static <E> E[] array(E... array) {
+    return array;
+  }
+
+  @Theory
+  public void shouldGenerateDifferentValuesEachTime(Class<?> clazz) {
+    System.out.println(clazz);
+
+    Object value1 = fixture.create(TypeToken.of(clazz));
+    Object value2 = fixture.create(TypeToken.of(clazz));
+
+    assertThat(value1, is(notNullValue()));
+    assertThat(value2, is(notNullValue()));
+    assertThat(value1, is(not(equalTo(value2))));
+  }
+
 }

@@ -1,5 +1,5 @@
 package autofixture.specification.acceptance.testfixtures;
 
 public class RecursiveStructure {
-    public RecursiveStructure inner;
+  public RecursiveStructure inner;
 }

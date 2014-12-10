@@ -11,31 +11,32 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 public class EnumTypesGenerationSpecification {
-	private Fixture fixture = new Fixture();
-	public enum Eon { HADEAN, ARCHAEAN, PROTEROZOIC, PHANEROZOIC }
-	
-	@Test
-	public void shouldGenerateDistinctEnumValues() {
-		HashSet<Eon> generatedEons = new HashSet<>();
+  private Fixture fixture = new Fixture();
 
-        for(Eon ignored : Eon.values()) {
-          generatedEons.add(fixture.create(TypeToken.of(Eon.class)));
-        }
+  @Test
+  public void shouldGenerateDistinctEnumValues() {
+    HashSet<Eon> generatedEons = new HashSet<>();
 
-        assertThat(generatedEons.size(), equalTo(Eon.values().length));
-	}
-
-    @Test
-    public void shouldGenerateSameElementAsFirstWhenItRunsOutOfElements() {
-        ArrayList<Eon> generatedEons = new ArrayList<>();
-
-        for(Eon eon : Eon.values()) {
-            generatedEons.add(fixture.create(TypeToken.of(Eon.class)));
-        }
-
-        Eon overflowEon = fixture.create(Eon.class);
-
-        assertThat(overflowEon, equalTo(generatedEons.get(0)));
+    for (Eon ignored : Eon.values()) {
+      generatedEons.add(fixture.create(TypeToken.of(Eon.class)));
     }
+
+    assertThat(generatedEons.size(), equalTo(Eon.values().length));
+  }
+
+  @Test
+  public void shouldGenerateSameElementAsFirstWhenItRunsOutOfElements() {
+    ArrayList<Eon> generatedEons = new ArrayList<>();
+
+    for (Eon eon : Eon.values()) {
+      generatedEons.add(fixture.create(TypeToken.of(Eon.class)));
+    }
+
+    Eon overflowEon = fixture.create(Eon.class);
+
+    assertThat(overflowEon, equalTo(generatedEons.get(0)));
+  }
+
+  public enum Eon {HADEAN, ARCHAEAN, PROTEROZOIC, PHANEROZOIC}
 
 }

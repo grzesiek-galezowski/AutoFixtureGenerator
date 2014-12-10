@@ -11,58 +11,60 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ConfigurableRepeatCountSpecification {
-    private Fixture fixture = new Fixture();
+  private Fixture fixture = new Fixture();
 
-    @Test
-    public void shouldHaveDefaultRepeatCountSetTo3() {
-        assertThat(new Fixture().getRepeatCount(), equalTo(3));
-    }
+  @Test
+  public void shouldHaveDefaultRepeatCountSetTo3() {
+    assertThat(new Fixture().getRepeatCount(), equalTo(3));
+  }
 
-    @Test
-    public void shouldAllowRetrievingSetRepeatCount() {
-        //GIVEN
-        int anyRepeatCount = any(Integer.class);
-        fixture.setRepeatCount(anyRepeatCount);
+  @Test
+  public void shouldAllowRetrievingSetRepeatCount() {
+    //GIVEN
+    int anyRepeatCount = any(Integer.class);
+    fixture.setRepeatCount(anyRepeatCount);
 
-        //WHEN
-        int retrievedRepeatCount = fixture.getRepeatCount();
+    //WHEN
+    int retrievedRepeatCount = fixture.getRepeatCount();
 
-        //THEN
-        assertThat(retrievedRepeatCount, equalTo(anyRepeatCount));
-    }
+    //THEN
+    assertThat(retrievedRepeatCount, equalTo(anyRepeatCount));
+  }
 
-    @Test
-    public void shouldGenerateCollectionsOfSizeSameAsRepeatCountFromInstanceType() {
-        //GIVEN
-        int anyRepeatCount = any(Integer.class);
-        fixture.setRepeatCount(anyRepeatCount);
+  @Test
+  public void shouldGenerateCollectionsOfSizeSameAsRepeatCountFromInstanceType() {
+    //GIVEN
+    int anyRepeatCount = any(Integer.class);
+    fixture.setRepeatCount(anyRepeatCount);
 
-        //WHEN
-        Integer[] integers = fixture.createMany(integerType()).toArray(new Integer[]{});
+    //WHEN
+    Integer[] integers = fixture.createMany(integerType()).toArray(new Integer[]{});
 
-        //THEN
-        assertThat(integers, hasItemsCount(anyRepeatCount));
-    }
+    //THEN
+    assertThat(integers, hasItemsCount(anyRepeatCount));
+  }
 
-    @Test
-    public void shouldGenerateCollectionsOfSizeSameAsRepeatCountFromInstanceOf() {
-        //GIVEN
-        int anyRepeatCount = any(Integer.class);
-        fixture.setRepeatCount(anyRepeatCount);
+  @Test
+  public void shouldGenerateCollectionsOfSizeSameAsRepeatCountFromInstanceOf() {
+    //GIVEN
+    int anyRepeatCount = any(Integer.class);
+    fixture.setRepeatCount(anyRepeatCount);
 
-        //WHEN
-        Integer[] integers = fixture.createMany(new InstanceOf<Integer>() {}).toArray(new Integer[]{});
+    //WHEN
+    Integer[] integers = fixture.createMany(new InstanceOf<Integer>() {
+    }).toArray(new Integer[]{});
 
-        //THEN
-        assertThat(integers, hasItemsCount(anyRepeatCount));
-    }
+    //THEN
+    assertThat(integers, hasItemsCount(anyRepeatCount));
+  }
 
-    private ConcreteInstanceType<Integer> integerType() {
-        return new ConcreteInstanceType<>(new InstanceOf<Integer>() {});
-    }
+  private ConcreteInstanceType<Integer> integerType() {
+    return new ConcreteInstanceType<>(new InstanceOf<Integer>() {
+    });
+  }
 
-    private HasArrayLengthMatcher<Integer> hasItemsCount(int count) {
-        return new HasArrayLengthMatcher<>(count);
-    }
+  private HasArrayLengthMatcher<Integer> hasItemsCount(int count) {
+    return new HasArrayLengthMatcher<>(count);
+  }
 
 }

@@ -5,21 +5,21 @@ import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.InstanceType;
 
 public class BooleanGenerator implements InstanceGenerator {
-	private Boolean currentValue = false;
-	
-	@Override
-	public <T> boolean appliesTo(InstanceType<T> typeToken) {
-		return typeToken.isCompatibleWith(Boolean.class);
-	}
+  private Boolean currentValue = false;
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {
-		currentValue = !currentValue;
-		return (T) currentValue;
-	}
+  @Override
+  public <T> boolean appliesTo(InstanceType<T> typeToken) {
+    return typeToken.isCompatibleWith(Boolean.class);
+  }
 
-	@Override
-	public void setOmittingAutoProperties(boolean isOn) {
-	}
+  @SuppressWarnings("unchecked")
+  @Override
+  public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {
+    currentValue = !currentValue;
+    return (T) currentValue;
+  }
+
+  @Override
+  public void setOmittingAutoProperties(boolean isOn) {
+  }
 }

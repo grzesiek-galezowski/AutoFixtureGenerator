@@ -8,22 +8,22 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class CalendarGenerator implements InstanceGenerator {
-	int secondsToAdd = 0;
-	
-	@Override
-	public <T> boolean appliesTo(InstanceType<T> typeToken) {
-		return typeToken.isRawTypeAssignableFrom(Calendar.class);
-	}
+  int secondsToAdd = 0;
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {
-		Calendar calendar = new GregorianCalendar();
-		calendar.add(Calendar.SECOND, secondsToAdd++);
-		return (T)calendar;
-	}
+  @Override
+  public <T> boolean appliesTo(InstanceType<T> typeToken) {
+    return typeToken.isRawTypeAssignableFrom(Calendar.class);
+  }
 
-	@Override
-	public void setOmittingAutoProperties(boolean isOn) {
-	}
+  @SuppressWarnings("unchecked")
+  @Override
+  public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {
+    Calendar calendar = new GregorianCalendar();
+    calendar.add(Calendar.SECOND, secondsToAdd++);
+    return (T) calendar;
+  }
+
+  @Override
+  public void setOmittingAutoProperties(boolean isOn) {
+  }
 }

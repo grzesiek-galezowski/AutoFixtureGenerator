@@ -12,27 +12,27 @@ import java.awt.color.ColorSpace;
  */
 public class ColorSpaceGenerator implements InstanceGenerator {
 
-    CircularList<Integer> codes = new CircularList<>(new Integer[] {
-            ColorSpace.CS_CIEXYZ,
-            ColorSpace.CS_GRAY,
-            ColorSpace.CS_LINEAR_RGB,
-            ColorSpace.CS_PYCC,
-            ColorSpace.CS_sRGB
-    });
+  CircularList<Integer> codes = new CircularList<>(new Integer[]{
+    ColorSpace.CS_CIEXYZ,
+    ColorSpace.CS_GRAY,
+    ColorSpace.CS_LINEAR_RGB,
+    ColorSpace.CS_PYCC,
+    ColorSpace.CS_sRGB
+  });
 
-    @Override
-    public <T> boolean appliesTo(InstanceType<T> instanceType) {
-        return instanceType.isRawTypeAssignableFrom(ColorSpace.class);
-    }
+  @Override
+  public <T> boolean appliesTo(InstanceType<T> instanceType) {
+    return instanceType.isRawTypeAssignableFrom(ColorSpace.class);
+  }
 
-    @Override
-    public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
-        int anyInt = fixture.create(int.class);
-        return (T)ColorSpace.getInstance(codes.next());
-    }
+  @Override
+  public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
+    int anyInt = fixture.create(int.class);
+    return (T) ColorSpace.getInstance(codes.next());
+  }
 
-    @Override
-    public void setOmittingAutoProperties(boolean isOn) {
+  @Override
+  public void setOmittingAutoProperties(boolean isOn) {
 
-    }
+  }
 }

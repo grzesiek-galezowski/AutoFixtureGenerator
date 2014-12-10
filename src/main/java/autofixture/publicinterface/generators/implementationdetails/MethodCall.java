@@ -14,75 +14,75 @@ import java.util.ArrayList;
 
 public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TReturnType> {
 
-	private final Invokable<TOwnerType, TReturnType> invokable;
+  private final Invokable<TOwnerType, TReturnType> invokable;
 
-	public MethodCall(Invokable<TOwnerType, TReturnType> invokable) {
-		this.invokable = invokable;
-	}
+  public MethodCall(Invokable<TOwnerType, TReturnType> invokable) {
+    this.invokable = invokable;
+  }
 
-	public static <TElement1, TElement2>   
-	Call<TElement1, TElement2> to(Invokable<TElement1, TElement2> invokable) {
-			return new MethodCall<>(invokable);
-	}
+  public static <TElement1, TElement2>
+  Call<TElement1, TElement2> to(Invokable<TElement1, TElement2> invokable) {
+    return new MethodCall<>(invokable);
+  }
 
-	@Override
-	public ImmutableList<Parameter> getParameters() {
-		return invokable.getParameters();
-	}
+  @Override
+  public ImmutableList<Parameter> getParameters() {
+    return invokable.getParameters();
+  }
 
-	private TReturnType invoke(TOwnerType ownerType, ArrayList<Object> arguments) {
-		try {
-			return invokable.invoke(ownerType, arguments.toArray());
-		} catch (InvocationTargetException | IllegalAccessException e) {
-			throw new ObjectCreationException(
-					new ConcreteInstanceType<>(invokable.getOwnerType()), e);
-		} catch (IllegalArgumentException e) {
-			throw new ObjectCreationException(
-					new ConcreteInstanceType<>(invokable.getOwnerType()),
-							"Inner classes are not supported for now. \nCaused by " + e.toString());
-		}
-	}
-	
-	public TReturnType invokeWithArgumentsCreatedUsing(
-			FixtureContract fixture, 
-			TOwnerType returnType) {
-		ArrayList<Object> arguments = prepareArgumentsOf(this, fixture);
-		TReturnType instance = invoke(returnType, arguments);
-		return instance;
-	}
+  private TReturnType invoke(TOwnerType ownerType, ArrayList<Object> arguments) {
+    try {
+      return invokable.invoke(ownerType, arguments.toArray());
+    } catch (InvocationTargetException | IllegalAccessException e) {
+      throw new ObjectCreationException(
+        new ConcreteInstanceType<>(invokable.getOwnerType()), e);
+    } catch (IllegalArgumentException e) {
+      throw new ObjectCreationException(
+        new ConcreteInstanceType<>(invokable.getOwnerType()),
+        "Inner classes are not supported for now. \nCaused by " + e.toString());
+    }
+  }
 
-	private ArrayList<Object> prepareArgumentsOf(
-			Call<TOwnerType, TReturnType> invokable, FixtureContract fixture) {
-		ArrayList<Object> arguments = new ArrayList<>();
-		
-		for(Parameter parameter : invokable.getParameters()) {
-			  addInstanceOf(parameter, arguments, fixture);
-		}
-		
-		return arguments;
-	}
+  public TReturnType invokeWithArgumentsCreatedUsing(
+    FixtureContract fixture,
+    TOwnerType returnType) {
+    ArrayList<Object> arguments = prepareArgumentsOf(this, fixture);
+    TReturnType instance = invoke(returnType, arguments);
+    return instance;
+  }
 
-	private void addInstanceOf(Parameter parameter,
-                               ArrayList<Object> arguments, FixtureContract fixture) {
-		if(isParameterized(parameter)) {
-			  arguments.add(fixture.create(realTypeOf(parameter)));
-		  } else {
-			  arguments.add(fixture.create(parameter.getType()));
-		  }
-	}
-	
-	private TypeToken<?> realTypeOf(Parameter parameter) {
-		return TypeToken.of(parameter.getType().getType());
-	}
+  private ArrayList<Object> prepareArgumentsOf(
+    Call<TOwnerType, TReturnType> invokable, FixtureContract fixture) {
+    ArrayList<Object> arguments = new ArrayList<>();
 
-	private boolean isParameterized(Parameter parameter) {
-		return parameter.getType().getType() instanceof ParameterizedType;
-	}
+    for (Parameter parameter : invokable.getParameters()) {
+      addInstanceOf(parameter, arguments, fixture);
+    }
 
-	@Override
-	public TReturnType invokeWithArgumentsCreatedUsing(FixtureContract fixture) {
-		return invokeWithArgumentsCreatedUsing(fixture, null);
-	}
+    return arguments;
+  }
 
-	
+  private void addInstanceOf(Parameter parameter,
+                             ArrayList<Object> arguments, FixtureContract fixture) {
+    if (isParameterized(parameter)) {
+      arguments.add(fixture.create(realTypeOf(parameter)));
+    } else {
+      arguments.add(fixture.create(parameter.getType()));
+    }
+  }
+
+  private TypeToken<?> realTypeOf(Parameter parameter) {
+    return TypeToken.of(parameter.getType().getType());
+  }
+
+  private boolean isParameterized(Parameter parameter) {
+    return parameter.getType().getType() instanceof ParameterizedType;
+  }
+
+  @Override
+  public TReturnType invokeWithArgumentsCreatedUsing(FixtureContract fixture) {
+    return invokeWithArgumentsCreatedUsing(fixture, null);
+  }
+
+
 }

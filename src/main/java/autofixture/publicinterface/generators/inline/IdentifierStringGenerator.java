@@ -4,33 +4,33 @@ import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InlineInstanceGenerator;
 
 public class IdentifierStringGenerator implements
-		InlineInstanceGenerator<String> {
+  InlineInstanceGenerator<String> {
 
-	private final InlineInstanceGenerator<Character> alphaCharGenerator;
-	private final InlineInstanceGenerator<Character> digitCharGenerator;
-	private final int length;
+  private final InlineInstanceGenerator<Character> alphaCharGenerator;
+  private final InlineInstanceGenerator<Character> digitCharGenerator;
+  private final int length;
 
-	public IdentifierStringGenerator(
-			InlineInstanceGenerator<Character> alphaCharGenerator,
-			InlineInstanceGenerator<Character> digitCharGenerator, int length) {
-				this.alphaCharGenerator = alphaCharGenerator;
-				this.digitCharGenerator = digitCharGenerator;
-				this.length = length;
-	}
+  public IdentifierStringGenerator(
+    InlineInstanceGenerator<Character> alphaCharGenerator,
+    InlineInstanceGenerator<Character> digitCharGenerator, int length) {
+    this.alphaCharGenerator = alphaCharGenerator;
+    this.digitCharGenerator = digitCharGenerator;
+    this.length = length;
+  }
 
-	@Override
-	public String next(FixtureContract fixture) {
-		StringBuilder result = new StringBuilder();
-		for(int i = 0 ; i < length/2 ; ++i) {
-			result.append(alphaCharGenerator.next(fixture));
-			result.append(digitCharGenerator.next(fixture));
-		}
-		
-		if(result.length() < length) {
-			result.append(alphaCharGenerator.next(fixture));
-		}
-		
-		return result.toString();
-	}
+  @Override
+  public String next(FixtureContract fixture) {
+    StringBuilder result = new StringBuilder();
+    for (int i = 0; i < length / 2; ++i) {
+      result.append(alphaCharGenerator.next(fixture));
+      result.append(digitCharGenerator.next(fixture));
+    }
+
+    if (result.length() < length) {
+      result.append(alphaCharGenerator.next(fixture));
+    }
+
+    return result.toString();
+  }
 
 }

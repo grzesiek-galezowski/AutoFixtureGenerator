@@ -4,8 +4,8 @@ import autofixture.publicinterface.InstanceType;
 
 public interface EnumCache {
 
-	<T> void registerIfNotPresent(InstanceType<T> instanceType);
+  <T> void registerIfNotPresent(InstanceType<T> instanceType);
 
-	<T> T retrieveNextValueOf(InstanceType<T> instanceType);
+  <T> T retrieveNextValueOf(InstanceType<T> instanceType);
 
 }

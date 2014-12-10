@@ -11,29 +11,29 @@ import java.net.UnknownHostException;
 import java.util.Random;
 
 public class InetAddressGenerator implements InstanceGenerator {
-	Random random = new Random();
-	
-	@Override
-	public <T> boolean appliesTo(InstanceType<T> instanceType) {
-		return instanceType.isRawTypeAssignableFrom(InetAddress.class);
-	}
+  Random random = new Random();
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
-		byte[] bytes = new byte[4];
-		random.nextBytes(bytes);
-		InetAddress address;
-		try {
-			address = Inet4Address.getByAddress(bytes);
-		} catch (UnknownHostException e) {
-			throw new ObjectCreationException(instanceType, e);
-		}
-		return (T) address;
-	}
+  @Override
+  public <T> boolean appliesTo(InstanceType<T> instanceType) {
+    return instanceType.isRawTypeAssignableFrom(InetAddress.class);
+  }
 
-	@Override
-	public void setOmittingAutoProperties(boolean isOn) {
-	}
+  @SuppressWarnings("unchecked")
+  @Override
+  public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
+    byte[] bytes = new byte[4];
+    random.nextBytes(bytes);
+    InetAddress address;
+    try {
+      address = Inet4Address.getByAddress(bytes);
+    } catch (UnknownHostException e) {
+      throw new ObjectCreationException(instanceType, e);
+    }
+    return (T) address;
+  }
+
+  @Override
+  public void setOmittingAutoProperties(boolean isOn) {
+  }
 
 }

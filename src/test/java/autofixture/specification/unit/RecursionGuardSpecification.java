@@ -17,116 +17,121 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class RecursionGuardSpecification {
-    Mockery context = new Mockery();
-    final InstanceType<Integer> integerInstanceType = IntegerType();
-    final InstanceType<String> stringInstanceType = StringType();
-    final Integer anyInteger = any(Integer.class);
-    final String anyString = anyString();
+  final InstanceType<Integer> integerInstanceType = IntegerType();
+  final InstanceType<String> stringInstanceType = StringType();
+  final Integer anyInteger = any(Integer.class);
+  final String anyString = anyString();
+  Mockery context = new Mockery();
 
-    @Test
-    public void shouldReturnValueFromFixtureWhenRecursionForTypeIsNotReached() {
-        //GIVEN
-        final RecursionGuard recursionGuard = new RecursionGuard(3);
-        final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
-        final FixtureContract anyFixture = any(FixtureContract.class);
+  private static InstanceType<Integer> IntegerType() {
+    return new ConcreteInstanceType<>(TypeToken.of(Integer.class));
+  }
 
-        context.checking(new Expectations() {{
-                allowing(generatorPipeline).executeFor(integerInstanceType, anyFixture); will(returnValue(anyInteger));
-        }});
+  @Test
+  public void shouldReturnValueFromFixtureWhenRecursionForTypeIsNotReached() {
+    //GIVEN
+    final RecursionGuard recursionGuard = new RecursionGuard(3);
+    final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
+    final FixtureContract anyFixture = any(FixtureContract.class);
 
-        recursionGuard.addDepthLevelTo(integerInstanceType);
-        recursionGuard.addDepthLevelTo(integerInstanceType);
-        recursionGuard.addDepthLevelTo(integerInstanceType);
+    context.checking(new Expectations() {{
+      allowing(generatorPipeline).executeFor(integerInstanceType, anyFixture);
+      will(returnValue(anyInteger));
+    }});
 
-        //WHEN
-        Integer value = recursionGuard.defaultValueIfMaxDepthReachedOrGenerateUsing(
-                generatorPipeline, integerInstanceType, anyFixture);
+    recursionGuard.addDepthLevelTo(integerInstanceType);
+    recursionGuard.addDepthLevelTo(integerInstanceType);
+    recursionGuard.addDepthLevelTo(integerInstanceType);
 
-        //THEN
-        assertThat(value, equalTo(anyInteger));
-    }
+    //WHEN
+    Integer value = recursionGuard.defaultValueIfMaxDepthReachedOrGenerateUsing(
+      generatorPipeline, integerInstanceType, anyFixture);
 
-    @Test
-    public void shouldReturnValueFromFixtureWhenRecursionForTypeIsNotReachedBecauseOfRemovingDepthLevel() {
-        //GIVEN
-        final RecursionGuard recursionGuard = new RecursionGuard(3);
-        final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
-        final FixtureContract anyFixture = any(FixtureContract.class);
+    //THEN
+    assertThat(value, equalTo(anyInteger));
+  }
 
-        context.checking(new Expectations() {{
-            allowing(generatorPipeline).executeFor(integerInstanceType, anyFixture); will(returnValue(anyInteger));
-        }});
+  @Test
+  public void shouldReturnValueFromFixtureWhenRecursionForTypeIsNotReachedBecauseOfRemovingDepthLevel() {
+    //GIVEN
+    final RecursionGuard recursionGuard = new RecursionGuard(3);
+    final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
+    final FixtureContract anyFixture = any(FixtureContract.class);
 
-        recursionGuard.addDepthLevelTo(integerInstanceType);
-        recursionGuard.addDepthLevelTo(integerInstanceType);
-        recursionGuard.addDepthLevelTo(integerInstanceType);
-        recursionGuard.addDepthLevelTo(integerInstanceType);
-        recursionGuard.removeDepthLevelFor(integerInstanceType);
+    context.checking(new Expectations() {{
+      allowing(generatorPipeline).executeFor(integerInstanceType, anyFixture);
+      will(returnValue(anyInteger));
+    }});
 
-        //WHEN
-        Integer value = recursionGuard.defaultValueIfMaxDepthReachedOrGenerateUsing(
-                generatorPipeline, integerInstanceType, anyFixture);
+    recursionGuard.addDepthLevelTo(integerInstanceType);
+    recursionGuard.addDepthLevelTo(integerInstanceType);
+    recursionGuard.addDepthLevelTo(integerInstanceType);
+    recursionGuard.addDepthLevelTo(integerInstanceType);
+    recursionGuard.removeDepthLevelFor(integerInstanceType);
 
-        //THEN
-        assertThat(value, equalTo(anyInteger));
-    }
+    //WHEN
+    Integer value = recursionGuard.defaultValueIfMaxDepthReachedOrGenerateUsing(
+      generatorPipeline, integerInstanceType, anyFixture);
 
+    //THEN
+    assertThat(value, equalTo(anyInteger));
+  }
 
-    @Test
-    public void shouldReturnNullWhenRecursionForTypeIsReached() {
-        //GIVEN
-        final RecursionGuard recursionGuard = new RecursionGuard(3);
-        final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
-        final FixtureContract anyFixture = any(new InstanceOf<FixtureContract>() {
-        });
+  @Test
+  public void shouldReturnNullWhenRecursionForTypeIsReached() {
+    //GIVEN
+    final RecursionGuard recursionGuard = new RecursionGuard(3);
+    final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
+    final FixtureContract anyFixture = any(new InstanceOf<FixtureContract>() {
+    });
 
-        context.checking(new Expectations() {{
-            allowing(generatorPipeline).executeFor(integerInstanceType, anyFixture); will(returnValue(anyInteger));
-        }});
+    context.checking(new Expectations() {{
+      allowing(generatorPipeline).executeFor(integerInstanceType, anyFixture);
+      will(returnValue(anyInteger));
+    }});
 
-        recursionGuard.addDepthLevelTo(integerInstanceType);
-        recursionGuard.addDepthLevelTo(integerInstanceType);
-        recursionGuard.addDepthLevelTo(integerInstanceType);
-        recursionGuard.addDepthLevelTo(integerInstanceType);
+    recursionGuard.addDepthLevelTo(integerInstanceType);
+    recursionGuard.addDepthLevelTo(integerInstanceType);
+    recursionGuard.addDepthLevelTo(integerInstanceType);
+    recursionGuard.addDepthLevelTo(integerInstanceType);
 
-        //WHEN
-        Integer value = recursionGuard.defaultValueIfMaxDepthReachedOrGenerateUsing(
-                generatorPipeline, integerInstanceType, anyFixture);
+    //WHEN
+    Integer value = recursionGuard.defaultValueIfMaxDepthReachedOrGenerateUsing(
+      generatorPipeline, integerInstanceType, anyFixture);
 
-        //THEN
-        assertThat(value, equalTo(null));
-    }
+    //THEN
+    assertThat(value, equalTo(null));
+  }
 
-    @Test
-    public void shouldReturnProperValueForTypeOtherThanOneThatReachedRecursionLimit() {
-        //GIVEN
-        final RecursionGuard recursionGuard = new RecursionGuard(3);
-        final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
-        final FixtureContract anyFixture = any(new InstanceOf<FixtureContract>() {});
+  @Test
+  public void shouldReturnProperValueForTypeOtherThanOneThatReachedRecursionLimit() {
+    //GIVEN
+    final RecursionGuard recursionGuard = new RecursionGuard(3);
+    final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
+    final FixtureContract anyFixture = any(new InstanceOf<FixtureContract>() {
+    });
 
-        context.checking(new Expectations() {{
-            allowing(generatorPipeline).executeFor(integerInstanceType, anyFixture); will(returnValue(anyInteger));
-            allowing(generatorPipeline).executeFor(stringInstanceType, anyFixture); will(returnValue(anyString));
-        }});
+    context.checking(new Expectations() {{
+      allowing(generatorPipeline).executeFor(integerInstanceType, anyFixture);
+      will(returnValue(anyInteger));
+      allowing(generatorPipeline).executeFor(stringInstanceType, anyFixture);
+      will(returnValue(anyString));
+    }});
 
-        recursionGuard.addDepthLevelTo(integerInstanceType);
-        recursionGuard.addDepthLevelTo(integerInstanceType);
-        recursionGuard.addDepthLevelTo(integerInstanceType);
-        recursionGuard.addDepthLevelTo(integerInstanceType);
+    recursionGuard.addDepthLevelTo(integerInstanceType);
+    recursionGuard.addDepthLevelTo(integerInstanceType);
+    recursionGuard.addDepthLevelTo(integerInstanceType);
+    recursionGuard.addDepthLevelTo(integerInstanceType);
 
-        //WHEN
-        String value = recursionGuard.defaultValueIfMaxDepthReachedOrGenerateUsing(
-                generatorPipeline, stringInstanceType, anyFixture);
+    //WHEN
+    String value = recursionGuard.defaultValueIfMaxDepthReachedOrGenerateUsing(
+      generatorPipeline, stringInstanceType, anyFixture);
 
-        //THEN
-        assertThat(value, equalTo(anyString));
-    }
+    //THEN
+    assertThat(value, equalTo(anyString));
+  }
 
-    private InstanceType<String> StringType() {
-        return new ConcreteInstanceType<>(TypeToken.of(String.class));
-    }
-
-    private static InstanceType<Integer> IntegerType() {
-        return new ConcreteInstanceType<>(TypeToken.of(Integer.class));
-    }
+  private InstanceType<String> StringType() {
+    return new ConcreteInstanceType<>(TypeToken.of(String.class));
+  }
 }

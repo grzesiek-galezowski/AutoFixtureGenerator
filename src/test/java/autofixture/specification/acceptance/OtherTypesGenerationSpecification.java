@@ -15,23 +15,23 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Theories.class)
 public class OtherTypesGenerationSpecification {
-    private final Fixture fixture = new Fixture();
+  @DataPoint
+  public static InstanceOf<Color> color = new InstanceOf<Color>() {
+  };
+  @DataPoint
+  public static InstanceOf<ColorSpace> optionalIntClass = new InstanceOf<ColorSpace>() {
+  };
+  private final Fixture fixture = new Fixture();
 
-    @Theory
-    public void shouldGenerateDifferentValuesEachTime(InstanceOf<?> instanceOfType) {
-        Object o1 = fixture.create(instanceOfType);
-        Object o2 = fixture.create(instanceOfType);
+  @Theory
+  public void shouldGenerateDifferentValuesEachTime(InstanceOf<?> instanceOfType) {
+    Object o1 = fixture.create(instanceOfType);
+    Object o2 = fixture.create(instanceOfType);
 
-        assertThat(o1, not(nullValue()));
-        assertThat(o2, not(nullValue()));
-        assertThat(o1, not(o2));
-        assertThat(o1, not(equalTo(o2)));
-    }
-
-
-    @DataPoint
-    public static InstanceOf<Color> color= new InstanceOf<Color>() {};
-    @DataPoint
-    public static InstanceOf<ColorSpace> optionalIntClass = new InstanceOf<ColorSpace>() {};
+    assertThat(o1, not(nullValue()));
+    assertThat(o2, not(nullValue()));
+    assertThat(o1, not(o2));
+    assertThat(o1, not(equalTo(o2)));
+  }
 
 }

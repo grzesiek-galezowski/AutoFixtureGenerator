@@ -12,29 +12,51 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public interface InstanceType<T> {
-	InstanceType<?> getArrayElementType();
-	<TAssignable> boolean isAssignableFrom(
-			Class<TAssignable> clazz);
-	Class<? super T> getRawType();
-	TypeToken<? super T> getToken();
-	Type getType();
-    Type getWrapper();
-	boolean isArray();
-	Invokable<T, T> constructor(Constructor<?> constructor);
-	Object createArray(Object[] objects);
-	boolean isAssignableTo(Class<?> clazz);
-	boolean isRawTypeAssignableFrom(Class<?> clazz);
-	@SuppressWarnings("rawtypes")
-	Collection createCollection(int repeatCount);
-	InstanceType<?> getNestedGenericType();
-	Call<T, T> findPublicConstructorWithLeastParameters();
-	boolean isEnum();
-	T[] getEnumConstants();
-	boolean isInterface();
-	ArrayList<Call<T, Object>> getAllSetters();
-	ArrayList<InstanceField<T>> getAllPublicFieldsOf(T instance);
-	TypeToken<?> ResolveActualTypeOf(Field field);
-    <TOther> boolean isSameAsThatOf(TOther injectedValue);
-    boolean isCompatibleWith(Class<?> clazz);
-    boolean isCompatibleWithAnyOf(Class<?>... clazzes);
+  InstanceType<?> getArrayElementType();
+
+  <TAssignable> boolean isAssignableFrom(
+    Class<TAssignable> clazz);
+
+  Class<? super T> getRawType();
+
+  TypeToken<? super T> getToken();
+
+  Type getType();
+
+  Type getWrapper();
+
+  boolean isArray();
+
+  Invokable<T, T> constructor(Constructor<?> constructor);
+
+  Object createArray(Object[] objects);
+
+  boolean isAssignableTo(Class<?> clazz);
+
+  boolean isRawTypeAssignableFrom(Class<?> clazz);
+
+  @SuppressWarnings("rawtypes")
+  Collection createCollection(int repeatCount);
+
+  InstanceType<?> getNestedGenericType();
+
+  Call<T, T> findPublicConstructorWithLeastParameters();
+
+  boolean isEnum();
+
+  T[] getEnumConstants();
+
+  boolean isInterface();
+
+  ArrayList<Call<T, Object>> getAllSetters();
+
+  ArrayList<InstanceField<T>> getAllPublicFieldsOf(T instance);
+
+  TypeToken<?> ResolveActualTypeOf(Field field);
+
+  <TOther> boolean isSameAsThatOf(TOther injectedValue);
+
+  boolean isCompatibleWith(Class<?> clazz);
+
+  boolean isCompatibleWithAnyOf(Class<?>... clazzes);
 }
