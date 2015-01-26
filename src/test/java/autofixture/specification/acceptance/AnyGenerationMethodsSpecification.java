@@ -4,10 +4,12 @@ import autofixture.publicinterface.InstanceOf;
 import autofixture.specification.acceptance.testfixtures.GenericObject;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static autofixture.publicinterface.Generate.any;
-import static autofixture.publicinterface.Generate.anyString;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
+import static autofixture.publicinterface.Generate.*;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 public class AnyGenerationMethodsSpecification {
@@ -27,6 +29,47 @@ public class AnyGenerationMethodsSpecification {
     GenericObject<Integer> o2 = any(new InstanceOf<GenericObject<Integer>>() {
     });
     assertThat(o1, is(not(o2)));
+  }
+
+  @Test
+  public void shouldGenerateItemsOtherThanGivenInstances() {
+
+    Integer notA5 = any(new InstanceOf<Integer>() { }, otherThan(5, 10, 15));
+
+    assertThat(notA5, is(not(equalTo(5))));
+    assertThat(notA5, is(not(equalTo(10))));
+    assertThat(notA5, is(not(equalTo(15))));
+  }
+
+  @Test
+  public void shouldGenerateItemsOtherThanGivenValues() {
+
+    Integer notA5 = any(Integer.class, otherThan(5, 10, 15));
+
+    assertThat(notA5, is(not(equalTo(5))));
+    assertThat(notA5, is(not(equalTo(10))));
+    assertThat(notA5, is(not(equalTo(15))));
+  }
+
+
+  @Test
+  public void shouldGenerateArraysExcludingGivenInstances() {
+    List<Integer> list = Arrays.asList(manyAsArrayOf(new InstanceOf<Integer>() { }, without(3, 5, 6, 7)));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(1)));
+    assertThat(list, not(hasItem(2)));
+    assertThat(list, not(hasItem(3)));
+  }
+
+  @Test
+  public void shouldGenerateArraysExcludingGivenValues() {
+    List<Integer> list = Arrays.asList(manyAsArrayOf(Integer.class, without(3, 5, 6, 7)));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(1)));
+    assertThat(list, not(hasItem(2)));
+    assertThat(list, not(hasItem(3)));
   }
 
 

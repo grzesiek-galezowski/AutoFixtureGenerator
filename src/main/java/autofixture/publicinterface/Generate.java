@@ -26,10 +26,14 @@ public class Generate {
     return fixture.create(clazz);
   }
 
-  @SafeVarargs
-  public static <T> T anyOtherThan(T... omittedValues) {
-    return fixture.createWith(new OtherThanGenerator<>(omittedValues));
+  public static <T> T any(TypeToken<T> instanceType, Generate.OtherThanValues<T> omittedValues) {
+    return fixture.createWith(new OtherThanGenerator<T>(instanceType, omittedValues.array));
   }
+
+  public static <T> T any(Class<T> instanceType, Generate.OtherThanValues<T> omittedValues) {
+    return fixture.createWith(new OtherThanGenerator<T>(TypeToken.of(instanceType), omittedValues.array));
+  }
+
 
   public static String anyString() {
     return fixture.create(String.class);
@@ -96,27 +100,30 @@ public class Generate {
   }
 
   public static Long anyLongOtherThan(long other) {
-    return anyOtherThan(other);
+    return any(new InstanceOf<Long>() {
+    }, otherThan(other));
   }
 
   public static String anyStringOtherThan(String other) {
-    return anyOtherThan(other);
+    return any(new InstanceOf<String>() {
+    }, otherThan(other));
   }
 
   public static Integer anyIntegerOtherThan(int other) {
-    return anyOtherThan(other);
+    return any(new InstanceOf<Integer>() {
+    }, otherThan(other));
   }
 
   public static Short anyShort(short other) {
-    return anyOtherThan(other);
+    return any(new InstanceOf<Short>(), otherThan(other));
   }
 
   public static Double anyDouble(double other) {
-    return anyOtherThan(other);
+    return any(new InstanceOf<Double>(), otherThan(other));
   }
 
   public static Float anyFloat(float other) {
-    return anyOtherThan(other);
+    return any(new InstanceOf<Float>(), otherThan(other));
   }
 
   public static <T> T anyOf(Class<T> enumClass) {
@@ -167,60 +174,111 @@ public class Generate {
     return fixture.create(InetAddress.class);
   }
 
-  public static <T> T[] anyArrayOf(Class<T> clazz) {
+  public static <T> T[] manyAsArrayOf(Class<T> clazz) {
     return fixture.create(new InstanceOf<T[]>());
   }
 
-  public static <T> List<T> anyListOf(Class<T> clazz) {
+  public static <T> List<T> manyAsListOf(Class<T> clazz) {
     return fixture.create(new InstanceOf<List<T>>());
   }
 
-  public static <T> Iterable<T> anyIterableOf(Class<T> clazz) {
+  //bug this will not work??
+  public static <T> Iterable<T> manyAsIterableOf(Class<T> clazz) {
     return fixture.create(new InstanceOf<Iterable<T>>());
   }
 
-  public static <T> Collection<T> anyCollectionOf(Class<T> clazz) {
+  public static <T> Iterable<T> manyAsIterableOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues)
+  {
+
+    return manyAsListOf(typeToken, omittedValues);
+  }
+
+  public static <T> Iterable<T> manyAsIterableOf(Class<T> type, Generate.OtherThanValues<T> omittedValues)
+  {
+    return manyAsIterableOf(TypeToken.of(type), omittedValues);
+  }
+
+
+  public static <T> T[] manyAsArrayOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues)
+  {
+    Iterable<T> iterable = manyAsIterableOf(typeToken, omittedValues);
+    List<T> list = new ArrayList<>();
+    for (T element : iterable) {
+      list.add(element);
+    }
+
+    return (T[]) list.toArray();
+  }
+
+  public static <T> T[] manyAsArrayOf(Class<T> type, Generate.OtherThanValues<T> omittedValues)
+  {
+    return manyAsArrayOf(TypeToken.of(type), omittedValues);
+  }
+
+  public static <T> Collection<T> manyAsListOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues) {
+    List<T> result = new ArrayList<>();
+    result.add(any(typeToken, omittedValues));
+    result.add(any(typeToken, omittedValues));
+    result.add(any(typeToken, omittedValues));
+
+    return result;
+  }
+
+  public static <T> Collection<T> manyAsListOf(Class<T> type, Generate.OtherThanValues<T> omittedValues) {
+    return manyAsListOf(TypeToken.of(type), omittedValues);
+  }
+
+  public static <T> Collection<T> manyAsCollectionOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues) {
+    return manyAsListOf(typeToken, omittedValues);
+  }
+
+
+  public static <T> Collection<T> manyAsCollectionOf(Class<T> clazz) {
     return fixture.create(new InstanceOf<Collection<T>>());
   }
 
-  public static <T> Set<T> anySetOf(Class<T> clazz) {
+  public static <T> Set<T> manyAsSetOf(Class<T> clazz) {
     return fixture.create(new InstanceOf<Set<T>>());
   }
 
-  public static <T> Queue<T> anyQueueOf(Class<T> clazz) {
+  public static <T> Queue<T> manyAsQueueOf(Class<T> clazz) {
     return fixture.create(new InstanceOf<Queue<T>>());
   }
 
-  public static <T> Deque<T> anyDequeOf(Class<T> clazz) {
+  public static <T> Deque<T> manyAsDequeOf(Class<T> clazz) {
     return fixture.create(new InstanceOf<Deque<T>>());
   }
 
-  public static <T> SortedSet<T> anySortedSetOf(Class<T> clazz) {
+  public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> clazz) {
     return fixture.create(new InstanceOf<SortedSet<T>>());
   }
 
-  public static <T, V> SortedMap<T, V> anySortedMapOf(Class<T> key, Class<V> value) {
+  public static <T, V> SortedMap<T, V> manyAsSortedMapOf(Class<T> key, Class<V> value) {
     return fixture.create(new InstanceOf<SortedMap<T, V>>());
   }
 
-  public static <T, V> Map<T, V> anyMapOf(Class<T> key, Class<V> value) {
+  public static <T, V> Map<T, V> manyAsMapOf(Class<T> key, Class<V> value) {
     return fixture.create(new InstanceOf<Map<T, V>>());
   }
 
-	/*
+  public static <T> Generate.OtherThanValues<T> otherThan(T... values) {
+    return new OtherThanValues(values);
+  }
 
-    public static IEnumerable<T> EnumerableWithout<T>(params T[] excluded)
-    {
-      var result = new List<T>
-      {
-        OtherThan(excluded), 
-        OtherThan(excluded), 
-        OtherThan(excluded)
-      };
-      return result;
+  public static <T> Generate.OtherThanValues<T> without(T... values) {
+    return new OtherThanValues(values);
+  }
+
+  public static class OtherThanValues<T> {
+    public T[] array;
+
+    public OtherThanValues(T... values) {
+      this.array = values;
     }
+  }
 
 
+	/*
 
     public static T[] ArrayWithout<T>(params T[] excluded)
     {

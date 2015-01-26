@@ -2,23 +2,25 @@ package autofixture.publicinterface.generators.inline;
 
 import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InlineInstanceGenerator;
-import autofixture.publicinterface.InstanceOf;
+import com.google.common.reflect.TypeToken;
 
 import java.util.Arrays;
 
 public class OtherThanGenerator<T> implements InlineInstanceGenerator<T> {
 
   private final T[] omittedValues;
+  private final TypeToken<T> typeToken;
 
-  public OtherThanGenerator(T[] omittedValues) {
+  public OtherThanGenerator(TypeToken<T> typeToken, T[] omittedValues) {
     this.omittedValues = omittedValues;
+    this.typeToken = typeToken;
   }
 
   @Override
   public T next(FixtureContract fixture) {
     T currentValue;
     do {
-      currentValue = fixture.create(new InstanceOf<T>());
+      currentValue = fixture.create(typeToken);
     } while (Arrays.asList(omittedValues).contains(currentValue));
     return currentValue;
   }
