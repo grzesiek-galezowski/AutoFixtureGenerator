@@ -2,6 +2,7 @@ package autofixture.specification.acceptance;
 
 import autofixture.publicinterface.InstanceOf;
 import autofixture.specification.acceptance.testfixtures.GenericObject;
+import com.google.common.collect.Lists;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -57,9 +58,10 @@ public class AnyGenerationMethodsSpecification {
     List<Integer> list = Arrays.asList(manyAsArrayOf(new InstanceOf<Integer>() { }, without(3, 5, 6, 7)));
 
     assertThat(list.size(), is(3));
-    assertThat(list, not(hasItem(1)));
-    assertThat(list, not(hasItem(2)));
     assertThat(list, not(hasItem(3)));
+    assertThat(list, not(hasItem(5)));
+    assertThat(list, not(hasItem(6)));
+    assertThat(list, not(hasItem(7)));
   }
 
   @Test
@@ -67,9 +69,18 @@ public class AnyGenerationMethodsSpecification {
     List<Integer> list = Arrays.asList(manyAsArrayOf(Integer.class, without(3, 5, 6, 7)));
 
     assertThat(list.size(), is(3));
-    assertThat(list, not(hasItem(1)));
-    assertThat(list, not(hasItem(2)));
     assertThat(list, not(hasItem(3)));
+    assertThat(list, not(hasItem(5)));
+    assertThat(list, not(hasItem(6)));
+    assertThat(list, not(hasItem(7)));
+  }
+
+  @Test
+  public void shouldGenerateIterables() {
+    List<Integer> list = Lists.newArrayList(manyAsIterableOf(Integer.class));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
   }
 
 

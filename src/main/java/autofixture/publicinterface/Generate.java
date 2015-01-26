@@ -182,9 +182,8 @@ public class Generate {
     return fixture.create(new InstanceOf<List<T>>());
   }
 
-  //bug this will not work??
   public static <T> Iterable<T> manyAsIterableOf(Class<T> clazz) {
-    return fixture.create(new InstanceOf<Iterable<T>>());
+    return fixture.create(new InstanceOf<Iterable<T>>() {});
   }
 
   public static <T> Iterable<T> manyAsIterableOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues)
