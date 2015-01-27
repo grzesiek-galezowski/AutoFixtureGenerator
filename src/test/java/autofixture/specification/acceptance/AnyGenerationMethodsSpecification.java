@@ -76,8 +76,16 @@ public class AnyGenerationMethodsSpecification {
   }
 
   @Test
-  public void shouldGenerateIterables() {
+  public void shouldGenerateIterablesUsingClassSignature() {
     List<Integer> list = Lists.newArrayList(manyAsIterableOf(Integer.class));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+  }
+
+  @Test
+  public void shouldGenerateIterablesUsingInstanceSignature() {
+    List<Integer> list = Lists.newArrayList(manyAsIterableOf(new InstanceOf<Integer>(){}));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -197,6 +205,28 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
   }
+
+  @Test
+  public void shouldGenerateNumbers() {
+    Integer anInt = anyInteger();
+    Double aDouble = anyDouble();
+    Float aFloat = anyFloat();
+    Character aChar = anyChar();
+    Character alphaChar = anyAlphaChar();
+    Character aDigitChar = anyDigitChar();
+    Long aLong = anyLong();
+    Short aShort = anyShort();
+
+    assertThat(anInt, is(not(nullValue())));
+    assertThat(aDouble, is(not(nullValue())));
+    assertThat(aFloat, is(not(nullValue())));
+    assertThat(aChar, is(not(nullValue())));
+    assertThat(alphaChar, is(not(nullValue())));
+    assertThat(aDigitChar, is(not(nullValue())));
+    assertThat(aLong, is(not(nullValue())));
+    assertThat(aShort, is(not(nullValue())));
+  }
+
 
 
 }

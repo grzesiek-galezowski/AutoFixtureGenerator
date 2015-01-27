@@ -4,12 +4,12 @@ import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.InstanceType;
 
-public class DoubleSequenceGenerator implements InstanceGenerator {
-  private Double startingNumber = 0.3;
+public class FloatSequenceGenerator implements InstanceGenerator {
+  private Float startingNumber = new Float(0.6);
 
   @Override
   public <T> boolean appliesTo(InstanceType<T> typeToken) {
-    return typeToken.isCompatibleWithAnyOf(Double.class);
+    return typeToken.isCompatibleWithAnyOf(Float.class);
   }
 
   @SuppressWarnings("unchecked")

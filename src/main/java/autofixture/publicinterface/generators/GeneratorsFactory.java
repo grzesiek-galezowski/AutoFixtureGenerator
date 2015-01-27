@@ -19,6 +19,7 @@ public class GeneratorsFactory {
             errors(),
             strings(),
             doubles(),
+            floats(),
             bigIntegers(),
             bigDecimals(),
             dates(),
@@ -115,6 +116,10 @@ public class GeneratorsFactory {
 
   private DoubleSequenceGenerator doubles() {
     return new DoubleSequenceGenerator();
+  }
+
+  private FloatSequenceGenerator floats() {
+    return new FloatSequenceGenerator();
   }
 
   private StringGenerator strings() {

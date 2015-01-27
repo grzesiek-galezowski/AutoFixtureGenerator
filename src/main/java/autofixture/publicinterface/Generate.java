@@ -96,6 +96,10 @@ public class Generate {
     return fixture.create(float.class);
   }
 
+  public static Character anyChar() {
+    return fixture.create(char.class);
+  }
+
   public static Long anyLong() {
     return fixture.create(long.class);
   }
@@ -115,16 +119,16 @@ public class Generate {
     }, otherThan(other));
   }
 
-  public static Short anyShort(short other) {
-    return any(new InstanceOf<Short>(), otherThan(other));
+  public static Short anyShortOtherThan(short other) {
+    return any(new InstanceOf<Short>(){}, otherThan(other));
   }
 
-  public static Double anyDouble(double other) {
-    return any(new InstanceOf<Double>(), otherThan(other));
+  public static Double anyDoubleOtherThan(double other) {
+    return any(new InstanceOf<Double>(){}, otherThan(other));
   }
 
-  public static Float anyFloat(float other) {
-    return any(new InstanceOf<Float>(), otherThan(other));
+  public static Float anyFloatOtherThan(float other) {
+    return any(new InstanceOf<Float>(){}, otherThan(other));
   }
 
   public static <T> T anyOf(Class<T> enumClass) {
@@ -135,6 +139,7 @@ public class Generate {
     return fixture.create(Date.class);
   }
 
+  //bug this will not work
   public static <T> T anyExploding(Class<T> clazz) {
     return anyExploding(new InstanceOf<T>());
   }
@@ -177,7 +182,9 @@ public class Generate {
 
   // ITERABLES
 
-  //TODO one more overload
+  public static <T> Iterable<T> manyAsIterableOf(InstanceOf<T> type) {
+    return fixture.createMany(type);
+  }
 
   public static <T> Iterable<T> manyAsIterableOf(Class<T> clazz) {
     return fixture.create(new InstanceOf<Iterable<T>>() {});
