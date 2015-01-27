@@ -1,6 +1,7 @@
 package autofixture.publicinterface;
 
 import autofixture.publicinterface.generators.inline.*;
+import com.google.common.collect.Lists;
 import com.google.common.reflect.TypeToken;
 
 import java.net.InetAddress;
@@ -174,13 +175,9 @@ public class Generate {
     return fixture.create(InetAddress.class);
   }
 
-  public static <T> T[] manyAsArrayOf(Class<T> clazz) {
-    return fixture.create(new InstanceOf<T[]>());
-  }
+  // ITERABLES
 
-  public static <T> List<T> manyAsListOf(Class<T> clazz) {
-    return fixture.create(new InstanceOf<List<T>>());
-  }
+  //TODO one more overload
 
   public static <T> Iterable<T> manyAsIterableOf(Class<T> clazz) {
     return fixture.create(new InstanceOf<Iterable<T>>() {});
@@ -188,7 +185,6 @@ public class Generate {
 
   public static <T> Iterable<T> manyAsIterableOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues)
   {
-
     return manyAsListOf(typeToken, omittedValues);
   }
 
@@ -197,6 +193,15 @@ public class Generate {
     return manyAsIterableOf(TypeToken.of(type), omittedValues);
   }
 
+  //ARRAYS - complete
+
+  public static <T> T[] manyAsArrayOf(Class<T> clazz) {
+    return (T[])fixture.createMany(TypeToken.of(clazz)).toArray();
+  }
+
+  public static <T> T[] manyAsArrayOf(InstanceOf<T> type) {
+    return (T[])fixture.createMany(type).toArray();
+  }
 
   public static <T> T[] manyAsArrayOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues)
   {
@@ -214,7 +219,17 @@ public class Generate {
     return manyAsArrayOf(TypeToken.of(type), omittedValues);
   }
 
-  public static <T> Collection<T> manyAsListOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues) {
+  //LISTS
+
+  public static <T> List<T> manyAsListOf(Class<T> clazz) {
+    return Lists.newArrayList(fixture.createMany(TypeToken.of(clazz)));
+  }
+
+  public static <T> List<T> manyAsListOf(InstanceOf<T> type) {
+    return Lists.newArrayList(fixture.createMany(type));
+  }
+
+  public static <T> List<T> manyAsListOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues) {
     List<T> result = new ArrayList<>();
     result.add(any(typeToken, omittedValues));
     result.add(any(typeToken, omittedValues));
@@ -223,17 +238,26 @@ public class Generate {
     return result;
   }
 
-  public static <T> Collection<T> manyAsListOf(Class<T> type, Generate.OtherThanValues<T> omittedValues) {
+  public static <T> List<T> manyAsListOf(Class<T> type, Generate.OtherThanValues<T> omittedValues) {
     return manyAsListOf(TypeToken.of(type), omittedValues);
   }
+
+  // COLLECTIONS:
 
   public static <T> Collection<T> manyAsCollectionOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues) {
     return manyAsListOf(typeToken, omittedValues);
   }
 
+  public static <T> Collection<T> manyAsCollectionOf(Class<T> type, Generate.OtherThanValues<T> omittedValues) {
+    return manyAsListOf(TypeToken.of(type), omittedValues);
+  }
 
   public static <T> Collection<T> manyAsCollectionOf(Class<T> clazz) {
-    return fixture.create(new InstanceOf<Collection<T>>());
+    return fixture.create(new InstanceOf<Collection<T>>() {});
+  }
+
+  public static <T> Collection<T> manyAsCollectionOf(InstanceOf<T> instanceType) {
+    return fixture.createMany(instanceType);
   }
 
   public static <T> Set<T> manyAsSetOf(Class<T> clazz) {
@@ -276,14 +300,6 @@ public class Generate {
     }
   }
 
-
-	/*
-
-    public static T[] ArrayWithout<T>(params T[] excluded)
-    {
-      return EnumerableWithout(excluded).ToArray();
-    }
-*/
 
 	/*
    * TODO

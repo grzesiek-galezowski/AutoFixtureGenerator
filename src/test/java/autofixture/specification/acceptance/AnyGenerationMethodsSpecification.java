@@ -83,5 +83,120 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(nullValue())));
   }
 
+  @Test
+  public void shouldGenerateCollectionsUsingInstanceSignature() {
+    List<Integer> list = Lists.newArrayList(manyAsCollectionOf(new InstanceOf<Integer>() {}));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+  }
+
+  @Test
+  public void shouldGenerateCollectionsUsingClassSignature() {
+    List<Integer> list = Lists.newArrayList(manyAsCollectionOf(Integer.class));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+  }
+
+  @Test
+  public void shouldGenerateCollectionsWithoutSpecifiedValuesUsingInstanceSignature() {
+    List<Integer> list = Lists.newArrayList(manyAsCollectionOf(new InstanceOf<Integer>() {
+    }, otherThan(1, 2, 3)));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+    assertThat(list, not(hasItem(3)));
+    assertThat(list, not(hasItem(5)));
+    assertThat(list, not(hasItem(6)));
+    assertThat(list, not(hasItem(7)));
+
+  }
+
+  @Test
+  public void shouldGenerateCollectionsWithoutSpecifiedValuesUsingClassSignature() {
+    List<Integer> list = Lists.newArrayList(manyAsCollectionOf(Integer.class, otherThan(3,5,6,7)));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+    assertThat(list, not(hasItem(3)));
+    assertThat(list, not(hasItem(5)));
+    assertThat(list, not(hasItem(6)));
+    assertThat(list, not(hasItem(7)));
+
+  }
+
+
+  @Test
+  public void shouldGenerateIterablesWithoutSpecifiedValues() {
+    List<Integer> list = Lists.newArrayList(manyAsIterableOf(Integer.class, otherThan(1,2,3)));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+    assertThat(list, not(hasItem(3)));
+    assertThat(list, not(hasItem(5)));
+    assertThat(list, not(hasItem(6)));
+    assertThat(list, not(hasItem(7)));
+
+  }
+
+
+  @Test
+  public void shouldGenerateListsUsingClassSignature() {
+    List<Integer> list = manyAsListOf(Integer.class);
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+  }
+
+  @Test
+  public void shouldGenerateListsUsingInstanceSignature() {
+    List<Integer> list = manyAsListOf(new InstanceOf<Integer>() {});
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+  }
+
+  @Test
+  public void shouldGenerateListsWithoutSpecifiedItemsUsingInstanceSignature() {
+    List<Integer> list = manyAsListOf(new InstanceOf<Integer>() {}, without(3,5,6,7));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+    assertThat(list, not(hasItem(3)));
+    assertThat(list, not(hasItem(5)));
+    assertThat(list, not(hasItem(6)));
+    assertThat(list, not(hasItem(7)));
+  }
+
+  @Test
+  public void shouldGenerateListsWithoutSpecifiedItemsUsingClassSignature() {
+    List<Integer> list = manyAsListOf(Integer.class, without(3,5,6,7));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+    assertThat(list, not(hasItem(3)));
+    assertThat(list, not(hasItem(5)));
+    assertThat(list, not(hasItem(6)));
+    assertThat(list, not(hasItem(7)));
+  }
+
+
+  @Test
+  public void shouldGenerateArraysUsingClassSignature() {
+    List<Integer> list = Lists.newArrayList(manyAsArrayOf(Integer.class));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+  }
+
+  @Test
+  public void shouldGenerateArraysUsingInstanceSignature() {
+    List<Integer> list = Lists.newArrayList(manyAsArrayOf(new InstanceOf<Integer>() {}));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+  }
+
 
 }

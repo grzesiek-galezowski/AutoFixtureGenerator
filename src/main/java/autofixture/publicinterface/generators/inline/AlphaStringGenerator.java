@@ -20,6 +20,7 @@ public class AlphaStringGenerator implements InlineInstanceGenerator<String> {
     for (int i = 0; i < length; ++i) {
       result.append(alphaCharGenerator.next(fixture));
     }
+
     return result.toString();
   }
 
