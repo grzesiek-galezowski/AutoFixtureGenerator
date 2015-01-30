@@ -18,7 +18,7 @@ public class InterfaceHandler implements InvocationHandler {
   }
 
   @Override
-  public Object invoke(Object proxy, Method method, Object[] arguments) throws Throwable {
+  public Object invoke(Object proxy, Method method, Object[] arguments) throws Exception {
 
     if (isHashCodeMethod(method)) {
       return System.identityHashCode(proxy);

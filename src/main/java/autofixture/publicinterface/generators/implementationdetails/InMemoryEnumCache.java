@@ -4,10 +4,11 @@ import autofixture.publicinterface.InstanceType;
 import autofixture.publicinterface.generators.EnumCache;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class InMemoryEnumCache implements EnumCache {
 
-  private final HashMap<InstanceType<?>, CircularList<?>> sequences = new HashMap<>();
+  private final Map<InstanceType<?>, CircularList<?>> sequences = new HashMap<>();
 
   @Override
   public <T> void registerIfNotPresent(InstanceType<T> instanceType) {

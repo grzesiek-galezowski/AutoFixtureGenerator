@@ -16,5 +16,9 @@ public class ObjectCreationException extends RuntimeException {
     super("Cannot create an instance of " + typeToken + ". \n" + additionalDetails);
   }
 
+  public ObjectCreationException(InstanceType<?> typeToken, String additionalDetails, Throwable e) {
+    super("Cannot create an instance of " + typeToken + ". \n" + additionalDetails, e);
+  }
+
 
 }

@@ -9,7 +9,7 @@ public class ExplodingInstanceHandler implements InvocationHandler {
 
   @Override
   public Object invoke(Object proxy, Method method, Object[] args)
-    throws Throwable {
+    throws RuntimeException {
     throw new BoomException(
       "Everything, like, exploooded, man... you shouldn't touch an exploding instance of " + proxy);
   }

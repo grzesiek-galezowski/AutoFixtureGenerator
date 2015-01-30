@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class CalendarGenerator implements InstanceGenerator {
-  int secondsToAdd = 0;
+  private int secondsToAdd = 0;
 
   @Override
   public <T> boolean appliesTo(InstanceType<T> typeToken) {

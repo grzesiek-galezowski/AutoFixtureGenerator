@@ -6,7 +6,7 @@ import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.InstanceType;
 import autofixture.publicinterface.ObjectCreationException;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ConcreteObjectGenerator implements InstanceGenerator {
 
@@ -34,7 +34,7 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
 
   private <T> void makeBestEffortAttemptToSetAllPublicFields(T instance,
                                                              InstanceType<T> type, FixtureContract fixture) throws IllegalAccessException {
-    ArrayList<InstanceField<T>> publicFields = type.getAllPublicFieldsOf(instance);
+    List<InstanceField<T>> publicFields = type.getAllPublicFieldsOf(instance);
     for (InstanceField<T> publicField : publicFields) {
       publicField.setValueUsing(fixture);
     }
@@ -48,7 +48,7 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
 
   private <T> void makeBestEffortAttemptToInvokeAllSettersOn(T instance,
                                                              InstanceType<T> type, FixtureContract fixture) {
-    ArrayList<Call<T, Object>> setters = type.getAllSetters();
+    List<Call<T, Object>> setters = type.getAllSetters();
     for (Call<T, Object> setter : setters) {
       makeBestEffortAttemptToInvoke(setter, instance, fixture);
     }
@@ -58,7 +58,7 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
                                                  T instance, FixtureContract fixture) {
     try {
       setter.invokeWithArgumentsCreatedUsing(fixture, instance);
-    } catch (Throwable t) {
+    } catch (Exception t) {
       //silently invoke any failed attempt
     }
   }

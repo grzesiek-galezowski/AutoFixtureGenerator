@@ -10,70 +10,70 @@ import java.net.URL;
 import java.util.*;
 
 public class Generate {
-  private static final String AllLetters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
-  private static final String AllDigits = "1029384756";
-  private static final Fixture fixture = new Fixture();
-  private static final InlineInstanceGenerator<Integer> portNumberGenerator = new PortNumberGenerator();
-  private static final InlineInstanceGenerator<Character> alphaCharGenerator = new CharacterGenerator(
-    AllLetters);
-  private static final InlineInstanceGenerator<Character> digitCharGenerator = new CharacterGenerator(
-    AllDigits);
+  private static final String ALL_LETTERS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+  private static final String ALL_DIGITS = "1029384756";
+  private static final Fixture FIXTURE = new Fixture();
+  private static final InlineInstanceGenerator<Integer> PORT_NUMBER_GENERATOR = new PortNumberGenerator();
+  private static final InlineInstanceGenerator<Character> ALPHA_CHAR_GENERATOR = new CharacterGenerator(
+    ALL_LETTERS);
+  private static final InlineInstanceGenerator<Character> DIGIT_CHAR_GENERATOR = new CharacterGenerator(
+    ALL_DIGITS);
 
   public static <T> T any(TypeToken<T> instanceType) {
-    return fixture.create(instanceType);
+    return FIXTURE.create(instanceType);
   }
 
   public static <T> T any(Class<T> clazz) {
-    return fixture.create(clazz);
+    return FIXTURE.create(clazz);
   }
 
   public static <T> T any(TypeToken<T> instanceType, Generate.OtherThanValues<T> omittedValues) {
-    return fixture.createWith(new OtherThanGenerator<T>(instanceType, omittedValues.array));
+    return FIXTURE.createWith(new OtherThanGenerator<T>(instanceType, omittedValues.array));
   }
 
   public static <T> T any(Class<T> instanceType, Generate.OtherThanValues<T> omittedValues) {
-    return fixture.createWith(new OtherThanGenerator<T>(TypeToken.of(instanceType), omittedValues.array));
+    return FIXTURE.createWith(new OtherThanGenerator<T>(TypeToken.of(instanceType), omittedValues.array));
   }
 
 
   public static String anyString() {
-    return fixture.create(String.class);
+    return FIXTURE.create(String.class);
   }
 
   public static String anyStringOfLength(int charactersCount) {
-    return fixture.createWith(new StringOfLengthGenerator(charactersCount));
+    return FIXTURE.createWith(new StringOfLengthGenerator(charactersCount));
   }
 
   public static String anyStringNotContaining(String... excludedSubstrings) {
-    return fixture.createWith(new StringNotContainingSubstringsGenerator(
+    return FIXTURE.createWith(new StringNotContainingSubstringsGenerator(
       excludedSubstrings));
   }
 
   public static String anyStringContaining(String str) {
-    return fixture.createWith(new StringContainingSubstringGenerator(str));
+    return FIXTURE.createWith(new StringContainingSubstringGenerator(str));
   }
 
   public static Character anyAlphaChar() {
-    return fixture.createWith(alphaCharGenerator);
+    return FIXTURE.createWith(ALPHA_CHAR_GENERATOR);
   }
 
   public static Character anyDigitChar() {
-    return fixture.createWith(digitCharGenerator);
+    return FIXTURE.createWith(DIGIT_CHAR_GENERATOR);
   }
 
   public static String anyAlphaString() {
-    return fixture.createWith(new AlphaStringGenerator(alphaCharGenerator,
+    return FIXTURE.createWith(new AlphaStringGenerator(ALPHA_CHAR_GENERATOR,
       anyString().length()));
   }
 
   public static String anyAlphaString(int length) {
-    return fixture.createWith(new AlphaStringGenerator(alphaCharGenerator,
+    return FIXTURE.createWith(new AlphaStringGenerator(ALPHA_CHAR_GENERATOR,
       length));
   }
 
   public static String anyIdentifier() {
-    return fixture.createWith(new IdentifierStringGenerator(
-      alphaCharGenerator, digitCharGenerator, anyString().length()));
+    return FIXTURE.createWith(new IdentifierStringGenerator(
+      ALPHA_CHAR_GENERATOR, DIGIT_CHAR_GENERATOR, anyString().length()));
   }
 
   public static String anyLegalXmlTagName() {
@@ -81,27 +81,27 @@ public class Generate {
   }
 
   public static Integer anyInteger() {
-    return fixture.create(int.class);
+    return FIXTURE.create(int.class);
   }
 
   public static Short anyShort() {
-    return fixture.create(short.class);
+    return FIXTURE.create(short.class);
   }
 
   public static Double anyDouble() {
-    return fixture.create(double.class);
+    return FIXTURE.create(double.class);
   }
 
   public static Float anyFloat() {
-    return fixture.create(float.class);
+    return FIXTURE.create(float.class);
   }
 
   public static Character anyChar() {
-    return fixture.create(char.class);
+    return FIXTURE.create(char.class);
   }
 
   public static Long anyLong() {
-    return fixture.create(long.class);
+    return FIXTURE.create(long.class);
   }
 
   public static Long anyLongOtherThan(long other) {
@@ -132,11 +132,11 @@ public class Generate {
   }
 
   public static <T> T anyOf(Class<T> enumClass) {
-    return fixture.create(enumClass);
+    return FIXTURE.create(enumClass);
   }
 
   public static Date anyDate() {
-    return fixture.create(Date.class);
+    return FIXTURE.create(Date.class);
   }
 
   //bug this will not work
@@ -145,49 +145,49 @@ public class Generate {
   }
 
   public static <T> T anyExploding(TypeToken<T> instance) {
-    return fixture.createWith(new ExplodingInstanceGenerator<>(instance));
+    return FIXTURE.createWith(new ExplodingInstanceGenerator<>(instance));
   }
 
   public static Exception anyException() {
-    return fixture.create(Exception.class);
+    return FIXTURE.create(Exception.class);
   }
 
   public static Error anyError() {
-    return fixture.create(Error.class);
+    return FIXTURE.create(Error.class);
   }
 
   public static Boolean anyBoolen() {
-    return fixture.create(Boolean.class);
+    return FIXTURE.create(Boolean.class);
   }
 
   public static Object anyObject() {
-    return fixture.create(Object.class);
+    return FIXTURE.create(Object.class);
   }
 
   public static URI anyUri() {
-    return fixture.create(URI.class);
+    return FIXTURE.create(URI.class);
   }
 
   public static URL anyUrl() {
-    return fixture.create(URL.class);
+    return FIXTURE.create(URL.class);
   }
 
   public static int anyPort() {
-    return fixture.createWith(portNumberGenerator);
+    return FIXTURE.createWith(PORT_NUMBER_GENERATOR);
   }
 
   public static InetAddress anyIp() {
-    return fixture.create(InetAddress.class);
+    return FIXTURE.create(InetAddress.class);
   }
 
   // ITERABLES
 
   public static <T> Iterable<T> manyAsIterableOf(InstanceOf<T> type) {
-    return fixture.createMany(type);
+    return FIXTURE.createMany(type);
   }
 
   public static <T> Iterable<T> manyAsIterableOf(Class<T> clazz) {
-    return fixture.create(new InstanceOf<Iterable<T>>() {});
+    return FIXTURE.create(new InstanceOf<Iterable<T>>() {});
   }
 
   public static <T> Iterable<T> manyAsIterableOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues)
@@ -203,11 +203,11 @@ public class Generate {
   //ARRAYS - complete
 
   public static <T> T[] manyAsArrayOf(Class<T> clazz) {
-    return (T[])fixture.createMany(TypeToken.of(clazz)).toArray();
+    return (T[]) FIXTURE.createMany(TypeToken.of(clazz)).toArray();
   }
 
   public static <T> T[] manyAsArrayOf(InstanceOf<T> type) {
-    return (T[])fixture.createMany(type).toArray();
+    return (T[]) FIXTURE.createMany(type).toArray();
   }
 
   public static <T> T[] manyAsArrayOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues)
@@ -229,11 +229,11 @@ public class Generate {
   //LISTS
 
   public static <T> List<T> manyAsListOf(Class<T> clazz) {
-    return Lists.newArrayList(fixture.createMany(TypeToken.of(clazz)));
+    return Lists.newArrayList(FIXTURE.createMany(TypeToken.of(clazz)));
   }
 
   public static <T> List<T> manyAsListOf(InstanceOf<T> type) {
-    return Lists.newArrayList(fixture.createMany(type));
+    return Lists.newArrayList(FIXTURE.createMany(type));
   }
 
   public static <T> List<T> manyAsListOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues) {
@@ -260,35 +260,35 @@ public class Generate {
   }
 
   public static <T> Collection<T> manyAsCollectionOf(Class<T> clazz) {
-    return fixture.create(new InstanceOf<Collection<T>>() {});
+    return FIXTURE.create(new InstanceOf<Collection<T>>() {});
   }
 
   public static <T> Collection<T> manyAsCollectionOf(InstanceOf<T> instanceType) {
-    return fixture.createMany(instanceType);
+    return FIXTURE.createMany(instanceType);
   }
 
   public static <T> Set<T> manyAsSetOf(Class<T> clazz) {
-    return fixture.create(new InstanceOf<Set<T>>());
+    return FIXTURE.create(new InstanceOf<Set<T>>());
   }
 
   public static <T> Queue<T> manyAsQueueOf(Class<T> clazz) {
-    return fixture.create(new InstanceOf<Queue<T>>());
+    return FIXTURE.create(new InstanceOf<Queue<T>>());
   }
 
   public static <T> Deque<T> manyAsDequeOf(Class<T> clazz) {
-    return fixture.create(new InstanceOf<Deque<T>>());
+    return FIXTURE.create(new InstanceOf<Deque<T>>());
   }
 
   public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> clazz) {
-    return fixture.create(new InstanceOf<SortedSet<T>>());
+    return FIXTURE.create(new InstanceOf<SortedSet<T>>());
   }
 
   public static <T, V> SortedMap<T, V> manyAsSortedMapOf(Class<T> key, Class<V> value) {
-    return fixture.create(new InstanceOf<SortedMap<T, V>>());
+    return FIXTURE.create(new InstanceOf<SortedMap<T, V>>());
   }
 
   public static <T, V> Map<T, V> manyAsMapOf(Class<T> key, Class<V> value) {
-    return fixture.create(new InstanceOf<Map<T, V>>());
+    return FIXTURE.create(new InstanceOf<Map<T, V>>());
   }
 
   public static <T> Generate.OtherThanValues<T> otherThan(T... values) {

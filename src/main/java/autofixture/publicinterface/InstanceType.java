@@ -8,8 +8,8 @@ import com.google.common.reflect.TypeToken;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public interface InstanceType<T> {
   InstanceType<?> getArrayElementType();
@@ -48,11 +48,11 @@ public interface InstanceType<T> {
 
   boolean isInterface();
 
-  ArrayList<Call<T, Object>> getAllSetters();
+  List<Call<T, Object>> getAllSetters();
 
-  ArrayList<InstanceField<T>> getAllPublicFieldsOf(T instance);
+  List<InstanceField<T>> getAllPublicFieldsOf(T instance);
 
-  TypeToken<?> ResolveActualTypeOf(Field field);
+  TypeToken<?> resolveActualTypeOf(Field field);
 
   <TOther> boolean isSameAsThatOf(TOther injectedValue);
 

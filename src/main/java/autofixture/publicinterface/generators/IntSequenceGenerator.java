@@ -6,7 +6,7 @@ import autofixture.publicinterface.InstanceType;
 
 public class IntSequenceGenerator implements InstanceGenerator {
 
-  public Integer startingInteger = 1;
+  private Integer startingInteger = 1;
 
   @Override
   public <T> boolean appliesTo(InstanceType<T> typeToken) {

@@ -11,6 +11,7 @@ import com.google.common.reflect.TypeToken;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TReturnType> {
 
@@ -30,7 +31,7 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
     return invokable.getParameters();
   }
 
-  private TReturnType invoke(TOwnerType ownerType, ArrayList<Object> arguments) {
+  private TReturnType invoke(TOwnerType ownerType, List<Object> arguments) {
     try {
       return invokable.invoke(ownerType, arguments.toArray());
     } catch (InvocationTargetException | IllegalAccessException e) {
@@ -39,19 +40,20 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
     } catch (IllegalArgumentException e) {
       throw new ObjectCreationException(
         new ConcreteInstanceType<>(invokable.getOwnerType()),
-        "Inner classes are not supported for now. \nCaused by " + e.toString());
+        "Inner classes are not supported for now. \nCaused by " + e.toString(), e);
+
     }
   }
 
   public TReturnType invokeWithArgumentsCreatedUsing(
     FixtureContract fixture,
     TOwnerType returnType) {
-    ArrayList<Object> arguments = prepareArgumentsOf(this, fixture);
+    List<Object> arguments = prepareArgumentsOf(this, fixture);
     TReturnType instance = invoke(returnType, arguments);
     return instance;
   }
 
-  private ArrayList<Object> prepareArgumentsOf(
+  private List<Object> prepareArgumentsOf(
     Call<TOwnerType, TReturnType> invokable, FixtureContract fixture) {
     ArrayList<Object> arguments = new ArrayList<>();
 
@@ -63,7 +65,7 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
   }
 
   private void addInstanceOf(Parameter parameter,
-                             ArrayList<Object> arguments, FixtureContract fixture) {
+                             List<Object> arguments, FixtureContract fixture) {
     if (isParameterized(parameter)) {
       arguments.add(fixture.create(realTypeOf(parameter)));
     } else {

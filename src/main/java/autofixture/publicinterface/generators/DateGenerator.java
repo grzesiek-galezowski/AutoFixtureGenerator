@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class DateGenerator implements InstanceGenerator {
 
-  Calendar calendar = Calendar.getInstance();
+  private Calendar calendar = Calendar.getInstance();
 
   @Override
   public <T> boolean appliesTo(InstanceType<T> typeToken) {

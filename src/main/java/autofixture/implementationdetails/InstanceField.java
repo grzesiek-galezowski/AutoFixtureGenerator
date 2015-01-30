@@ -18,12 +18,12 @@ public class InstanceField<T> {
     this.instance = instance;
   }
 
-  public TypeToken<?> ResolveActualType() {
-    return instanceType.ResolveActualTypeOf(field);
+  public TypeToken<?> resolveActualType() {
+    return instanceType.resolveActualTypeOf(field);
   }
 
   public void setValueUsing(FixtureContract fixture) throws IllegalAccessException {
-    field.set(instance, fixture.create(ResolveActualType()));
+    field.set(instance, fixture.create(resolveActualType()));
 
   }
 }

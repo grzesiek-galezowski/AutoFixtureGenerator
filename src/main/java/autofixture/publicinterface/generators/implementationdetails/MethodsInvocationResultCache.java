@@ -2,10 +2,11 @@ package autofixture.publicinterface.generators.implementationdetails;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MethodsInvocationResultCache {
 
-  HashMap<Object, HashMap<Method, Object>> data = new HashMap<>();
+  private Map<Object, Map<Method, Object>> data = new HashMap<>();
 
   public boolean containAResultFor(Object proxy, Method mtd) {
     return data.containsKey(proxy) && data.get(proxy).containsKey(mtd);

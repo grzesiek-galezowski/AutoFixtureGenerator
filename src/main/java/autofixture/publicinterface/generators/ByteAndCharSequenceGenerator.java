@@ -6,7 +6,7 @@ import autofixture.publicinterface.InstanceType;
 
 public class ByteAndCharSequenceGenerator implements InstanceGenerator {
 
-  public Byte startingByte = 1;
+  private Byte startingByte = 1;
 
   @Override
   public <T> boolean appliesTo(InstanceType<T> type) {

@@ -12,7 +12,7 @@ import java.awt.color.ColorSpace;
  */
 public class ColorSpaceGenerator implements InstanceGenerator {
 
-  CircularList<Integer> codes = new CircularList<>(new Integer[]{
+  private CircularList<Integer> codes = new CircularList<>(new Integer[]{
     ColorSpace.CS_CIEXYZ,
     ColorSpace.CS_GRAY,
     ColorSpace.CS_LINEAR_RGB,
@@ -27,7 +27,6 @@ public class ColorSpaceGenerator implements InstanceGenerator {
 
   @Override
   public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
-    int anyInt = fixture.create(int.class);
     return (T) ColorSpace.getInstance(codes.next());
   }
 

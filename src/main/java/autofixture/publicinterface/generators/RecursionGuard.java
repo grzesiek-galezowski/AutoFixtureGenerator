@@ -4,9 +4,10 @@ import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InstanceType;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class RecursionGuard {
-  private HashMap<InstanceType<?>, Integer> recursionCounters = new HashMap<>();
+  private Map<InstanceType<?>, Integer> recursionCounters = new HashMap<>();
   private int maxRecursionDepth;
 
   public RecursionGuard(int maxRecursionDepth) {

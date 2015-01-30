@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
 import java.util.Random;
 
 public class InetAddressGenerator implements InstanceGenerator {
-  Random random = new Random();
+  private Random random = new Random();
 
   @Override
   public <T> boolean appliesTo(InstanceType<T> instanceType) {
