@@ -1,7 +1,10 @@
 package autofixture.specification.acceptance;
 
+import autofixture.publicinterface.BoomException;
 import autofixture.publicinterface.InstanceOf;
+import autofixture.specification.acceptance.testfixtures.GenericInterface;
 import autofixture.specification.acceptance.testfixtures.GenericObject;
+import autofixture.specification.acceptance.testfixtures.NonGenericInterface;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
@@ -12,6 +15,7 @@ import static autofixture.publicinterface.Generate.any;
 import static autofixture.publicinterface.Generate.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 public class AnyGenerationMethodsSpecification {
 
@@ -227,6 +231,31 @@ public class AnyGenerationMethodsSpecification {
     assertThat(aShort, is(not(nullValue())));
   }
 
+  @Test
+  public void shouldGenerateExplodingInstanceOfInterfacesUsingClassSignature() {
+    NonGenericInterface instance = anyExploding(NonGenericInterface.class);
 
+    assertThrows(BoomException.class, ()-> instance.doSomething());
+    assertThrows(BoomException.class, ()-> instance.getSomething());
+  }
+
+  @Test
+  public void shouldGenerateExplodingInstanceOfInterfacesUsingInstanceSignature() {
+    GenericInterface instance = anyExploding(new InstanceOf<GenericInterface>() {});
+
+    assertThrows(BoomException.class, ()-> instance.getInstance());
+  }
+
+
+  public void assertThrows(Class exceptionClass, Runnable func) {
+    try {
+      func.run();
+      fail("Expected " + exceptionClass + " being thrown, but got nothing");
+    } catch (Exception e) {
+      if(e.getClass() != exceptionClass) {
+        fail("Expected " + exceptionClass + " being thrown, but got " + e.getClass());
+      }
+    }
+  }
 
 }

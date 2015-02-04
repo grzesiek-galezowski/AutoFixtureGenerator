@@ -11,7 +11,7 @@ public class ExplodingInstanceHandler implements InvocationHandler {
   public Object invoke(Object proxy, Method method, Object[] args)
     throws RuntimeException {
     throw new BoomException(
-      "Everything, like, exploooded, man... you shouldn't touch an exploding instance of " + proxy);
+      "Everything, like, exploooded, man... you shouldn't touch an exploding instance of " + proxy.getClass());
   }
 
 }

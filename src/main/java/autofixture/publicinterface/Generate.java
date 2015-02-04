@@ -139,9 +139,8 @@ public class Generate {
     return FIXTURE.create(Date.class);
   }
 
-  //bug this will not work
   public static <T> T anyExploding(Class<T> clazz) {
-    return anyExploding(new InstanceOf<T>());
+    return anyExploding(TypeToken.of(clazz));
   }
 
   public static <T> T anyExploding(TypeToken<T> instance) {
@@ -180,7 +179,7 @@ public class Generate {
     return FIXTURE.create(InetAddress.class);
   }
 
-  // ITERABLES
+  // ITERABLES - complete
 
   public static <T> Iterable<T> manyAsIterableOf(InstanceOf<T> type) {
     return FIXTURE.createMany(type);
@@ -201,7 +200,6 @@ public class Generate {
   }
 
   //ARRAYS - complete
-
   public static <T> T[] manyAsArrayOf(Class<T> clazz) {
     return (T[]) FIXTURE.createMany(TypeToken.of(clazz)).toArray();
   }
@@ -226,7 +224,7 @@ public class Generate {
     return manyAsArrayOf(TypeToken.of(type), omittedValues);
   }
 
-  //LISTS
+  //LISTS - complete
 
   public static <T> List<T> manyAsListOf(Class<T> clazz) {
     return Lists.newArrayList(FIXTURE.createMany(TypeToken.of(clazz)));
@@ -249,7 +247,7 @@ public class Generate {
     return manyAsListOf(TypeToken.of(type), omittedValues);
   }
 
-  // COLLECTIONS:
+  // COLLECTIONS - complete
 
   public static <T> Collection<T> manyAsCollectionOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues) {
     return manyAsListOf(typeToken, omittedValues);
@@ -267,26 +265,32 @@ public class Generate {
     return FIXTURE.createMany(instanceType);
   }
 
+  //TODO variations
   public static <T> Set<T> manyAsSetOf(Class<T> clazz) {
     return FIXTURE.create(new InstanceOf<Set<T>>());
   }
 
+  //TODO variations
   public static <T> Queue<T> manyAsQueueOf(Class<T> clazz) {
     return FIXTURE.create(new InstanceOf<Queue<T>>());
   }
 
+  //TODO variations
   public static <T> Deque<T> manyAsDequeOf(Class<T> clazz) {
     return FIXTURE.create(new InstanceOf<Deque<T>>());
   }
 
+  //TODO variations
   public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> clazz) {
     return FIXTURE.create(new InstanceOf<SortedSet<T>>());
   }
 
+  //TODO variations
   public static <T, V> SortedMap<T, V> manyAsSortedMapOf(Class<T> key, Class<V> value) {
     return FIXTURE.create(new InstanceOf<SortedMap<T, V>>());
   }
 
+  //TODO variations
   public static <T, V> Map<T, V> manyAsMapOf(Class<T> key, Class<V> value) {
     return FIXTURE.create(new InstanceOf<Map<T, V>>());
   }
