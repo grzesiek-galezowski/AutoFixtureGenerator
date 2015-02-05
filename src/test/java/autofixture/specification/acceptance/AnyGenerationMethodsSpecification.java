@@ -28,6 +28,14 @@ public class AnyGenerationMethodsSpecification {
   }
 
   @Test
+  public void shouldGenerateEachTimeDifferentAlphaString() {
+    String str1 = anyAlphaString();
+    String str2 = anyAlphaString();
+
+    assertThat(str1, is(not(str2)));
+  }
+
+  @Test
   public void shouldGenerateStringNotContainingGivenSubstring() {
     String str = anyStringNotContaining("1", "2");
 
@@ -45,6 +53,53 @@ public class AnyGenerationMethodsSpecification {
     assertThat(str, is(not(str2)));
   }
 
+  @Test
+  public void shouldGenerateAlphaStringOfGivenLength() {
+    String str = anyAlphaString(40);
+    String str2 = anyAlphaString(40);
+
+    assertThat(str.length(), equalTo(40));
+    assertThat(str2.length(), equalTo(40));
+    assertThat(str, is(not(str2)));
+  }
+
+  @Test
+  public void shouldGenerateLongsOtherThanSpecified() {
+    assertThat(anyLongOtherThan(56), is(not(equalTo(56))));
+  }
+
+  @Test
+  public void shouldGenerateIntegersOtherThanSpecified() {
+    assertThat(anyIntegerOtherThan(56), is(not(equalTo(56))));
+  }
+
+  @Test
+  public void shouldGenerateDoublesOtherThanSpecified() {
+    assertThat(anyDoubleOtherThan(56), is(not(equalTo(56))));
+  }
+
+  @Test
+  public void shouldGenerateFloatsOtherThanSpecified() {
+    assertThat(anyDoubleOtherThan(56), is(not(equalTo(56))));
+  }
+
+  @Test
+  public void shouldGenerateStringsOtherThanSpecified() {
+    assertThat(anyStringOtherThan("56"), is(not(equalTo("56"))));
+  }
+
+  @Test
+  public void shouldGenerateShortsOtherThanSpecified() {
+    assertThat(anyShortOtherThan((short) 56), is(not(equalTo(56))));
+  }
+
+
+
+  /*
+TODO
+  public static <T> T anyOf(Class<T> enumClass) {
+  public static Date anyDate() {
+   */
 
   @Test
   public void shouldGenerateStringContainingGivenSubstring() {
@@ -52,7 +107,6 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(str, containsString("2"));
   }
-
 
   @Test
   public void shouldGenerateEachTimeDifferentInstance() {

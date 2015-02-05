@@ -10,8 +10,8 @@ import java.net.URL;
 import java.util.*;
 
 public class Generate {
-  private static final String ALL_LETTERS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
-  private static final String ALL_DIGITS = "1029384756";
+  public static final String ALL_LETTERS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+  public static final String ALL_DIGITS = "1029384756";
   private static final Fixture FIXTURE = new Fixture();
   private static final InlineInstanceGenerator<Integer> PORT_NUMBER_GENERATOR = new PortNumberGenerator();
   private static final InlineInstanceGenerator<Character> ALPHA_CHAR_GENERATOR = new CharacterGenerator(
