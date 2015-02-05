@@ -20,7 +20,8 @@ public class BuiltInCollectionGenerator implements InstanceGenerator {
   public <T> T next(InstanceType<T> type, FixtureContract fixture) {
     //TODO make same as array generation
     Collection collection = type.createCollection(fixture.getRepeatCount());
-    collection.addAll(fixture.createMany(type.getNestedGenericType()));
+    InstanceType<?> nestedGenericType = type.getNestedGenericType();
+    collection.addAll(fixture.createMany(nestedGenericType));
     return (T) collection;
   }
 

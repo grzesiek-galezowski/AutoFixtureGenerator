@@ -8,11 +8,12 @@ import autofixture.specification.acceptance.testfixtures.NonGenericInterface;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
+import java.time.DayOfWeek;
+import java.util.*;
 
 import static autofixture.publicinterface.Generate.any;
 import static autofixture.publicinterface.Generate.*;
+import static autofixture.publicinterface.Generate.anyOf;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -80,7 +81,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateFloatsOtherThanSpecified() {
-    assertThat(anyDoubleOtherThan(56), is(not(equalTo(56))));
+    assertThat(anyFloatOtherThan(56), is(not(equalTo(56))));
   }
 
   @Test
@@ -93,13 +94,27 @@ public class AnyGenerationMethodsSpecification {
     assertThat(anyShortOtherThan((short) 56), is(not(equalTo(56))));
   }
 
+  @Test
+  public void shouldGenerateDistinctEnumValues() {
+    DayOfWeek dow1 = anyOf(DayOfWeek.class);
+    DayOfWeek dow2 = anyOf(DayOfWeek.class);
 
+    assertThat(dow1, is(not(nullValue())));
+    assertThat(dow2, is(not(nullValue())));
+    assertThat(dow1, is(not(equalTo(dow2))));
+  }
 
-  /*
-TODO
-  public static <T> T anyOf(Class<T> enumClass) {
-  public static Date anyDate() {
-   */
+  @Test
+  public void shouldGenerateDistinctDates() {
+    Date date1 = anyDate();
+    Date date2 = anyDate();
+
+    assertThat(date1, is(not(nullValue())));
+    assertThat(date2, is(not(nullValue())));
+    assertThat(date1, is(not(equalTo(date2))));
+  }
+
+  //TODO add new Java 8 date time classes
 
   @Test
   public void shouldGenerateStringContainingGivenSubstring() {
@@ -147,6 +162,9 @@ TODO
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
   }
 
   @Test
@@ -158,6 +176,9 @@ TODO
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
   }
 
   @Test
@@ -166,6 +187,9 @@ TODO
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
   }
 
   @Test
@@ -174,6 +198,9 @@ TODO
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
   }
 
   @Test
@@ -182,6 +209,9 @@ TODO
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
   }
 
   @Test
@@ -190,6 +220,9 @@ TODO
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
   }
 
   @Test
@@ -202,6 +235,9 @@ TODO
     assertThat(list, not(hasItem(1)));
     assertThat(list, not(hasItem(2)));
     assertThat(list, not(hasItem(3)));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
   }
 
   @Test
@@ -214,8 +250,10 @@ TODO
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
   }
-
 
   @Test
   public void shouldGenerateIterablesWithoutSpecifiedValues() {
@@ -226,6 +264,9 @@ TODO
     assertThat(list, not(hasItem(1)));
     assertThat(list, not(hasItem(2)));
     assertThat(list, not(hasItem(3)));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
   }
 
 
@@ -235,6 +276,9 @@ TODO
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
   }
 
   @Test
@@ -243,6 +287,9 @@ TODO
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
   }
 
   @Test
@@ -255,6 +302,10 @@ TODO
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
+
   }
 
   @Test
@@ -267,6 +318,9 @@ TODO
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
   }
 
 
@@ -276,6 +330,9 @@ TODO
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
   }
 
   @Test
@@ -284,7 +341,64 @@ TODO
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
   }
+
+  @Test
+  public void shouldGenerateSetsUsingClassSignature() {
+    Set<Integer> list = manyAsSetOf(Integer.class);
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+    assertThat(list.toArray()[0], instanceOf(Integer.class));
+    assertThat(list.toArray()[1], instanceOf(Integer.class));
+    assertThat(list.toArray()[2], instanceOf(Integer.class));
+  }
+
+  @Test
+  public void shouldGenerateQueuesUsingClassSignature() {
+    Queue<Integer> queue = manyAsQueueOf(Integer.class);
+
+    assertThat(queue.size(), is(3));
+    assertThat(queue, not(hasItem(nullValue())));
+    assertThat(queue.toArray()[0], instanceOf(Integer.class));
+    assertThat(queue.toArray()[1], instanceOf(Integer.class));
+    assertThat(queue.toArray()[2], instanceOf(Integer.class));
+  }
+
+
+/*
+  //TODO variations
+  public static <T> Set<T> manyAsSetOf(Class<T> clazz) {
+    return FIXTURE.create(new InstanceOf<Set<T>>());
+  }
+
+  //TODO variations
+  public static <T> Queue<T> manyAsQueueOf(Class<T> clazz) {
+    return FIXTURE.create(new InstanceOf<Queue<T>>());
+  }
+
+  //TODO variations
+  public static <T> Deque<T> manyAsDequeOf(Class<T> clazz) {
+    return FIXTURE.create(new InstanceOf<Deque<T>>());
+  }
+
+  //TODO variations
+  public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> clazz) {
+    return FIXTURE.create(new InstanceOf<SortedSet<T>>());
+  }
+
+  //TODO variations
+  public static <T, V> SortedMap<T, V> manyAsSortedMapOf(Class<T> key, Class<V> value) {
+    return FIXTURE.create(new InstanceOf<SortedMap<T, V>>());
+  }
+
+  //TODO variations
+  public static <T, V> Map<T, V> manyAsMapOf(Class<T> key, Class<V> value) {
+
+   */
 
   @Test
   public void shouldGenerateNumbers() {

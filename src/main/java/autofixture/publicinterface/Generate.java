@@ -266,12 +266,12 @@ public class Generate {
 
   //TODO variations
   public static <T> Set<T> manyAsSetOf(Class<T> clazz) {
-    return FIXTURE.create(new InstanceOf<Set<T>>());
+    return FIXTURE.create(new InstanceOf<Set<T>>() {});
   }
 
   //TODO variations
   public static <T> Queue<T> manyAsQueueOf(Class<T> clazz) {
-    return FIXTURE.create(new InstanceOf<Queue<T>>());
+    return FIXTURE.create(new InstanceOf<Queue<T>>() {});
   }
 
   //TODO variations
