@@ -35,7 +35,6 @@ public class Generate {
     return FIXTURE.createWith(new OtherThanGenerator<T>(TypeToken.of(instanceType), omittedValues.array));
   }
 
-
   public static String anyString() {
     return FIXTURE.create(String.class);
   }

@@ -17,8 +17,6 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
-//import static org.hamcrest.CoreMatchers.*;
-
 public class AnyGenerationMethodsSpecification {
 
   @Test
@@ -28,6 +26,33 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(str1, is(not(str2)));
   }
+
+  @Test
+  public void shouldGenerateStringNotContainingGivenSubstring() {
+    String str = anyStringNotContaining("1", "2");
+
+    assertThat(str, not(containsString("1")));
+    assertThat(str, not(containsString("2")));
+  }
+
+  @Test
+  public void shouldGenerateStringOfGivenLength() {
+    String str = anyStringOfLength(40);
+    String str2 = anyStringOfLength(40);
+
+    assertThat(str.length(), equalTo(40));
+    assertThat(str2.length(), equalTo(40));
+    assertThat(str, is(not(str2)));
+  }
+
+
+  @Test
+  public void shouldGenerateStringContainingGivenSubstring() {
+    String str = anyStringContaining("1");
+
+    assertThat(str, containsString("2"));
+  }
+
 
   @Test
   public void shouldGenerateEachTimeDifferentInstance() {
@@ -124,7 +149,6 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
-
   }
 
   @Test
@@ -137,7 +161,6 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
-
   }
 
 
@@ -147,11 +170,9 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
+    assertThat(list, not(hasItem(1)));
+    assertThat(list, not(hasItem(2)));
     assertThat(list, not(hasItem(3)));
-    assertThat(list, not(hasItem(5)));
-    assertThat(list, not(hasItem(6)));
-    assertThat(list, not(hasItem(7)));
-
   }
 
 
@@ -237,15 +258,15 @@ public class AnyGenerationMethodsSpecification {
   public void shouldGenerateExplodingInstanceOfInterfacesUsingClassSignature() {
     NonGenericInterface instance = anyExploding(NonGenericInterface.class);
 
-    assertThrows(BoomException.class, ()-> instance.doSomething());
-    assertThrows(BoomException.class, ()-> instance.getSomething());
+    assertThrows(BoomException.class, instance::doSomething);
+    assertThrows(BoomException.class, instance::getSomething);
   }
 
   @Test
   public void shouldGenerateExplodingInstanceOfInterfacesUsingInstanceSignature() {
     GenericInterface instance = anyExploding(new InstanceOf<GenericInterface>() {});
 
-    assertThrows(BoomException.class, ()-> instance.getInstance());
+    assertThrows(BoomException.class, instance::getInstance);
   }
 
   @Test
