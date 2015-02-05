@@ -13,9 +13,11 @@ import java.util.List;
 
 import static autofixture.publicinterface.Generate.any;
 import static autofixture.publicinterface.Generate.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+
+//import static org.hamcrest.CoreMatchers.*;
 
 public class AnyGenerationMethodsSpecification {
 
@@ -246,6 +248,15 @@ public class AnyGenerationMethodsSpecification {
     assertThrows(BoomException.class, ()-> instance.getInstance());
   }
 
+  @Test
+  public void shouldCreateDifferentPortEachTime() {
+    int port1 = anyPort();
+    int port2 = anyPort();
+
+    assertThat(port1, is(not(equalTo(port2))));
+    assertThat(port1, is(lessThan(65535)));
+    assertThat(port2, is(lessThan(65535)));
+  }
 
   public void assertThrows(Class exceptionClass, Runnable func) {
     try {
