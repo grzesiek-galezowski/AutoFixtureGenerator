@@ -199,10 +199,9 @@ TODO
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
+    assertThat(list, not(hasItem(1)));
+    assertThat(list, not(hasItem(2)));
     assertThat(list, not(hasItem(3)));
-    assertThat(list, not(hasItem(5)));
-    assertThat(list, not(hasItem(6)));
-    assertThat(list, not(hasItem(7)));
   }
 
   @Test
