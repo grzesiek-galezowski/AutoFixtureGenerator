@@ -210,7 +210,7 @@ public class Generate {
   public static <T> T[] manyAsArrayOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues)
   {
     Iterable<T> iterable = manyAsIterableOf(typeToken, omittedValues);
-    List<T> list = new ArrayList<>();
+    List<T> list = CollectionFactory.createList();
     for (T element : iterable) {
       list.add(element);
     }
@@ -234,7 +234,7 @@ public class Generate {
   }
 
   public static <T> List<T> manyAsListOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues) {
-    List<T> result = new ArrayList<>();
+    List<T> result = CollectionFactory.createList();
     result.add(any(typeToken, omittedValues));
     result.add(any(typeToken, omittedValues));
     result.add(any(typeToken, omittedValues));
@@ -264,10 +264,12 @@ public class Generate {
     return FIXTURE.createMany(instanceType);
   }
 
+  //SETS: incomplete
+
   //TODO variations
   public static <T> Set<T> manyAsSetOf(Class<T> clazz) {
     Collection<T> many = FIXTURE.createMany(TypeToken.of(clazz));
-    Set<T> collection = new HashSet<T>(many);
+    Set<T> collection = CollectionFactory.createSetFrom(many);
     return collection;
 
   }
@@ -282,7 +284,7 @@ public class Generate {
   //TODO variations
   public static <T> Deque<T> manyAsDequeOf(Class<T> clazz) {
     Collection<T> many = FIXTURE.createMany(TypeToken.of(clazz));
-    Deque<T> collection = new ArrayDeque<T>(many);
+    Deque<T> collection = CollectionFactory.createDequeFrom(many);
     return collection;
   }
 
@@ -290,13 +292,13 @@ public class Generate {
   //TODO variations
   public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> clazz) {
     Collection<T> many = FIXTURE.createMany(TypeToken.of(clazz));
-    SortedSet<T> collection = new TreeSet<T>(many);
+    SortedSet<T> collection = CollectionFactory.createSortedSetFrom(many);
     return collection;
   }
 
   //TODO variations and UT
   public static <T, V> SortedMap<T, V> manyAsSortedMapOf(Class<T> key, Class<V> value) {
-    return new TreeMap<>(manyAsMapOf(key, value));
+    return CollectionFactory.createSortedMapFrom(key, value);
   }
 
   //TODO variations
@@ -304,10 +306,7 @@ public class Generate {
     T[] keys = (T[]) FIXTURE.createMany(TypeToken.of(keyType)).toArray();
     V[] values = (V[]) FIXTURE.createMany(TypeToken.of(valueType)).toArray();
 
-    Map<T,V> map = new HashMap<T,V>();
-    for(int i = 0 ; i < keys.length ; ++i) {
-      map.put(keys[i], values[i]);
-    }
+    Map<T, V> map = CollectionFactory.createMapFrom(keys, values);
 
     return map;
   }

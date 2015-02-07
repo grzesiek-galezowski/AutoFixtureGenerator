@@ -354,6 +354,17 @@ public class AnyGenerationMethodsSpecification {
   }
 
   @Test
+  public void shouldGenerateSortedMapsUsingClassSignature() {
+    SortedMap<String, Integer> collection = manyAsSortedMapOf(String.class, Integer.class);
+
+    assertThat(collection.size(), is(3));
+    assertThat(collection.keySet(), not(hasItem(nullValue())));
+    assertThat(collection.values(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(collection.values());
+    assertContainsOnlyStrings(collection.keySet());
+  }
+
+  @Test
   public void shouldGenerateMapsUsingClassSignature() {
     Map<String, Integer> collection = manyAsMapOf(String.class, Integer.class);
 
