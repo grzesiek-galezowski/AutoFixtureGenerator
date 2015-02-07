@@ -309,7 +309,8 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateArraysUsingInstanceSignature() {
-    List<Integer> list = Lists.newArrayList(manyAsArrayOf(new InstanceOf<Integer>() {}));
+    List<Integer> list = Lists.newArrayList(manyAsArrayOf(new InstanceOf<Integer>() {
+    }));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -332,6 +333,41 @@ public class AnyGenerationMethodsSpecification {
     assertThat(queue.size(), is(3));
     assertThat(queue, not(hasItem(nullValue())));
     assertContainsOnlyIntegers(queue);
+  }
+
+  @Test
+  public void shouldGenerateDequesUsingClassSignature() {
+    Queue<Integer> collection = manyAsDequeOf(Integer.class);
+
+    assertThat(collection.size(), is(3));
+    assertThat(collection, not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(collection);
+  }
+
+  @Test
+  public void shouldGenerateSortedSetsUsingClassSignature() {
+    SortedSet<Integer> collection = manyAsSortedSetOf(Integer.class);
+
+    assertThat(collection.size(), is(3));
+    assertThat(collection, not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(collection);
+  }
+
+  @Test
+  public void shouldGenerateMapsUsingClassSignature() {
+    Map<String, Integer> collection = manyAsMapOf(String.class, Integer.class);
+
+    assertThat(collection.size(), is(3));
+    assertThat(collection.keySet(), not(hasItem(nullValue())));
+    assertThat(collection.values(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(collection.values());
+    assertContainsOnlyStrings(collection.keySet());
+  }
+
+  private void assertContainsOnlyStrings(Collection<String> collection) {
+    assertThat(collection.toArray()[0], instanceOf(String.class));
+    assertThat(collection.toArray()[1], instanceOf(String.class));
+    assertThat(collection.toArray()[2], instanceOf(String.class));
   }
 
   private void assertContainsOnlyIntegers(Collection<Integer> collection) {

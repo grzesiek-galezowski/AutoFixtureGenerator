@@ -287,22 +287,29 @@ public class Generate {
   }
 
   //TODO use createCollection to create actual collection types everywhere instead of hardcoding the type here
-  //TODO UT and variations
+  //TODO variations
   public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> clazz) {
     Collection<T> many = FIXTURE.createMany(TypeToken.of(clazz));
     SortedSet<T> collection = new TreeSet<T>(many);
     return collection;
-
   }
 
-  //TODO variations
+  //TODO variations and UT
   public static <T, V> SortedMap<T, V> manyAsSortedMapOf(Class<T> key, Class<V> value) {
-    return FIXTURE.create(new InstanceOf<SortedMap<T, V>>());
+    return new TreeMap<>(manyAsMapOf(key, value));
   }
 
   //TODO variations
-  public static <T, V> Map<T, V> manyAsMapOf(Class<T> key, Class<V> value) {
-    return FIXTURE.create(new InstanceOf<Map<T, V>>());
+  public static <T, V> Map<T, V> manyAsMapOf(Class<T> keyType, Class<V> valueType) {
+    T[] keys = (T[]) FIXTURE.createMany(TypeToken.of(keyType)).toArray();
+    V[] values = (V[]) FIXTURE.createMany(TypeToken.of(valueType)).toArray();
+
+    Map<T,V> map = new HashMap<T,V>();
+    for(int i = 0 ; i < keys.length ; ++i) {
+      map.put(keys[i], values[i]);
+    }
+
+    return map;
   }
 
   public static <T> Generate.OtherThanValues<T> otherThan(T... values) {
