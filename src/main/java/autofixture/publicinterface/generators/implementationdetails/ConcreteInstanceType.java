@@ -108,33 +108,33 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   public Collection createCollection(int repeatCount) {
     Collection collection;
     if (this.isRawTypeAssignableFrom(HashSet.class)) {
-      collection = new HashSet();
+      collection = new HashSet<T>();
     } else if (this.isRawTypeAssignableFrom(TreeSet.class)) {
-      collection = new TreeSet();
+      collection = new TreeSet<T>();
     } else if (this.isRawTypeAssignableFrom(PriorityQueue.class)) {
-      collection = new PriorityQueue();
+      collection = new PriorityQueue<T>();
     } else if (this.isRawTypeAssignableFrom(PriorityBlockingQueue.class)) {
-      collection = new PriorityBlockingQueue();
+      collection = new PriorityBlockingQueue<T>();
     } else if (this.isRawTypeAssignableFrom(CopyOnWriteArraySet.class)) {
-      collection = new CopyOnWriteArraySet();
+      collection = new CopyOnWriteArraySet<T>();
     } else if (this.isRawTypeAssignableFrom(CopyOnWriteArrayList.class)) {
-      collection = new CopyOnWriteArrayList();
+      collection = new CopyOnWriteArrayList<T>();
     } else if (this.isRawTypeAssignableFrom(ConcurrentSkipListSet.class)) {
-      collection = new ConcurrentSkipListSet();
+      collection = new ConcurrentSkipListSet<T>();
     } else if (this.isRawTypeAssignableFrom(ConcurrentLinkedQueue.class)) {
-      collection = new ConcurrentLinkedQueue();
+      collection = new ConcurrentLinkedQueue<T>();
     } else if (this.isRawTypeAssignableFrom(LinkedList.class)) {
-      collection = new LinkedList();
+      collection = new LinkedList<T>();
     } else if (this.isRawTypeAssignableFrom(LinkedHashSet.class)) {
-      collection = new LinkedHashSet();
+      collection = new LinkedHashSet<T>();
     } else if (this.isRawTypeAssignableFrom(ArrayBlockingQueue.class)) {
-      collection = new ArrayBlockingQueue(repeatCount);
+      collection = new ArrayBlockingQueue<T>(repeatCount);
     } else if (this.isRawTypeAssignableFrom(ArrayDeque.class)) {
-      collection = new ArrayDeque();
+      collection = new ArrayDeque<T>();
     } else if (this.isRawTypeAssignableFrom(Stack.class)) {
-      collection = new Stack();
+      collection = new Stack<T>();
     } else {
-      collection = new ArrayList();
+      collection = new ArrayList<T>();
     }
     return collection;
   }
@@ -170,7 +170,6 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   public InstanceType<?> getNestedGenericType() {
     ParameterizedType genericTypeDefinition = (ParameterizedType) (this.getType());
     Type nestedGenericType = genericTypeDefinition.getActualTypeArguments()[0];
-
     TypeToken<?> nestedGenericTypeToken = TypeToken.of(nestedGenericType);
     return ConcreteInstanceType.from(nestedGenericTypeToken);
   }

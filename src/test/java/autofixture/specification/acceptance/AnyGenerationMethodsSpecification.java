@@ -162,9 +162,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -176,9 +174,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -187,9 +183,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -198,9 +192,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -209,9 +201,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -220,9 +210,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -235,9 +223,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(1)));
     assertThat(list, not(hasItem(2)));
     assertThat(list, not(hasItem(3)));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -250,9 +236,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -264,9 +248,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(1)));
     assertThat(list, not(hasItem(2)));
     assertThat(list, not(hasItem(3)));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
   }
 
 
@@ -276,9 +258,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -287,9 +267,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -302,9 +280,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
 
   }
 
@@ -318,9 +294,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
   }
 
 
@@ -330,9 +304,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -341,9 +313,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -352,9 +322,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertThat(list.toArray()[0], instanceOf(Integer.class));
-    assertThat(list.toArray()[1], instanceOf(Integer.class));
-    assertThat(list.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -363,11 +331,14 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(queue.size(), is(3));
     assertThat(queue, not(hasItem(nullValue())));
-    assertThat(queue.toArray()[0], instanceOf(Integer.class));
-    assertThat(queue.toArray()[1], instanceOf(Integer.class));
-    assertThat(queue.toArray()[2], instanceOf(Integer.class));
+    assertContainsOnlyIntegers(queue);
   }
 
+  private void assertContainsOnlyIntegers(Collection<Integer> collection) {
+    assertThat(collection.toArray()[0], instanceOf(Integer.class));
+    assertThat(collection.toArray()[1], instanceOf(Integer.class));
+    assertThat(collection.toArray()[2], instanceOf(Integer.class));
+  }
 
 /*
   //TODO variations
@@ -444,6 +415,15 @@ public class AnyGenerationMethodsSpecification {
     assertThat(port1, is(not(equalTo(port2))));
     assertThat(port1, is(lessThan(65535)));
     assertThat(port2, is(lessThan(65535)));
+  }
+
+  @Test
+  public void lol() {
+    createListOf(Integer.class);
+  }
+
+  private <T> List<T> createListOf(Class<T> clazz) {
+    return null;
   }
 
   public void assertThrows(Class exceptionClass, Runnable func) {

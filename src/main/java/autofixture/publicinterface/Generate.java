@@ -185,7 +185,7 @@ public class Generate {
   }
 
   public static <T> Iterable<T> manyAsIterableOf(Class<T> clazz) {
-    return FIXTURE.create(new InstanceOf<Iterable<T>>() {});
+    return FIXTURE.createMany(TypeToken.of(clazz));
   }
 
   public static <T> Iterable<T> manyAsIterableOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues)
@@ -257,7 +257,7 @@ public class Generate {
   }
 
   public static <T> Collection<T> manyAsCollectionOf(Class<T> clazz) {
-    return FIXTURE.create(new InstanceOf<Collection<T>>() {});
+    return FIXTURE.createMany(TypeToken.of(clazz));
   }
 
   public static <T> Collection<T> manyAsCollectionOf(InstanceOf<T> instanceType) {
@@ -266,22 +266,33 @@ public class Generate {
 
   //TODO variations
   public static <T> Set<T> manyAsSetOf(Class<T> clazz) {
-    return FIXTURE.create(new InstanceOf<Set<T>>() {});
+    Collection<T> many = FIXTURE.createMany(TypeToken.of(clazz));
+    Set<T> collection = new HashSet<T>(many);
+    return collection;
+
   }
 
   //TODO variations
   public static <T> Queue<T> manyAsQueueOf(Class<T> clazz) {
-    return FIXTURE.create(new InstanceOf<Queue<T>>() {});
+    Collection<T> many = FIXTURE.createMany(TypeToken.of(clazz));
+    Queue<T> queue = new PriorityQueue<T>(many);
+    return queue;
   }
 
   //TODO variations
   public static <T> Deque<T> manyAsDequeOf(Class<T> clazz) {
-    return FIXTURE.create(new InstanceOf<Deque<T>>());
+    Collection<T> many = FIXTURE.createMany(TypeToken.of(clazz));
+    Deque<T> collection = new ArrayDeque<T>(many);
+    return collection;
   }
 
-  //TODO variations
+  //TODO use createCollection to create actual collection types everywhere instead of hardcoding the type here
+  //TODO UT and variations
   public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> clazz) {
-    return FIXTURE.create(new InstanceOf<SortedSet<T>>());
+    Collection<T> many = FIXTURE.createMany(TypeToken.of(clazz));
+    SortedSet<T> collection = new TreeSet<T>(many);
+    return collection;
+
   }
 
   //TODO variations
