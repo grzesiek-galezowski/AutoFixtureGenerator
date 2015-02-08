@@ -7,6 +7,9 @@ import com.google.common.reflect.TypeToken;
 import java.net.InetAddress;
 import java.net.URI;
 import java.net.URL;
+import java.time.*;
+import java.time.chrono.ChronoLocalDate;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.*;
 
 public class Generate {
@@ -176,6 +179,54 @@ public class Generate {
 
   public static InetAddress anyIp() {
     return FIXTURE.create(InetAddress.class);
+  }
+
+  public static ChronoLocalDate anyChronoLocalDate() {
+    return FIXTURE.create(ChronoLocalDate.class);
+  }
+
+  public static ChronoLocalDateTime anyChronoLocalDateTime() {
+    return FIXTURE.create(ChronoLocalDateTime.class);
+  }
+
+  public static LocalDateTime anyLocalDateTime() {
+    return FIXTURE.create(LocalDateTime.class);
+  }
+
+  public static LocalDate anyLocalDate() {
+    return FIXTURE.create(LocalDate.class);
+  }
+
+  public static ZonedDateTime anyZonedDateTime() {
+    return FIXTURE.create(ZonedDateTime.class);
+  }
+
+  public static ZoneId anyZoneId() {
+    return FIXTURE.create(ZoneId.class);
+  }
+
+  public static OffsetTime anyOffsetTime() {
+    return FIXTURE.create(OffsetTime.class);
+  }
+
+  public static Period anyPeriod() {
+    return FIXTURE.create(Period.class);
+  }
+
+  public static Duration anyDuration() {
+    return FIXTURE.create(Duration.class);
+  }
+
+  public static ZoneOffset anyZoneOffset() {
+    return FIXTURE.create(ZoneOffset.class);
+  }
+
+  public static Clock anyClock() {
+    return FIXTURE.create(Clock.class);
+  }
+
+  public static Instant anyInstant() {
+    return FIXTURE.create(Instant.class);
   }
 
   // ITERABLES - complete
