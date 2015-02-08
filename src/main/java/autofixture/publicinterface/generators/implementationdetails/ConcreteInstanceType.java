@@ -1,6 +1,7 @@
 package autofixture.publicinterface.generators.implementationdetails;
 
 import autofixture.implementationdetails.InstanceField;
+import autofixture.publicinterface.CollectionFactory;
 import autofixture.publicinterface.InstanceType;
 import autofixture.publicinterface.ObjectCreationException;
 import autofixture.publicinterface.generators.Call;
@@ -108,33 +109,33 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   public Collection createCollection(int repeatCount) {
     Collection collection;
     if (this.isRawTypeAssignableFrom(HashSet.class)) {
-      collection = new HashSet<T>();
+      collection = CollectionFactory.createEmptySet();
     } else if (this.isRawTypeAssignableFrom(TreeSet.class)) {
-      collection = new TreeSet<T>();
+      collection = CollectionFactory.createTreeSet();
     } else if (this.isRawTypeAssignableFrom(PriorityQueue.class)) {
-      collection = new PriorityQueue<T>();
+      collection = CollectionFactory.createEmptyPriorityQueue();
     } else if (this.isRawTypeAssignableFrom(PriorityBlockingQueue.class)) {
-      collection = new PriorityBlockingQueue<T>();
+      collection = CollectionFactory.createEmptyPriorityBlockingQueue();
     } else if (this.isRawTypeAssignableFrom(CopyOnWriteArraySet.class)) {
-      collection = new CopyOnWriteArraySet<T>();
+      collection = CollectionFactory.createEmptyCopyOnWriteArraySet();
     } else if (this.isRawTypeAssignableFrom(CopyOnWriteArrayList.class)) {
-      collection = new CopyOnWriteArrayList<T>();
+      collection = CollectionFactory.createEmptyCopyOnWriteArrayList();
     } else if (this.isRawTypeAssignableFrom(ConcurrentSkipListSet.class)) {
-      collection = new ConcurrentSkipListSet<T>();
+      collection = CollectionFactory.createEmptyConcurrentSkipListSet();
     } else if (this.isRawTypeAssignableFrom(ConcurrentLinkedQueue.class)) {
-      collection = new ConcurrentLinkedQueue<T>();
+      collection = CollectionFactory.createEmptyConcurrentLinkedQueue();
     } else if (this.isRawTypeAssignableFrom(LinkedList.class)) {
-      collection = new LinkedList<T>();
+      collection = CollectionFactory.createEmptyLinkedList();
     } else if (this.isRawTypeAssignableFrom(LinkedHashSet.class)) {
-      collection = new LinkedHashSet<T>();
+      collection = CollectionFactory.createEmptyLinkedHashSet();
     } else if (this.isRawTypeAssignableFrom(ArrayBlockingQueue.class)) {
-      collection = new ArrayBlockingQueue<T>(repeatCount);
+      collection = CollectionFactory.createEmptyArrayBlockingQueue(repeatCount);
     } else if (this.isRawTypeAssignableFrom(ArrayDeque.class)) {
-      collection = new ArrayDeque<T>();
+      collection = CollectionFactory.createEmptyArrayDeque();
     } else if (this.isRawTypeAssignableFrom(Stack.class)) {
-      collection = new Stack<T>();
+      collection = CollectionFactory.createEmptyStack();
     } else {
-      collection = new ArrayList<T>();
+      collection = CollectionFactory.createEmptyArrayList();
     }
     return collection;
   }

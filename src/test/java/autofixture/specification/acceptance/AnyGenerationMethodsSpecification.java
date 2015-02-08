@@ -120,7 +120,7 @@ public class AnyGenerationMethodsSpecification {
   public void shouldGenerateStringContainingGivenSubstring() {
     String str = anyStringContaining("1");
 
-    assertThat(str, containsString("2"));
+    assertThat(str, containsString("1"));
   }
 
   @Test

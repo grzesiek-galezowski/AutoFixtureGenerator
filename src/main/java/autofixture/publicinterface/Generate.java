@@ -268,43 +268,70 @@ public class Generate {
 
   //TODO variations
   public static <T> Set<T> manyAsSetOf(Class<T> clazz) {
-    Collection<T> many = FIXTURE.createMany(TypeToken.of(clazz));
-    Set<T> collection = CollectionFactory.createSetFrom(many);
-    return collection;
-
+    return manyAsSetOf(TypeToken.of(clazz));
   }
 
+  private static <T> Set<T> manyAsSetOf(TypeToken<T> type) {
+    Collection<T> many = FIXTURE.createMany(type);
+    Set<T> collection = CollectionFactory.createSetFrom(many);
+    return collection;
+  }
+
+  //queues: incomplete
   //TODO variations
   public static <T> Queue<T> manyAsQueueOf(Class<T> clazz) {
-    Collection<T> many = FIXTURE.createMany(TypeToken.of(clazz));
+    return manyAsQueueOf(TypeToken.of(clazz));
+  }
+
+  private static <T> Queue<T> manyAsQueueOf(TypeToken<T> type) {
+    Collection<T> many = FIXTURE.createMany(type);
     Queue<T> queue = new PriorityQueue<T>(many);
     return queue;
   }
 
+  //Deques: incomplete
   //TODO variations
   public static <T> Deque<T> manyAsDequeOf(Class<T> clazz) {
-    Collection<T> many = FIXTURE.createMany(TypeToken.of(clazz));
+    return manyAsDequeOf(TypeToken.of(clazz));
+  }
+
+  private static <T> Deque<T> manyAsDequeOf(TypeToken<T> type) {
+    Collection<T> many = FIXTURE.createMany(type);
     Deque<T> collection = CollectionFactory.createDequeFrom(many);
     return collection;
   }
 
+  //sorted sets: incomplete
+  
   //TODO use createCollection to create actual collection types everywhere instead of hardcoding the type here
   //TODO variations
   public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> clazz) {
-    Collection<T> many = FIXTURE.createMany(TypeToken.of(clazz));
+    return manyAsSortedSetOf(TypeToken.of(clazz));
+  }
+
+  private static <T> SortedSet<T> manyAsSortedSetOf(TypeToken<T> type) {
+    Collection<T> many = FIXTURE.createMany(type);
     SortedSet<T> collection = CollectionFactory.createSortedSetFrom(many);
     return collection;
   }
 
   //TODO variations and UT
   public static <T, V> SortedMap<T, V> manyAsSortedMapOf(Class<T> key, Class<V> value) {
-    return CollectionFactory.createSortedMapFrom(key, value);
+    return manyAsSortedMapOf(TypeToken.of(key), TypeToken.of(value));
+  }
+
+  public static <T, V> SortedMap<T, V> manyAsSortedMapOf(TypeToken<T> key, TypeToken<V> value) {
+    return CollectionFactory.createSortedMapFrom(manyAsMapOf(key, value));
   }
 
   //TODO variations
-  public static <T, V> Map<T, V> manyAsMapOf(Class<T> keyType, Class<V> valueType) {
-    T[] keys = (T[]) FIXTURE.createMany(TypeToken.of(keyType)).toArray();
-    V[] values = (V[]) FIXTURE.createMany(TypeToken.of(valueType)).toArray();
+  public static <T, V> Map<T, V> manyAsMapOf(Class<T> keyClass, Class<V> valueClass) {
+    return manyAsMapOf(TypeToken.of(keyClass), TypeToken.of(valueClass));
+  }
+
+  private static <T, V> Map<T, V> manyAsMapOf(TypeToken<T> keyType, TypeToken<V> valueType) {
+    T[] keys = (T[]) FIXTURE.createMany(keyType).toArray();
+    V[] values = (V[]) FIXTURE.createMany(valueType).toArray();
 
     Map<T, V> map = CollectionFactory.createMapFrom(keys, values);
 
