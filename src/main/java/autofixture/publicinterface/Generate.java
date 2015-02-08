@@ -260,7 +260,7 @@ public class Generate {
     return FIXTURE.createMany(TypeToken.of(clazz));
   }
 
-  public static <T> Collection<T> manyAsCollectionOf(InstanceOf<T> instanceType) {
+  public static <T> Collection<T> manyAsCollectionOf(TypeToken<T> instanceType) {
     return FIXTURE.createMany(instanceType);
   }
 
@@ -277,20 +277,39 @@ public class Generate {
     return collection;
   }
 
+  //TODO UT
+  public static <T> Set<T> manyAsSetOf(Class<T> type, Generate.OtherThanValues<T> omittedValues) {
+    return manyAsSetOf(TypeToken.of(type), omittedValues);
+  }
+  //TODO UT
+  public static <T> Set<T> manyAsSetOf(TypeToken<T> type, Generate.OtherThanValues<T> omittedValues) {
+    Collection<T> collection = manyAsCollectionOf(type, omittedValues);
+    return CollectionFactory.createSetFrom(collection);
+  }
+
+
   //queues: incomplete
-  //TODO variations
   public static <T> Queue<T> manyAsQueueOf(Class<T> clazz) {
     return manyAsQueueOf(TypeToken.of(clazz));
   }
 
   private static <T> Queue<T> manyAsQueueOf(TypeToken<T> type) {
     Collection<T> many = FIXTURE.createMany(type);
-    Queue<T> queue = new PriorityQueue<T>(many);
+    Queue<T> queue = CollectionFactory.createQueueFrom(many);
     return queue;
   }
 
+  //TODO UT
+  public static <T> Queue<T> manyAsQueueOf(Class<T> type, Generate.OtherThanValues<T> omittedValues) {
+    return manyAsQueueOf(TypeToken.of(type), omittedValues);
+  }
+  //TODO UT
+  public static <T> Queue<T> manyAsQueueOf(TypeToken<T> type, Generate.OtherThanValues<T> omittedValues) {
+    Collection<T> collection = manyAsCollectionOf(type, omittedValues);
+    return CollectionFactory.createQueueFrom(collection);
+  }
+
   //Deques: incomplete
-  //TODO variations
   public static <T> Deque<T> manyAsDequeOf(Class<T> clazz) {
     return manyAsDequeOf(TypeToken.of(clazz));
   }
@@ -301,10 +320,18 @@ public class Generate {
     return collection;
   }
 
+  //TODO UT
+  public static <T> Deque<T> manyAsDequeOf(Class<T> type, Generate.OtherThanValues<T> omittedValues) {
+    return manyAsDequeOf(TypeToken.of(type), omittedValues);
+  }
+  //TODO UT
+  public static <T> Deque<T> manyAsDequeOf(TypeToken<T> type, Generate.OtherThanValues<T> omittedValues) {
+    Collection<T> collection = manyAsCollectionOf(type, omittedValues);
+    return CollectionFactory.createDequeFrom(collection);
+  }
+
+
   //sorted sets: incomplete
-  
-  //TODO use createCollection to create actual collection types everywhere instead of hardcoding the type here
-  //TODO variations
   public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> clazz) {
     return manyAsSortedSetOf(TypeToken.of(clazz));
   }
@@ -315,6 +342,19 @@ public class Generate {
     return collection;
   }
 
+  //TODO UT
+  public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> type, Generate.OtherThanValues<T> omittedValues) {
+    return manyAsSortedSetOf(TypeToken.of(type), omittedValues);
+  }
+
+  //TODO UT
+  public static <T> SortedSet<T> manyAsSortedSetOf(TypeToken<T> type, Generate.OtherThanValues<T> omittedValues) {
+    Collection<T> collection = manyAsCollectionOf(type, omittedValues);
+    return CollectionFactory.createSortedSetFrom(collection);
+  }
+
+  //sorted maps
+
   //TODO variations and UT
   public static <T, V> SortedMap<T, V> manyAsSortedMapOf(Class<T> key, Class<V> value) {
     return manyAsSortedMapOf(TypeToken.of(key), TypeToken.of(value));
@@ -324,14 +364,16 @@ public class Generate {
     return CollectionFactory.createSortedMapFrom(manyAsMapOf(key, value));
   }
 
+  //maps
+
   //TODO variations
   public static <T, V> Map<T, V> manyAsMapOf(Class<T> keyClass, Class<V> valueClass) {
     return manyAsMapOf(TypeToken.of(keyClass), TypeToken.of(valueClass));
   }
 
   private static <T, V> Map<T, V> manyAsMapOf(TypeToken<T> keyType, TypeToken<V> valueType) {
-    T[] keys = (T[]) FIXTURE.createMany(keyType).toArray();
-    V[] values = (V[]) FIXTURE.createMany(valueType).toArray();
+    T[] keys = (T[]) manyAsCollectionOf(keyType).toArray();
+    V[] values = (V[]) manyAsCollectionOf(valueType).toArray();
 
     Map<T, V> map = CollectionFactory.createMapFrom(keys, values);
 
@@ -369,7 +411,5 @@ public class Generate {
 	 * return result; }
 	 * 
 	 */
-
-
 }
 

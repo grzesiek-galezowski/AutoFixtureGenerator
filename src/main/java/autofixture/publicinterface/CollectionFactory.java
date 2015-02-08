@@ -90,4 +90,8 @@ public class CollectionFactory {
   public static Set<Object> createEmptySet() {
     return new HashSet<>();
   }
+
+  public static <T> PriorityQueue<T> createQueueFrom(Collection<T> many) {
+    return new PriorityQueue<T>(many);
+  }
 }

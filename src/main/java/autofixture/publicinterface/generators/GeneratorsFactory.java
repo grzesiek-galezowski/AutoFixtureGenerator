@@ -24,6 +24,18 @@ public class GeneratorsFactory {
             bigDecimals(),
             dates(),
             calendars(),
+            chronoLocalDates(),
+            chronoLocalDateTimes(),
+            localDateTimes(),
+            localDates(),
+            zonedDateTimes(),
+            zoneIds(),
+            offsetTimes(),
+            periods(),
+            durations(),
+            zoneOffsets(),
+            clocks(),
+            instants(),
             objects(),
             booleans(),
             urls(),
@@ -36,6 +48,76 @@ public class GeneratorsFactory {
             concreteObjects()))
       );
   }
+
+  private InstanceGenerator instants() {
+    return new InstantGenerator();
+  }
+
+  private InstanceGenerator clocks() {
+    return ClockGenerator();
+  }
+
+  private InstanceGenerator ClockGenerator() {
+    return new ClockGenerator();
+  }
+
+  private InstanceGenerator zoneOffsets() {
+    return new ZoneOffsetGenerator();
+  }
+
+  private InstanceGenerator chronoLocalDateTimes() {
+    return new ChronoLocalDateTimeGenerator();
+  }
+
+  private InstanceGenerator chronoLocalDates() {
+    return new ChronoLocalDateGenerator();
+  }
+
+  private InstanceGenerator durations() {
+    return new DurationGenerator();
+  }
+
+  private InstanceGenerator periods() {
+    return new PeriodGenerator();
+  }
+
+  private InstanceGenerator offsetTimes() {
+    return new OffsetTimeGenerator();
+  }
+
+  private InstanceGenerator zoneIds() {
+    return new ZoneIdGenerator();
+  }
+
+  private InstanceGenerator zonedDateTimes() {
+    return new ZonedDateTimeGenerator();
+  }
+
+  private InstanceGenerator localDates() {
+    return new LocalDateGenerator();
+  }
+
+  private InstanceGenerator localDateTimes() {
+    return new LocalDateTimeGenerator();
+  }
+
+  /*
+  @DataPoint public static InstanceOf<LocalDateTime> localDateTime = new InstanceOf<LocalDateTime>() {  };
+  @DataPoint public static InstanceOf<LocalDate> localDate = new InstanceOf<LocalDate>() {  };
+  @DataPoint public static InstanceOf<Month> month = new InstanceOf<Month>() {  };
+  @DataPoint public static InstanceOf<ZonedDateTime> zonedDateTime = new InstanceOf<ZonedDateTime>() {  };
+  @DataPoint public static InstanceOf<ZoneId> zoneId = new InstanceOf<ZoneId>() {  };
+  @DataPoint public static InstanceOf<OffsetTime> offsetTime = new InstanceOf<OffsetTime>() {  };
+  @DataPoint public static InstanceOf<Period> period = new InstanceOf<Period>() {  };
+  @DataPoint public static InstanceOf<Duration> duration = new InstanceOf<Duration>() {  };
+  @DataPoint public static InstanceOf<Chronology> chronology = new InstanceOf<Chronology>() {  };
+  @DataPoint public static InstanceOf<ChronoLocalDate> chronoLocalDate = new InstanceOf<ChronoLocalDate>() {  };
+  @DataPoint public static InstanceOf<ChronoLocalDateTime> chronoLocalDateTime = new InstanceOf<ChronoLocalDateTime>() {  };
+  @DataPoint public static InstanceOf<ChronoZonedDateTime> chronoZonedDateTime = new InstanceOf<ChronoZonedDateTime>() {  };
+  @DataPoint public static InstanceOf<ZoneOffset> zoneOffset = new InstanceOf<ZoneOffset>() {  };
+
+  */
+
 
   private InstanceGenerator colorSpaces() {
     return new ColorSpaceGenerator();
