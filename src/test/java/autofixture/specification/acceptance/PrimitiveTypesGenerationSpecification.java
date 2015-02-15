@@ -114,13 +114,13 @@ public class PrimitiveTypesGenerationSpecification {
       (InlineInstanceGenerator<Integer>) (context.mock(InlineInstanceGenerator.class));
 
     context.checking(new Expectations() {{
-      allowing(inlineGeneratorStub).next(fixture);
-      will(returnValue(9999));
+      allowing(inlineGeneratorStub).next(fixture); will(returnValue(9999));
     }});
 
     Integer anInt = fixture.createWith(inlineGeneratorStub);
 
     assertThat(anInt, is(9999));
+    context.assertIsSatisfied();
   }
 
   @Test
