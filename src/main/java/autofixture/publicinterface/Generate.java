@@ -229,6 +229,29 @@ public class Generate {
     return FIXTURE.create(Instant.class);
   }
 
+  private static HashMap<Class, Integer> indices = new HashMap<>();
+
+  public static <T> T anyFrom(T... possibleValues) {
+    Class<?> key = possibleValues[0].getClass();
+    if(!indices.containsKey(key)) {
+      indices.put(key, new Random().nextInt(possibleValues.length));
+    }
+
+    Integer index = indices.get(key);
+
+    if(index >= possibleValues.length) {
+      index = 0;
+    }
+
+    T returnedValue = possibleValues[index];
+
+    index++;
+    indices.put(key, index);
+
+    return returnedValue;
+  }
+
+
   // ITERABLES - complete
 
   public static <T> Iterable<T> manyAsIterableOf(InstanceOf<T> type) {

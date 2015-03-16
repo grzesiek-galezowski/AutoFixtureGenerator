@@ -11,12 +11,17 @@ import org.junit.Test;
 import java.time.DayOfWeek;
 import java.util.*;
 
-import static autofixture.publicinterface.Generate.any;
 import static autofixture.publicinterface.Generate.*;
-import static autofixture.publicinterface.Generate.anyOf;
-import static org.hamcrest.Matchers.*;
+import static junit.framework.TestCase.fail;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.Matchers.lessThan;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.hamcrest.core.IsNot.not;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 public class AnyGenerationMethodsSpecification {
 
@@ -375,6 +380,26 @@ public class AnyGenerationMethodsSpecification {
     assertContainsOnlyStrings(collection.keySet());
   }
 
+  @Test
+  public void shouldGenerateAnIntegerInstanceFromProvided() {
+    int[] possibleValues = new int[] {1,3,4,6,7,8};
+    int chosen1 = anyFrom(1,3,4,6,7,8);
+    int chosen2 = anyFrom(1,3,4,6,7,8);
+    int chosen3 = anyFrom(1,3,4,6,7,8);
+    int chosen4 = anyFrom(1,3,4,6,7,8);
+    int chosen5 = anyFrom(1,3,4,6,7,8);
+    int chosen6 = anyFrom(1,3,4,6,7,8);
+
+    assertThat(Arrays.asList(chosen1, chosen2, chosen3, chosen4, chosen5, chosen6), hasItem(1));
+    assertThat(Arrays.asList(chosen1, chosen2, chosen3, chosen4, chosen5, chosen6), hasItem(3));
+    assertThat(Arrays.asList(chosen1, chosen2, chosen3, chosen4, chosen5, chosen6), hasItem(4));
+    assertThat(Arrays.asList(chosen1, chosen2, chosen3, chosen4, chosen5, chosen6), hasItem(6));
+    assertThat(Arrays.asList(chosen1, chosen2, chosen3, chosen4, chosen5, chosen6), hasItem(7));
+    assertThat(Arrays.asList(chosen1, chosen2, chosen3, chosen4, chosen5, chosen6), hasItem(8));
+  }
+
+
+
   private void assertContainsOnlyStrings(Collection<String> collection) {
     assertThat(collection.toArray()[0], instanceOf(String.class));
     assertThat(collection.toArray()[1], instanceOf(String.class));
@@ -386,6 +411,8 @@ public class AnyGenerationMethodsSpecification {
     assertThat(collection.toArray()[1], instanceOf(Integer.class));
     assertThat(collection.toArray()[2], instanceOf(Integer.class));
   }
+
+  
 
 /*
   //TODO variations
