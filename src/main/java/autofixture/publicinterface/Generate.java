@@ -470,20 +470,5 @@ public class Generate {
     }
   }
 
-
-	/*
-   * TODO
-	 * 
-	 * public static T From<T>(params T[] possibleValues) { var
-	 * latestArraysWithPossibleValues = _arrayElementPicking.For<T>();
-	 * 
-	 * if (!latestArraysWithPossibleValues.Contain(possibleValues)) {
-	 * latestArraysWithPossibleValues.Add(possibleValues); }
-	 * 
-	 * var result =
-	 * latestArraysWithPossibleValues.PickNextElementFrom(possibleValues);
-	 * return result; }
-	 * 
-	 */
 }
 
