@@ -4,6 +4,7 @@ import autofixture.publicinterface.BoomException;
 import autofixture.publicinterface.InstanceOf;
 import autofixture.specification.acceptance.testfixtures.GenericInterface;
 import autofixture.specification.acceptance.testfixtures.GenericObject;
+import autofixture.specification.acceptance.testfixtures.GenericObject2;
 import autofixture.specification.acceptance.testfixtures.NonGenericInterface;
 import com.google.common.collect.Lists;
 import org.junit.Test;
@@ -398,6 +399,24 @@ public class AnyGenerationMethodsSpecification {
     assertThat(Arrays.asList(chosen1, chosen2, chosen3, chosen4, chosen5, chosen6), hasItem(8));
   }
 
+  @Test
+  public void shouldSupportNestedGenericImplementations() {
+    //GIVEN
+    GenericObject2<GenericObject2<Integer>> o = any(new InstanceOf<GenericObject2<GenericObject2<Integer>>>() {});
+
+    //THEN
+    assertThat(o.field.field, instanceOf(Integer.class));
+  }
+
+  @Test
+  public void shouldSupportNestedGenericInterfaceImplementations() {
+    //GIVEN
+    GenericInterface<GenericInterface<Integer>> o = any(new InstanceOf<GenericInterface<GenericInterface<Integer>>>() {});
+
+    //THEN
+    assertThat(o.getInstance(), instanceOf(GenericInterface.class));
+    assertThat(o.getInstance().getInstance(), instanceOf(Integer.class));
+  }
 
 
   private void assertContainsOnlyStrings(Collection<String> collection) {
@@ -411,6 +430,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(collection.toArray()[1], instanceOf(Integer.class));
     assertThat(collection.toArray()[2], instanceOf(Integer.class));
   }
+
 
   
 
