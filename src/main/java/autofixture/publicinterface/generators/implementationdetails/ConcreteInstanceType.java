@@ -287,6 +287,11 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   }
 
   @Override
+  public TypeToken<?> resolveActualTypeOf(Method method) {
+    return this.typeToken.resolveType(method.getGenericReturnType());
+  }
+
+  @Override
   public String toString() {
     return typeToken.toString();
   }

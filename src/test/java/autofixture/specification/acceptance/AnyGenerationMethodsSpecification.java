@@ -402,20 +402,21 @@ public class AnyGenerationMethodsSpecification {
   @Test
   public void shouldSupportNestedGenericImplementations() {
     //GIVEN
-    GenericObject2<GenericObject2<Integer>> o = any(new InstanceOf<GenericObject2<GenericObject2<Integer>>>() {});
+    GenericObject<GenericObject<Integer>> o = any(new InstanceOf<GenericObject<GenericObject<Integer>>>() {});
 
     //THEN
-    assertThat(o.field.field, instanceOf(Integer.class));
+    assertThat(o.getInstance(), instanceOf(GenericObject.class));
+    assertThat(o.getInstance().getInstance(), instanceOf(Integer.class));
   }
 
   @Test
   public void shouldSupportNestedGenericInterfaceImplementations() {
     //GIVEN
-    GenericInterface<GenericInterface<Integer>> o = any(new InstanceOf<GenericInterface<GenericInterface<Integer>>>() {});
+    GenericInterface<GenericObject2<Integer>> o = any(new InstanceOf<GenericInterface<GenericObject2<Integer>>>() {});
 
     //THEN
-    assertThat(o.getInstance(), instanceOf(GenericInterface.class));
-    assertThat(o.getInstance().getInstance(), instanceOf(Integer.class));
+    assertThat(o.getInstance(), instanceOf(GenericObject2.class));
+    assertThat(o.getInstance().field, instanceOf(Integer.class));
   }
 
 

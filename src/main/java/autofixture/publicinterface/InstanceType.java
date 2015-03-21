@@ -7,6 +7,7 @@ import com.google.common.reflect.TypeToken;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
@@ -53,6 +54,8 @@ public interface InstanceType<T> {
   List<InstanceField<T>> getAllPublicFieldsOf(T instance);
 
   TypeToken<?> resolveActualTypeOf(Field field);
+
+  TypeToken<?> resolveActualTypeOf(Method method);
 
   <TOther> boolean isSameAsThatOf(TOther injectedValue);
 

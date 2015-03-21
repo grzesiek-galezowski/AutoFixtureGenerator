@@ -16,7 +16,7 @@ public class InterfaceImplementationGenerator implements InstanceGenerator {
   @SuppressWarnings("unchecked")
   public <T> T next(InstanceType<T> instanceType, final FixtureContract fixture) {
     Object proxy = Reflection.newProxy(instanceType.getRawType(), new InterfaceHandler(
-      fixture));
+      fixture, instanceType));
     return (T) proxy;
   }
 
