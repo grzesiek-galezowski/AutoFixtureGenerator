@@ -7,6 +7,11 @@ AutoFixtureGenerator
 
 An attempt to reimplement core features of a popular .NET anonymous value generator - AutoFixture - in Java
 
+Maven pom
+-
+
+Maven xml pom can be obtained at: http://mvnrepository.com/artifact/com.github.autofixture/autofixturegenerator
+
 Creating a fixture object
 -
 
