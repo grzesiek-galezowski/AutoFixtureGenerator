@@ -1,5 +1,6 @@
 package autofixture.publicinterface;
 
+import autofixture.publicinterface.constraints.OtherThanConstraint;
 import autofixture.publicinterface.generators.inline.*;
 import com.google.common.collect.Lists;
 import com.google.common.reflect.TypeToken;
@@ -11,6 +12,8 @@ import java.time.*;
 import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.*;
+
+import static autofixture.publicinterface.constraints.GenerationConstraints.otherThan;
 
 public class Generate {
   public static final String ALL_LETTERS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
@@ -30,12 +33,12 @@ public class Generate {
     return FIXTURE.create(clazz);
   }
 
-  public static <T> T any(TypeToken<T> instanceType, Generate.OtherThanValues<T> omittedValues) {
-    return FIXTURE.createWith(new OtherThanGenerator<T>(instanceType, omittedValues.array));
+  public static <T> T any(TypeToken<T> instanceType, OtherThanConstraint<T> omittedValues) {
+    return FIXTURE.createWith(new ConstrainedGeneration<T>(instanceType, omittedValues));
   }
 
-  public static <T> T any(Class<T> instanceType, Generate.OtherThanValues<T> omittedValues) {
-    return FIXTURE.createWith(new OtherThanGenerator<T>(TypeToken.of(instanceType), omittedValues.array));
+  public static <T> T any(Class<T> instanceType, OtherThanConstraint<T> omittedValues) {
+    return FIXTURE.createWith(new ConstrainedGeneration<T>(TypeToken.of(instanceType), omittedValues));
   }
 
   public static String anyString() {
@@ -157,7 +160,7 @@ public class Generate {
     return FIXTURE.create(Error.class);
   }
 
-  public static Boolean anyBoolen() {
+  public static Boolean anyBoolean() {
     return FIXTURE.create(Boolean.class);
   }
 
@@ -262,12 +265,12 @@ public class Generate {
     return FIXTURE.createMany(TypeToken.of(clazz));
   }
 
-  public static <T> Iterable<T> manyAsIterableOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues)
+  public static <T> Iterable<T> manyAsIterableOf(TypeToken<T> typeToken, OtherThanConstraint<T> omittedValues)
   {
     return manyAsListOf(typeToken, omittedValues);
   }
 
-  public static <T> Iterable<T> manyAsIterableOf(Class<T> type, Generate.OtherThanValues<T> omittedValues)
+  public static <T> Iterable<T> manyAsIterableOf(Class<T> type, OtherThanConstraint<T> omittedValues)
   {
     return manyAsIterableOf(TypeToken.of(type), omittedValues);
   }
@@ -281,7 +284,7 @@ public class Generate {
     return (T[]) FIXTURE.createMany(type).toArray();
   }
 
-  public static <T> T[] manyAsArrayOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues)
+  public static <T> T[] manyAsArrayOf(TypeToken<T> typeToken, OtherThanConstraint<T> omittedValues)
   {
     Iterable<T> iterable = manyAsIterableOf(typeToken, omittedValues);
     List<T> list = CollectionFactory.createList();
@@ -292,7 +295,7 @@ public class Generate {
     return (T[]) list.toArray();
   }
 
-  public static <T> T[] manyAsArrayOf(Class<T> type, Generate.OtherThanValues<T> omittedValues)
+  public static <T> T[] manyAsArrayOf(Class<T> type, OtherThanConstraint<T> omittedValues)
   {
     return manyAsArrayOf(TypeToken.of(type), omittedValues);
   }
@@ -307,7 +310,7 @@ public class Generate {
     return Lists.newArrayList(FIXTURE.createMany(type));
   }
 
-  public static <T> List<T> manyAsListOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues) {
+  public static <T> List<T> manyAsListOf(TypeToken<T> typeToken, OtherThanConstraint<T> omittedValues) {
     List<T> result = CollectionFactory.createList();
     result.add(any(typeToken, omittedValues));
     result.add(any(typeToken, omittedValues));
@@ -316,17 +319,17 @@ public class Generate {
     return result;
   }
 
-  public static <T> List<T> manyAsListOf(Class<T> type, Generate.OtherThanValues<T> omittedValues) {
+  public static <T> List<T> manyAsListOf(Class<T> type, OtherThanConstraint<T> omittedValues) {
     return manyAsListOf(TypeToken.of(type), omittedValues);
   }
 
   // COLLECTIONS - complete
 
-  public static <T> Collection<T> manyAsCollectionOf(TypeToken<T> typeToken, Generate.OtherThanValues<T> omittedValues) {
+  public static <T> Collection<T> manyAsCollectionOf(TypeToken<T> typeToken, OtherThanConstraint<T> omittedValues) {
     return manyAsListOf(typeToken, omittedValues);
   }
 
-  public static <T> Collection<T> manyAsCollectionOf(Class<T> type, Generate.OtherThanValues<T> omittedValues) {
+  public static <T> Collection<T> manyAsCollectionOf(Class<T> type, OtherThanConstraint<T> omittedValues) {
     return manyAsListOf(TypeToken.of(type), omittedValues);
   }
 
@@ -352,11 +355,11 @@ public class Generate {
   }
 
   //TODO UT
-  public static <T> Set<T> manyAsSetOf(Class<T> type, Generate.OtherThanValues<T> omittedValues) {
+  public static <T> Set<T> manyAsSetOf(Class<T> type, OtherThanConstraint<T> omittedValues) {
     return manyAsSetOf(TypeToken.of(type), omittedValues);
   }
   //TODO UT
-  public static <T> Set<T> manyAsSetOf(TypeToken<T> type, Generate.OtherThanValues<T> omittedValues) {
+  public static <T> Set<T> manyAsSetOf(TypeToken<T> type, OtherThanConstraint<T> omittedValues) {
     Collection<T> collection = manyAsCollectionOf(type, omittedValues);
     return CollectionFactory.createSetFrom(collection);
   }
@@ -374,11 +377,11 @@ public class Generate {
   }
 
   //TODO UT
-  public static <T> Queue<T> manyAsQueueOf(Class<T> type, Generate.OtherThanValues<T> omittedValues) {
+  public static <T> Queue<T> manyAsQueueOf(Class<T> type, OtherThanConstraint<T> omittedValues) {
     return manyAsQueueOf(TypeToken.of(type), omittedValues);
   }
   //TODO UT
-  public static <T> Queue<T> manyAsQueueOf(TypeToken<T> type, Generate.OtherThanValues<T> omittedValues) {
+  public static <T> Queue<T> manyAsQueueOf(TypeToken<T> type, OtherThanConstraint<T> omittedValues) {
     Collection<T> collection = manyAsCollectionOf(type, omittedValues);
     return CollectionFactory.createQueueFrom(collection);
   }
@@ -395,11 +398,11 @@ public class Generate {
   }
 
   //TODO UT
-  public static <T> Deque<T> manyAsDequeOf(Class<T> type, Generate.OtherThanValues<T> omittedValues) {
+  public static <T> Deque<T> manyAsDequeOf(Class<T> type, OtherThanConstraint<T> omittedValues) {
     return manyAsDequeOf(TypeToken.of(type), omittedValues);
   }
   //TODO UT
-  public static <T> Deque<T> manyAsDequeOf(TypeToken<T> type, Generate.OtherThanValues<T> omittedValues) {
+  public static <T> Deque<T> manyAsDequeOf(TypeToken<T> type, OtherThanConstraint<T> omittedValues) {
     Collection<T> collection = manyAsCollectionOf(type, omittedValues);
     return CollectionFactory.createDequeFrom(collection);
   }
@@ -417,12 +420,12 @@ public class Generate {
   }
 
   //TODO UT
-  public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> type, Generate.OtherThanValues<T> omittedValues) {
+  public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> type, OtherThanConstraint<T> omittedValues) {
     return manyAsSortedSetOf(TypeToken.of(type), omittedValues);
   }
 
   //TODO UT
-  public static <T> SortedSet<T> manyAsSortedSetOf(TypeToken<T> type, Generate.OtherThanValues<T> omittedValues) {
+  public static <T> SortedSet<T> manyAsSortedSetOf(TypeToken<T> type, OtherThanConstraint<T> omittedValues) {
     Collection<T> collection = manyAsCollectionOf(type, omittedValues);
     return CollectionFactory.createSortedSetFrom(collection);
   }
@@ -452,22 +455,6 @@ public class Generate {
     Map<T, V> map = CollectionFactory.createMapFrom(keys, values);
 
     return map;
-  }
-
-  public static <T> Generate.OtherThanValues<T> otherThan(T... values) {
-    return new OtherThanValues(values);
-  }
-
-  public static <T> Generate.OtherThanValues<T> without(T... values) {
-    return new OtherThanValues(values);
-  }
-
-  public static class OtherThanValues<T> {
-    public T[] array;
-
-    public OtherThanValues(T... values) {
-      this.array = values;
-    }
   }
 
 }

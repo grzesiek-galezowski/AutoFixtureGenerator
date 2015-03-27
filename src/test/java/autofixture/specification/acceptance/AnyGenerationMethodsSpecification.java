@@ -13,6 +13,8 @@ import java.time.DayOfWeek;
 import java.util.*;
 
 import static autofixture.publicinterface.Generate.*;
+import static autofixture.publicinterface.constraints.GenerationConstraints.otherThan;
+import static autofixture.publicinterface.constraints.GenerationConstraints.without;
 import static junit.framework.TestCase.fail;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.Matchers.lessThan;
@@ -234,7 +236,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateCollectionsWithoutSpecifiedValuesUsingClassSignature() {
-    List<Integer> list = Lists.newArrayList(manyAsCollectionOf(Integer.class, otherThan(3,5,6,7)));
+    List<Integer> list = Lists.newArrayList(manyAsCollectionOf(Integer.class, without(3, 5, 6, 7)));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -247,7 +249,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateIterablesWithoutSpecifiedValues() {
-    List<Integer> list = Lists.newArrayList(manyAsIterableOf(Integer.class, otherThan(1,2,3)));
+    List<Integer> list = Lists.newArrayList(manyAsIterableOf(Integer.class, without(1, 2, 3)));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -278,7 +280,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateListsWithoutSpecifiedItemsUsingInstanceSignature() {
-    List<Integer> list = manyAsListOf(new InstanceOf<Integer>() {}, without(3,5,6,7));
+    List<Integer> list = manyAsListOf(new InstanceOf<Integer>() {}, without(3, 5, 6, 7));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -292,7 +294,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateListsWithoutSpecifiedItemsUsingClassSignature() {
-    List<Integer> list = manyAsListOf(Integer.class, without(3,5,6,7));
+    List<Integer> list = manyAsListOf(Integer.class, without(3, 5, 6, 7));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -419,7 +421,6 @@ public class AnyGenerationMethodsSpecification {
     assertThat(o.getInstance().field, instanceOf(Integer.class));
   }
 
-
   private void assertContainsOnlyStrings(Collection<String> collection) {
     assertThat(collection.toArray()[0], instanceOf(String.class));
     assertThat(collection.toArray()[1], instanceOf(String.class));
@@ -532,4 +533,5 @@ public class AnyGenerationMethodsSpecification {
     }
   }
 
+  public enum Eon {HADEAN, ARCHAEAN, PROTEROZOIC, PHANEROZOIC}
 }

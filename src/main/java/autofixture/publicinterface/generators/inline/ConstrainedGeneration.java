@@ -1,18 +1,17 @@
 package autofixture.publicinterface.generators.inline;
 
 import autofixture.publicinterface.FixtureContract;
+import autofixture.publicinterface.GenerationConstraint;
 import autofixture.publicinterface.InlineInstanceGenerator;
 import com.google.common.reflect.TypeToken;
 
-import java.util.Arrays;
+public class ConstrainedGeneration<T> implements InlineInstanceGenerator<T> {
 
-public class OtherThanGenerator<T> implements InlineInstanceGenerator<T> {
-
-  private final T[] omittedValues;
+  private final GenerationConstraint<T> constraint;
   private final TypeToken<T> typeToken;
 
-  public OtherThanGenerator(TypeToken<T> typeToken, T[] omittedValues) {
-    this.omittedValues = omittedValues;
+  public ConstrainedGeneration(TypeToken<T> typeToken, GenerationConstraint<T> constraint) {
+    this.constraint = constraint;
     this.typeToken = typeToken;
   }
 
@@ -21,8 +20,9 @@ public class OtherThanGenerator<T> implements InlineInstanceGenerator<T> {
     T currentValue;
     do {
       currentValue = fixture.create(typeToken);
-    } while (Arrays.asList(omittedValues).contains(currentValue));
+    } while (constraint.doesNotAccept(currentValue));
     return currentValue;
   }
+
 
 }
