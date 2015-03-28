@@ -90,7 +90,12 @@ public class Fixture implements FixtureContract {
     });
   }
 
-  public <T> T createWith(InlineInstanceGenerator<T> inlineGenerator) {
+  @Override
+  public <T> T create(TypeToken<T> type, InlineConstrainedGenerator<T> generator) {
+    return generator.next(type, this);
+  }
+
+  public <T> T create(InlineInstanceGenerator<T> inlineGenerator) {
     return inlineGenerator.next(this);
   }
 

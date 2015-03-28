@@ -13,8 +13,8 @@ import java.time.DayOfWeek;
 import java.util.*;
 
 import static autofixture.publicinterface.Generate.*;
-import static autofixture.publicinterface.constraints.GenerationConstraints.otherThan;
-import static autofixture.publicinterface.constraints.GenerationConstraints.without;
+import static autofixture.publicinterface.InlineGenerators.*;
+import static autofixture.specification.acceptance.TypeHelpers.*;
 import static junit.framework.TestCase.fail;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.Matchers.lessThan;
@@ -42,6 +42,11 @@ public class AnyGenerationMethodsSpecification {
     String str2 = anyAlphaString();
 
     assertThat(str1, is(not(str2)));
+
+    String str3 = any(alphaString());
+    String str4 = any(alphaString());
+
+    assertThat(str3, is(not(str4)));
   }
 
   @Test
@@ -50,6 +55,11 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(str, not(containsString("1")));
     assertThat(str, not(containsString("2")));
+
+    String str2 = any(stringNotContaining("1", "2"));
+
+    assertThat(str2, not(containsString("1")));
+    assertThat(str2, not(containsString("2")));
   }
 
   @Test
@@ -60,6 +70,13 @@ public class AnyGenerationMethodsSpecification {
     assertThat(str.length(), equalTo(40));
     assertThat(str2.length(), equalTo(40));
     assertThat(str, is(not(str2)));
+
+    String str3 = any(stringOfLength(40));
+    String str4 = any(stringOfLength(40));
+
+    assertThat(str3.length(), equalTo(40));
+    assertThat(str4.length(), equalTo(40));
+    assertThat(str3, is(not(str4)));
   }
 
   @Test
@@ -70,36 +87,49 @@ public class AnyGenerationMethodsSpecification {
     assertThat(str.length(), equalTo(40));
     assertThat(str2.length(), equalTo(40));
     assertThat(str, is(not(str2)));
+
+    String str3 = any(alphaString(40));
+    String str4 = any(alphaString(40));
+
+    assertThat(str3.length(), equalTo(40));
+    assertThat(str4.length(), equalTo(40));
+    assertThat(str3, is(not(str4)));
   }
 
   @Test
   public void shouldGenerateLongsOtherThanSpecified() {
     assertThat(anyLongOtherThan(56), is(not(equalTo(56))));
+    assertThat(any(longValue(), otherThan(56l)), is(not(equalTo(56))));
   }
 
   @Test
   public void shouldGenerateIntegersOtherThanSpecified() {
     assertThat(anyIntegerOtherThan(56), is(not(equalTo(56))));
+    assertThat(any(intValue(), otherThan(56)), is(not(equalTo(56))));
   }
 
   @Test
   public void shouldGenerateDoublesOtherThanSpecified() {
     assertThat(anyDoubleOtherThan(56), is(not(equalTo(56))));
+    assertThat(any(doubleValue(), otherThan(56d)), is(not(equalTo(56))));
   }
 
   @Test
   public void shouldGenerateFloatsOtherThanSpecified() {
     assertThat(anyFloatOtherThan(56), is(not(equalTo(56))));
+    assertThat(any(floatValue(), otherThan(56f)), is(not(equalTo(56))));
   }
 
   @Test
   public void shouldGenerateStringsOtherThanSpecified() {
     assertThat(anyStringOtherThan("56"), is(not(equalTo("56"))));
+    assertThat(any(string(), otherThan("56")), is(not(equalTo("56"))));
   }
 
   @Test
   public void shouldGenerateShortsOtherThanSpecified() {
-    assertThat(anyShortOtherThan((short) 56), is(not(equalTo(56))));
+    assertThat(anyShortOtherThan((short)56), is(not(equalTo(56))));
+    assertThat(any(shortValue(), otherThan((short) 56)), is(not(equalTo(56))));
   }
 
   @Test
@@ -143,7 +173,8 @@ public class AnyGenerationMethodsSpecification {
   @Test
   public void shouldGenerateItemsOtherThanGivenInstances() {
 
-    Integer notA5 = any(new InstanceOf<Integer>() { }, otherThan(5, 10, 15));
+    Integer notA5 = any(new InstanceOf<Integer>() {
+    }, otherThan(5, 10, 15));
 
     assertThat(notA5, is(not(equalTo(5))));
     assertThat(notA5, is(not(equalTo(10))));
@@ -153,7 +184,7 @@ public class AnyGenerationMethodsSpecification {
   @Test
   public void shouldGenerateItemsOtherThanGivenValues() {
 
-    Integer notA5 = any(Integer.class, otherThan(5, 10, 15));
+    Integer notA5 = any(intValue(), otherThan(5, 10, 15));
 
     assertThat(notA5, is(not(equalTo(5))));
     assertThat(notA5, is(not(equalTo(10))));
@@ -163,7 +194,8 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateArraysExcludingGivenInstances() {
-    List<Integer> list = Arrays.asList(manyAsArrayOf(new InstanceOf<Integer>() { }, without(3, 5, 6, 7)));
+    List<Integer> list = Arrays.asList(manyAsArrayOf(new InstanceOf<Integer>() {
+    }, without(3, 5, 6, 7)));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(3)));
@@ -175,7 +207,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateArraysExcludingGivenValues() {
-    List<Integer> list = Arrays.asList(manyAsArrayOf(Integer.class, without(3, 5, 6, 7)));
+    List<Integer> list = Arrays.asList(manyAsArrayOf(intValues(), without(3, 5, 6, 7)));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(3)));
@@ -187,7 +219,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateIterablesUsingClassSignature() {
-    List<Integer> list = Lists.newArrayList(manyAsIterableOf(Integer.class));
+    List<Integer> list = Lists.newArrayList(manyAsIterableOf(intValues()));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -196,7 +228,8 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateIterablesUsingInstanceSignature() {
-    List<Integer> list = Lists.newArrayList(manyAsIterableOf(new InstanceOf<Integer>(){}));
+    List<Integer> list = Lists.newArrayList(manyAsIterableOf(new InstanceOf<Integer>() {
+    }));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -205,7 +238,8 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateCollectionsUsingInstanceSignature() {
-    List<Integer> list = Lists.newArrayList(manyAsCollectionOf(new InstanceOf<Integer>() {}));
+    List<Integer> list = Lists.newArrayList(manyAsCollectionOf(new InstanceOf<Integer>() {
+    }));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -214,7 +248,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateCollectionsUsingClassSignature() {
-    List<Integer> list = Lists.newArrayList(manyAsCollectionOf(Integer.class));
+    List<Integer> list = Lists.newArrayList(manyAsCollectionOf(intValues()));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -223,8 +257,9 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateCollectionsWithoutSpecifiedValuesUsingInstanceSignature() {
-    List<Integer> list = Lists.newArrayList(manyAsCollectionOf(new InstanceOf<Integer>() {
-    }, otherThan(1, 2, 3)));
+    List<Integer> list = Lists.newArrayList(manyAsCollectionOf(
+      new InstanceOf<Integer>() {
+      }, otherThan(1, 2, 3)));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -236,7 +271,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateCollectionsWithoutSpecifiedValuesUsingClassSignature() {
-    List<Integer> list = Lists.newArrayList(manyAsCollectionOf(Integer.class, without(3, 5, 6, 7)));
+    List<Integer> list = Lists.newArrayList(manyAsCollectionOf(intValues(), without(3, 5, 6, 7)));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -249,7 +284,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateIterablesWithoutSpecifiedValues() {
-    List<Integer> list = Lists.newArrayList(manyAsIterableOf(Integer.class, without(1, 2, 3)));
+    List<Integer> list = Lists.newArrayList(manyAsIterableOf(intValues(), without(1, 2, 3)));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -262,7 +297,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateListsUsingClassSignature() {
-    List<Integer> list = manyAsListOf(Integer.class);
+    List<Integer> list = manyAsListOf(intValues());
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -271,7 +306,8 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateListsUsingInstanceSignature() {
-    List<Integer> list = manyAsListOf(new InstanceOf<Integer>() {});
+    List<Integer> list = manyAsListOf(new InstanceOf<Integer>() {
+    });
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -280,7 +316,8 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateListsWithoutSpecifiedItemsUsingInstanceSignature() {
-    List<Integer> list = manyAsListOf(new InstanceOf<Integer>() {}, without(3, 5, 6, 7));
+    List<Integer> list = manyAsListOf(new InstanceOf<Integer>() {
+    }, without(3, 5, 6, 7));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -294,7 +331,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateListsWithoutSpecifiedItemsUsingClassSignature() {
-    List<Integer> list = manyAsListOf(Integer.class, without(3, 5, 6, 7));
+    List<Integer> list = manyAsListOf(intValues(), without(3, 5, 6, 7));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -306,9 +343,10 @@ public class AnyGenerationMethodsSpecification {
   }
 
 
+
   @Test
   public void shouldGenerateArraysUsingClassSignature() {
-    List<Integer> list = Lists.newArrayList(manyAsArrayOf(Integer.class));
+    List<Integer> list = Lists.newArrayList(manyAsArrayOf(intValues()));
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -327,7 +365,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateSetsUsingClassSignature() {
-    Set<Integer> list = manyAsSetOf(Integer.class);
+    Set<Integer> list = manyAsSetOf(intValues());
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
@@ -336,7 +374,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateQueuesUsingClassSignature() {
-    Queue<Integer> queue = manyAsQueueOf(Integer.class);
+    Queue<Integer> queue = manyAsQueueOf(intValues());
 
     assertThat(queue.size(), is(3));
     assertThat(queue, not(hasItem(nullValue())));
@@ -345,7 +383,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateDequesUsingClassSignature() {
-    Queue<Integer> collection = manyAsDequeOf(Integer.class);
+    Queue<Integer> collection = manyAsDequeOf(intValues());
 
     assertThat(collection.size(), is(3));
     assertThat(collection, not(hasItem(nullValue())));
@@ -354,7 +392,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateSortedSetsUsingClassSignature() {
-    SortedSet<Integer> collection = manyAsSortedSetOf(Integer.class);
+    SortedSet<Integer> collection = manyAsSortedSetOf(intValues());
 
     assertThat(collection.size(), is(3));
     assertThat(collection, not(hasItem(nullValue())));
@@ -363,7 +401,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateSortedMapsUsingClassSignature() {
-    SortedMap<String, Integer> collection = manyAsSortedMapOf(String.class, Integer.class);
+    SortedMap<String, Integer> collection = manyAsSortedMapBetween(string(), intValue());
 
     assertThat(collection.size(), is(3));
     assertThat(collection.keySet(), not(hasItem(nullValue())));
@@ -374,7 +412,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateMapsUsingClassSignature() {
-    Map<String, Integer> collection = manyAsMapOf(String.class, Integer.class);
+    Map<String, Integer> collection = manyAsMapBetween(string(), intValue());
 
     assertThat(collection.size(), is(3));
     assertThat(collection.keySet(), not(hasItem(nullValue())));
@@ -408,7 +446,7 @@ public class AnyGenerationMethodsSpecification {
 
     //THEN
     assertThat(o.getInstance(), instanceOf(GenericObject.class));
-    assertThat(o.getInstance().getInstance(), instanceOf(Integer.class));
+    assertThat(o.getInstance().getInstance(), instanceOf(intValue()));
   }
 
   @Test
@@ -418,20 +456,21 @@ public class AnyGenerationMethodsSpecification {
 
     //THEN
     assertThat(o.getInstance(), instanceOf(GenericObject2.class));
-    assertThat(o.getInstance().field, instanceOf(Integer.class));
+    assertThat(o.getInstance().field, instanceOf(intValue()));
   }
 
   private void assertContainsOnlyStrings(Collection<String> collection) {
-    assertThat(collection.toArray()[0], instanceOf(String.class));
-    assertThat(collection.toArray()[1], instanceOf(String.class));
-    assertThat(collection.toArray()[2], instanceOf(String.class));
+    assertThat(collection.toArray()[0], instanceOf(string()));
+    assertThat(collection.toArray()[1], instanceOf(string()));
+    assertThat(collection.toArray()[2], instanceOf(string()));
   }
 
   private void assertContainsOnlyIntegers(Collection<Integer> collection) {
-    assertThat(collection.toArray()[0], instanceOf(Integer.class));
-    assertThat(collection.toArray()[1], instanceOf(Integer.class));
-    assertThat(collection.toArray()[2], instanceOf(Integer.class));
+    assertThat(collection.toArray()[0], instanceOf(intValue()));
+    assertThat(collection.toArray()[1], instanceOf(intValue()));
+    assertThat(collection.toArray()[2], instanceOf(intValue()));
   }
+
 
 
   
@@ -486,6 +525,15 @@ public class AnyGenerationMethodsSpecification {
     assertThat(aDigitChar, is(not(nullValue())));
     assertThat(aLong, is(not(nullValue())));
     assertThat(aShort, is(not(nullValue())));
+
+    assertThat(anInt, is(instanceOf(intValue())));
+    assertThat(aDouble, is(instanceOf(doubleValue())));
+    assertThat(aFloat, is(instanceOf(floatValue())));
+    assertThat(aChar, is(instanceOf(charValue())));
+    assertThat(alphaChar, is(instanceOf(charValue())));
+    assertThat(aDigitChar, is(instanceOf(charValue())));
+    assertThat(aLong, is(instanceOf(longValue())));
+    assertThat(aShort, is(instanceOf(shortValue())));
   }
 
   @Test
@@ -511,11 +559,18 @@ public class AnyGenerationMethodsSpecification {
     assertThat(port1, is(not(equalTo(port2))));
     assertThat(port1, is(lessThan(65535)));
     assertThat(port2, is(lessThan(65535)));
+
+    int port3 = any(portNumber());
+    int port4 = any(portNumber());
+
+    assertThat(port3, is(not(equalTo(port4))));
+    assertThat(port3, is(lessThan(65535)));
+    assertThat(port4, is(lessThan(65535)));
   }
 
   @Test
   public void lol() {
-    createListOf(Integer.class);
+    createListOf(intValues());
   }
 
   private <T> List<T> createListOf(Class<T> clazz) {
@@ -533,5 +588,4 @@ public class AnyGenerationMethodsSpecification {
     }
   }
 
-  public enum Eon {HADEAN, ARCHAEAN, PROTEROZOIC, PHANEROZOIC}
 }

@@ -117,7 +117,7 @@ public class PrimitiveTypesGenerationSpecification {
       allowing(inlineGeneratorStub).next(fixture); will(returnValue(9999));
     }});
 
-    Integer anInt = fixture.createWith(inlineGeneratorStub);
+    Integer anInt = fixture.create(inlineGeneratorStub);
 
     assertThat(anInt, is(9999));
     context.assertIsSatisfied();
