@@ -87,6 +87,6 @@ Starting with version 0.3.0, new "any" method helpers are available. two simple 
       }
 }
 
-For more examples of this feature and syntax variants, see [![acceptance tests](https://github.com/grzesiek-galezowski/AutoFixtureGenerator/blob/master/src/test/java/autofixture/specification/acceptance/AnyGenerationMethodsSpecification.java)]
+For more examples of this feature and syntax variants, see [acceptance tests](https://github.com/grzesiek-galezowski/AutoFixtureGenerator/blob/master/src/test/java/autofixture/specification/acceptance/AnyGenerationMethodsSpecification.java)
 
 
