@@ -338,7 +338,7 @@ public class Generate {
     return manyAsSetOf(TypeToken.of(clazz));
   }
 
-  private static <T> Set<T> manyAsSetOf(TypeToken<T> type) {
+  public static <T> Set<T> manyAsSetOf(TypeToken<T> type) {
     Collection<T> many = FIXTURE.createMany(type);
     Set<T> collection = CollectionFactory.createSetFrom(many);
     return collection;
@@ -360,7 +360,7 @@ public class Generate {
     return manyAsQueueOf(TypeToken.of(clazz));
   }
 
-  private static <T> Queue<T> manyAsQueueOf(TypeToken<T> type) {
+  public static <T> Queue<T> manyAsQueueOf(TypeToken<T> type) {
     Collection<T> many = FIXTURE.createMany(type);
     Queue<T> queue = CollectionFactory.createQueueFrom(many);
     return queue;
@@ -381,7 +381,7 @@ public class Generate {
     return manyAsDequeOf(TypeToken.of(clazz));
   }
 
-  private static <T> Deque<T> manyAsDequeOf(TypeToken<T> type) {
+  public static <T> Deque<T> manyAsDequeOf(TypeToken<T> type) {
     Collection<T> many = FIXTURE.createMany(type);
     Deque<T> collection = CollectionFactory.createDequeFrom(many);
     return collection;
@@ -403,7 +403,7 @@ public class Generate {
     return manyAsSortedSetOf(TypeToken.of(clazz));
   }
 
-  private static <T> SortedSet<T> manyAsSortedSetOf(TypeToken<T> type) {
+  public static <T> SortedSet<T> manyAsSortedSetOf(TypeToken<T> type) {
     Collection<T> many = FIXTURE.createMany(type);
     SortedSet<T> collection = CollectionFactory.createSortedSetFrom(many);
     return collection;
@@ -438,7 +438,7 @@ public class Generate {
     return manyAsMapBetween(TypeToken.of(keyClass), TypeToken.of(valueClass));
   }
 
-  private static <T, V> Map<T, V> manyAsMapBetween(TypeToken<T> keyType, TypeToken<V> valueType) {
+  public static <T, V> Map<T, V> manyAsMapBetween(TypeToken<T> keyType, TypeToken<V> valueType) {
     T[] keys = (T[]) manyAsCollectionOf(keyType).toArray();
     V[] values = (V[]) manyAsCollectionOf(valueType).toArray();
 

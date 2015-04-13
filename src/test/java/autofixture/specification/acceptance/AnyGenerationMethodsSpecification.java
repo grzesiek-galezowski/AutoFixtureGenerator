@@ -8,6 +8,8 @@ import autofixture.specification.acceptance.testfixtures.GenericObject2;
 import autofixture.specification.acceptance.testfixtures.NonGenericInterface;
 import com.google.common.collect.Lists;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.time.DayOfWeek;
 import java.util.*;
@@ -26,7 +28,17 @@ import static org.hamcrest.core.IsNull.nullValue;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertThat;
 
+@RunWith(Parameterized.class)
 public class AnyGenerationMethodsSpecification {
+
+  @Parameterized.Parameters
+  public static List<Object[]> data() {
+    return Arrays.asList(new Object[100][0]);
+  }
+
+  public AnyGenerationMethodsSpecification() {
+  }
+
 
   @Test
   public void shouldGenerateEachTimeDifferentString() {
@@ -326,7 +338,6 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
     assertContainsOnlyIntegers(list);
-
   }
 
   @Test
@@ -492,7 +503,7 @@ public class AnyGenerationMethodsSpecification {
   }
 
   //TODO variations
-  public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> clazz) {
+  public static <T> SortedSet<T> sortedSetOf(Class<T> clazz) {
     return FIXTURE.create(new InstanceOf<SortedSet<T>>());
   }
 
