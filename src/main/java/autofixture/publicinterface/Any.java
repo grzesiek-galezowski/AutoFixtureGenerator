@@ -10,9 +10,6 @@ import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.*;
 
-/**
- * Created by astral on 06.04.15.
- */
 public class Any {
 
   public static String string() {
