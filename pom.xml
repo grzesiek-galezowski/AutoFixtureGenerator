@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.autofixture</groupId>
     <artifactId>autofixturegenerator</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.3</version>
     <name>AutoFixtureGenerator</name>
     <packaging>jar</packaging>
     <properties>
