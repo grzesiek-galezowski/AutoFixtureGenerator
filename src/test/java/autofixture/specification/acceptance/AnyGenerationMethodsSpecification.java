@@ -110,8 +110,11 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateLongsOtherThanSpecified() {
-    assertThat(anyLongOtherThan(56), is(not(equalTo(56))));
-    assertThat(any(longValue(), otherThan(56l)), is(not(equalTo(56))));
+    assertThat(anyLongOtherThan(56,55), is(not(equalTo(56))));
+    assertThat(any(longValue(), otherThan(56l,55l)), is(not(equalTo(56))));
+
+    assertThat(anyLongOtherThan(56,55), is(not(equalTo(55))));
+    assertThat(any(longValue(), otherThan(56l,55l)), is(not(equalTo(55))));
   }
 
   @Test

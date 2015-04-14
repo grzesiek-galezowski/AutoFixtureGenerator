@@ -81,31 +81,24 @@ public class Any {
     return Generate.anyLongOtherThan(other);
   }
 
-  //bug make the argument an array instead of single value
-  public static String stringOtherThan(String other) {
+  public static String stringOtherThan(String... other) {
     return Generate.anyStringOtherThan(other);
   }
 
-  //bug make the argument an array instead of single value
-  public static Integer intOtherThan(int other) {
+  public static Integer intOtherThan(int... other) {
     return Generate.anyIntegerOtherThan(other);
   }
 
-  //bug make the argument an array instead of single value
-  public static Short shortOtherThan(short other) {
+  public static Short shortOtherThan(short... other) {
     return Generate.anyShortOtherThan(other);
   }
 
-  //bug make the argument an array instead of single value
-  public static Double doubleOtherThan(double other) {
-    return Generate.any(new InstanceOf<Double>() {
-    }, InlineGenerators.otherThan(other));
+  public static Double doubleOtherThan(double... other) {
+    return Generate.anyDoubleOtherThan(other);
   }
 
-  //bug make the argument an array instead of single value
-  public static Float floatOtherThan(float other) {
-    return Generate.any(new InstanceOf<Float>() {
-    }, InlineGenerators.otherThan(other));
+  public static Float floatOtherThan(float... other) {
+    return Generate.anyFloatOtherThan(other);
   }
 
   public static <T> T of(Class<T> enumClass) {

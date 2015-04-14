@@ -10,6 +10,9 @@ import java.time.*;
 import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.*;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 import static autofixture.publicinterface.InlineGenerators.*;
 
@@ -101,28 +104,34 @@ public class Generate {
     return FIXTURE.create(long.class);
   }
 
-  public static Long anyLongOtherThan(long other) {
-    return any(new InstanceOf<Long>() {}, InlineGenerators.otherThan(other));
+  public static Long anyLongOtherThan(long... other) {
+    return any(new InstanceOf<Long>() {
+    }, InlineGenerators.otherThan(boxed(other)));
   }
 
-  public static String anyStringOtherThan(String other) {
-    return any(new InstanceOf<String>() {}, InlineGenerators.otherThan(other));
+  public static String anyStringOtherThan(String... other) {
+    return any(new InstanceOf<String>() {
+    }, InlineGenerators.otherThan(other));
   }
 
-  public static Integer anyIntegerOtherThan(int other) {
-    return any(new InstanceOf<Integer>() {}, InlineGenerators.otherThan(other));
+  public static Integer anyIntegerOtherThan(int... other) {
+    return any(new InstanceOf<Integer>() {
+    }, InlineGenerators.otherThan(boxed(other)));
   }
 
-  public static Short anyShortOtherThan(short other) {
-    return any(new InstanceOf<Short>(){}, InlineGenerators.otherThan(other));
+  public static Short anyShortOtherThan(short... other) {
+    return any(new InstanceOf<Short>() {
+    }, InlineGenerators.otherThan(boxed(other)));
   }
 
-  public static Double anyDoubleOtherThan(double other) {
-    return any(new InstanceOf<Double>(){}, InlineGenerators.otherThan(other));
+  public static Double anyDoubleOtherThan(double... other) {
+    return any(new InstanceOf<Double>() {
+    }, InlineGenerators.otherThan(boxed(other)));
   }
 
-  public static Float anyFloatOtherThan(float other) {
-    return any(new InstanceOf<Float>(){}, InlineGenerators.otherThan(other));
+  public static Float anyFloatOtherThan(float... other) {
+    return any(new InstanceOf<Float>() {
+    }, InlineGenerators.otherThan(boxed(other)));
   }
 
   public static <T> T anyOf(Class<T> enumClass) {
@@ -243,8 +252,8 @@ public class Generate {
     return returnedValue;
   }
 
-
   // ITERABLES - complete
+
 
   public static <T> Iterable<T> manyAsIterableOf(InstanceOf<T> type) {
     return FIXTURE.createMany(type);
@@ -348,17 +357,17 @@ public class Generate {
   public static <T> Set<T> manyAsSetOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
     return manyAsSetOf(TypeToken.of(type), omittedValues);
   }
+
   //TODO UT
   public static <T> Set<T> manyAsSetOf(TypeToken<T> type,InlineConstrainedGenerator<T> omittedValues) {
     Collection<T> collection = manyAsCollectionOf(type, omittedValues);
     return CollectionFactory.createSetFrom(collection);
   }
-
-
   //queues: incomplete
   public static <T> Queue<T> manyAsQueueOf(Class<T> clazz) {
     return manyAsQueueOf(TypeToken.of(clazz));
   }
+
 
   public static <T> Queue<T> manyAsQueueOf(TypeToken<T> type) {
     Collection<T> many = FIXTURE.createMany(type);
@@ -370,12 +379,12 @@ public class Generate {
   public static <T> Queue<T> manyAsQueueOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
     return manyAsQueueOf(TypeToken.of(type), omittedValues);
   }
+
   //TODO UT
   public static <T> Queue<T> manyAsQueueOf(TypeToken<T> type, InlineConstrainedGenerator<T> omittedValues) {
     Collection<T> collection = manyAsCollectionOf(type, omittedValues);
     return CollectionFactory.createQueueFrom(collection);
   }
-
   //Deques: incomplete
   public static <T> Deque<T> manyAsDequeOf(Class<T> clazz) {
     return manyAsDequeOf(TypeToken.of(clazz));
@@ -391,17 +400,17 @@ public class Generate {
   public static <T> Deque<T> manyAsDequeOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
     return manyAsDequeOf(TypeToken.of(type), omittedValues);
   }
+
   //TODO UT
   public static <T> Deque<T> manyAsDequeOf(TypeToken<T> type, InlineConstrainedGenerator<T> omittedValues) {
     Collection<T> collection = manyAsCollectionOf(type, omittedValues);
     return CollectionFactory.createDequeFrom(collection);
   }
-
-
   //sorted sets: incomplete
   public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> clazz) {
     return manyAsSortedSetOf(TypeToken.of(clazz));
   }
+
 
   public static <T> SortedSet<T> manyAsSortedSetOf(TypeToken<T> type) {
     Collection<T> many = FIXTURE.createMany(type);
@@ -446,6 +455,35 @@ public class Generate {
 
     return map;
   }
+
+  private static Long[] boxed(long[] other) {
+    return LongStream.of(other).boxed().toArray(Long[]::new);
+  }
+
+  private static Float[] boxed(float[] other) {
+    ArrayList<Float> list = new ArrayList<>();
+    for(float f : other) {
+      list.add(f);
+    }
+    return list.toArray(new Float[]{});
+  }
+
+  private static Short[] boxed(short[] other) {
+    ArrayList<Short> list = new ArrayList<>();
+    for(short s : other) {
+      list.add(s);
+    }
+    return list.toArray(new Short[]{});
+  }
+
+  private static Double[] boxed(double[] other) {
+    return DoubleStream.of(other).boxed().toArray(Double[]::new);
+  }
+
+  private static Integer[] boxed(int... other) {
+    return IntStream.of(other).boxed().toArray(Integer[]::new);
+  }
+
 
 }
 
