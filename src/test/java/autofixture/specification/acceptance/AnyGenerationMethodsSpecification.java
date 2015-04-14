@@ -387,12 +387,38 @@ public class AnyGenerationMethodsSpecification {
   }
 
   @Test
+  public void shouldGenerateSetsWithoutSpecifiedItemsUsingClassSignature() {
+    Set<Integer> list = manyAsSetOf(intValues(), without(3, 5, 6, 7));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+    assertThat(list, not(hasItem(3)));
+    assertThat(list, not(hasItem(5)));
+    assertThat(list, not(hasItem(6)));
+    assertThat(list, not(hasItem(7)));
+    assertContainsOnlyIntegers(list);
+  }
+
+  @Test
   public void shouldGenerateQueuesUsingClassSignature() {
     Queue<Integer> queue = manyAsQueueOf(intValues());
 
     assertThat(queue.size(), is(3));
     assertThat(queue, not(hasItem(nullValue())));
     assertContainsOnlyIntegers(queue);
+  }
+
+  @Test
+  public void shouldGenerateQueuesWithoutSpecifiedItemsUsingClassSignature() {
+    Queue<Integer> list = manyAsQueueOf(intValues(), without(3, 5, 6, 7));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+    assertThat(list, not(hasItem(3)));
+    assertThat(list, not(hasItem(5)));
+    assertThat(list, not(hasItem(6)));
+    assertThat(list, not(hasItem(7)));
+    assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -405,6 +431,20 @@ public class AnyGenerationMethodsSpecification {
   }
 
   @Test
+  public void shouldGenerateDequesWithoutSpecifiedItemsUsingClassSignature() {
+    Deque<Integer> list = manyAsDequeOf(intValues(), without(3, 5, 6, 7));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+    assertThat(list, not(hasItem(3)));
+    assertThat(list, not(hasItem(5)));
+    assertThat(list, not(hasItem(6)));
+    assertThat(list, not(hasItem(7)));
+    assertContainsOnlyIntegers(list);
+  }
+
+
+  @Test
   public void shouldGenerateSortedSetsUsingClassSignature() {
     SortedSet<Integer> collection = manyAsSortedSetOf(intValues());
 
@@ -412,6 +452,20 @@ public class AnyGenerationMethodsSpecification {
     assertThat(collection, not(hasItem(nullValue())));
     assertContainsOnlyIntegers(collection);
   }
+
+  @Test
+  public void shouldGenerateSortedSetsWithoutSpecifiedItemsUsingClassSignature() {
+    SortedSet<Integer> list = manyAsSortedSetOf(intValues(), without(3, 5, 6, 7));
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+    assertThat(list, not(hasItem(3)));
+    assertThat(list, not(hasItem(5)));
+    assertThat(list, not(hasItem(6)));
+    assertThat(list, not(hasItem(7)));
+    assertContainsOnlyIntegers(list);
+  }
+
 
   @Test
   public void shouldGenerateSortedMapsUsingClassSignature() {

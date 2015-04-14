@@ -340,9 +340,8 @@ public class Generate {
     return FIXTURE.createMany(instanceType);
   }
 
-  //SETS: incomplete
+  //SETS: complete
 
-  //TODO variations
   public static <T> Set<T> manyAsSetOf(Class<T> clazz) {
     return manyAsSetOf(TypeToken.of(clazz));
   }
@@ -353,17 +352,16 @@ public class Generate {
     return collection;
   }
 
-  //TODO UT
   public static <T> Set<T> manyAsSetOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
     return manyAsSetOf(TypeToken.of(type), omittedValues);
   }
 
-  //TODO UT
   public static <T> Set<T> manyAsSetOf(TypeToken<T> type,InlineConstrainedGenerator<T> omittedValues) {
     Collection<T> collection = manyAsCollectionOf(type, omittedValues);
     return CollectionFactory.createSetFrom(collection);
   }
-  //queues: incomplete
+
+  //queues: complete
   public static <T> Queue<T> manyAsQueueOf(Class<T> clazz) {
     return manyAsQueueOf(TypeToken.of(clazz));
   }
@@ -375,17 +373,16 @@ public class Generate {
     return queue;
   }
 
-  //TODO UT
   public static <T> Queue<T> manyAsQueueOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
     return manyAsQueueOf(TypeToken.of(type), omittedValues);
   }
 
-  //TODO UT
   public static <T> Queue<T> manyAsQueueOf(TypeToken<T> type, InlineConstrainedGenerator<T> omittedValues) {
     Collection<T> collection = manyAsCollectionOf(type, omittedValues);
     return CollectionFactory.createQueueFrom(collection);
   }
-  //Deques: incomplete
+
+  //Deques: complete
   public static <T> Deque<T> manyAsDequeOf(Class<T> clazz) {
     return manyAsDequeOf(TypeToken.of(clazz));
   }
@@ -396,17 +393,16 @@ public class Generate {
     return collection;
   }
 
-  //TODO UT
   public static <T> Deque<T> manyAsDequeOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
     return manyAsDequeOf(TypeToken.of(type), omittedValues);
   }
 
-  //TODO UT
   public static <T> Deque<T> manyAsDequeOf(TypeToken<T> type, InlineConstrainedGenerator<T> omittedValues) {
     Collection<T> collection = manyAsCollectionOf(type, omittedValues);
     return CollectionFactory.createDequeFrom(collection);
   }
-  //sorted sets: incomplete
+
+  //sorted sets: complete
   public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> clazz) {
     return manyAsSortedSetOf(TypeToken.of(clazz));
   }
@@ -418,12 +414,10 @@ public class Generate {
     return collection;
   }
 
-  //TODO UT
   public static <T> SortedSet<T> manyAsSortedSetOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
     return manyAsSortedSetOf(TypeToken.of(type), omittedValues);
   }
 
-  //TODO UT
   public static <T> SortedSet<T> manyAsSortedSetOf(TypeToken<T> type, InlineConstrainedGenerator<T> omittedValues) {
     Collection<T> collection = manyAsCollectionOf(type, omittedValues);
     return CollectionFactory.createSortedSetFrom(collection);

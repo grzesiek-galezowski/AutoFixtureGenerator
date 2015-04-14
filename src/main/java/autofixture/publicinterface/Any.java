@@ -76,8 +76,7 @@ public class Any {
     return Generate.anyLong();
   }
 
-  //bug make the argument an array instead of single value
-  public static Long longOtherThan(long other) {
+  public static Long longOtherThan(long... other) {
     return Generate.anyLongOtherThan(other);
   }
 
