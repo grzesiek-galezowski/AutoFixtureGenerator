@@ -12,6 +12,26 @@ import java.util.*;
 
 public class Any {
 
+  public static <T> T anonymous(TypeToken<T> instanceType) {
+    return Generate.any(instanceType);
+  }
+
+  public static <T> T anonymous(Class<T> clazz) {
+    return Generate.any(clazz);
+  }
+
+  public static <T> T anonymous(InlineInstanceGenerator<T> generator) {
+    return Generate.any(generator);
+  }
+
+  public static <T> T anonymous(TypeToken<T> type, InlineConstrainedGenerator<T> generator) {
+    return Generate.any(type, generator);
+  }
+
+  public static <T> T anonymous(Class<T> instanceType, InlineConstrainedGenerator<T> generator) {
+    return Generate.any(instanceType, generator);
+  }
+
   public static String string() {
     return Generate.anyString();
   }
