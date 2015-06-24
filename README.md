@@ -65,7 +65,12 @@ Clearing all customizations:
 Any method helpers
 -
 
-Starting with version 0.3.0, new "any" method helpers are available. two simple examples:
+Starting with version 0.3.0, new "any" method helpers are available. 
+
+Statically imported syntax
+--
+
+two simple examples:
 
     import static autofixture.publicinterface.Generate.*;
     
@@ -82,6 +87,31 @@ Starting with version 0.3.0, new "any" method helpers are available. two simple 
       public void shouldGenerateEachTimeDifferentInstance() {
         GenericObject<Integer> o1 = any(new InstanceOf<GenericObject<Integer>>() {});
         GenericObject<Integer> o2 = any(new InstanceOf<GenericObject<Integer>>() {});
+      
+        assertThat(o1, is(not(o2)));
+      }
+}
+
+Class method calls syntax
+--
+
+two simple examples:
+
+    import static autofixture.publicinterface.*;
+    
+    public class AnyGenerationMethodsSpecification {
+      @Test
+      public void shouldGenerateEachTimeDifferentString() {
+        String str1 = Any.string();
+        String str2 = Any.string();
+    
+        assertThat(str1, is(not(str2)));
+      }
+	  
+      @Test
+      public void shouldGenerateEachTimeDifferentInstance() {
+        GenericObject<Integer> o1 = Any.anonymous(new InstanceOf<GenericObject<Integer>>() {});
+        GenericObject<Integer> o2 = Any.anonumous(new InstanceOf<GenericObject<Integer>>() {});
       
         assertThat(o1, is(not(o2)));
       }
