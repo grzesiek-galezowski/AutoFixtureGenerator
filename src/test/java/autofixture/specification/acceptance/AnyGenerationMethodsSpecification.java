@@ -200,8 +200,6 @@ public class AnyGenerationMethodsSpecification {
     assertThat(date1, is(not(equalTo(date2))));
   }
 
-  //TODO add new Java 8 date time classes
-
   @Test
   public void shouldGenerateStringContainingGivenSubstring() {
     String str = anyStringContaining("1");
