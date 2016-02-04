@@ -61,7 +61,7 @@ public class Any {
   }
 
   public static String alphaString(int length) {
-    return Generate.anyAlphaString();
+    return Generate.anyAlphaString(length);
   }
 
   public static String identifier() {

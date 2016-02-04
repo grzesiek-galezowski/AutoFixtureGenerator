@@ -1,5 +1,6 @@
 package autofixture.specification.acceptance;
 
+import autofixture.publicinterface.Any;
 import autofixture.publicinterface.BoomException;
 import autofixture.publicinterface.InstanceOf;
 import autofixture.specification.acceptance.testfixtures.GenericInterface;
@@ -76,75 +77,107 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateStringOfGivenLength() {
-    String str = anyStringOfLength(40);
-    String str2 = anyStringOfLength(40);
 
-    assertThat(str.length(), equalTo(40));
-    assertThat(str2.length(), equalTo(40));
-    assertThat(str, is(not(str2)));
+    int size = 40;
+    AssertTwoStringsWithExpectedSizeAreDifferent(
+        anyStringOfLength(size),
+        anyStringOfLength(size),
+        size);
 
-    String str3 = any(stringOfLength(40));
-    String str4 = any(stringOfLength(40));
+    AssertTwoStringsWithExpectedSizeAreDifferent(
+        any(stringOfLength(size)),
+        any(stringOfLength(size)),
+        size);
 
-    assertThat(str3.length(), equalTo(40));
-    assertThat(str4.length(), equalTo(40));
-    assertThat(str3, is(not(str4)));
+    AssertTwoStringsWithExpectedSizeAreDifferent(
+        Any.anonymous(stringOfLength(size)),
+        Any.anonymous(stringOfLength(size)),
+        size);
+
+    AssertTwoStringsWithExpectedSizeAreDifferent(
+        Any.stringOfLength(size),
+        Any.stringOfLength(size),
+        size);
+
   }
 
   @Test
   public void shouldGenerateAlphaStringOfGivenLength() {
-    String str = anyAlphaString(40);
-    String str2 = anyAlphaString(40);
 
-    assertThat(str.length(), equalTo(40));
-    assertThat(str2.length(), equalTo(40));
+    int size = 40;
+    AssertTwoStringsWithExpectedSizeAreDifferent(
+        anyAlphaString(size),
+        anyAlphaString(size),
+        size);
+
+    AssertTwoStringsWithExpectedSizeAreDifferent(
+        any(alphaString(size)),
+        any(alphaString(size)),
+        size);
+
+    AssertTwoStringsWithExpectedSizeAreDifferent(
+        Any.anonymous(alphaString(size)),
+        Any.anonymous(alphaString(size)),
+        size);
+
+    AssertTwoStringsWithExpectedSizeAreDifferent(
+        Any.alphaString(size),
+        Any.alphaString(size),
+        size);
+  }
+
+  private void AssertTwoStringsWithExpectedSizeAreDifferent(String str, String str2, int expectedSize) {
+    assertThat(str.length(), equalTo(expectedSize));
+    assertThat(str2.length(), equalTo(expectedSize));
     assertThat(str, is(not(str2)));
-
-    String str3 = any(alphaString(40));
-    String str4 = any(alphaString(40));
-
-    assertThat(str3.length(), equalTo(40));
-    assertThat(str4.length(), equalTo(40));
-    assertThat(str3, is(not(str4)));
   }
 
   @Test
   public void shouldGenerateLongsOtherThanSpecified() {
     assertThat(anyLongOtherThan(56,55), is(not(equalTo(56))));
     assertThat(any(longValue(), otherThan(56l,55l)), is(not(equalTo(56))));
-
-    assertThat(anyLongOtherThan(56,55), is(not(equalTo(55))));
-    assertThat(any(longValue(), otherThan(56l,55l)), is(not(equalTo(55))));
+    assertThat(Any.anonymous(longValue(), otherThan(56l,55l)), is(not(equalTo(56))));
+    assertThat(Any.longOtherThan(56l,55l), is(not(equalTo(56))));
   }
 
   @Test
   public void shouldGenerateIntegersOtherThanSpecified() {
     assertThat(anyIntegerOtherThan(56), is(not(equalTo(56))));
     assertThat(any(intValue(), otherThan(56)), is(not(equalTo(56))));
+    assertThat(Any.anonymous(intValue(), otherThan(56)), is(not(equalTo(56))));
+    assertThat(Any.intOtherThan(56), is(not(equalTo(56))));
   }
 
   @Test
   public void shouldGenerateDoublesOtherThanSpecified() {
     assertThat(anyDoubleOtherThan(56), is(not(equalTo(56))));
     assertThat(any(doubleValue(), otherThan(56d)), is(not(equalTo(56))));
+    assertThat(Any.anonymous(doubleValue(), otherThan(56d)), is(not(equalTo(56))));
+    assertThat(Any.doubleOtherThan(56d), is(not(equalTo(56))));
   }
 
   @Test
   public void shouldGenerateFloatsOtherThanSpecified() {
     assertThat(anyFloatOtherThan(56), is(not(equalTo(56))));
     assertThat(any(floatValue(), otherThan(56f)), is(not(equalTo(56))));
+    assertThat(Any.anonymous(floatValue(), otherThan(56f)), is(not(equalTo(56))));
+    assertThat(Any.floatOtherThan(56f), is(not(equalTo(56))));
   }
 
   @Test
   public void shouldGenerateStringsOtherThanSpecified() {
     assertThat(anyStringOtherThan("56"), is(not(equalTo("56"))));
     assertThat(any(string(), otherThan("56")), is(not(equalTo("56"))));
+    assertThat(Any.anonymous(string(), otherThan("56")), is(not(equalTo("56"))));
+    assertThat(Any.stringOtherThan("56"), is(not(equalTo("56"))));
   }
 
   @Test
   public void shouldGenerateShortsOtherThanSpecified() {
     assertThat(anyShortOtherThan((short)56), is(not(equalTo(56))));
     assertThat(any(shortValue(), otherThan((short) 56)), is(not(equalTo(56))));
+    assertThat(Any.anonymous(shortValue(), otherThan((short) 56)), is(not(equalTo(56))));
+    assertThat(Any.shortOtherThan((short) 56), is(not(equalTo(56))));
   }
 
   @Test
