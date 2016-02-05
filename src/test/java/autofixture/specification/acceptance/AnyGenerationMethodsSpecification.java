@@ -60,6 +60,12 @@ public class AnyGenerationMethodsSpecification {
     String str4 = any(alphaString());
 
     assertThat(str3, is(not(str4)));
+
+    String str5 = Any.alphaString();
+    String str6 = Any.alphaString();
+
+    assertThat(str5, is(not(str6)));
+
   }
 
   @Test
@@ -73,6 +79,11 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(str2, not(containsString("1")));
     assertThat(str2, not(containsString("2")));
+
+    String str3 = Any.stringNotContaining("1", "2");
+
+    assertThat(str3, not(containsString("1")));
+    assertThat(str3, not(containsString("2")));
   }
 
   @Test
@@ -198,13 +209,26 @@ public class AnyGenerationMethodsSpecification {
     assertThat(date1, is(not(nullValue())));
     assertThat(date2, is(not(nullValue())));
     assertThat(date1, is(not(equalTo(date2))));
+
+    Date date3 = Any.date();
+    Date date4 = Any.date();
+
+    assertThat(date3, is(not(nullValue())));
+    assertThat(date4, is(not(nullValue())));
+    assertThat(date3, is(not(equalTo(date4))));
+
   }
 
   @Test
   public void shouldGenerateStringContainingGivenSubstring() {
-    String str = anyStringContaining("1");
+    String str1 = anyStringContaining("1");
+    assertThat(str1, containsString("1"));
 
-    assertThat(str, containsString("1"));
+    String str2 = any(stringContaining("1"));
+    assertThat(str2, containsString("1"));
+
+    String str3 = Any.stringContaining("1");
+    assertThat(str3, containsString("1"));
   }
 
   @Test
@@ -551,9 +575,25 @@ public class AnyGenerationMethodsSpecification {
   @Test
   public void shouldSupportNestedGenericInterfaceImplementations() {
     //GIVEN
-    GenericInterface<GenericObject2<Integer>> o = any(new InstanceOf<GenericInterface<GenericObject2<Integer>>>() {});
+    GenericInterface<GenericObject2<Integer>> o =
+            any(new InstanceOf<GenericInterface<GenericObject2<Integer>>>() {});
 
     //THEN
+    assertGenericObject2GeneratedCorrectly(o);
+  }
+
+  @Test
+  public void shouldSupportNestedGenericInterfaceImplementationsUsingAnyClass() {
+    //GIVEN
+    GenericInterface<GenericObject2<Integer>> o =
+            Any.anonymous(new InstanceOf<GenericInterface<GenericObject2<Integer>>>() {});
+
+    //THEN
+    assertGenericObject2GeneratedCorrectly(o);
+  }
+
+
+  private void assertGenericObject2GeneratedCorrectly(GenericInterface<GenericObject2<Integer>> o) {
     assertThat(o.getInstance(), instanceOf(GenericObject2.class));
     assertThat(o.getInstance().field, instanceOf(intValue()));
   }
@@ -606,16 +646,60 @@ public class AnyGenerationMethodsSpecification {
    */
 
   @Test
-  public void shouldGenerateNumbers() {
-    Integer anInt = anyInteger();
-    Double aDouble = anyDouble();
-    Float aFloat = anyFloat();
-    Character aChar = anyChar();
-    Character alphaChar = anyAlphaChar();
-    Character aDigitChar = anyDigitChar();
-    Long aLong = anyLong();
-    Short aShort = anyShort();
+  public void shouldGenerateNumbersUsingOnePartMethods() {
 
+    AssertNumbersAreGeneratedCorretly(
+            anyInteger(),
+            anyDouble(),
+            anyFloat(),
+            anyChar(),
+            anyAlphaChar(),
+            anyDigitChar(),
+            anyLong(),
+            anyShort());
+  }
+
+  @Test
+  public void shouldGenerateNumbersUsingCompositionalApi() {
+
+    AssertNumbersAreGeneratedCorretly(
+            any(intValue()),
+            any(doubleValue()),
+            any(floatValue()),
+            any(charValue()),
+            any(alphaChar()),
+            any(digitChar()),
+            any(longValue()),
+            any(shortValue()));
+
+    AssertNumbersAreGeneratedCorretly(
+            Any.anonymous(intValue()),
+            Any.anonymous(doubleValue()),
+            Any.anonymous(floatValue()),
+            Any.anonymous(charValue()),
+            Any.anonymous(alphaChar()),
+            Any.anonymous(digitChar()),
+            Any.anonymous(longValue()),
+            Any.anonymous(shortValue()));
+
+  }
+
+  @Test
+  public void shouldGenerateNumbersFromAnyClass() {
+
+    AssertNumbersAreGeneratedCorretly(
+            Any.intValue(),
+            Any.doubleValue(),
+            Any.floatValue(),
+            Any.charValue(),
+            Any.alphaChar(),
+            Any.digitChar(),
+            Any.longValue(),
+            Any.shortValue());
+  }
+
+
+  private void AssertNumbersAreGeneratedCorretly(Integer anInt, Double aDouble, Float aFloat, Character aChar, Character alphaChar, Character aDigitChar, Long aLong, Short aShort) {
     assertThat(anInt, is(not(nullValue())));
     assertThat(aDouble, is(not(nullValue())));
     assertThat(aFloat, is(not(nullValue())));
@@ -641,13 +725,21 @@ public class AnyGenerationMethodsSpecification {
 
     assertThrows(BoomException.class, instance::doSomething);
     assertThrows(BoomException.class, instance::getSomething);
+
+    NonGenericInterface instance2 = Any.exploding(NonGenericInterface.class);
+
+    assertThrows(BoomException.class, instance2::doSomething);
+    assertThrows(BoomException.class, instance2::getSomething);
+
   }
 
   @Test
   public void shouldGenerateExplodingInstanceOfInterfacesUsingInstanceSignature() {
     GenericInterface instance = anyExploding(new InstanceOf<GenericInterface>() {});
-
     assertThrows(BoomException.class, instance::getInstance);
+
+    GenericInterface instance2 = Any.exploding(new InstanceOf<GenericInterface>() {});
+    assertThrows(BoomException.class, instance2::getInstance);
   }
 
   @Test
@@ -665,6 +757,13 @@ public class AnyGenerationMethodsSpecification {
     assertThat(port3, is(not(equalTo(port4))));
     assertThat(port3, is(lessThan(65535)));
     assertThat(port4, is(lessThan(65535)));
+
+    int port5 = Any.port();
+    int port6 = Any.port();
+
+    assertThat(port5, is(not(equalTo(port6))));
+    assertThat(port5, is(lessThan(65535)));
+    assertThat(port6, is(lessThan(65535)));
   }
 
   @Test
