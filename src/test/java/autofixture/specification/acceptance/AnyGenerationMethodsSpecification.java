@@ -19,6 +19,7 @@ import static autofixture.publicinterface.Generate.*;
 import static autofixture.publicinterface.InlineGenerators.*;
 import static autofixture.specification.acceptance.TypeHelpers.*;
 import static junit.framework.TestCase.fail;
+import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.core.Is.is;
@@ -280,10 +281,12 @@ public class AnyGenerationMethodsSpecification {
     List<Integer> list = Arrays.asList(manyAsArrayOf(intValues(), without(3, 5, 6, 7)));
 
     assertThat(list.size(), is(3));
-    assertThat(list, not(hasItem(3)));
-    assertThat(list, not(hasItem(5)));
-    assertThat(list, not(hasItem(6)));
-    assertThat(list, not(hasItem(7)));
+    assertThat(list, allOf(
+            not(hasItem(3)),
+            not(hasItem(5)),
+            not(hasItem(6)),
+            not(hasItem(7))
+    ));
     assertContainsOnlyIntegers(list);
   }
 
@@ -332,10 +335,12 @@ public class AnyGenerationMethodsSpecification {
       }, otherThan(1, 2, 3)));
 
     assertThat(list.size(), is(3));
-    assertThat(list, not(hasItem(nullValue())));
-    assertThat(list, not(hasItem(1)));
-    assertThat(list, not(hasItem(2)));
-    assertThat(list, not(hasItem(3)));
+    assertThat(list, allOf(
+            not(hasItem(nullValue())),
+            not(hasItem(1)),
+            not(hasItem(2)),
+            not(hasItem(3))
+    ));
     assertContainsOnlyIntegers(list);
   }
 
