@@ -1,5 +1,6 @@
 package autofixture.specification.acceptance;
 
+import autofixture.publicinterface.Any;
 import autofixture.publicinterface.Fixture;
 import autofixture.specification.acceptance.matchers.HasArrayLengthMatcher;
 import autofixture.specification.acceptance.matchers.HasArrayUniqueItemsMatcher;
@@ -14,6 +15,7 @@ import org.junit.runner.RunWith;
 import java.util.*;
 import java.util.concurrent.*;
 
+import static autofixture.publicinterface.Generate.any;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -131,10 +133,31 @@ public class CollectionTypesGenerationSpecification {
   }
 
   @Theory
-  public <T extends Collection<String>> void shouldGenerateCollectionsWithThreeUniqueElements(
-    TypeToken<T> collectionClass) {
-    T collection = fixture.create(collectionClass);
+  public void shouldGenerateCollectionsWithThreeUniqueElements(
+    TypeToken<? extends Collection<String>> collectionClass) {
+    Collection<String> collection = fixture.create(collectionClass);
 
+    assertHasThreeUniqueItems(collectionClass, collection);
+  }
+
+  @Theory
+  public void shouldGenerateCollectionsWithThreeUniqueElementsUsingAnyClass(
+          TypeToken<? extends Collection<String>> collectionClass) {
+    Collection<String> collection = Any.anonymous(collectionClass);
+
+    assertHasThreeUniqueItems(collectionClass, collection);
+  }
+
+  @Theory
+  public void shouldGenerateCollectionsWithThreeUniqueElementsUsingAnyMethod(
+          TypeToken<? extends Collection<String>> collectionClass) {
+    Collection<String> collection = any(collectionClass);
+
+    assertHasThreeUniqueItems(collectionClass, collection);
+  }
+
+
+  private void assertHasThreeUniqueItems(TypeToken<? extends Collection<String>> collectionClass, Collection<String> collection) {
     assertTrue("Cannot assign " + collection.getClass() + " to " + collectionClass,
       collectionClass.getRawType().isAssignableFrom(collection.getClass()));
 
