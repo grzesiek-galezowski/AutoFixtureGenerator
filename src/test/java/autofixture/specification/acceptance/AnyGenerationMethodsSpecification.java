@@ -21,6 +21,7 @@ import static autofixture.specification.acceptance.TypeHelpers.*;
 import static junit.framework.TestCase.fail;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -334,7 +335,7 @@ public class AnyGenerationMethodsSpecification {
       new InstanceOf<Integer>() {
       }, otherThan(1, 2, 3)));
 
-    assertThat(list.size(), is(3));
+    assertThat(list, hasSize(3));
     assertThat(list, allOf(
             not(hasItem(nullValue())),
             not(hasItem(1)),

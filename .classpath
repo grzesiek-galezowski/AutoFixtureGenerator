@@ -17,10 +17,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="Lib/guava-16.0.1.jar"/>
-	<classpathentry kind="lib" path="Lib/jmock-2.6.0/jmock-2.6.0.jar"/>
-	<classpathentry kind="lib" path="Lib/hamcrest-core-1.3.jar"/>
-	<classpathentry kind="lib" path="Lib/junit-4.11.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
