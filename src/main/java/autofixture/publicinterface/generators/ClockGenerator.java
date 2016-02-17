@@ -18,7 +18,7 @@ public class ClockGenerator implements InstanceGenerator {
 
   @Override
   public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
-    return (T)Clock.tickMinutes(fixture.create(ZoneId.class));
+    return (T) Clock.tickMinutes(fixture.create(ZoneId.class));
   }
 
   @Override

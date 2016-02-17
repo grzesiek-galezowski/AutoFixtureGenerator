@@ -19,7 +19,7 @@ public class ChronoLocalDateTimeGenerator implements InstanceGenerator {
 
   @Override
   public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
-    return (T)LocalDateTime.now().plus(Duration.ofNanos(fixture.create(Long.class)));
+    return (T) LocalDateTime.now().plus(Duration.ofNanos(fixture.create(Long.class)));
   }
 
   @Override

@@ -8,8 +8,8 @@ import java.util.concurrent.*;
  */
 public class CollectionFactory {
   public static <T, V> Map<T, V> createMapFrom(T[] keys, V[] values) {
-    Map<T,V> map = new HashMap<T,V>();
-    for(int i = 0 ; i < keys.length ; ++i) {
+    Map<T, V> map = new HashMap<T, V>();
+    for (int i = 0; i < keys.length; ++i) {
       map.put(keys[i], values[i]);
     }
     return map;

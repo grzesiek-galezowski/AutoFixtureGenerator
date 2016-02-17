@@ -144,17 +144,22 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result
-      + ((typeToken == null) ? 0 : typeToken.hashCode());
+    if (typeToken == null) {
+      result = prime * result + 0;
+    } else {
+      result = prime * result + typeToken.hashCode();
+    }
     return result;
   }
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
+    if (this == obj) {
       return true;
-    if (obj == null)
+    }
+    if (obj == null) {
       return false;
+    }
     if (getClass() != obj.getClass())
       return false;
     @SuppressWarnings("rawtypes")

@@ -253,8 +253,7 @@ public class Any {
     return Generate.manyAsArrayOf(typeToken, omittedValues);
   }
 
-  public static <T> T[] arrayOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues)
-  {
+  public static <T> T[] arrayOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsArrayOf(type, omittedValues);
   }
 
@@ -310,7 +309,7 @@ public class Any {
     return Generate.manyAsSetOf(type, omittedValues);
   }
   //TODO UT
-  public static <T> Set<T> setOf(TypeToken<T> type,InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> Set<T> setOf(TypeToken<T> type, InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsSetOf(type, omittedValues);
   }
 

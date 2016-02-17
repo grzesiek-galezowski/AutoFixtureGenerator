@@ -5,7 +5,7 @@ import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.InstanceType;
 
 public class DoubleSequenceGenerator implements InstanceGenerator {
-  private final static Double ARBITRARY_DOUBLE = 0.3;
+  private static final Double ARBITRARY_DOUBLE = 0.3;
   private Double startingNumber = ARBITRARY_DOUBLE;
 
   @Override

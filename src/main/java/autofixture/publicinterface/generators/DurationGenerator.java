@@ -17,7 +17,7 @@ public class DurationGenerator implements InstanceGenerator {
 
   @Override
   public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
-    return (T)Duration.ofNanos(fixture.create(Long.class));
+    return (T) Duration.ofNanos(fixture.create(Long.class));
   }
 
   @Override
