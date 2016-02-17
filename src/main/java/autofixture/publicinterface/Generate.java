@@ -264,13 +264,11 @@ public class Generate {
   }
 
   public static <T> Iterable<T> manyAsIterableOf(
-    TypeToken<T> typeToken, InlineConstrainedGenerator<T> omittedValues)
-  {
+    TypeToken<T> typeToken, InlineConstrainedGenerator<T> omittedValues) {
     return manyAsListOf(typeToken, omittedValues);
   }
 
-  public static <T> Iterable<T> manyAsIterableOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues)
-  {
+  public static <T> Iterable<T> manyAsIterableOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
     return manyAsIterableOf(TypeToken.of(type), omittedValues);
   }
 
@@ -283,8 +281,7 @@ public class Generate {
     return (T[]) FIXTURE.createMany(type).toArray();
   }
 
-  public static <T> T[] manyAsArrayOf(TypeToken<T> typeToken, InlineConstrainedGenerator<T> omittedValues)
-  {
+  public static <T> T[] manyAsArrayOf(TypeToken<T> typeToken, InlineConstrainedGenerator<T> omittedValues) {
     Iterable<T> iterable = manyAsIterableOf(typeToken, omittedValues);
     List<T> list = CollectionFactory.createList();
     for (T element : iterable) {
@@ -294,8 +291,7 @@ public class Generate {
     return (T[]) list.toArray();
   }
 
-  public static <T> T[] manyAsArrayOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues)
-  {
+  public static <T> T[] manyAsArrayOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
     return manyAsArrayOf(TypeToken.of(type), omittedValues);
   }
 

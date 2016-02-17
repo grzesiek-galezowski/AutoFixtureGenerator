@@ -54,10 +54,10 @@ public class GeneratorsFactory {
   }
 
   private InstanceGenerator clocks() {
-    return ClockGenerator();
+    return clockGenerator();
   }
 
-  private InstanceGenerator ClockGenerator() {
+  private InstanceGenerator clockGenerator() {
     return new ClockGenerator();
   }
 
