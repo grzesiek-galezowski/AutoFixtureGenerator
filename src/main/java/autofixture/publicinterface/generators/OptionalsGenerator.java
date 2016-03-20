@@ -15,16 +15,16 @@ import java.util.OptionalLong;
  */
 public class OptionalsGenerator implements InstanceGenerator {
   @Override
-  public <T> boolean appliesTo(InstanceType<T> instanceType) {
+  public <T> boolean appliesTo(final InstanceType<T> instanceType) {
     return instanceType.isRawTypeAssignableFrom(Optional.class)
-      || instanceType.isRawTypeAssignableFrom(OptionalInt.class)
-      || instanceType.isRawTypeAssignableFrom(OptionalDouble.class)
-      || instanceType.isRawTypeAssignableFrom(OptionalLong.class);
+        || instanceType.isRawTypeAssignableFrom(OptionalInt.class)
+        || instanceType.isRawTypeAssignableFrom(OptionalDouble.class)
+        || instanceType.isRawTypeAssignableFrom(OptionalLong.class);
 
   }
 
   @Override
-  public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
+  public <T> T next(final InstanceType<T> instanceType, final FixtureContract fixture) {
     if (instanceType.isRawTypeAssignableFrom(Optional.class)) {
       return (T) Optional.of(fixture.create(instanceType.getNestedGenericType()));
     } else if (instanceType.isRawTypeAssignableFrom(OptionalInt.class)) {
@@ -39,7 +39,7 @@ public class OptionalsGenerator implements InstanceGenerator {
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
 
   }
 }

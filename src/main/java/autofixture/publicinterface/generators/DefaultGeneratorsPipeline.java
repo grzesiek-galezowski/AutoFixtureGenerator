@@ -13,12 +13,12 @@ public class DefaultGeneratorsPipeline implements GeneratorsPipeline {
   private int customizationsCount = 0;
   private boolean autoPropertiesDisabled = false;
 
-  public DefaultGeneratorsPipeline(List<InstanceGenerator> generators) {
+  public DefaultGeneratorsPipeline(final List<InstanceGenerator> generators) {
     this.generators = generators;
   }
 
-  public <T> T executeFor(InstanceType<T> instanceType, FixtureContract fixture) {
-    for (InstanceGenerator generator : generators) {
+  public <T> T executeFor(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    for (final InstanceGenerator generator : generators) {
       if (generator.appliesTo(instanceType)) {
         return generator.next(instanceType, fixture);
       }
@@ -26,7 +26,7 @@ public class DefaultGeneratorsPipeline implements GeneratorsPipeline {
     throw new ObjectCreationException(instanceType);
   }
 
-  public void registerCustomization(InstanceGenerator instanceGenerator) {
+  public void registerCustomization(final InstanceGenerator instanceGenerator) {
     generators.add(0, instanceGenerator);
     instanceGenerator.setOmittingAutoProperties(this.autoPropertiesDisabled);
     customizationsCount++;
@@ -39,9 +39,9 @@ public class DefaultGeneratorsPipeline implements GeneratorsPipeline {
     customizationsCount = 0;
   }
 
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
     autoPropertiesDisabled = isOn;
-    for (InstanceGenerator generator : generators) {
+    for (final InstanceGenerator generator : generators) {
       generator.setOmittingAutoProperties(isOn);
     }
   }

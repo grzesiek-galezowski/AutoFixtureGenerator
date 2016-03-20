@@ -7,17 +7,17 @@ import autofixture.publicinterface.InstanceType;
 public class PlainObjectGenerator implements InstanceGenerator {
 
   @Override
-  public <T> boolean appliesTo(InstanceType<T> typeToken) {
+  public <T> boolean appliesTo(final InstanceType<T> typeToken) {
     return typeToken.isRawTypeAssignableFrom(Object.class);
   }
 
   @SuppressWarnings("unchecked")
   @Override
-  public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {
+  public <T> T next(final InstanceType<T> typeToken, final FixtureContract fixture) {
     return (T) new Object();
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
   }
 }

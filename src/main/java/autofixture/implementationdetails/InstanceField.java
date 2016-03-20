@@ -8,11 +8,11 @@ import java.lang.reflect.Field;
 
 public class InstanceField<T> {
 
-  private Field field;
-  private InstanceType<T> instanceType;
-  private T instance;
+  private final Field field;
+  private final InstanceType<T> instanceType;
+  private final T instance;
 
-  public InstanceField(Field field, InstanceType<T> instanceType, T instance) {
+  public InstanceField(final Field field, final InstanceType<T> instanceType, final T instance) {
     this.field = field;
     this.instanceType = instanceType;
     this.instance = instance;
@@ -22,7 +22,7 @@ public class InstanceField<T> {
     return instanceType.resolveActualTypeOf(field);
   }
 
-  public void setValueUsing(FixtureContract fixture) throws IllegalAccessException {
+  public void setValueUsing(final FixtureContract fixture) throws IllegalAccessException {
     field.set(instance, fixture.create(resolveActualType()));
 
   }

@@ -12,17 +12,17 @@ import java.time.Instant;
  */
 public class InstantGenerator implements InstanceGenerator {
   @Override
-  public <T> boolean appliesTo(InstanceType<T> instanceType) {
+  public <T> boolean appliesTo(final InstanceType<T> instanceType) {
     return instanceType.isRawTypeAssignableFrom(Instant.class);
   }
 
   @Override
-  public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
-    return (T)Instant.now().plus(Duration.ofNanos(fixture.create(Long.class)));
+  public <T> T next(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    return (T) Instant.now().plus(Duration.ofNanos(fixture.create(Long.class)));
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
 
   }
 }

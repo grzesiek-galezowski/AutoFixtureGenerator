@@ -5,6 +5,7 @@ import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.InstanceType;
 import autofixture.publicinterface.ObjectCreationException;
+import com.google.common.base.Optional;
 
 import java.util.List;
 
@@ -13,58 +14,58 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
   private boolean omittingAutoProperties = false;
 
   @Override
-  public <T> boolean appliesTo(InstanceType<T> typeToken) {
+  public <T> boolean appliesTo(final InstanceType<T> typeToken) {
     return true;
   }
 
   @Override
-  public <T> T next(InstanceType<T> type, FixtureContract fixture) {
-    T instance = createInstanceOf(type, fixture);
+  public <T> T next(final InstanceType<T> type, final FixtureContract fixture) {
+    final T instance = createInstanceOf(type, fixture);
     try {
       if (!omittingAutoProperties) {
         makeBestEffortAttemptToInvokeAllSettersOn(instance, type, fixture);
         makeBestEffortAttemptToSetAllPublicFields(instance, type, fixture);
       }
 
-    } catch (IllegalAccessException e) {
+    } catch (final IllegalAccessException e) {
       throw new ObjectCreationException(type, e);
     }
     return instance;
   }
 
-  private <T> void makeBestEffortAttemptToSetAllPublicFields(T instance,
-                                                             InstanceType<T> type, FixtureContract fixture) throws IllegalAccessException {
-    List<InstanceField<T>> publicFields = type.getAllPublicFieldsOf(instance);
-    for (InstanceField<T> publicField : publicFields) {
+  private <T> void makeBestEffortAttemptToSetAllPublicFields(final T instance,
+                                                             final InstanceType<T> type, final FixtureContract fixture) throws IllegalAccessException {
+    final List<InstanceField<T>> publicFields = type.getAllPublicFieldsOf(instance);
+    for (final InstanceField<T> publicField : publicFields) {
       publicField.setValueUsing(fixture);
     }
   }
 
-  private <T> T createInstanceOf(InstanceType<T> type, FixtureContract fixture) {
-    Call<T, T> currentConstructor = type.findPublicConstructorWithLeastParameters();
-    T instance = currentConstructor.invokeWithArgumentsCreatedUsing(fixture);
+  private <T> T createInstanceOf(final InstanceType<T> type, final FixtureContract fixture) {
+    final Call<T, T> currentConstructor = type.findPublicConstructorWithLeastParameters();
+    final T instance = currentConstructor.invokeWithArgumentsCreatedUsing(fixture);
     return instance;
   }
 
-  private <T> void makeBestEffortAttemptToInvokeAllSettersOn(T instance,
-                                                             InstanceType<T> type, FixtureContract fixture) {
-    List<Call<T, Object>> setters = type.getAllSetters();
-    for (Call<T, Object> setter : setters) {
+  private <T> void makeBestEffortAttemptToInvokeAllSettersOn(final T instance,
+                                                             final InstanceType<T> type, final FixtureContract fixture) {
+    final List<Call<T, Object>> setters = type.getAllSetters();
+    for (final Call<T, Object> setter : setters) {
       makeBestEffortAttemptToInvoke(setter, instance, fixture);
     }
   }
 
-  private <T> void makeBestEffortAttemptToInvoke(Call<T, Object> setter,
-                                                 T instance, FixtureContract fixture) {
+  private <T> void makeBestEffortAttemptToInvoke(final Call<T, Object> setter,
+                                                 final T instance, final FixtureContract fixture) {
     try {
-      setter.invokeWithArgumentsCreatedUsing(fixture, instance);
-    } catch (Exception t) {
+      setter.invokeWithArgumentsCreatedUsing(fixture, Optional.of(instance));
+    } catch (final Exception t) {
       //silently invoke any failed attempt
     }
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
     this.omittingAutoProperties = isOn;
 
   }

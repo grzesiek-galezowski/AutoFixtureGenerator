@@ -9,24 +9,24 @@ import java.util.Collection;
 public class BuiltInCollectionGenerator implements InstanceGenerator {
 
   @Override
-  public <T> boolean appliesTo(InstanceType<T> clazz) {
+  public <T> boolean appliesTo(final InstanceType<T> clazz) {
     return
-      clazz.isAssignableTo(Collection.class)
-        || Iterable.class.isAssignableFrom(clazz.getRawType());
+        clazz.isAssignableTo(Collection.class)
+            || Iterable.class.isAssignableFrom(clazz.getRawType());
   }
 
   @SuppressWarnings({"unchecked", "rawtypes"})
   @Override
-  public <T> T next(InstanceType<T> type, FixtureContract fixture) {
+  public <T> T next(final InstanceType<T> type, final FixtureContract fixture) {
     //TODO make same as array generation
-    Collection collection = type.createCollection(fixture.getRepeatCount());
-    InstanceType<?> nestedGenericType = type.getNestedGenericType();
+    final Collection collection = type.createCollection(fixture.getRepeatCount());
+    final InstanceType<?> nestedGenericType = type.getNestedGenericType();
     collection.addAll(fixture.createMany(nestedGenericType));
     return (T) collection;
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
   }
 
 

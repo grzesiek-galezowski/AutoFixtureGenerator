@@ -9,21 +9,21 @@ import java.util.Date;
 
 public class DateGenerator implements InstanceGenerator {
 
-  private Calendar calendar = Calendar.getInstance();
+  private final Calendar calendar = Calendar.getInstance();
 
   @Override
-  public <T> boolean appliesTo(InstanceType<T> typeToken) {
+  public <T> boolean appliesTo(final InstanceType<T> typeToken) {
     return typeToken.isRawTypeAssignableFrom(Date.class);
   }
 
   @SuppressWarnings("unchecked")
   @Override
-  public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {
+  public <T> T next(final InstanceType<T> typeToken, final FixtureContract fixture) {
     calendar.add(Calendar.SECOND, 1);
     return (T) calendar.getTime();
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
   }
 }

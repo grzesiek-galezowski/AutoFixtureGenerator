@@ -9,14 +9,14 @@ public class AlphaStringGenerator implements InlineInstanceGenerator<String> {
   private final int length;
 
   public AlphaStringGenerator(
-    InlineInstanceGenerator<Character> alphaCharGenerator, int length) {
+      final InlineInstanceGenerator<Character> alphaCharGenerator, final int length) {
     this.alphaCharGenerator = alphaCharGenerator;
     this.length = length;
   }
 
   @Override
-  public String next(FixtureContract fixture) {
-    StringBuilder result = new StringBuilder();
+  public String next(final FixtureContract fixture) {
+    final StringBuilder result = new StringBuilder();
     for (int i = 0; i < length; ++i) {
       result.append(alphaCharGenerator.next(fixture));
     }

@@ -1,34 +1,55 @@
 package autofixture.publicinterface;
 
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.Stack;
+import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.PriorityBlockingQueue;
 
 /**
  * Created by astral on 07.02.15.
  */
 public class CollectionFactory {
-  public static <T, V> Map<T, V> createMapFrom(T[] keys, V[] values) {
-    Map<T, V> map = new HashMap<T, V>();
+  public static <T, V> Map<T, V> createMapFrom(final T[] keys, final V[] values) {
+    final Map<T, V> map = new HashMap<>();
     for (int i = 0; i < keys.length; ++i) {
       map.put(keys[i], values[i]);
     }
     return map;
   }
 
-  public static <T> Deque<T> createDequeFrom(Collection<T> many) {
-    return new ArrayDeque<T>(many);
+  public static <T> Deque<T> createDequeFrom(final Collection<T> many) {
+    return new ArrayDeque<>(many);
   }
 
-  public static <T> SortedSet<T> createSortedSetFrom(Collection<T> many) {
-    return new TreeSet<T>(many);
+  public static <T> SortedSet<T> createSortedSetFrom(final Collection<T> many) {
+    return new TreeSet<>(many);
   }
 
-  public static <T> Set<T> createSetFrom(Collection<T> many) {
-    return new HashSet<T>(many);
+  public static <T> Set<T> createSetFrom(final Collection<T> many) {
+    return new HashSet<>(many);
   }
 
-  public static <T, V> SortedMap<T, V> createSortedMapFrom(Map<T, V> map) {
-    return new TreeMap<T,V>(map);
+  public static <T, V> SortedMap<T, V> createSortedMapFrom(final Map<T, V> map) {
+    return new TreeMap<>(map);
   }
 
   public static <T> List<T> createList() {
@@ -47,7 +68,7 @@ public class CollectionFactory {
     return new ArrayDeque<>();
   }
 
-  public static ArrayBlockingQueue<Object> createEmptyArrayBlockingQueue(int repeatCount) {
+  public static ArrayBlockingQueue<Object> createEmptyArrayBlockingQueue(final int repeatCount) {
     return new ArrayBlockingQueue<>(repeatCount);
   }
 
@@ -91,7 +112,7 @@ public class CollectionFactory {
     return new HashSet<>();
   }
 
-  public static <T> PriorityQueue<T> createQueueFrom(Collection<T> many) {
-    return new PriorityQueue<T>(many);
+  public static <T> PriorityQueue<T> createQueueFrom(final Collection<T> many) {
+    return new PriorityQueue<>(many);
   }
 }

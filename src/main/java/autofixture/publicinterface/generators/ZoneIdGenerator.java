@@ -12,30 +12,30 @@ import java.util.Set;
  * Created by astral on 08.02.15.
  */
 public class ZoneIdGenerator implements InstanceGenerator {
-  private CircularList<String> zoneIds;
+  private final CircularList<String> zoneIds;
 
   public ZoneIdGenerator() {
-    Set<String> availableIds = ZoneId.getAvailableZoneIds();
+    final Set<String> availableIds = ZoneId.getAvailableZoneIds();
     zoneIds = new CircularList<>(availableIds.toArray(arrayFor(availableIds)));
   }
 
-  private String[] arrayFor(Set<String> availableIds) {
+  private String[] arrayFor(final Set<String> availableIds) {
     return new String[availableIds.size()];
   }
 
 
   @Override
-  public <T> boolean appliesTo(InstanceType<T> instanceType) {
+  public <T> boolean appliesTo(final InstanceType<T> instanceType) {
     return instanceType.isRawTypeAssignableFrom(ZoneId.class);
   }
 
   @Override
-  public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
-    return (T)ZoneId.of(zoneIds.next());
+  public <T> T next(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    return (T) ZoneId.of(zoneIds.next());
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
 
   }
 }

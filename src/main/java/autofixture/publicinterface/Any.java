@@ -5,30 +5,47 @@ import com.google.common.reflect.TypeToken;
 import java.net.InetAddress;
 import java.net.URI;
 import java.net.URL;
-import java.time.*;
+import java.time.Clock;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetTime;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.ChronoLocalDateTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Deque;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.SortedSet;
 
 public class Any {
 
-  public static <T> T anonymous(TypeToken<T> instanceType) {
+  public static <T> T anonymous(final TypeToken<T> instanceType) {
     return Generate.any(instanceType);
   }
 
-  public static <T> T anonymous(Class<T> clazz) {
+  public static <T> T anonymous(final Class<T> clazz) {
     return Generate.any(clazz);
   }
 
-  public static <T> T anonymous(InlineInstanceGenerator<T> generator) {
+  public static <T> T anonymous(final InlineInstanceGenerator<T> generator) {
     return Generate.any(generator);
   }
 
-  public static <T> T anonymous(TypeToken<T> type, InlineConstrainedGenerator<T> generator) {
+  public static <T> T anonymous(final TypeToken<T> type, final InlineConstrainedGenerator<T> generator) {
     return Generate.any(type, generator);
   }
 
-  public static <T> T anonymous(Class<T> instanceType, InlineConstrainedGenerator<T> generator) {
+  public static <T> T anonymous(final Class<T> instanceType, final InlineConstrainedGenerator<T> generator) {
     return Generate.any(instanceType, generator);
   }
 
@@ -36,15 +53,15 @@ public class Any {
     return Generate.anyString();
   }
 
-  public static String stringOfLength(int charactersCount) {
+  public static String stringOfLength(final int charactersCount) {
     return Generate.anyStringOfLength(charactersCount);
   }
 
-  public static String stringNotContaining(String... excludedSubstrings) {
+  public static String stringNotContaining(final String... excludedSubstrings) {
     return Generate.anyStringNotContaining(excludedSubstrings);
   }
 
-  public static String stringContaining(String str) {
+  public static String stringContaining(final String str) {
     return Generate.anyStringContaining(str);
   }
 
@@ -60,7 +77,7 @@ public class Any {
     return Generate.anyAlphaString();
   }
 
-  public static String alphaString(int length) {
+  public static String alphaString(final int length) {
     return Generate.anyAlphaString(length);
   }
 
@@ -96,31 +113,31 @@ public class Any {
     return Generate.anyLong();
   }
 
-  public static Long longOtherThan(long... other) {
+  public static Long longOtherThan(final long... other) {
     return Generate.anyLongOtherThan(other);
   }
 
-  public static String stringOtherThan(String... other) {
+  public static String stringOtherThan(final String... other) {
     return Generate.anyStringOtherThan(other);
   }
 
-  public static Integer intOtherThan(int... other) {
+  public static Integer intOtherThan(final int... other) {
     return Generate.anyIntegerOtherThan(other);
   }
 
-  public static Short shortOtherThan(short... other) {
+  public static Short shortOtherThan(final short... other) {
     return Generate.anyShortOtherThan(other);
   }
 
-  public static Double doubleOtherThan(double... other) {
+  public static Double doubleOtherThan(final double... other) {
     return Generate.anyDoubleOtherThan(other);
   }
 
-  public static Float floatOtherThan(float... other) {
+  public static Float floatOtherThan(final float... other) {
     return Generate.anyFloatOtherThan(other);
   }
 
-  public static <T> T of(Class<T> enumClass) {
+  public static <T> T of(final Class<T> enumClass) {
     return Generate.anyOf(enumClass);
   }
 
@@ -128,11 +145,11 @@ public class Any {
     return Generate.anyDate();
   }
 
-  public static <T> T exploding(Class<T> clazz) {
+  public static <T> T exploding(final Class<T> clazz) {
     return Generate.anyExploding(clazz);
   }
 
-  public static <T> T exploding(TypeToken<T> typeToken) {
+  public static <T> T exploding(final TypeToken<T> typeToken) {
     return Generate.anyExploding(typeToken);
   }
 
@@ -216,178 +233,181 @@ public class Any {
     return Generate.anyInstant();
   }
 
-  public static <T> T from(T... possibleValues) {
+  public static <T> T from(final T... possibleValues) {
     return Generate.anyFrom(possibleValues);
   }
 
 
   // ITERABLES - complete
 
-  public static <T> Iterable<T> iterableOf(InstanceOf<T> type) {
+  public static <T> Iterable<T> iterableOf(final InstanceOf<T> type) {
     return Generate.manyAsIterableOf(type);
   }
 
-  public static <T> Iterable<T> iterableOf(Class<T> clazz) {
+  public static <T> Iterable<T> iterableOf(final Class<T> clazz) {
     return Generate.manyAsIterableOf(clazz);
   }
 
   public static <T> Iterable<T> iterableOf(
-    TypeToken<T> typeToken, InlineConstrainedGenerator<T> omittedValues) {
+      final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsIterableOf(typeToken, omittedValues);
   }
 
-  public static <T> Iterable<T> iterableOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> Iterable<T> iterableOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsIterableOf(type, omittedValues);
   }
 
   //ARRAYS - complete
-  public static <T> T[] arrayOf(Class<T> clazz) {
+  public static <T> T[] arrayOf(final Class<T> clazz) {
     return Generate.manyAsArrayOf(clazz);
   }
 
-  public static <T> T[] arrayOf(InstanceOf<T> type) {
+  public static <T> T[] arrayOf(final InstanceOf<T> type) {
     return Generate.manyAsArrayOf(type);
   }
 
-  public static <T> T[] arrayOf(TypeToken<T> typeToken, InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> T[] arrayOf(final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsArrayOf(typeToken, omittedValues);
   }
 
-  public static <T> T[] arrayOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> T[] arrayOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsArrayOf(type, omittedValues);
   }
 
   //LISTS - complete
 
-  public static <T> List<T> listOf(Class<T> clazz) {
+  public static <T> List<T> listOf(final Class<T> clazz) {
     return Generate.manyAsListOf(clazz);
   }
 
-  public static <T> List<T> listOf(InstanceOf<T> type) {
+  public static <T> List<T> listOf(final InstanceOf<T> type) {
     return Generate.manyAsListOf(type);
   }
 
-  public static <T> List<T> listOf(TypeToken<T> typeToken, InlineConstrainedGenerator<T> generator) {
+  public static <T> List<T> listOf(final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> generator) {
     return Generate.manyAsListOf(typeToken, generator);
   }
 
-  public static <T> List<T> listOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> List<T> listOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsListOf(type, omittedValues);
   }
 
   // COLLECTIONS - complete
 
-  public static <T> Collection<T> collectionOf(TypeToken<T> typeToken, InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> Collection<T> collectionOf(final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsCollectionOf(typeToken, omittedValues);
   }
 
-  public static <T> Collection<T> collectionOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> Collection<T> collectionOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsCollectionOf(type, omittedValues);
   }
 
-  public static <T> Collection<T> collectionOf(Class<T> clazz) {
+  public static <T> Collection<T> collectionOf(final Class<T> clazz) {
     return Generate.manyAsCollectionOf(clazz);
   }
 
-  public static <T> Collection<T> collectionOf(TypeToken<T> instanceType) {
+  public static <T> Collection<T> collectionOf(final TypeToken<T> instanceType) {
     return Generate.manyAsCollectionOf(instanceType);
   }
 
   //SETS: incomplete
 
   //TODO variations
-  public static <T> Set<T> setOf(Class<T> clazz) {
+  public static <T> Set<T> setOf(final Class<T> clazz) {
     return Generate.manyAsSetOf(clazz);
   }
 
-  public static <T> Set<T> setOf(TypeToken<T> type) {
+  public static <T> Set<T> setOf(final TypeToken<T> type) {
     return Generate.manyAsSetOf(type);
   }
 
   //TODO UT
-  public static <T> Set<T> setOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> Set<T> setOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsSetOf(type, omittedValues);
   }
+
   //TODO UT
-  public static <T> Set<T> setOf(TypeToken<T> type, InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> Set<T> setOf(final TypeToken<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsSetOf(type, omittedValues);
   }
 
 
   //queues: incomplete
-  public static <T> Queue<T> queueOf(Class<T> clazz) {
+  public static <T> Queue<T> queueOf(final Class<T> clazz) {
     return Generate.manyAsQueueOf(clazz);
   }
 
-  public static <T> Queue<T> queueOf(TypeToken<T> type) {
+  public static <T> Queue<T> queueOf(final TypeToken<T> type) {
     return Generate.manyAsQueueOf(type);
   }
 
   //TODO UT
-  public static <T> Queue<T> queueOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> Queue<T> queueOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsQueueOf(type, omittedValues);
   }
+
   //TODO UT
-  public static <T> Queue<T> queueOf(TypeToken<T> type, InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> Queue<T> queueOf(final TypeToken<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsQueueOf(type, omittedValues);
   }
 
   //Deques: incomplete
-  public static <T> Deque<T> dequeOf(Class<T> clazz) {
+  public static <T> Deque<T> dequeOf(final Class<T> clazz) {
     return Generate.manyAsDequeOf(clazz);
   }
 
-  public static <T> Deque<T> dequeOf(TypeToken<T> type) {
+  public static <T> Deque<T> dequeOf(final TypeToken<T> type) {
     return Generate.manyAsDequeOf(type);
   }
 
   //TODO UT
-  public static <T> Deque<T> dequeOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> Deque<T> dequeOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsDequeOf(type, omittedValues);
   }
+
   //TODO UT
-  public static <T> Deque<T> dequeOf(TypeToken<T> type, InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> Deque<T> dequeOf(final TypeToken<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsDequeOf(type, omittedValues);
   }
 
   //sorted sets: incomplete
-  public static <T> SortedSet<T> sortedSetOf(Class<T> clazz) {
+  public static <T> SortedSet<T> sortedSetOf(final Class<T> clazz) {
     return Generate.manyAsSortedSetOf(clazz);
   }
 
-  public static <T> SortedSet<T> sortedSetOf(TypeToken<T> type) {
+  public static <T> SortedSet<T> sortedSetOf(final TypeToken<T> type) {
     return Generate.manyAsSortedSetOf(type);
   }
 
   //TODO UT
-  public static <T> SortedSet<T> sortedSetOf(Class<T> type, InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> SortedSet<T> sortedSetOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsSortedSetOf(type, omittedValues);
   }
 
   //TODO UT
-  public static <T> SortedSet<T> sortedSetOf(TypeToken<T> type, InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> SortedSet<T> sortedSetOf(final TypeToken<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsSortedSetOf(type, omittedValues);
   }
 
   //sorted maps
 
   //TODO variations and UT
-  public static <T, V> SortedMap<T, V> sortedMapBetween(Class<T> key, Class<V> value) {
+  public static <T, V> SortedMap<T, V> sortedMapBetween(final Class<T> key, final Class<V> value) {
     return Generate.manyAsSortedMapBetween(key, value);
   }
 
-  public static <T, V> SortedMap<T, V> sortedMapBetween(TypeToken<T> key, TypeToken<V> value) {
+  public static <T, V> SortedMap<T, V> sortedMapBetween(final TypeToken<T> key, final TypeToken<V> value) {
     return Generate.manyAsSortedMapBetween(key, value);
   }
 
   //maps
 
   //TODO variations
-  public static <T, V> Map<T, V> mapBetween(Class<T> keyClass, Class<V> valueClass) {
+  public static <T, V> Map<T, V> mapBetween(final Class<T> keyClass, final Class<V> valueClass) {
     return Generate.manyAsMapBetween(keyClass, valueClass);
   }
 
-  public static <T, V> Map<T, V> mapBetween(TypeToken<T> keyType, TypeToken<V> valueType) {
+  public static <T, V> Map<T, V> mapBetween(final TypeToken<T> keyType, final TypeToken<V> valueType) {
     return Generate.manyAsMapBetween(keyType, valueType);
   }
 

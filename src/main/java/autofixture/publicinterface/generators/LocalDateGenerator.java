@@ -12,17 +12,17 @@ import java.time.Period;
  */
 public class LocalDateGenerator implements InstanceGenerator {
   @Override
-  public <T> boolean appliesTo(InstanceType<T> instanceType) {
+  public <T> boolean appliesTo(final InstanceType<T> instanceType) {
     return instanceType.isRawTypeAssignableFrom(LocalDate.class);
   }
 
   @Override
-  public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
-    return (T)(LocalDate.now().plus(Period.ofDays(fixture.create(Integer.class))));
+  public <T> T next(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    return (T) (LocalDate.now().plus(Period.ofDays(fixture.create(Integer.class))));
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
 
   }
 }

@@ -14,15 +14,15 @@ public class InterfaceHandler<T> implements InvocationHandler {
   private final InstanceType<T> instanceType;
   private final MethodsInvocationResultCache methodsInvocationResultCache = new MethodsInvocationResultCache();
 
-  public InterfaceHandler(FixtureContract fixture, InstanceType<T> instanceType) {
+  public InterfaceHandler(final FixtureContract fixture, final InstanceType<T> instanceType) {
     this.fixture = fixture;
     this.instanceType = instanceType;
   }
 
   @Override
-  public Object invoke(Object proxy, Method method, Object[] arguments) throws Exception {
+  public Object invoke(final Object proxy, final Method method, final Object[] arguments) throws Exception {
 
-    TypeToken<?> returnType = instanceType.resolveActualTypeOf(method);
+    final TypeToken<?> returnType = instanceType.resolveActualTypeOf(method);
 
     if (isHashCodeMethod(method)) {
       return System.identityHashCode(proxy);
@@ -39,30 +39,30 @@ public class InterfaceHandler<T> implements InvocationHandler {
     return generateFreshValueFor(proxy, method, returnType);
   }
 
-  private boolean isHashCodeMethod(Method method) {
+  private boolean isHashCodeMethod(final Method method) {
     return "hashCode".equals(method.getName());
   }
 
-  private boolean wasCalledAtLeastOnceOn(Object proxy, Method method) {
+  private boolean wasCalledAtLeastOnceOn(final Object proxy, final Method method) {
     return methodsInvocationResultCache.containAResultFor(proxy, method);
   }
 
-  private boolean isEqualsMethod(Method mtd, Object[] arguments) {
+  private boolean isEqualsMethod(final Method mtd, final Object[] arguments) {
     return "equals".equals(mtd.getName()) && arguments.length == 1;
   }
 
   //TODO check case when new X<Integer>().GetValue() and new X<String>().GetValue() afterwards - does this work?
-  private Object generateFreshValueFor(Object proxy, Method method, TypeToken<?> returnType) {
-    Optional<Object> freshReturnValue = createReturnValue(fixture, returnType);
+  private Object generateFreshValueFor(final Object proxy, final Method method, final TypeToken<?> returnType) {
+    final Optional<Object> freshReturnValue = createReturnValue(fixture, returnType);
     if (freshReturnValue.isPresent()) {
       methodsInvocationResultCache.setFor(proxy, method, freshReturnValue.get());
     }
     return freshReturnValue.orNull();
   }
 
-  private Optional<Object> createReturnValue(final FixtureContract fixture, TypeToken<?> returnType) {
+  private Optional<Object> createReturnValue(final FixtureContract fixture, final TypeToken<?> returnType) {
     if (returnType.getRawType() != void.class) {
-      Object o = fixture.create(returnType);
+      final Object o = fixture.create(returnType);
       return Optional.of(o);
     } else {
       return Optional.absent();

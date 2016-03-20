@@ -5,16 +5,16 @@ import autofixture.publicinterface.InlineInstanceGenerator;
 import autofixture.publicinterface.generators.implementationdetails.CircularList;
 
 public class CharacterGenerator implements
-  InlineInstanceGenerator<Character> {
+    InlineInstanceGenerator<Character> {
   private final CircularList<Character> letters;
 
-  public CharacterGenerator(String possibleCharacters) {
+  public CharacterGenerator(final String possibleCharacters) {
     this.letters = CircularList
-      .fromCharactersIn(possibleCharacters);
+        .fromCharactersIn(possibleCharacters);
   }
 
   @Override
-  public Character next(FixtureContract fixture) {
+  public Character next(final FixtureContract fixture) {
     return letters.next();
   }
 

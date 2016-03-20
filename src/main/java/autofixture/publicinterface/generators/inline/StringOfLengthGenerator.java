@@ -5,15 +5,15 @@ import autofixture.publicinterface.InlineInstanceGenerator;
 
 public class StringOfLengthGenerator implements InlineInstanceGenerator<String> {
 
-  private int charactersCount;
+  private final int charactersCount;
 
-  public StringOfLengthGenerator(int charactersCount) {
+  public StringOfLengthGenerator(final int charactersCount) {
     this.charactersCount = charactersCount;
   }
 
   @Override
-  public String next(FixtureContract fixture) {
-    StringBuilder result = new StringBuilder();
+  public String next(final FixtureContract fixture) {
+    final StringBuilder result = new StringBuilder();
     while (result.length() < charactersCount) {
       result.append(fixture.create(String.class));
     }

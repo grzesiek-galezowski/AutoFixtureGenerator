@@ -9,17 +9,17 @@ public class DoubleSequenceGenerator implements InstanceGenerator {
   private Double startingNumber = ARBITRARY_DOUBLE;
 
   @Override
-  public <T> boolean appliesTo(InstanceType<T> typeToken) {
+  public <T> boolean appliesTo(final InstanceType<T> typeToken) {
     return typeToken.isCompatibleWithAnyOf(Double.class);
   }
 
   @SuppressWarnings("unchecked")
   @Override
-  public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {
+  public <T> T next(final InstanceType<T> typeToken, final FixtureContract fixture) {
     return (T) (startingNumber++);
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
   }
 }

@@ -6,15 +6,15 @@ import autofixture.publicinterface.InstanceType;
 
 public class RecursionGuarded implements GeneratorsPipeline {
   private final GeneratorsPipeline generatorsPipeline;
-  private RecursionGuard recursionGuard;
+  private final RecursionGuard recursionGuard;
 
-  public RecursionGuarded(GeneratorsPipeline generatorsPipeline, RecursionGuard recursionGuard) {
+  public RecursionGuarded(final GeneratorsPipeline generatorsPipeline, final RecursionGuard recursionGuard) {
     this.generatorsPipeline = generatorsPipeline;
     this.recursionGuard = recursionGuard;
   }
 
   @Override
-  public <T> T executeFor(InstanceType<T> instanceType, FixtureContract fixture) {
+  public <T> T executeFor(final InstanceType<T> instanceType, final FixtureContract fixture) {
     try {
       recursionGuard.addDepthLevelTo(instanceType);
       return recursionGuard.defaultValueIfMaxDepthReachedOrGenerateUsing(generatorsPipeline, instanceType, fixture);
@@ -25,7 +25,7 @@ public class RecursionGuarded implements GeneratorsPipeline {
   }
 
   @Override
-  public void registerCustomization(InstanceGenerator instanceGenerator) {
+  public void registerCustomization(final InstanceGenerator instanceGenerator) {
     generatorsPipeline.registerCustomization(instanceGenerator);
   }
 
@@ -35,7 +35,7 @@ public class RecursionGuarded implements GeneratorsPipeline {
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
     generatorsPipeline.setOmittingAutoProperties(isOn);
   }
 }

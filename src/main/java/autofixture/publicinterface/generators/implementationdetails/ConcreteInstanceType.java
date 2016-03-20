@@ -10,19 +10,39 @@ import com.google.common.primitives.Primitives;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.TypeToken;
 
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.concurrent.*;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Stack;
+import java.util.TreeSet;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.PriorityBlockingQueue;
 
 public class ConcreteInstanceType<T> implements InstanceType<T> {
 
-  private TypeToken<T> typeToken;
+  private final TypeToken<T> typeToken;
 
-  public ConcreteInstanceType(TypeToken<T> typeToken) {
+  public ConcreteInstanceType(final TypeToken<T> typeToken) {
     this.typeToken = typeToken;
   }
 
-  private static <TWrappedType> InstanceType<TWrappedType> from(TypeToken<TWrappedType> typeToken) {
+  private static <TWrappedType> InstanceType<TWrappedType> from(final TypeToken<TWrappedType> typeToken) {
     return new ConcreteInstanceType<>(typeToken);
   }
 
@@ -32,7 +52,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   }
 
   @Override
-  public <TAssignable> boolean isAssignableFrom(Class<TAssignable> clazz) {
+  public <TAssignable> boolean isAssignableFrom(final Class<TAssignable> clazz) {
     return typeToken.isAssignableFrom(clazz);
   }
 
@@ -57,13 +77,13 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   }
 
   @Override
-  public Invokable<T, T> constructor(Constructor<?> constructor) {
+  public Invokable<T, T> constructor(final Constructor<?> constructor) {
     return typeToken.constructor(constructor);
   }
 
   @Override
-  public Object createArray(Object[] objects) {
-    Object array = Array.newInstance(typeToken.getRawType(), objects.length);
+  public Object createArray(final Object[] objects) {
+    final Object array = Array.newInstance(typeToken.getRawType(), objects.length);
     for (int i = 0; i < objects.length; ++i) {
       Array.set(array, i, objects[i]);
     }
@@ -71,28 +91,28 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   }
 
   @Override
-  public boolean isAssignableTo(Class<?> clazz) {
+  public boolean isAssignableTo(final Class<?> clazz) {
     return clazz.isAssignableFrom(typeToken.getRawType());
   }
 
   @Override
-  public boolean isRawTypeAssignableFrom(Class<?> clazz) {
+  public boolean isRawTypeAssignableFrom(final Class<?> clazz) {
     return typeToken.getRawType().isAssignableFrom(clazz);
   }
 
   @Override
-  public <TOther> boolean isSameAsThatOf(TOther injectedValue) {
+  public <TOther> boolean isSameAsThatOf(final TOther injectedValue) {
     return typeToken.getRawType().equals(injectedValue.getClass());
   }
 
   @Override
-  public boolean isCompatibleWith(Class<?> clazz) {
+  public boolean isCompatibleWith(final Class<?> clazz) {
     return Primitives.wrap(this.typeToken.getRawType()) == Primitives.wrap(clazz);
   }
 
   @Override
-  public boolean isCompatibleWithAnyOf(Class<?>... clazzes) {
-    for (Class<?> clazz : clazzes) {
+  public boolean isCompatibleWithAnyOf(final Class<?>... clazzes) {
+    for (final Class<?> clazz : clazzes) {
       if (this.isCompatibleWith(clazz)) {
         return true;
       }
@@ -106,8 +126,8 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 
   @SuppressWarnings("rawtypes")
   @Override
-  public Collection createCollection(int repeatCount) {
-    Collection collection;
+  public Collection createCollection(final int repeatCount) {
+    final Collection collection;
     if (this.isRawTypeAssignableFrom(HashSet.class)) {
       collection = CollectionFactory.createEmptySet();
     } else if (this.isRawTypeAssignableFrom(TreeSet.class)) {
@@ -153,7 +173,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     if (this == obj) {
       return true;
     }
@@ -162,7 +182,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
     }
     if (getClass() != obj.getClass())
       return false;
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings("rawtypes") final
     ConcreteInstanceType other = (ConcreteInstanceType) obj;
     if (typeToken == null) {
       if (other.typeToken != null)
@@ -174,23 +194,23 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 
   @Override
   public InstanceType<?> getNestedGenericType() {
-    ParameterizedType genericTypeDefinition = (ParameterizedType) (this.getType());
-    Type nestedGenericType = genericTypeDefinition.getActualTypeArguments()[0];
-    TypeToken<?> nestedGenericTypeToken = TypeToken.of(nestedGenericType);
+    final ParameterizedType genericTypeDefinition = (ParameterizedType) (this.getType());
+    final Type nestedGenericType = genericTypeDefinition.getActualTypeArguments()[0];
+    final TypeToken<?> nestedGenericTypeToken = TypeToken.of(nestedGenericType);
     return ConcreteInstanceType.from(nestedGenericTypeToken);
   }
 
   @Override
   public Call<T, T> findPublicConstructorWithLeastParameters() {
-    Constructor<?>[] constructors =
-      getConstructorsSortedFromLongestToShortestParametersCount();
+    final Constructor<?>[] constructors =
+        getConstructorsSortedFromLongestToShortestParametersCount();
 
     int currentArgumentCount = Integer.MAX_VALUE;
     Optional<Invokable<T, T>> currentConstructor = Optional.absent();
 
-    for (Constructor<?> constructor : constructors) {
-      Invokable<T, T> invokable = typeToken.constructor(constructor);
-      int invokableParametersCount = invokable.getParameters().size();
+    for (final Constructor<?> constructor : constructors) {
+      final Invokable<T, T> invokable = typeToken.constructor(constructor);
+      final int invokableParametersCount = invokable.getParameters().size();
       if (invokable.isPublic() && invokableParametersCount < currentArgumentCount) {
 
         if (currentConstructor.isPresent() && invokableParametersCount == 0) {
@@ -209,14 +229,14 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   }
 
   private Constructor<?>[] getConstructorsSortedFromLongestToShortestParametersCount() {
-    Constructor<?>[] constructors = this.getRawType().getConstructors();
+    final Constructor<?>[] constructors = this.getRawType().getConstructors();
 
     Arrays.sort(constructors, (arg0, arg1) -> {
-      Invokable<T, T> invokable1 = typeToken.constructor(arg0);
-      Invokable<T, T> invokable2 = typeToken.constructor(arg1);
+      final Invokable<T, T> invokable1 = typeToken.constructor(arg0);
+      final Invokable<T, T> invokable2 = typeToken.constructor(arg1);
       return Integer.compare(
-        invokable2.getParameters().size(),
-        invokable1.getParameters().size());
+          invokable2.getParameters().size(),
+          invokable1.getParameters().size());
     });
     return constructors;
   }
@@ -239,12 +259,12 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 
   @Override
   public ArrayList<Call<T, Object>> getAllSetters() {
-    ArrayList<Call<T, Object>> setters = new ArrayList<>();
+    final ArrayList<Call<T, Object>> setters = new ArrayList<>();
 
-    Method[] methods = typeToken.getRawType().getMethods();
+    final Method[] methods = typeToken.getRawType().getMethods();
 
-    for (Method mtd : methods) {
-      Invokable<T, Object> invokable = typeToken.method(mtd);
+    for (final Method mtd : methods) {
+      final Invokable<T, Object> invokable = typeToken.method(mtd);
       if (isSetter(invokable)) {
         setters.add(MethodCall.to(invokable));
       }
@@ -252,33 +272,33 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
     return setters;
   }
 
-  private boolean isSetter(Invokable<T, Object> invokable) {
+  private boolean isSetter(final Invokable<T, Object> invokable) {
     return isNamedLikeASetter(invokable)
-      && hasSingleArgument(invokable)
-      && hasNoReturnValue(invokable);
+        && hasSingleArgument(invokable)
+        && hasNoReturnValue(invokable);
   }
 
-  private boolean hasNoReturnValue(Invokable<T, Object> invokable) {
+  private boolean hasNoReturnValue(final Invokable<T, Object> invokable) {
     return invokable.getReturnType().getRawType() == void.class;
   }
 
-  private boolean hasSingleArgument(Invokable<T, Object> invokable) {
+  private boolean hasSingleArgument(final Invokable<T, Object> invokable) {
     return invokable.getParameters().size() == 1;
   }
 
-  private boolean isNamedLikeASetter(Invokable<T, Object> invokable) {
-    String name = invokable.getName();
+  private boolean isNamedLikeASetter(final Invokable<T, Object> invokable) {
+    final String name = invokable.getName();
     return
-      name.length() > 3
-        && name.startsWith("set")
-        && Character.isUpperCase(name.charAt(3));
+        name.length() > 3
+            && name.startsWith("set")
+            && Character.isUpperCase(name.charAt(3));
   }
 
   @Override
-  public ArrayList<InstanceField<T>> getAllPublicFieldsOf(T instance) {
-    ArrayList<InstanceField<T>> fields = new ArrayList<>();
-    Field[] fieldsArray = typeToken.getRawType().getDeclaredFields();
-    for (Field field : fieldsArray) {
+  public ArrayList<InstanceField<T>> getAllPublicFieldsOf(final T instance) {
+    final ArrayList<InstanceField<T>> fields = new ArrayList<>();
+    final Field[] fieldsArray = typeToken.getRawType().getDeclaredFields();
+    for (final Field field : fieldsArray) {
       if (Modifier.isPublic(field.getModifiers()) && !Modifier.isStatic(field.getModifiers())) {
         fields.add(new InstanceField<>(field, this, instance));
       }
@@ -287,12 +307,12 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   }
 
   @Override
-  public TypeToken<?> resolveActualTypeOf(Field field) {
+  public TypeToken<?> resolveActualTypeOf(final Field field) {
     return this.typeToken.resolveType(field.getGenericType());
   }
 
   @Override
-  public TypeToken<?> resolveActualTypeOf(Method method) {
+  public TypeToken<?> resolveActualTypeOf(final Method method) {
     return this.typeToken.resolveType(method.getGenericReturnType());
   }
 

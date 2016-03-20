@@ -11,30 +11,30 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Fixture implements FixtureContract {
-  private GeneratorsFactory generatorsFactory = new GeneratorsFactory();
-  private RecursionGuard recursionGuard = new RecursionGuard(20);
-  private GeneratorsPipeline instanceGenerators = generatorsFactory.createBuiltinGenerators(recursionGuard);
+  private final GeneratorsFactory generatorsFactory = new GeneratorsFactory();
+  private final RecursionGuard recursionGuard = new RecursionGuard(20);
+  private final GeneratorsPipeline instanceGenerators = generatorsFactory.createBuiltinGenerators(recursionGuard);
   private int repeatCount = 3;
 
-  public <T> T create(Class<T> clazz) {
+  public <T> T create(final Class<T> clazz) {
     return this.create(TypeToken.of(Primitives.wrap(clazz)));
   }
 
-  public <T> T create(TypeToken<T> typeToken) {
+  public <T> T create(final TypeToken<T> typeToken) {
     return create(new ConcreteInstanceType<>(typeToken));
   }
 
-  public <T> T freeze(TypeToken<T> clazz) {
-    T value = create(clazz);
+  public <T> T freeze(final TypeToken<T> clazz) {
+    final T value = create(clazz);
     inject(value);
     return value;
   }
 
-  public <T> T freeze(Class<T> clazz) {
+  public <T> T freeze(final Class<T> clazz) {
     return freeze(TypeToken.of(Primitives.wrap(clazz)));
   }
 
-  public void register(InstanceGenerator instanceGenerator) {
+  public void register(final InstanceGenerator instanceGenerator) {
     instanceGenerators.registerCustomization(instanceGenerator);
   }
 
@@ -42,13 +42,13 @@ public class Fixture implements FixtureContract {
     instanceGenerators.clearCustomizations();
   }
 
-  public <T> T create(InstanceType<T> instanceType) {
+  public <T> T create(final InstanceType<T> instanceType) {
     return instanceGenerators.executeFor(instanceType, this);
   }
 
   @Override
-  public <T> Collection<T> createMany(TypeToken<T> type) {
-    ArrayList<T> manyObjects = new ArrayList<T>();
+  public <T> Collection<T> createMany(final TypeToken<T> type) {
+    final ArrayList<T> manyObjects = new ArrayList<>();
 
     for (int i = 0; i < repeatCount; ++i) {
       manyObjects.add(create(type));
@@ -57,7 +57,7 @@ public class Fixture implements FixtureContract {
   }
 
   @Override
-  public <T> Collection<? super T> createMany(InstanceType<T> type) {
+  public <T> Collection<? super T> createMany(final InstanceType<T> type) {
     return createMany(type.getToken());
   }
 
@@ -66,7 +66,7 @@ public class Fixture implements FixtureContract {
     return repeatCount;
   }
 
-  public void setRepeatCount(int repeatCount) {
+  public void setRepeatCount(final int repeatCount) {
     this.repeatCount = repeatCount;
   }
 
@@ -74,41 +74,41 @@ public class Fixture implements FixtureContract {
   public <T> void inject(final T injectedValue) {
     register(new InstanceGenerator() {
       @Override
-      public <T2> boolean appliesTo(InstanceType<T2> instanceType) {
+      public <T2> boolean appliesTo(final InstanceType<T2> instanceType) {
         return instanceType.isSameAsThatOf(injectedValue);
       }
 
       @Override
-      public <T2> T2 next(InstanceType<T2> instanceType, FixtureContract fixture) {
+      public <T2> T2 next(final InstanceType<T2> instanceType, final FixtureContract fixture) {
         return (T2) injectedValue;
       }
 
       @Override
-      public void setOmittingAutoProperties(boolean isOn) {
+      public void setOmittingAutoProperties(final boolean isOn) {
 
       }
     });
   }
 
   @Override
-  public <T> T create(TypeToken<T> type, InlineConstrainedGenerator<T> generator) {
+  public <T> T create(final TypeToken<T> type, final InlineConstrainedGenerator<T> generator) {
     return generator.next(type, this);
   }
 
-  public <T> T create(InlineInstanceGenerator<T> inlineGenerator) {
+  public <T> T create(final InlineInstanceGenerator<T> inlineGenerator) {
     return inlineGenerator.next(this);
   }
 
-  public String create(String prefix) {
+  public String create(final String prefix) {
     return prefix + create(String.class);
   }
 
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
     instanceGenerators.setOmittingAutoProperties(isOn);
 
   }
 
-  public void setRecursionDepth(int depth) {
+  public void setRecursionDepth(final int depth) {
     this.recursionGuard.setMaxDepth(depth);
   }
 }

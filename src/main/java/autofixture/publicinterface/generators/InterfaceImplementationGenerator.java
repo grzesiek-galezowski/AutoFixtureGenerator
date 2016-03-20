@@ -8,20 +8,20 @@ import com.google.common.reflect.Reflection;
 
 public class InterfaceImplementationGenerator implements InstanceGenerator {
 
-  public <T> boolean appliesTo(InstanceType<T> instanceType) {
-    boolean isInterface = instanceType.isInterface();
+  public <T> boolean appliesTo(final InstanceType<T> instanceType) {
+    final boolean isInterface = instanceType.isInterface();
     return isInterface;
   }
 
   @SuppressWarnings("unchecked")
-  public <T> T next(InstanceType<T> instanceType, final FixtureContract fixture) {
-    Object proxy = Reflection.newProxy(instanceType.getRawType(), new InterfaceHandler(
-      fixture, instanceType));
+  public <T> T next(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    final Object proxy = Reflection.newProxy(instanceType.getRawType(), new InterfaceHandler(
+        fixture, instanceType));
     return (T) proxy;
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
   }
 
 }

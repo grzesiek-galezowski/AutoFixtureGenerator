@@ -12,17 +12,17 @@ import java.time.OffsetTime;
  */
 public class OffsetTimeGenerator implements InstanceGenerator {
   @Override
-  public <T> boolean appliesTo(InstanceType<T> instanceType) {
+  public <T> boolean appliesTo(final InstanceType<T> instanceType) {
     return instanceType.isRawTypeAssignableFrom(OffsetTime.class);
   }
 
   @Override
-  public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
-    return (T)OffsetTime.now().plus(Duration.ofSeconds(fixture.create(Integer.class)));
+  public <T> T next(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    return (T) OffsetTime.now().plus(Duration.ofSeconds(fixture.create(Integer.class)));
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
 
   }
 }

@@ -9,12 +9,12 @@ public class GenerationConstrainedByValueRejection<T> implements InlineConstrain
 
   private final GenerationConstraint<T> constraint;
 
-  public GenerationConstrainedByValueRejection(GenerationConstraint<T> constraint) {
+  public GenerationConstrainedByValueRejection(final GenerationConstraint<T> constraint) {
     this.constraint = constraint;
   }
 
   @Override
-  public T next(TypeToken<T> typeToken, FixtureContract fixture) {
+  public T next(final TypeToken<T> typeToken, final FixtureContract fixture) {
     T currentValue;
     do {
       currentValue = fixture.create(typeToken);

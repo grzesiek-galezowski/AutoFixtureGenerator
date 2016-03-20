@@ -11,19 +11,19 @@ public class CalendarGenerator implements InstanceGenerator {
   private int secondsToAdd = 0;
 
   @Override
-  public <T> boolean appliesTo(InstanceType<T> typeToken) {
+  public <T> boolean appliesTo(final InstanceType<T> typeToken) {
     return typeToken.isRawTypeAssignableFrom(Calendar.class);
   }
 
   @SuppressWarnings("unchecked")
   @Override
-  public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {
-    Calendar calendar = new GregorianCalendar();
+  public <T> T next(final InstanceType<T> typeToken, final FixtureContract fixture) {
+    final Calendar calendar = new GregorianCalendar();
     calendar.add(Calendar.SECOND, secondsToAdd++);
     return (T) calendar;
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
   }
 }

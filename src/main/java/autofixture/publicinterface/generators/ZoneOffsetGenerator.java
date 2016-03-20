@@ -11,17 +11,17 @@ import java.time.ZoneOffset;
  */
 public class ZoneOffsetGenerator implements InstanceGenerator {
   @Override
-  public <T> boolean appliesTo(InstanceType<T> instanceType) {
+  public <T> boolean appliesTo(final InstanceType<T> instanceType) {
     return instanceType.isRawTypeAssignableFrom(ZoneOffset.class);
   }
 
   @Override
-  public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
-    return (T)ZoneOffset.ofTotalSeconds(fixture.create(Integer.class));
+  public <T> T next(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    return (T) ZoneOffset.ofTotalSeconds(fixture.create(Integer.class));
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
 
   }
 }

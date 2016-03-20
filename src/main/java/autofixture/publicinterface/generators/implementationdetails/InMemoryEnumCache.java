@@ -11,7 +11,7 @@ public class InMemoryEnumCache implements EnumCache {
   private final Map<InstanceType<?>, CircularList<?>> sequences = new HashMap<>();
 
   @Override
-  public <T> void registerIfNotPresent(InstanceType<T> instanceType) {
+  public <T> void registerIfNotPresent(final InstanceType<T> instanceType) {
     if (!sequences.containsKey(instanceType)) {
       sequences.put(instanceType, CircularList.createFromEnum(instanceType));
     }
@@ -19,7 +19,7 @@ public class InMemoryEnumCache implements EnumCache {
 
   @SuppressWarnings("unchecked")
   @Override
-  public <T> T retrieveNextValueOf(InstanceType<T> instanceType) {
+  public <T> T retrieveNextValueOf(final InstanceType<T> instanceType) {
     return (T) sequences.get(instanceType).next();
   }
 }

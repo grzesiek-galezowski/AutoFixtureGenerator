@@ -6,10 +6,10 @@ import autofixture.publicinterface.InlineInstanceGenerator;
 import java.util.Random;
 
 public class PortNumberGenerator implements InlineInstanceGenerator<Integer> {
-  private Random random = new Random();
+  private final Random random = new Random();
 
   @Override
-  public Integer next(FixtureContract fixture) {
+  public Integer next(final FixtureContract fixture) {
     return random.nextInt(65535);
   }
 

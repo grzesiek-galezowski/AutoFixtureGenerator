@@ -9,17 +9,17 @@ import java.math.BigDecimal;
 public class BigDecimalGenerator implements InstanceGenerator {
 
   @Override
-  public <T> boolean appliesTo(InstanceType<T> typeToken) {
+  public <T> boolean appliesTo(final InstanceType<T> typeToken) {
     return typeToken.isAssignableFrom(BigDecimal.class);
   }
 
   @SuppressWarnings("unchecked")
   @Override
-  public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {
+  public <T> T next(final InstanceType<T> typeToken, final FixtureContract fixture) {
     return (T) new BigDecimal(fixture.create(Integer.class));
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
   }
 }

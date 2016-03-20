@@ -13,17 +13,17 @@ import java.time.chrono.ChronoLocalDateTime;
  */
 public class ChronoLocalDateTimeGenerator implements InstanceGenerator {
   @Override
-  public <T> boolean appliesTo(InstanceType<T> instanceType) {
+  public <T> boolean appliesTo(final InstanceType<T> instanceType) {
     return instanceType.isRawTypeAssignableFrom(ChronoLocalDateTime.class);
   }
 
   @Override
-  public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
+  public <T> T next(final InstanceType<T> instanceType, final FixtureContract fixture) {
     return (T) LocalDateTime.now().plus(Duration.ofNanos(fixture.create(Long.class)));
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
 
   }
 }

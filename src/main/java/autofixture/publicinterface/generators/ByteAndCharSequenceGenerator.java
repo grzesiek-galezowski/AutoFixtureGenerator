@@ -9,18 +9,18 @@ public class ByteAndCharSequenceGenerator implements InstanceGenerator {
   private Byte startingByte = 1;
 
   @Override
-  public <T> boolean appliesTo(InstanceType<T> type) {
+  public <T> boolean appliesTo(final InstanceType<T> type) {
     return type.isCompatibleWithAnyOf(Byte.class, Character.class);
   }
 
   @SuppressWarnings("unchecked")
   @Override
-  public <T> T next(InstanceType<T> typeToken, FixtureContract fixture) {
+  public <T> T next(final InstanceType<T> typeToken, final FixtureContract fixture) {
     return (T) (startingByte++);
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
   }
 
 }

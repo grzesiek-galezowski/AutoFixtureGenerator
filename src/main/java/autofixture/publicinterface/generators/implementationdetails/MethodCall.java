@@ -3,12 +3,12 @@ package autofixture.publicinterface.generators.implementationdetails;
 import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.ObjectCreationException;
 import autofixture.publicinterface.generators.Call;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.Parameter;
 import com.google.common.reflect.TypeToken;
 
-import javax.annotation.Nullable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -47,10 +47,10 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
   }
 
   public TReturnType invokeWithArgumentsCreatedUsing(
-      final FixtureContract fixture,
-      @Nullable final TOwnerType returnType) {
+      final FixtureContract fixture, final Optional<TOwnerType> optionalOwnerType) {
+    final Optional<TOwnerType> maybeOwnerType = optionalOwnerType;
     final List<Object> arguments = prepareArgumentsOf(this, fixture);
-    final TReturnType instance = invoke(returnType, arguments);
+    final TReturnType instance = invoke(maybeOwnerType.orNull(), arguments);
     return instance;
   }
 
@@ -84,7 +84,7 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
 
   @Override
   public TReturnType invokeWithArgumentsCreatedUsing(final FixtureContract fixture) {
-    return invokeWithArgumentsCreatedUsing(fixture, null);
+    return invokeWithArgumentsCreatedUsing(fixture, Optional.absent());
   }
 
 

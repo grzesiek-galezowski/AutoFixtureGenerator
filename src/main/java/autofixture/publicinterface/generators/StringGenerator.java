@@ -9,17 +9,17 @@ import java.util.UUID;
 public class StringGenerator implements InstanceGenerator {
 
   @SuppressWarnings("unchecked")
-  public <T> T next(InstanceType<T> clazz, FixtureContract fixture) {
+  public <T> T next(final InstanceType<T> clazz, final FixtureContract fixture) {
     return (T) UUID.randomUUID().toString();
   }
 
   @Override
-  public <T> boolean appliesTo(InstanceType<T> clazz) {
+  public <T> boolean appliesTo(final InstanceType<T> clazz) {
     return clazz.isRawTypeAssignableFrom(String.class);
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
   }
 
 }

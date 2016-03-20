@@ -8,45 +8,45 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GeneratorsFactory {
-  public GeneratorsPipeline createBuiltinGenerators(RecursionGuard recursionGuard) {
+  public GeneratorsPipeline createBuiltinGenerators(final RecursionGuard recursionGuard) {
     return
-      protectedBy(recursionGuard,
-        pipelineOfGeneratorsForTypes(
-          matchedInTheFollowingOrder(
-            integers(),
-            enums(),
-            exceptions(),
-            errors(),
-            strings(),
-            doubles(),
-            floats(),
-            bigIntegers(),
-            bigDecimals(),
-            dates(),
-            calendars(),
-            chronoLocalDates(),
-            chronoLocalDateTimes(),
-            localDateTimes(),
-            localDates(),
-            zonedDateTimes(),
-            zoneIds(),
-            offsetTimes(),
-            periods(),
-            durations(),
-            zoneOffsets(),
-            clocks(),
-            instants(),
-            objects(),
-            booleans(),
-            urls(),
-            arrays(),
-            optionals(),
-            builtInCollections(),
-            inetAddresses(),
-            interfaceImplementations(),
-            colorSpaces(),
-            concreteObjects()))
-      );
+        protectedBy(recursionGuard,
+            pipelineOfGeneratorsForTypes(
+                matchedInTheFollowingOrder(
+                    integers(),
+                    enums(),
+                    exceptions(),
+                    errors(),
+                    strings(),
+                    doubles(),
+                    floats(),
+                    bigIntegers(),
+                    bigDecimals(),
+                    dates(),
+                    calendars(),
+                    chronoLocalDates(),
+                    chronoLocalDateTimes(),
+                    localDateTimes(),
+                    localDates(),
+                    zonedDateTimes(),
+                    zoneIds(),
+                    offsetTimes(),
+                    periods(),
+                    durations(),
+                    zoneOffsets(),
+                    clocks(),
+                    instants(),
+                    objects(),
+                    booleans(),
+                    urls(),
+                    arrays(),
+                    optionals(),
+                    builtInCollections(),
+                    inetAddresses(),
+                    interfaceImplementations(),
+                    colorSpaces(),
+                    concreteObjects()))
+        );
   }
 
   private InstanceGenerator instants() {
@@ -127,11 +127,11 @@ public class GeneratorsFactory {
     return new OptionalsGenerator();
   }
 
-  private DefaultGeneratorsPipeline pipelineOfGeneratorsForTypes(List<InstanceGenerator> generators) {
+  private DefaultGeneratorsPipeline pipelineOfGeneratorsForTypes(final List<InstanceGenerator> generators) {
     return new DefaultGeneratorsPipeline(generators);
   }
 
-  public java.util.List<InstanceGenerator> matchedInTheFollowingOrder(InstanceGenerator... ts) {
+  public java.util.List<InstanceGenerator> matchedInTheFollowingOrder(final InstanceGenerator... ts) {
     return new LinkedList<>(Arrays.asList(ts));
   }
 
@@ -140,7 +140,7 @@ public class GeneratorsFactory {
   }
 
   private GeneratorsPipeline protectedBy(
-    RecursionGuard recursionGuard, DefaultGeneratorsPipeline defaultGeneratorsPipeline) {
+      final RecursionGuard recursionGuard, final DefaultGeneratorsPipeline defaultGeneratorsPipeline) {
     return new RecursionGuarded(defaultGeneratorsPipeline, recursionGuard);
   }
 
