@@ -7,23 +7,23 @@ import java.util.Random;
 
 public class CircularList<T> {
 
-  private static Random random = new Random();
-  private T[] enumConstants;
+  private static final Random random = new Random();
+  private final T[] enumConstants;
   private int currentIndex = 0;
 
-  public CircularList(T[] values) {
+  public CircularList(final T[] values) {
     this.enumConstants = values;
     currentIndex = random.nextInt(values.length);
   }
 
-  public static <TListElement> CircularList<TListElement> createFromEnum(InstanceType<TListElement> type) {
-    TListElement[] enumConstants = type.getEnumConstants();
+  public static <TListElement> CircularList<TListElement> createFromEnum(final InstanceType<TListElement> type) {
+    final TListElement[] enumConstants = type.getEnumConstants();
 
     return new CircularList<>(enumConstants);
   }
 
-  public static CircularList<Character> fromCharactersIn(String string) {
-    ArrayList<Character> chars = new ArrayList<>();
+  public static CircularList<Character> fromCharactersIn(final String string) {
+    final ArrayList<Character> chars = new ArrayList<>();
     string.chars().forEachOrdered(i -> chars.add((char) i));
     return new CircularList<>(chars.toArray(new Character[chars.size()]));
   }
@@ -33,7 +33,7 @@ public class CircularList<T> {
       currentIndex = 0;
     }
 
-    T nextElement = enumConstants[currentIndex];
+    final T nextElement = enumConstants[currentIndex];
     currentIndex++;
     return nextElement;
   }

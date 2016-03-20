@@ -28,13 +28,13 @@ public class RandomNumberGenerator implements InstanceGenerator {
 
   public RandomNumberGenerator() {
     this(Lists.newArrayList(
-      Long.valueOf(1),
-      Long.valueOf(Byte.MAX_VALUE),
-      Long.valueOf(Short.MAX_VALUE),
-      Long.valueOf(Integer.MAX_VALUE)));
+        Long.valueOf(1),
+        Long.valueOf(Byte.MAX_VALUE),
+        Long.valueOf(Short.MAX_VALUE),
+        Long.valueOf(Integer.MAX_VALUE)));
   }
 
-  public RandomNumberGenerator(List<Long> limits) {
+  public RandomNumberGenerator(final List<Long> limits) {
     if (limits == null) {
       throw new NullPointerException("limits");
     }
@@ -84,9 +84,9 @@ public class RandomNumberGenerator implements InstanceGenerator {
   }
 
   private void createRange() {
-    Collection<Long> remaining = Collections2.filter(this.limits, new Predicate<Long>() {
+    final Collection<Long> remaining = Collections2.filter(this.limits, new Predicate<Long>() {
       @Override
-      public boolean apply(Long x) {
+      public boolean apply(final Long x) {
         return x > upper - 1;
       }
     });
@@ -103,11 +103,11 @@ public class RandomNumberGenerator implements InstanceGenerator {
   }
 
   private long getNextInt64InRange() {
-    long range = this.upper - this.lower;
-    long limit = Long.MAX_VALUE - Long.MAX_VALUE % range;
+    final long range = this.upper - this.lower;
+    final long limit = Long.MAX_VALUE - Long.MAX_VALUE % range;
     long number;
     do {
-      byte[] buffer = new byte[8];
+      final byte[] buffer = new byte[8];
       this.random.nextBytes(buffer);
       number = bytesToLong(buffer);
     } while (number > limit);
@@ -115,17 +115,17 @@ public class RandomNumberGenerator implements InstanceGenerator {
   }
 
   @Override
-  public <T> boolean appliesTo(InstanceType<T> instanceType) {
+  public <T> boolean appliesTo(final InstanceType<T> instanceType) {
     return instanceType.isCompatibleWithAnyOf(
-      Byte.class,
-      Character.class,
-      Integer.class,
-      Long.class,
-      Short.class);
+        Byte.class,
+        Character.class,
+        Integer.class,
+        Long.class,
+        Short.class);
   }
 
   @Override
-  public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
+  public <T> T next(final InstanceType<T> instanceType, final FixtureContract fixture) {
     try {
       if (instanceType.isCompatibleWith(Integer.class)) {
         return (T) Integer.valueOf(this.getNextRandom().intValue());
@@ -137,21 +137,21 @@ public class RandomNumberGenerator implements InstanceGenerator {
         return (T) Byte.valueOf(getNextRandom().byteValue());
       } else if (instanceType.isCompatibleWith(Character.class)) {
         return (T) Character.valueOf(new String(
-          new byte[]{getNextRandom().byteValue()}).charAt(0));
+            new byte[]{getNextRandom().byteValue()}).charAt(0));
       }
       return (T) this.getNextRandom();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new ObjectCreationException(instanceType, e);
     }
   }
 
   @Override
-  public void setOmittingAutoProperties(boolean isOn) {
+  public void setOmittingAutoProperties(final boolean isOn) {
 
   }
 
-  private long bytesToLong(byte[] bytes) {
-    ByteBuffer buffer = ByteBuffer.allocate(8);
+  private long bytesToLong(final byte[] bytes) {
+    final ByteBuffer buffer = ByteBuffer.allocate(8);
     buffer.put(bytes);
     buffer.flip();
     return buffer.getLong();
