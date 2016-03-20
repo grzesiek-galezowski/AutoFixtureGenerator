@@ -12,7 +12,7 @@ public class CircularList<T> {
   private int currentIndex = 0;
 
   public CircularList(final T[] values) {
-    this.enumConstants = values;
+    this.enumConstants = values.clone();
     currentIndex = random.nextInt(values.length);
   }
 

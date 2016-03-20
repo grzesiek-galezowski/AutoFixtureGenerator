@@ -4,18 +4,18 @@ import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InlineInstanceGenerator;
 
 public class StringNotContainingSubstringsGenerator implements
-  InlineInstanceGenerator<String> {
+    InlineInstanceGenerator<String> {
 
-  private String[] excludedSubstrings;
+  private final String[] excludedSubstrings;
 
-  public StringNotContainingSubstringsGenerator(String[] excludedSubstrings) {
-    this.excludedSubstrings = excludedSubstrings;
+  public StringNotContainingSubstringsGenerator(final String[] excludedSubstrings) {
+    this.excludedSubstrings = excludedSubstrings.clone();
   }
 
   private static boolean thereAreAnyOccurencesOf(
-    String[] excludedSubstrings,
-    String result) {
-    for (String str : excludedSubstrings) {
+      final String[] excludedSubstrings,
+      final String result) {
+    for (final String str : excludedSubstrings) {
       if (result.contains(str)) {
         return true;
       }
@@ -24,7 +24,7 @@ public class StringNotContainingSubstringsGenerator implements
   }
 
   @Override
-  public String next(FixtureContract fixture) {
+  public String next(final FixtureContract fixture) {
     String result;
     do {
       result = fixture.create(String.class);

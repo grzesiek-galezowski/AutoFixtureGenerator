@@ -8,6 +8,7 @@ import com.google.common.reflect.Invokable;
 import com.google.common.reflect.Parameter;
 import com.google.common.reflect.TypeToken;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -17,12 +18,12 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
 
   private final Invokable<TOwnerType, TReturnType> invokable;
 
-  public MethodCall(Invokable<TOwnerType, TReturnType> invokable) {
+  public MethodCall(final Invokable<TOwnerType, TReturnType> invokable) {
     this.invokable = invokable;
   }
 
   public static <TElement1, TElement2>
-  Call<TElement1, TElement2> to(Invokable<TElement1, TElement2> invokable) {
+  Call<TElement1, TElement2> to(final Invokable<TElement1, TElement2> invokable) {
     return new MethodCall<>(invokable);
   }
 
@@ -31,41 +32,41 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
     return invokable.getParameters();
   }
 
-  private TReturnType invoke(TOwnerType ownerType, List<Object> arguments) {
+  private TReturnType invoke(final TOwnerType ownerType, final List<Object> arguments) {
     try {
       return invokable.invoke(ownerType, arguments.toArray());
     } catch (InvocationTargetException | IllegalAccessException e) {
       throw new ObjectCreationException(
-        new ConcreteInstanceType<>(invokable.getOwnerType()), e);
-    } catch (IllegalArgumentException e) {
+          new ConcreteInstanceType<>(invokable.getOwnerType()), e);
+    } catch (final IllegalArgumentException e) {
       throw new ObjectCreationException(
-        new ConcreteInstanceType<>(invokable.getOwnerType()),
-        "Inner classes are not supported for now. \nCaused by " + e.toString(), e);
+          new ConcreteInstanceType<>(invokable.getOwnerType()),
+          "Inner classes are not supported for now. \nCaused by " + e.toString(), e);
 
     }
   }
 
   public TReturnType invokeWithArgumentsCreatedUsing(
-    FixtureContract fixture,
-    TOwnerType returnType) {
-    List<Object> arguments = prepareArgumentsOf(this, fixture);
-    TReturnType instance = invoke(returnType, arguments);
+      final FixtureContract fixture,
+      @Nullable final TOwnerType returnType) {
+    final List<Object> arguments = prepareArgumentsOf(this, fixture);
+    final TReturnType instance = invoke(returnType, arguments);
     return instance;
   }
 
   private List<Object> prepareArgumentsOf(
-    Call<TOwnerType, TReturnType> invokable, FixtureContract fixture) {
-    ArrayList<Object> arguments = new ArrayList<>();
+      final Call<TOwnerType, TReturnType> invokable, final FixtureContract fixture) {
+    final ArrayList<Object> arguments = new ArrayList<>();
 
-    for (Parameter parameter : invokable.getParameters()) {
+    for (final Parameter parameter : invokable.getParameters()) {
       addInstanceOf(parameter, arguments, fixture);
     }
 
     return arguments;
   }
 
-  private void addInstanceOf(Parameter parameter,
-                             List<Object> arguments, FixtureContract fixture) {
+  private void addInstanceOf(final Parameter parameter,
+                             final List<Object> arguments, final FixtureContract fixture) {
     if (isParameterized(parameter)) {
       arguments.add(fixture.create(realTypeOf(parameter)));
     } else {
@@ -73,16 +74,16 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
     }
   }
 
-  private TypeToken<?> realTypeOf(Parameter parameter) {
+  private TypeToken<?> realTypeOf(final Parameter parameter) {
     return TypeToken.of(parameter.getType().getType());
   }
 
-  private boolean isParameterized(Parameter parameter) {
+  private boolean isParameterized(final Parameter parameter) {
     return parameter.getType().getType() instanceof ParameterizedType;
   }
 
   @Override
-  public TReturnType invokeWithArgumentsCreatedUsing(FixtureContract fixture) {
+  public TReturnType invokeWithArgumentsCreatedUsing(final FixtureContract fixture) {
     return invokeWithArgumentsCreatedUsing(fixture, null);
   }
 

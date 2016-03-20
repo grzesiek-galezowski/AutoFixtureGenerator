@@ -3,26 +3,28 @@ package autofixture.publicinterface.generators;
 import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InstanceType;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
 public class RecursionGuard {
-  private Map<InstanceType<?>, Integer> recursionCounters = new HashMap<>();
+  private final Map<InstanceType<?>, Integer> recursionCounters = new HashMap<>();
   private int maxRecursionDepth;
 
-  public RecursionGuard(int maxRecursionDepth) {
+  public RecursionGuard(final int maxRecursionDepth) {
     this.maxRecursionDepth = maxRecursionDepth;
   }
 
-  public <T> void addDepthLevelTo(InstanceType<T> instanceType) {
+  public <T> void addDepthLevelTo(final InstanceType<T> instanceType) {
     initializeCounterFor(instanceType);
     incrementCounterFor(instanceType);
   }
 
+  @Nullable
   public <T> T defaultValueIfMaxDepthReachedOrGenerateUsing(
-    GeneratorsPipeline generatorsPipeline,
-    InstanceType<T> instanceType,
-    FixtureContract fixture) {
+      final GeneratorsPipeline generatorsPipeline,
+      final InstanceType<T> instanceType,
+      final FixtureContract fixture) {
     if (maxRecursionDepthIsReachedFor(instanceType)) {
       return null;
     } else {
@@ -30,34 +32,34 @@ public class RecursionGuard {
     }
   }
 
-  public <T> void removeDepthLevelFor(InstanceType<T> instanceType) {
+  public <T> void removeDepthLevelFor(final InstanceType<T> instanceType) {
     decrementCounterFor(instanceType);
   }
 
-  private <T> void decrementCounterFor(InstanceType<T> instanceType) {
+  private <T> void decrementCounterFor(final InstanceType<T> instanceType) {
     Integer counter = recursionCounters.get(instanceType);
     counter--;
     recursionCounters.put(instanceType, counter);
   }
 
-  private <T> void incrementCounterFor(InstanceType<T> instanceType) {
+  private <T> void incrementCounterFor(final InstanceType<T> instanceType) {
     Integer counter = recursionCounters.get(instanceType);
     counter++;
     recursionCounters.put(instanceType, counter);
   }
 
-  private <T> boolean maxRecursionDepthIsReachedFor(InstanceType<T> instanceType) {
+  private <T> boolean maxRecursionDepthIsReachedFor(final InstanceType<T> instanceType) {
     initializeCounterFor(instanceType);
     return recursionCounters.get(instanceType) > maxRecursionDepth;
   }
 
-  private <T> void initializeCounterFor(InstanceType<T> instanceType) {
+  private <T> void initializeCounterFor(final InstanceType<T> instanceType) {
     if (!recursionCounters.containsKey(instanceType)) {
       recursionCounters.put(instanceType, 0);
     }
   }
 
-  public void setMaxDepth(int maxDepth) {
+  public void setMaxDepth(final int maxDepth) {
     this.maxRecursionDepth = maxDepth;
   }
 

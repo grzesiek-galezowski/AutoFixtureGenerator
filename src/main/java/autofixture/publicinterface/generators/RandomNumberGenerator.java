@@ -10,7 +10,12 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 
 import java.nio.ByteBuffer;
-import java.util.*;
+import java.nio.charset.Charset;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * Ported from https://github.com/AutoFixture/AutoFixture
@@ -137,7 +142,7 @@ public class RandomNumberGenerator implements InstanceGenerator {
         return (T) Byte.valueOf(getNextRandom().byteValue());
       } else if (instanceType.isCompatibleWith(Character.class)) {
         return (T) Character.valueOf(new String(
-            new byte[]{getNextRandom().byteValue()}).charAt(0));
+            new byte[]{getNextRandom().byteValue()}, Charset.defaultCharset()).charAt(0));
       }
       return (T) this.getNextRandom();
     } catch (final Exception e) {
