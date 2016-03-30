@@ -1,7 +1,7 @@
 AutoFixtureGenerator 
 ========
 
-[![Build Status](https://travis-ci.org/grzesiek-galezowski/AutoFixtureGenerator.svg?branch=master)](https://travis-ci.org/grzesiek-galezowski/AutoFixtureGenerator) [![Dependency Status](https://www.versioneye.com/java/com.github.autofixture:autofixturegenerator/1.0.0/badge.svg)](https://www.versioneye.com/java/com.github.autofixture:autofixturegenerator/1.0.0) [![Inline docs](http://inch-ci.org/github/grzesiek-galezowski/AutoFixtureGenerator.svg?branch=master)](http://inch-ci.org/github/grzesiek-galezowski/AutoFixtureGenerator)
+[![Build Status](https://travis-ci.org/grzesiek-galezowski/AutoFixtureGenerator.svg?branch=master)](https://travis-ci.org/grzesiek-galezowski/AutoFixtureGenerator) [![Dependency Status](https://www.versioneye.com/java/com.github.autofixture:autofixturegenerator/badge.svg)](https://www.versioneye.com/java/com.github.autofixture:autofixturegenerator/) [![Inline docs](http://inch-ci.org/github/grzesiek-galezowski/AutoFixtureGenerator.svg?branch=master)](http://inch-ci.org/github/grzesiek-galezowski/AutoFixtureGenerator)
 ![](https://reposs.herokuapp.com/?path=grzesiek-galezowski/AutoFixtureGenerator&style=flat)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
