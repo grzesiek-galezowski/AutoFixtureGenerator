@@ -8,8 +8,9 @@ import com.google.common.primitives.Primitives;
 import com.google.common.reflect.TypeToken;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 public class Fixture implements FixtureContract {
   private final GeneratorsFactory generatorsFactory = new GeneratorsFactory();
@@ -49,11 +50,8 @@ public class Fixture implements FixtureContract {
 
   @Override
   public <T> Collection<T> createMany(final TypeToken<T> type) {
-    final ArrayList<T> manyObjects = new ArrayList<>();
+    final List<T> manyObjects = Arrays.asList(createArray(type));
 
-    for (int i = 0; i < repeatCount; ++i) {
-      manyObjects.add(create(type));
-    }
     return manyObjects;
   }
 

@@ -302,10 +302,11 @@ public class Generate {
   public static <T> T[] manyAsArrayOf(final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
     final List<T> list = manyAsListOf(typeToken, omittedValues);
     T[] templateArray = manyAsArrayOf(typeToken);
-    return (T[])list.toArray(templateArray);
+    return list.toArray(templateArray);
   }
 
-  public static <T> T[] manyAsArrayOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> T[] manyAsArrayOf(final Class<T> type,
+                                      final InlineConstrainedGenerator<T> omittedValues) {
     T[] array = manyAsArrayOf(TypeToken.of(type), omittedValues);
     return array;
   }

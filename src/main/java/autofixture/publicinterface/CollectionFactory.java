@@ -120,6 +120,7 @@ public class CollectionFactory {
   }
 
   public static <T> T[] createArray(TypeToken<T> type, int length) {
-    return (T[]) Array.newInstance(type.getRawType(), length);
+    return (T[]) Array.newInstance(
+      type.getRawType(), length);
   }
 }
