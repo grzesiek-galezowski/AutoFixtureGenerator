@@ -271,7 +271,8 @@ public class Any {
   }
 
   public static <T> T[] arrayOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    return Generate.manyAsArrayOf(type, omittedValues);
+    T[] array = Generate.manyAsArrayOf(type, omittedValues);
+    return array;
   }
 
   //LISTS - complete

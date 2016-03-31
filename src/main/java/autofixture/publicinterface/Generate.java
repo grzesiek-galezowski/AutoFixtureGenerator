@@ -18,18 +18,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.ChronoLocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Random;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.SortedSet;
+import java.util.*;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -302,25 +291,23 @@ public class Generate {
 
   //ARRAYS - complete
   public static <T> T[] manyAsArrayOf(final Class<T> clazz) {
-    return (T[]) FIXTURE.createMany(TypeToken.of(clazz)).toArray();
+    return manyAsArrayOf(TypeToken.of(clazz));
   }
 
-  public static <T> T[] manyAsArrayOf(final InstanceOf<T> type) {
-    return (T[]) FIXTURE.createMany(type).toArray();
+  public static <T> T[] manyAsArrayOf(final TypeToken<T> type) {
+
+    return FIXTURE.createArray(type);
   }
 
   public static <T> T[] manyAsArrayOf(final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
-    final Iterable<T> iterable = manyAsIterableOf(typeToken, omittedValues);
-    final List<T> list = CollectionFactory.createList();
-    for (final T element : iterable) {
-      list.add(element);
-    }
-
-    return (T[]) list.toArray();
+    final List<T> list = manyAsListOf(typeToken, omittedValues);
+    T[] templateArray = manyAsArrayOf(typeToken);
+    return (T[])list.toArray(templateArray);
   }
 
   public static <T> T[] manyAsArrayOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    return manyAsArrayOf(TypeToken.of(type), omittedValues);
+    T[] array = manyAsArrayOf(TypeToken.of(type), omittedValues);
+    return array;
   }
 
   //LISTS - complete

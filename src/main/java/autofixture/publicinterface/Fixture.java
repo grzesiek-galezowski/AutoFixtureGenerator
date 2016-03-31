@@ -7,6 +7,7 @@ import autofixture.publicinterface.generators.implementationdetails.ConcreteInst
 import com.google.common.primitives.Primitives;
 import com.google.common.reflect.TypeToken;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -55,6 +56,16 @@ public class Fixture implements FixtureContract {
     }
     return manyObjects;
   }
+
+  @Override
+  public <T> T[] createArray(final TypeToken<T> type) {
+    final T[] array = CollectionFactory.createArray(type, repeatCount);
+    for (int i = 0; i < repeatCount; ++i) {
+      Array.set(array, i, create(type));
+    }
+    return array;
+  }
+
 
   @Override
   public <T> Collection<? super T> createMany(final InstanceType<T> type) {

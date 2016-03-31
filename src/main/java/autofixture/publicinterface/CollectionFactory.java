@@ -1,5 +1,8 @@
 package autofixture.publicinterface;
 
+import com.google.common.reflect.TypeToken;
+
+import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -114,5 +117,9 @@ public class CollectionFactory {
 
   public static <T> PriorityQueue<T> createQueueFrom(final Collection<T> many) {
     return new PriorityQueue<>(many);
+  }
+
+  public static <T> T[] createArray(TypeToken<T> type, int length) {
+    return (T[]) Array.newInstance(type.getRawType(), length);
   }
 }

@@ -23,6 +23,8 @@ public interface FixtureContract {
 
   <T> Collection<T> createMany(TypeToken<T> type);
 
+  <T> T[] createArray(final TypeToken<T> type);
+
   int getRepeatCount();
 
   <T> void inject(T injectedValue);

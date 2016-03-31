@@ -83,7 +83,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 
   @Override
   public Object createArray(final Object[] objects) {
-    final Object array = Array.newInstance(typeToken.getRawType(), objects.length);
+    final T[] array = CollectionFactory.createArray(typeToken, objects.length);
     for (int i = 0; i < objects.length; ++i) {
       Array.set(array, i, objects[i]);
     }

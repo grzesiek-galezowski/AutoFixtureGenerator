@@ -170,6 +170,18 @@ public class AnyGenerationMethodsSpecification {
   }
 
   @Test
+  public void shouldCorrectlyGenerateConstrainedArrays() {
+    Integer[] integers = Any.arrayOf(Integer.class, otherThan(123));
+
+    GenericObject<Integer>[] objects = Any.arrayOf(
+        new InstanceOf<GenericObject<Integer>>() {
+        }, otherThan(new GenericObject<Integer>(123)));
+
+    assertThat(integers, is(not(nullValue())));
+    assertThat(objects, is(not(nullValue())));
+  }
+
+  @Test
   public void shouldGenerateFloatsOtherThanSpecified() {
     assertThat(anyFloatOtherThan(56), is(not(equalTo(56))));
     assertThat(any(floatValue(), otherThan(56f)), is(not(equalTo(56))));
