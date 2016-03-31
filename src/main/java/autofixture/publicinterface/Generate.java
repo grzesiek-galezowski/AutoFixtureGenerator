@@ -168,7 +168,7 @@ public class Generate {
   }
 
   public static Exception anyException() {
-    return any(Exception.class);
+    return any(RuntimeException.class);
   }
 
   public static Error anyError() {
