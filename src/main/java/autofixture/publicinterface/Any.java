@@ -52,6 +52,9 @@ public class Any {
   public static String string() {
     return Generate.anyString();
   }
+  public static String string(final int charactersCount) {
+    return stringOfLength(charactersCount);
+  }
 
   public static String stringOfLength(final int charactersCount) {
     return Generate.anyStringOfLength(charactersCount);

@@ -53,7 +53,6 @@ public class Generate {
   }
 
   public static <T> T any(final Class<T> instanceType, final InlineConstrainedGenerator<T> generator) {
-
     return any(TypeToken.of(instanceType), generator);
   }
 
