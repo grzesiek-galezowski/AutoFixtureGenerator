@@ -19,7 +19,7 @@ import java.util.*;
 public class RandomNumberGenerator implements InstanceGenerator {
   public static final int SIZE_OF_INT_64_IN_BYTES = 8;
   private final List<Long> limits;
-  private final Object syncRoot; //TODO handle sync root
+  private final Object syncRoot;
   private final Random random;
   private final Set<Long> numbers;
   private long lower;
