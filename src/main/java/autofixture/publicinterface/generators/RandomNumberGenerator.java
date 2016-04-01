@@ -56,23 +56,22 @@ public class RandomNumberGenerator implements InstanceGenerator {
   }
 
   private Long getNextRandom() {
-    //lock (this.syncRoot)
-    //{
-    this.evaluateRange();
+    synchronized (this.syncRoot) {
+      this.evaluateRange();
 
-    long result;
-    do {
-      if (this.lower >= Integer.MIN_VALUE && this.upper <= Integer.MAX_VALUE) {
-        result = this.random.nextInt((int) this.upper - (int) this.lower) + (int) this.lower;
-      } else {
-        result = this.getNextInt64InRange();
+      long result;
+      do {
+        if (this.lower >= Integer.MIN_VALUE && this.upper <= Integer.MAX_VALUE) {
+          result = this.random.nextInt((int) this.upper - (int) this.lower) + (int) this.lower;
+        } else {
+          result = this.getNextInt64InRange();
+        }
       }
-    }
-    while (this.numbers.contains(result));
+      while (this.numbers.contains(result));
 
-    this.numbers.add(result);
-    return result;
-    //}
+      this.numbers.add(result);
+      return result;
+    }
   }
 
   private void evaluateRange() {
