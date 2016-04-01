@@ -301,7 +301,7 @@ public class Generate {
 
   public static <T> T[] manyAsArrayOf(final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
     final List<T> list = manyAsListOf(typeToken, omittedValues);
-    T[] templateArray = manyAsArrayOf(typeToken);
+    T[] templateArray = CollectionFactory.createArray(typeToken, list.size());
     return list.toArray(templateArray);
   }
 
@@ -321,6 +321,7 @@ public class Generate {
     return Lists.newArrayList(FIXTURE.createMany(type));
   }
 
+  //TODO rethink putting this into the Fixture class
   public static <T> List<T> manyAsListOf(final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> generator) {
     final List<T> result = CollectionFactory.createList();
     result.add(any(typeToken, generator));
