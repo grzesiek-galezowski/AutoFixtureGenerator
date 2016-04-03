@@ -36,6 +36,7 @@ import java.util.concurrent.PriorityBlockingQueue;
 
 public class ConcreteInstanceType<T> implements InstanceType<T> {
 
+  public static final int LENGTH_OF_SETTER_PREFIX = 3;
   private final TypeToken<T> typeToken;
 
   public ConcreteInstanceType(final TypeToken<T> typeToken) {
@@ -289,9 +290,9 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   private boolean isNamedLikeASetter(final Invokable<T, Object> invokable) {
     final String name = invokable.getName();
     return
-        name.length() > 3
+        name.length() > LENGTH_OF_SETTER_PREFIX
             && name.startsWith("set")
-            && Character.isUpperCase(name.charAt(3));
+            && Character.isUpperCase(name.charAt(LENGTH_OF_SETTER_PREFIX));
   }
 
   @Override

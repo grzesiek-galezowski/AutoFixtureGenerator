@@ -7,13 +7,13 @@ import java.util.Random;
 
 public class CircularList<T> {
 
-  private static final Random random = new Random();
+  private static final Random RANDOM = new Random();
   private final T[] enumConstants;
   private int currentIndex = 0;
 
   public CircularList(final T[] values) {
     this.enumConstants = values.clone();
-    currentIndex = random.nextInt(values.length);
+    currentIndex = RANDOM.nextInt(values.length);
   }
 
   public static <TListElement> CircularList<TListElement> createFromEnum(final InstanceType<TListElement> type) {

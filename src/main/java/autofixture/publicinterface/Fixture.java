@@ -13,10 +13,11 @@ import java.util.Collection;
 import java.util.List;
 
 public class Fixture implements FixtureContract {
+  public static final int MINIMUM_VALUE_THAT_COULD_MEAN_MANY = 3;
   private final GeneratorsFactory generatorsFactory = new GeneratorsFactory();
   private final RecursionGuard recursionGuard = new RecursionGuard(20);
   private final GeneratorsPipeline instanceGenerators = generatorsFactory.createBuiltinGenerators(recursionGuard);
-  private int repeatCount = 3;
+  private int repeatCount = MINIMUM_VALUE_THAT_COULD_MEAN_MANY;
 
   public <T> T create(final Class<T> clazz) {
     return this.create(TypeToken.of(Primitives.wrap(clazz)));

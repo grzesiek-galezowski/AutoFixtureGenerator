@@ -53,7 +53,6 @@ public class Generate {
   }
 
   public static <T> T any(final Class<T> instanceType, final InlineConstrainedGenerator<T> generator) {
-
     return any(TypeToken.of(instanceType), generator);
   }
 
@@ -247,15 +246,15 @@ public class Generate {
     return FIXTURE.create(Instant.class);
   }
 
-  private static final HashMap<Class, Integer> indices = new HashMap<>();
+  private static final HashMap<Class, Integer> INDICES_BY_CLASS = new HashMap<>();
 
   public static <T> T anyFrom(final T... possibleValues) {
     final Class<?> key = possibleValues[0].getClass();
-    if (!indices.containsKey(key)) {
-      indices.put(key, new Random().nextInt(possibleValues.length));
+    if (!INDICES_BY_CLASS.containsKey(key)) {
+      INDICES_BY_CLASS.put(key, new Random().nextInt(possibleValues.length));
     }
 
-    Integer index = indices.get(key);
+    Integer index = INDICES_BY_CLASS.get(key);
 
     if (index >= possibleValues.length) {
       index = 0;
@@ -264,7 +263,7 @@ public class Generate {
     final T returnedValue = possibleValues[index];
 
     index++;
-    indices.put(key, index);
+    INDICES_BY_CLASS.put(key, index);
 
     return returnedValue;
   }

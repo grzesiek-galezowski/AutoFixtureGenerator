@@ -4,26 +4,22 @@ import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InstanceGenerator;
 import autofixture.publicinterface.InstanceType;
 import autofixture.publicinterface.ObjectCreationException;
-import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Ported from https://github.com/AutoFixture/AutoFixture
  */
 
 public class RandomNumberGenerator implements InstanceGenerator {
+  public static final int SIZE_OF_INT_64_IN_BYTES = 8;
   private final List<Long> limits;
-  private final Object syncRoot; //TODO handle sync root
+  private final Object syncRoot;
   private final Random random;
   private final Set<Long> numbers;
   private long lower;
@@ -60,23 +56,22 @@ public class RandomNumberGenerator implements InstanceGenerator {
   }
 
   private Long getNextRandom() {
-    //lock (this.syncRoot)
-    //{
-    this.evaluateRange();
+    synchronized (this.syncRoot) {
+      this.evaluateRange();
 
-    long result;
-    do {
-      if (this.lower >= Integer.MIN_VALUE && this.upper <= Integer.MAX_VALUE) {
-        result = this.random.nextInt((int) this.upper - (int) this.lower) + (int) this.lower;
-      } else {
-        result = this.getNextInt64InRange();
+      long result;
+      do {
+        if (this.lower >= Integer.MIN_VALUE && this.upper <= Integer.MAX_VALUE) {
+          result = this.random.nextInt((int) this.upper - (int) this.lower) + (int) this.lower;
+        } else {
+          result = this.getNextInt64InRange();
+        }
       }
-    }
-    while (this.numbers.contains(result));
+      while (this.numbers.contains(result));
 
-    this.numbers.add(result);
-    return result;
-    //}
+      this.numbers.add(result);
+      return result;
+    }
   }
 
   private void evaluateRange() {
@@ -89,12 +84,7 @@ public class RandomNumberGenerator implements InstanceGenerator {
   }
 
   private void createRange() {
-    final Collection<Long> remaining = Collections2.filter(this.limits, new Predicate<Long>() {
-      @Override
-      public boolean apply(final Long x) {
-        return x > upper - 1;
-      }
-    });
+    final Collection<Long> remaining = Collections2.filter(this.limits, x -> x > upper - 1);
 
     if (remaining.size() > 0 && this.numbers.size() > 0) {
       this.lower = this.upper;
@@ -112,7 +102,7 @@ public class RandomNumberGenerator implements InstanceGenerator {
     final long limit = Long.MAX_VALUE - Long.MAX_VALUE % range;
     long number;
     do {
-      final byte[] buffer = new byte[8];
+      final byte[] buffer = new byte[SIZE_OF_INT_64_IN_BYTES];
       this.random.nextBytes(buffer);
       number = bytesToLong(buffer);
     } while (number > limit);
