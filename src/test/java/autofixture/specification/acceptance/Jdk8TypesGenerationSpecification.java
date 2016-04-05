@@ -35,8 +35,10 @@ public class Jdk8TypesGenerationSpecification {
   @DataPoint public static InstanceOf<Optional<OptionalLong>> optionalOfOptionalClass = new InstanceOf<Optional<OptionalLong>>() {  };
 
   /*
-   Java 8 functions and actions
+   Some Java 8 functional interfaces
    */
+  @DataPoint public static InstanceOf<Consumer<Integer>> consumer = new InstanceOf<Consumer<Integer>>() {  };
+  @DataPoint public static InstanceOf<Supplier<Integer>> supplier = new InstanceOf<Supplier<Integer>>() {  };
   @DataPoint public static InstanceOf<BiConsumer<Integer, Float>> biConsumer = new InstanceOf<BiConsumer<Integer, Float>>() {  };
   @DataPoint public static InstanceOf<BiPredicate<Integer, Float>> biPredicate = new InstanceOf<BiPredicate<Integer, Float>>() {  };
   @DataPoint public static InstanceOf<BiFunction<Integer, Float, Integer>> biFunction = new InstanceOf<BiFunction<Integer, Float, Integer>>() {  };
