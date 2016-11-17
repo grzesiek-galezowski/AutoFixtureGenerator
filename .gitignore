@@ -6,3 +6,4 @@ workspace.xml
 /target
 .idea
 .idea/*
+release.properties
