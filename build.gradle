@@ -33,8 +33,8 @@ if (travis == "null") {
         if (taskGraph.allTasks.any { it instanceof Sign }) {
             allprojects {
                 ext."signing.password" = password
-                ext."signing.keyId" = '214AA4AD'
-                ext."signing.secretKeyRingFile" = 'C:/Users/astral/AppData/Roaming/gnupg/secring.gpg'
+                ext."signing.keyId" = '86F9969E'
+                ext."signing.secretKeyRingFile" = 'C:/Users/grzes/AppData/Roaming/gnupg/secring.gpg'
             }
         }
     }
@@ -79,6 +79,7 @@ pitest {
 
 checkstyle {
     ignoreFailures = false
+
 }
 
 findbugs {

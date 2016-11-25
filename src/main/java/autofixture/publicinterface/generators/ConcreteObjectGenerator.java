@@ -1,5 +1,6 @@
 package autofixture.publicinterface.generators;
 
+import autofixture.implementationdetails.Debug;
 import autofixture.implementationdetails.InstanceField;
 import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InstanceGenerator;
@@ -60,8 +61,7 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
     try {
       setter.invokeWithArgumentsCreatedUsing(fixture, Optional.of(instance));
     } catch (final Exception t) {
-
-      ;//silently invoke any failed attempt
+      Debug.debugPrint(t);
     }
   }
 

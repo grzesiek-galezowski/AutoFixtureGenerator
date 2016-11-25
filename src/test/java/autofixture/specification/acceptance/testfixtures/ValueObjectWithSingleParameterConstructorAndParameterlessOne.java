@@ -24,4 +24,8 @@ public class ValueObjectWithSingleParameterConstructorAndParameterlessOne {
   }
 
 
+  @Override
+  public int hashCode() {
+    return field;
+  }
 }

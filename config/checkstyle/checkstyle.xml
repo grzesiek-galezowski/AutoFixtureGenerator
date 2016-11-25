@@ -30,6 +30,7 @@
 
 -->
 
+
 <module name="Checker">
     <!--
         If you set the basedir property below, then all reported file
@@ -38,7 +39,6 @@
 
         <property name="basedir" value="${basedir}"/>
     -->
-
     <!-- Checks that property files contain the same keys.         -->
     <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
     <module name="Translation"/>

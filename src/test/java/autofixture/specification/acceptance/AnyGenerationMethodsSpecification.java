@@ -72,20 +72,22 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateStringNotContainingGivenSubstring() {
-    String str = anyStringNotContaining("1", "2");
+    String string1 = "1";
+    String string2 = "2";
+    String str = anyStringNotContaining(string1, string2);
 
-    assertThat(str, not(containsString("1")));
-    assertThat(str, not(containsString("2")));
+    assertThat(str, not(containsString(string1)));
+    assertThat(str, not(containsString(string2)));
 
-    String str2 = any(stringNotContaining("1", "2"));
+    String str2 = any(stringNotContaining(string1, string2));
 
-    assertThat(str2, not(containsString("1")));
-    assertThat(str2, not(containsString("2")));
+    assertThat(str2, not(containsString(string1)));
+    assertThat(str2, not(containsString(string2)));
 
-    String str3 = Any.stringNotContaining("1", "2");
+    String str3 = Any.stringNotContaining(string1, string2);
 
-    assertThat(str3, not(containsString("1")));
-    assertThat(str3, not(containsString("2")));
+    assertThat(str3, not(containsString(string1)));
+    assertThat(str3, not(containsString(string2)));
   }
 
   @Test
@@ -147,35 +149,42 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateLongsOtherThanSpecified() {
-    assertThat(anyLongOtherThan(56,55), is(not(equalTo(56))));
-    assertThat(any(longValue(), otherThan(56l,55l)), is(not(equalTo(56))));
-    assertThat(Any.anonymous(longValue(), otherThan(56l,55l)), is(not(equalTo(56))));
-    assertThat(Any.longOtherThan(56l,55l), is(not(equalTo(56))));
+    int int1 = 56;
+    int int2 = 55;
+    long long1 = 56l;
+    long long2 = 55l;
+    assertThat(anyLongOtherThan(int1, int2), is(not(equalTo(int1))));
+    assertThat(any(longValue(), otherThan(long1, long2)), is(not(equalTo(int1))));
+    assertThat(Any.anonymous(longValue(), otherThan(long1, long2)), is(not(equalTo(int1))));
+    assertThat(Any.longOtherThan(long1, long2), is(not(equalTo(int1))));
   }
 
   @Test
   public void shouldGenerateIntegersOtherThanSpecified() {
-    assertThat(anyIntegerOtherThan(56), is(not(equalTo(56))));
-    assertThat(any(intValue(), otherThan(56)), is(not(equalTo(56))));
-    assertThat(Any.anonymous(intValue(), otherThan(56)), is(not(equalTo(56))));
-    assertThat(Any.intOtherThan(56), is(not(equalTo(56))));
+    int longNum = 56;
+    assertThat(anyIntegerOtherThan(longNum), is(not(equalTo(longNum))));
+    assertThat(any(intValue(), otherThan(longNum)), is(not(equalTo(longNum))));
+    assertThat(Any.anonymous(intValue(), otherThan(longNum)), is(not(equalTo(longNum))));
+    assertThat(Any.intOtherThan(longNum), is(not(equalTo(longNum))));
   }
 
   @Test
   public void shouldGenerateDoublesOtherThanSpecified() {
-    assertThat(anyDoubleOtherThan(56), is(not(equalTo(56))));
-    assertThat(any(doubleValue(), otherThan(56d)), is(not(equalTo(56))));
-    assertThat(Any.anonymous(doubleValue(), otherThan(56d)), is(not(equalTo(56))));
-    assertThat(Any.doubleOtherThan(56d), is(not(equalTo(56))));
+    double doubleNum = 56d;
+    assertThat(anyDoubleOtherThan(doubleNum), is(not(equalTo(doubleNum))));
+    assertThat(any(doubleValue(), otherThan(doubleNum)), is(not(equalTo(doubleNum))));
+    assertThat(Any.anonymous(doubleValue(), otherThan(doubleNum)), is(not(equalTo(doubleNum))));
+    assertThat(Any.doubleOtherThan(doubleNum), is(not(equalTo(doubleNum))));
   }
 
   @Test
   public void shouldCorrectlyGenerateConstrainedArrays() {
-    Integer[] integers = Any.arrayOf(Integer.class, otherThan(123));
+    int someNumber = 123;
+    Integer[] integers = Any.arrayOf(Integer.class, otherThan(someNumber));
 
     GenericObject<Integer>[] objects = Any.arrayOf(
         new InstanceOf<GenericObject<Integer>>() {
-        }, otherThan(new GenericObject<Integer>(123)));
+        }, otherThan(new GenericObject<Integer>(someNumber)));
 
     assertThat(integers, is(not(nullValue())));
     assertThat(objects, is(not(nullValue())));
@@ -183,26 +192,29 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateFloatsOtherThanSpecified() {
-    assertThat(anyFloatOtherThan(56), is(not(equalTo(56))));
-    assertThat(any(floatValue(), otherThan(56f)), is(not(equalTo(56))));
-    assertThat(Any.anonymous(floatValue(), otherThan(56f)), is(not(equalTo(56))));
-    assertThat(Any.floatOtherThan(56f), is(not(equalTo(56))));
+    float floatNum = 56f;
+    assertThat(anyFloatOtherThan(floatNum), is(not(equalTo(floatNum))));
+    assertThat(any(floatValue(), otherThan(floatNum)), is(not(equalTo(floatNum))));
+    assertThat(Any.anonymous(floatValue(), otherThan(floatNum)), is(not(equalTo(floatNum))));
+    assertThat(Any.floatOtherThan(floatNum), is(not(equalTo(floatNum))));
   }
 
   @Test
   public void shouldGenerateStringsOtherThanSpecified() {
-    assertThat(anyStringOtherThan("56"), is(not(equalTo("56"))));
-    assertThat(any(string(), otherThan("56")), is(not(equalTo("56"))));
-    assertThat(Any.anonymous(string(), otherThan("56")), is(not(equalTo("56"))));
-    assertThat(Any.stringOtherThan("56"), is(not(equalTo("56"))));
+    String someString = "56";
+    assertThat(anyStringOtherThan(someString), is(not(equalTo(someString))));
+    assertThat(any(string(), otherThan(someString)), is(not(equalTo(someString))));
+    assertThat(Any.anonymous(string(), otherThan(someString)), is(not(equalTo(someString))));
+    assertThat(Any.stringOtherThan(someString), is(not(equalTo(someString))));
   }
 
   @Test
   public void shouldGenerateShortsOtherThanSpecified() {
-    assertThat(anyShortOtherThan((short)56), is(not(equalTo(56))));
-    assertThat(any(shortValue(), otherThan((short) 56)), is(not(equalTo(56))));
-    assertThat(Any.anonymous(shortValue(), otherThan((short) 56)), is(not(equalTo(56))));
-    assertThat(Any.shortOtherThan((short) 56), is(not(equalTo(56))));
+    short shortNum = (short) 56;
+    assertThat(anyShortOtherThan(shortNum), is(not(equalTo(shortNum))));
+    assertThat(any(shortValue(), otherThan(shortNum)), is(not(equalTo(shortNum))));
+    assertThat(Any.anonymous(shortValue(), otherThan(shortNum)), is(not(equalTo(shortNum))));
+    assertThat(Any.shortOtherThan(shortNum), is(not(equalTo(shortNum))));
   }
 
   @Test
@@ -235,14 +247,15 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateStringContainingGivenSubstring() {
-    String str1 = anyStringContaining("1");
-    assertThat(str1, containsString("1"));
+    String someString = "1";
+    String str1 = anyStringContaining(someString);
+    assertThat(str1, containsString(someString));
 
-    String str2 = any(stringContaining("1"));
-    assertThat(str2, containsString("1"));
+    String str2 = any(stringContaining(someString));
+    assertThat(str2, containsString(someString));
 
-    String str3 = Any.stringContaining("1");
-    assertThat(str3, containsString("1"));
+    String str3 = Any.stringContaining(someString);
+    assertThat(str3, containsString(someString));
   }
 
   @Test
@@ -256,36 +269,45 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateItemsOtherThanGivenInstances() {
-
+    int num1 = 5;
+    int num2 = 10;
+    int num3 = 15;
     Integer notA5 = any(new InstanceOf<Integer>() {
-    }, otherThan(5, 10, 15));
+    }, otherThan(num1, num2, num3));
 
-    assertThat(notA5, is(not(equalTo(5))));
-    assertThat(notA5, is(not(equalTo(10))));
-    assertThat(notA5, is(not(equalTo(15))));
+    assertThat(notA5, is(not(equalTo(num1))));
+    assertThat(notA5, is(not(equalTo(num2))));
+    assertThat(notA5, is(not(equalTo(num3))));
   }
 
   @Test
   public void shouldGenerateItemsOtherThanGivenValues() {
 
-    Integer notA5 = any(intValue(), otherThan(5, 10, 15));
+    int num1 = 5;
+    int num2 = 10;
+    int num3 = 15;
+    Integer notA5 = any(intValue(), otherThan(num1, num2, num3));
 
-    assertThat(notA5, is(not(equalTo(5))));
-    assertThat(notA5, is(not(equalTo(10))));
-    assertThat(notA5, is(not(equalTo(15))));
+    assertThat(notA5, is(not(equalTo(num1))));
+    assertThat(notA5, is(not(equalTo(num2))));
+    assertThat(notA5, is(not(equalTo(num3))));
   }
 
 
   @Test
   public void shouldGenerateArraysExcludingGivenInstances() {
+    int num1 = 3;
+    int num2 = 5;
+    int num3 = 6;
+    int num4 = 7;
     List<Integer> list = Arrays.asList(manyAsArrayOf(new InstanceOf<Integer>() {
-    }, without(3, 5, 6, 7)));
+    }, without(num1, num2, num3, num4)));
 
-    assertThat(list.size(), is(3));
-    assertThat(list, not(hasItem(3)));
-    assertThat(list, not(hasItem(5)));
-    assertThat(list, not(hasItem(6)));
-    assertThat(list, not(hasItem(7)));
+    assertThat(list.size(), is(num1));
+    assertThat(list, not(hasItem(num1)));
+    assertThat(list, not(hasItem(num2)));
+    assertThat(list, not(hasItem(num3)));
+    assertThat(list, not(hasItem(num4)));
     assertContainsOnlyIntegers(list);
   }
 
@@ -782,15 +804,6 @@ public class AnyGenerationMethodsSpecification {
     assertThat(port5, is(not(equalTo(port6))));
     assertThat(port5, is(lessThan(65535)));
     assertThat(port6, is(lessThan(65535)));
-  }
-
-  @Test
-  public void lol() {
-    createListOf(intValues());
-  }
-
-  private <T> List<T> createListOf(Class<T> clazz) {
-    return null;
   }
 
   public void assertThrows(Class exceptionClass, Runnable func) {
