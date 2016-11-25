@@ -15,10 +15,8 @@ public class HasArrayUniqueItemsMatcher<T> extends TypeSafeMatcher<T[]> {
   protected boolean matchesSafely(T[] items) {
     for (int i = 0; i < items.length; ++i) {
       for (int m = 0; m < items.length; ++m) {
-        if (i != m) {
-          if (items[i] == items[m]) {
-            return false;
-          }
+        if (i != m && items[i] == items[m]) {
+          return false;
         }
       }
     }
