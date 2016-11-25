@@ -33,7 +33,7 @@ if (travis == "null") {
         if (taskGraph.allTasks.any { it instanceof Sign }) {
             allprojects {
                 ext."signing.password" = password
-                ext."signing.keyId" = '86F9969E'
+                ext."signing.keyId" = '58596C05'
                 ext."signing.secretKeyRingFile" = 'C:/Users/grzes/AppData/Roaming/gnupg/secring.gpg'
             }
         }
@@ -72,14 +72,14 @@ task sourcesJar(type: Jar) {
 }
 
 pitest {
-    targetClasses = ['com.github.grzesiek_galezowski.test_environment.*']  //by default "${project.group}.*"
+    targetClasses = ['autofixture.*']  //by default "${project.group}.*"
     threads = 8
     outputFormats = ['XML', 'HTML']
 }
 
 checkstyle {
     ignoreFailures = false
-
+    sourceSets = [project.sourceSets.main]
 }
 
 findbugs {

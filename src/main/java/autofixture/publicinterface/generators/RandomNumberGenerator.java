@@ -75,7 +75,7 @@ public class RandomNumberGenerator implements InstanceGenerator {
   }
 
   private void evaluateRange() {
-    if (this.count == (this.upper - this.lower)) {
+    if (this.count == this.upper - this.lower) {
       this.count = 0;
       this.createRange();
     }
