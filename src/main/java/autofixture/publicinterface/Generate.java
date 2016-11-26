@@ -23,15 +23,7 @@ import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
-import static autofixture.publicinterface.InlineGenerators.alphaChar;
-import static autofixture.publicinterface.InlineGenerators.alphaString;
-import static autofixture.publicinterface.InlineGenerators.digitChar;
-import static autofixture.publicinterface.InlineGenerators.exploding;
-import static autofixture.publicinterface.InlineGenerators.identifierString;
-import static autofixture.publicinterface.InlineGenerators.portNumber;
-import static autofixture.publicinterface.InlineGenerators.stringContaining;
-import static autofixture.publicinterface.InlineGenerators.stringNotContaining;
-import static autofixture.publicinterface.InlineGenerators.stringOfLength;
+import static autofixture.publicinterface.InlineGenerators.*;
 
 public class Generate {
   private static final Fixture FIXTURE = new Fixture();
@@ -67,6 +59,22 @@ public class Generate {
   public static String anyStringNotContaining(final String... excludedSubstrings) {
     return any(stringNotContaining(excludedSubstrings));
   }
+  public static String anyLowercaseString() {
+    return any(lowercaseString());
+  }
+
+  public static String anyUppercaseString() {
+    return any(uppercaseString());
+  }
+
+  public static String anyLowercaseString(final int length) {
+    return any(lowercaseString(length));
+  }
+
+  public static String anyUppercaseString(final int length) {
+    return any(uppercaseString(length));
+  }
+
 
   public static String anyStringContaining(final String str) {
     return any(stringContaining(str));
@@ -489,6 +497,7 @@ public class Generate {
   private static Integer[] boxed(final int... other) {
     return IntStream.of(other).boxed().toArray(Integer[]::new);
   }
+
 
 
 }

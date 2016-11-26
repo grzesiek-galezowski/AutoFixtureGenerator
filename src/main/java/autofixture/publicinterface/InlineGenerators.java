@@ -1,15 +1,7 @@
 package autofixture.publicinterface;
 
 import autofixture.publicinterface.constraints.OtherThanConstraint;
-import autofixture.publicinterface.generators.inline.AlphaStringGenerator;
-import autofixture.publicinterface.generators.inline.CharacterGenerator;
-import autofixture.publicinterface.generators.inline.ExplodingInstanceGenerator;
-import autofixture.publicinterface.generators.inline.GenerationConstrainedByValueRejection;
-import autofixture.publicinterface.generators.inline.IdentifierStringGenerator;
-import autofixture.publicinterface.generators.inline.PortNumberGenerator;
-import autofixture.publicinterface.generators.inline.StringContainingSubstringGenerator;
-import autofixture.publicinterface.generators.inline.StringNotContainingSubstringsGenerator;
-import autofixture.publicinterface.generators.inline.StringOfLengthGenerator;
+import autofixture.publicinterface.generators.inline.*;
 import com.google.common.reflect.TypeToken;
 
 /**
@@ -23,6 +15,7 @@ public class InlineGenerators {
   private static final InlineInstanceGenerator<Character> DIGIT_CHAR_GENERATOR = new CharacterGenerator(
       ALL_DIGITS);
   private static final InlineInstanceGenerator<Integer> PORT_NUMBER_GENERATOR = new PortNumberGenerator();
+  private static final int MANY = 3;
 
   public static StringContainingSubstringGenerator stringContaining(final String str) {
     return new StringContainingSubstringGenerator(str);
@@ -37,6 +30,23 @@ public class InlineGenerators {
     return new AlphaStringGenerator(ALPHA_CHAR_GENERATOR,
         length);
   }
+
+  public static InlineInstanceGenerator<String> uppercaseString() {
+    return new UppercaseStringGenerator(MANY);
+  }
+
+  public static InlineInstanceGenerator<String> lowercaseString() {
+    return new LowercaseStringGenerator(MANY);
+  }
+
+  public static InlineInstanceGenerator<String> uppercaseString(final int length) {
+    return new UppercaseStringGenerator(length);
+  }
+
+  public static InlineInstanceGenerator<String> lowercaseString(final int length) {
+    return new LowercaseStringGenerator(length);
+  }
+
 
   public static IdentifierStringGenerator identifierString() {
     return new IdentifierStringGenerator(
@@ -56,7 +66,7 @@ public class InlineGenerators {
     return ALPHA_CHAR_GENERATOR;
   }
 
-  public static StringOfLengthGenerator stringOfLength(final int charactersCount) {
+  public static InlineInstanceGenerator<String> stringOfLength(final int charactersCount) {
     return new StringOfLengthGenerator(charactersCount);
   }
 

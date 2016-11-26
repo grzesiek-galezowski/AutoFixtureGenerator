@@ -148,6 +148,33 @@ public class AnyGenerationMethodsSpecification {
   }
 
   @Test
+  public void shouldGenerateLowercaseStrings() {
+    String lowercaseString1 = anyLowercaseString();
+    String lowercaseString2 = any(lowercaseString());
+    String lowercaseString3 = Any.anonymous(lowercaseString());
+    String lowercaseString4 = Any.lowercaseString();
+
+    assertThat(lowercaseString1, is(lowercaseString1.toLowerCase()));
+    assertThat(lowercaseString2, is(lowercaseString2.toLowerCase()));
+    assertThat(lowercaseString3, is(lowercaseString3.toLowerCase()));
+    assertThat(lowercaseString4, is(lowercaseString4.toLowerCase()));
+  }
+
+  @Test
+  public void shouldGenerateUppercaseStrings() {
+    String upperString1 = anyUppercaseString();
+    String upperString2 = any(uppercaseString());
+    String upperString3 = Any.anonymous(uppercaseString());
+    String upperString4 = Any.uppercaseString();
+
+    assertThat(upperString1, is(upperString1.toUpperCase()));
+    assertThat(upperString2, is(upperString2.toUpperCase()));
+    assertThat(upperString3, is(upperString3.toUpperCase()));
+    assertThat(upperString4, is(upperString4.toUpperCase()));
+  }
+
+
+  @Test
   public void shouldGenerateLongsOtherThanSpecified() {
     int int1 = 56;
     int int2 = 55;

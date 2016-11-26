@@ -84,6 +84,23 @@ public class Any {
     return Generate.anyAlphaString(length);
   }
 
+  public static String lowercaseString() {
+    return Generate.anyLowercaseString();
+  }
+
+  public static String lowercaseString(final int length) {
+    return Generate.anyLowercaseString(length);
+  }
+
+
+  public static String uppercaseString() {
+    return Generate.anyUppercaseString();
+  }
+  public static String uppercaseString(final int length) {
+    return Generate.anyUppercaseString(length);
+  }
+
+
   public static String identifier() {
     return Generate.anyIdentifier();
   }

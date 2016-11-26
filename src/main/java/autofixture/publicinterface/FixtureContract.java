@@ -30,4 +30,6 @@ public interface FixtureContract {
   <T> void inject(T injectedValue);
 
   <T> T create(TypeToken<T> type, InlineConstrainedGenerator<T> generator);
+
+  <T> T create(final InlineInstanceGenerator<T> generator);
 }
