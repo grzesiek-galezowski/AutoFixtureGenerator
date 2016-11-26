@@ -54,7 +54,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 
   @Override
   public <TAssignable> boolean isAssignableFrom(final Class<TAssignable> clazz) {
-    return typeToken.isAssignableFrom(clazz);
+    return typeToken.isSubtypeOf(clazz);
   }
 
   @Override

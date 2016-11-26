@@ -1,9 +1,0 @@
-build/
-out/
-bin/
-workspace.xml
-.DS_Store
-/target
-.idea
-.idea/*
-release.properties
