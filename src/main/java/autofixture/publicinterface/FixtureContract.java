@@ -23,7 +23,7 @@ public interface FixtureContract {
 
   <T> Collection<T> createMany(TypeToken<T> type);
 
-  <T> T[] createArray(final TypeToken<T> type);
+  <T> T[] createArray(TypeToken<T> type);
 
   int getRepeatCount();
 
@@ -31,5 +31,5 @@ public interface FixtureContract {
 
   <T> T create(TypeToken<T> type, InlineConstrainedGenerator<T> generator);
 
-  <T> T create(final InlineInstanceGenerator<T> generator);
+  <T> T create(InlineInstanceGenerator<T> generator);
 }

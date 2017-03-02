@@ -2,7 +2,6 @@ package autofixture.publicinterface.generators.inline;
 
 import autofixture.publicinterface.FixtureContract;
 import autofixture.publicinterface.InlineInstanceGenerator;
-import autofixture.publicinterface.generators.StringGenerator;
 
 import static autofixture.publicinterface.InlineGenerators.stringOfLength;
 
