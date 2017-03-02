@@ -5,12 +5,12 @@ buildscript {
         }
     }
     dependencies {
-        classpath "info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.1.10"
+        classpath "info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.1.11"
     }
 }
 
 plugins {
-    id 'net.researchgate.release' version "2.3.5"
+    id 'net.researchgate.release' version "2.5.0"
 }
 
 apply plugin: "info.solidsoft.pitest"
