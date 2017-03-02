@@ -7,3 +7,6 @@ workspace.xml
 .idea
 .idea/*
 release.properties
+*.lock
+.gradle/2.13/taskArtifacts/fileHashes.bin
+*.bin
