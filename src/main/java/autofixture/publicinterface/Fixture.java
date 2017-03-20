@@ -1,12 +1,13 @@
 package autofixture.publicinterface;
 
+import autofixture.implementationdetails.MapBasedRecursionGuard;
 import autofixture.interfaces.*;
 import autofixture.publicinterface.generators.DefaultGeneratorsFactory;
 import autofixture.interfaces.GeneratorsFactory;
 import autofixture.interfaces.GeneratorsPipeline;
-import autofixture.implementationdetails.RecursionGuard;
-import autofixture.publicinterface.generators.implementationdetails.CollectionFactory;
-import autofixture.publicinterface.generators.implementationdetails.ConcreteInstanceType;
+import autofixture.interfaces.RecursionGuard;
+import autofixture.implementationdetails.CollectionFactory;
+import autofixture.implementationdetails.ConcreteInstanceType;
 import com.google.common.primitives.Primitives;
 import com.google.common.reflect.TypeToken;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public class Fixture implements FixtureContract {
   public static final int MINIMUM_VALUE_THAT_COULD_MEAN_MANY = 3;
   private final GeneratorsFactory generatorsFactory = new DefaultGeneratorsFactory();
-  private final RecursionGuard recursionGuard = new RecursionGuard(20);
+  private final RecursionGuard recursionGuard = new MapBasedRecursionGuard(20);
   private final GeneratorsPipeline instanceGenerators = generatorsFactory.createBuiltinGenerators(recursionGuard);
   private int repeatCount = MINIMUM_VALUE_THAT_COULD_MEAN_MANY;
 

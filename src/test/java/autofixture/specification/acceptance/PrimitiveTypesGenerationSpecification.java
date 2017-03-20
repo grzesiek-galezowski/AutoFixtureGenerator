@@ -1,5 +1,6 @@
 package autofixture.specification.acceptance;
 
+import autofixture.interfaces.FixtureContract;
 import autofixture.publicinterface.*;
 import autofixture.interfaces.InlineInstanceGenerator;
 import autofixture.interfaces.InstanceGenerator;

@@ -1,11 +1,12 @@
 package autofixture.specification.unit;
 
+import autofixture.implementationdetails.MapBasedRecursionGuard;
 import autofixture.interfaces.FixtureContract;
 import autofixture.publicinterface.InstanceOf;
 import autofixture.interfaces.InstanceType;
 import autofixture.interfaces.GeneratorsPipeline;
-import autofixture.implementationdetails.RecursionGuard;
-import autofixture.publicinterface.generators.implementationdetails.ConcreteInstanceType;
+import autofixture.interfaces.RecursionGuard;
+import autofixture.implementationdetails.ConcreteInstanceType;
 import com.google.common.reflect.TypeToken;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -30,7 +31,7 @@ public class RecursionGuardSpecification {
   @Test
   public void shouldReturnValueFromFixtureWhenRecursionForTypeIsNotReached() {
     //GIVEN
-    final RecursionGuard recursionGuard = new RecursionGuard(3);
+    final RecursionGuard recursionGuard = new MapBasedRecursionGuard(3);
     final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
     final FixtureContract anyFixture = any(FixtureContract.class);
 
@@ -54,7 +55,7 @@ public class RecursionGuardSpecification {
   @Test
   public void shouldReturnValueFromFixtureWhenRecursionForTypeIsNotReachedBecauseOfRemovingDepthLevel() {
     //GIVEN
-    final RecursionGuard recursionGuard = new RecursionGuard(3);
+    final RecursionGuard recursionGuard = new MapBasedRecursionGuard(3);
     final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
     final FixtureContract anyFixture = any(FixtureContract.class);
 
@@ -80,7 +81,7 @@ public class RecursionGuardSpecification {
   @Test
   public void shouldReturnNullWhenRecursionForTypeIsReached() {
     //GIVEN
-    final RecursionGuard recursionGuard = new RecursionGuard(3);
+    final RecursionGuard recursionGuard = new MapBasedRecursionGuard(3);
     final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
     final FixtureContract anyFixture = any(new InstanceOf<FixtureContract>() {
     });
@@ -106,7 +107,7 @@ public class RecursionGuardSpecification {
   @Test
   public void shouldReturnProperValueForTypeOtherThanOneThatReachedRecursionLimit() {
     //GIVEN
-    final RecursionGuard recursionGuard = new RecursionGuard(3);
+    final RecursionGuard recursionGuard = new MapBasedRecursionGuard(3);
     final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
     final FixtureContract anyFixture = any(new InstanceOf<FixtureContract>() {
     });

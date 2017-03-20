@@ -3,29 +3,32 @@ package autofixture.implementationdetails;
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.GeneratorsPipeline;
 import autofixture.interfaces.InstanceType;
+import autofixture.interfaces.RecursionGuard;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RecursionGuard {
+public class MapBasedRecursionGuard implements RecursionGuard {
   private final Map<InstanceType<?>, Integer> recursionCounters = new HashMap<>();
   private int maxRecursionDepth;
 
-  public RecursionGuard(final int maxRecursionDepth) {
+  public MapBasedRecursionGuard(final int maxRecursionDepth) {
     this.maxRecursionDepth = maxRecursionDepth;
   }
 
+  @Override
   public <T> void addDepthLevelTo(final InstanceType<T> instanceType) {
     initializeCounterFor(instanceType);
     incrementCounterFor(instanceType);
   }
 
+  @Override
   @Nullable
   public <T> T defaultValueIfMaxDepthReachedOrGenerateUsing(
-      final GeneratorsPipeline generatorsPipeline,
-      final InstanceType<T> instanceType,
-      final FixtureContract fixture) {
+          final GeneratorsPipeline generatorsPipeline,
+          final InstanceType<T> instanceType,
+          final FixtureContract fixture) {
     if (maxRecursionDepthIsReachedFor(instanceType)) {
       return null;
     } else {
@@ -33,6 +36,7 @@ public class RecursionGuard {
     }
   }
 
+  @Override
   public <T> void removeDepthLevelFor(final InstanceType<T> instanceType) {
     decrementCounterFor(instanceType);
   }
@@ -60,6 +64,7 @@ public class RecursionGuard {
     }
   }
 
+  @Override
   public void setMaxDepth(final int maxDepth) {
     this.maxRecursionDepth = maxDepth;
   }

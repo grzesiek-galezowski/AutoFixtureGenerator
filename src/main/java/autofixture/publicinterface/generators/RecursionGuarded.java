@@ -1,6 +1,6 @@
 package autofixture.publicinterface.generators;
 
-import autofixture.implementationdetails.RecursionGuard;
+import autofixture.interfaces.RecursionGuard;
 import autofixture.interfaces.GeneratorsPipeline;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;

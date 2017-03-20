@@ -2,7 +2,7 @@ package autofixture.publicinterface;
 
 import autofixture.interfaces.InlineConstrainedGenerator;
 import autofixture.interfaces.InlineInstanceGenerator;
-import autofixture.publicinterface.generators.implementationdetails.CollectionFactory;
+import autofixture.implementationdetails.CollectionFactory;
 import com.google.common.collect.Lists;
 import com.google.common.reflect.TypeToken;
 

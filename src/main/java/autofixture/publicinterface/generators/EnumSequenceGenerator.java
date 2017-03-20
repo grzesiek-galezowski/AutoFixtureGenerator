@@ -1,5 +1,6 @@
 package autofixture.publicinterface.generators;
 
+import autofixture.interfaces.EnumCache;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
 import autofixture.interfaces.FixtureContract;

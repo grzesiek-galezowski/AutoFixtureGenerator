@@ -1,6 +1,6 @@
 package autofixture.publicinterface.generators.inline;
 
-import autofixture.publicinterface.generators.implementationdetails.ExplodingInstanceHandler;
+import autofixture.implementationdetails.ExplodingInstanceHandler;
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InlineInstanceGenerator;
 import autofixture.exceptions.OnlyInterfacesAreSupportedException;

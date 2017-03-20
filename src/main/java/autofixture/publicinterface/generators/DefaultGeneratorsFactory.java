@@ -1,10 +1,10 @@
 package autofixture.publicinterface.generators;
 
-import autofixture.implementationdetails.RecursionGuard;
+import autofixture.interfaces.RecursionGuard;
 import autofixture.interfaces.GeneratorsFactory;
 import autofixture.interfaces.GeneratorsPipeline;
 import autofixture.interfaces.InstanceGenerator;
-import autofixture.publicinterface.generators.implementationdetails.InMemoryEnumCache;
+import autofixture.implementationdetails.InMemoryEnumCache;
 
 import java.util.Arrays;
 import java.util.LinkedList;

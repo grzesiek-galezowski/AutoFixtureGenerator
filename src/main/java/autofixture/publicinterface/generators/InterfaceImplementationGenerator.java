@@ -3,7 +3,7 @@ package autofixture.publicinterface.generators;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
 import autofixture.interfaces.FixtureContract;
-import autofixture.publicinterface.generators.implementationdetails.InterfaceHandler;
+import autofixture.implementationdetails.InterfaceHandler;
 import com.google.common.reflect.Reflection;
 
 public class InterfaceImplementationGenerator implements InstanceGenerator {
