@@ -13,6 +13,7 @@ buildscript {
 plugins {
     id 'net.researchgate.release' version "2.5.0"
     id 'com.github.ben-manes.versions' version '0.14.0'
+    id "net.ltgt.errorprone" version "0.0.9"
 }
 
 apply plugin: "info.solidsoft.pitest"
