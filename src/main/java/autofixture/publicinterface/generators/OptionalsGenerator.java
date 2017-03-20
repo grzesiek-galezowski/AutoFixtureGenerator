@@ -1,9 +1,9 @@
 package autofixture.publicinterface.generators;
 
-import autofixture.publicinterface.FixtureContract;
-import autofixture.publicinterface.InstanceGenerator;
-import autofixture.publicinterface.InstanceType;
-import autofixture.publicinterface.ObjectCreationException;
+import autofixture.interfaces.InstanceGenerator;
+import autofixture.interfaces.InstanceType;
+import autofixture.interfaces.FixtureContract;
+import autofixture.exceptions.ObjectCreationException;
 
 import java.util.Optional;
 import java.util.OptionalDouble;
@@ -23,6 +23,7 @@ public class OptionalsGenerator implements InstanceGenerator {
 
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public <T> T next(final InstanceType<T> instanceType, final FixtureContract fixture) {
     if (instanceType.isRawTypeAssignableFrom(Optional.class)) {

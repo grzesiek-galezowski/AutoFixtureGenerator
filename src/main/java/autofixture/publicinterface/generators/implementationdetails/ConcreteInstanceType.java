@@ -1,38 +1,17 @@
 package autofixture.publicinterface.generators.implementationdetails;
 
-import autofixture.implementationdetails.InstanceField;
-import autofixture.publicinterface.CollectionFactory;
-import autofixture.publicinterface.InstanceType;
-import autofixture.publicinterface.ObjectCreationException;
-import autofixture.publicinterface.generators.Call;
+import autofixture.interfaces.InstanceType;
+import autofixture.interfaces.InstanceField;
+import autofixture.exceptions.ObjectCreationException;
+import autofixture.interfaces.Call;
 import com.google.common.base.Optional;
 import com.google.common.primitives.Primitives;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.TypeToken;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
-import java.util.Stack;
-import java.util.TreeSet;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ConcurrentSkipListSet;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.concurrent.PriorityBlockingQueue;
+import java.lang.reflect.*;
+import java.util.*;
+import java.util.concurrent.*;
 
 public class ConcreteInstanceType<T> implements InstanceType<T> {
 
@@ -301,7 +280,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
     final Field[] fieldsArray = typeToken.getRawType().getDeclaredFields();
     for (final Field field : fieldsArray) {
       if (Modifier.isPublic(field.getModifiers()) && !Modifier.isStatic(field.getModifiers())) {
-        fields.add(new InstanceField<>(field, this, instance));
+        fields.add(new ReflectionInstanceField<>(field, this, instance));
       }
     }
     return fields;

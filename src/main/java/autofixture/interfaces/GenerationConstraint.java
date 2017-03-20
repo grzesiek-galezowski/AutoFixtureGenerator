@@ -1,4 +1,4 @@
-package autofixture.publicinterface;
+package autofixture.interfaces;
 
 /**
  * Created by astral on 27.03.15.

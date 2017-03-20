@@ -1,7 +1,7 @@
 package autofixture.publicinterface.generators.inline;
 
-import autofixture.publicinterface.FixtureContract;
-import autofixture.publicinterface.InlineInstanceGenerator;
+import autofixture.interfaces.FixtureContract;
+import autofixture.interfaces.InlineInstanceGenerator;
 import autofixture.publicinterface.generators.implementationdetails.CircularList;
 
 public class CharacterGenerator implements

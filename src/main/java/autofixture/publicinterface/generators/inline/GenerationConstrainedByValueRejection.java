@@ -1,8 +1,8 @@
 package autofixture.publicinterface.generators.inline;
 
-import autofixture.publicinterface.FixtureContract;
-import autofixture.publicinterface.GenerationConstraint;
-import autofixture.publicinterface.InlineConstrainedGenerator;
+import autofixture.interfaces.FixtureContract;
+import autofixture.interfaces.GenerationConstraint;
+import autofixture.interfaces.InlineConstrainedGenerator;
 import com.google.common.reflect.TypeToken;
 
 public class GenerationConstrainedByValueRejection<T> implements InlineConstrainedGenerator<T> {

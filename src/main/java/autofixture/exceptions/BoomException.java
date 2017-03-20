@@ -1,4 +1,4 @@
-package autofixture.publicinterface;
+package autofixture.exceptions;
 
 public class BoomException extends RuntimeException {
 

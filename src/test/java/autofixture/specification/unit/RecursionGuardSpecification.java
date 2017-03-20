@@ -1,10 +1,10 @@
 package autofixture.specification.unit;
 
-import autofixture.publicinterface.FixtureContract;
+import autofixture.interfaces.FixtureContract;
 import autofixture.publicinterface.InstanceOf;
-import autofixture.publicinterface.InstanceType;
-import autofixture.publicinterface.generators.GeneratorsPipeline;
-import autofixture.publicinterface.generators.RecursionGuard;
+import autofixture.interfaces.InstanceType;
+import autofixture.interfaces.GeneratorsPipeline;
+import autofixture.implementationdetails.RecursionGuard;
 import autofixture.publicinterface.generators.implementationdetails.ConcreteInstanceType;
 import com.google.common.reflect.TypeToken;
 import org.jmock.Expectations;

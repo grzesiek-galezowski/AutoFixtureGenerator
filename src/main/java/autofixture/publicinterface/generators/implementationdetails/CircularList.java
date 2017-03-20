@@ -1,6 +1,6 @@
 package autofixture.publicinterface.generators.implementationdetails;
 
-import autofixture.publicinterface.InstanceType;
+import autofixture.interfaces.InstanceType;
 
 import java.util.ArrayList;
 import java.util.Random;

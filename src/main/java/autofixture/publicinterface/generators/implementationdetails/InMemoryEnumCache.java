@@ -1,6 +1,6 @@
 package autofixture.publicinterface.generators.implementationdetails;
 
-import autofixture.publicinterface.InstanceType;
+import autofixture.interfaces.InstanceType;
 import autofixture.publicinterface.generators.EnumCache;
 
 import java.util.HashMap;

@@ -1,8 +1,8 @@
 package autofixture.publicinterface.generators;
 
-import autofixture.publicinterface.FixtureContract;
-import autofixture.publicinterface.InstanceGenerator;
-import autofixture.publicinterface.InstanceType;
+import autofixture.interfaces.InstanceGenerator;
+import autofixture.interfaces.InstanceType;
+import autofixture.interfaces.FixtureContract;
 
 import java.time.LocalDate;
 import java.time.Period;

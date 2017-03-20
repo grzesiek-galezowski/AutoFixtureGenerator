@@ -1,11 +1,8 @@
 package autofixture.publicinterface.generators;
 
 import autofixture.implementationdetails.Debug;
-import autofixture.implementationdetails.InstanceField;
-import autofixture.publicinterface.FixtureContract;
-import autofixture.publicinterface.InstanceGenerator;
-import autofixture.publicinterface.InstanceType;
-import autofixture.publicinterface.ObjectCreationException;
+import autofixture.interfaces.*;
+import autofixture.exceptions.ObjectCreationException;
 import com.google.common.base.Optional;
 
 import java.util.List;

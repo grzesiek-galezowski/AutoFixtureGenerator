@@ -1,6 +1,6 @@
 package autofixture.publicinterface.generators;
 
-import autofixture.publicinterface.InstanceType;
+import autofixture.interfaces.InstanceType;
 
 public interface EnumCache {
 

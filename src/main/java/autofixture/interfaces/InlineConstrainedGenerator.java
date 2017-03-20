@@ -1,4 +1,4 @@
-package autofixture.publicinterface;
+package autofixture.interfaces;
 
 import com.google.common.reflect.TypeToken;
 

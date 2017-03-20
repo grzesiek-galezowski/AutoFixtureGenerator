@@ -1,6 +1,5 @@
-package autofixture.publicinterface.generators;
+package autofixture.interfaces;
 
-import autofixture.publicinterface.FixtureContract;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.Parameter;

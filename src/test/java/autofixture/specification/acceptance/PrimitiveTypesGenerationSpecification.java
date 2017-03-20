@@ -1,6 +1,9 @@
 package autofixture.specification.acceptance;
 
 import autofixture.publicinterface.*;
+import autofixture.interfaces.InlineInstanceGenerator;
+import autofixture.interfaces.InstanceGenerator;
+import autofixture.interfaces.InstanceType;
 import com.google.common.reflect.TypeToken;
 import org.jmock.Expectations;
 import org.jmock.Mockery;

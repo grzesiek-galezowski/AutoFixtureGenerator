@@ -1,8 +1,8 @@
 package autofixture.publicinterface.generators;
 
-import autofixture.publicinterface.FixtureContract;
-import autofixture.publicinterface.InstanceGenerator;
-import autofixture.publicinterface.InstanceType;
+import autofixture.interfaces.InstanceGenerator;
+import autofixture.interfaces.InstanceType;
+import autofixture.interfaces.FixtureContract;
 
 public class FloatSequenceGenerator implements InstanceGenerator {
   public static final double ARBITRARY_FLOATING_POINT_VALUE = 0.6;

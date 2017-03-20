@@ -1,6 +1,6 @@
-package autofixture.implementationdetails;
+package autofixture.publicinterface.generators.implementationdetails;
 
-import autofixture.publicinterface.BoomException;
+import autofixture.exceptions.BoomException;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

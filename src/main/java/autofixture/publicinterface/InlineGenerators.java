@@ -1,5 +1,7 @@
 package autofixture.publicinterface;
 
+import autofixture.interfaces.InlineConstrainedGenerator;
+import autofixture.interfaces.InlineInstanceGenerator;
 import autofixture.publicinterface.constraints.OtherThanConstraint;
 import autofixture.publicinterface.generators.inline.*;
 import com.google.common.reflect.TypeToken;

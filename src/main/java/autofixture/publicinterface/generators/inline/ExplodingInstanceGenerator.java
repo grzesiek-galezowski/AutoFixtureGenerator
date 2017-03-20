@@ -1,9 +1,9 @@
 package autofixture.publicinterface.generators.inline;
 
-import autofixture.implementationdetails.ExplodingInstanceHandler;
-import autofixture.publicinterface.FixtureContract;
-import autofixture.publicinterface.InlineInstanceGenerator;
-import autofixture.publicinterface.OnlyInterfacesAreSupportedException;
+import autofixture.publicinterface.generators.implementationdetails.ExplodingInstanceHandler;
+import autofixture.interfaces.FixtureContract;
+import autofixture.interfaces.InlineInstanceGenerator;
+import autofixture.exceptions.OnlyInterfacesAreSupportedException;
 import com.google.common.reflect.Reflection;
 import com.google.common.reflect.TypeToken;
 

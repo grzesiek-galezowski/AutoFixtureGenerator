@@ -1,13 +1,17 @@
 package autofixture.publicinterface.generators;
 
-import autofixture.publicinterface.InstanceGenerator;
+import autofixture.implementationdetails.RecursionGuard;
+import autofixture.interfaces.GeneratorsFactory;
+import autofixture.interfaces.GeneratorsPipeline;
+import autofixture.interfaces.InstanceGenerator;
 import autofixture.publicinterface.generators.implementationdetails.InMemoryEnumCache;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GeneratorsFactory {
+public class DefaultGeneratorsFactory implements GeneratorsFactory {
+  @Override
   public GeneratorsPipeline createBuiltinGenerators(final RecursionGuard recursionGuard) {
     return
         protectedBy(recursionGuard,
@@ -131,6 +135,7 @@ public class GeneratorsFactory {
     return new DefaultGeneratorsPipeline(generators);
   }
 
+  @Override
   public java.util.List<InstanceGenerator> matchedInTheFollowingOrder(final InstanceGenerator... ts) {
     return new LinkedList<>(Arrays.asList(ts));
   }

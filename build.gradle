@@ -5,12 +5,14 @@ buildscript {
         }
     }
     dependencies {
-        classpath "info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.1.11"
+        classpath "info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.1.4"
+        classpath "gradle.plugin.pl.squirrel:classycle-gradle-plugin:1.2"
     }
 }
 
 plugins {
     id 'net.researchgate.release' version "2.5.0"
+    id 'com.github.ben-manes.versions' version '0.14.0'
 }
 
 apply plugin: "info.solidsoft.pitest"
@@ -19,8 +21,10 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'checkstyle'
 apply plugin: 'findbugs'
+apply plugin: 'jdepend'
 apply plugin: 'pmd'
 apply plugin: "jacoco"
+apply plugin: "pl.squirrel.classycle"
 
 def travis = "$System.env.TRAVIS"
 
@@ -78,6 +82,10 @@ pitest {
 checkstyle {
     ignoreFailures = false
     sourceSets = [project.sourceSets.main]
+}
+
+jdepend {
+    ignoreFailures = false
 }
 
 findbugs {

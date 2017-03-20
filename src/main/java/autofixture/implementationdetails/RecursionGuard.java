@@ -1,7 +1,8 @@
-package autofixture.publicinterface.generators;
+package autofixture.implementationdetails;
 
-import autofixture.publicinterface.FixtureContract;
-import autofixture.publicinterface.InstanceType;
+import autofixture.interfaces.FixtureContract;
+import autofixture.interfaces.GeneratorsPipeline;
+import autofixture.interfaces.InstanceType;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;

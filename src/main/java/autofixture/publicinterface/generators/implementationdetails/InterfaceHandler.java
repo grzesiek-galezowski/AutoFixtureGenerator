@@ -1,7 +1,7 @@
 package autofixture.publicinterface.generators.implementationdetails;
 
-import autofixture.publicinterface.FixtureContract;
-import autofixture.publicinterface.InstanceType;
+import autofixture.interfaces.InstanceType;
+import autofixture.interfaces.FixtureContract;
 import com.google.common.base.Optional;
 import com.google.common.reflect.TypeToken;
 

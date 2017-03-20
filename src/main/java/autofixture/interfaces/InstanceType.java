@@ -1,7 +1,5 @@
-package autofixture.publicinterface;
+package autofixture.interfaces;
 
-import autofixture.implementationdetails.InstanceField;
-import autofixture.publicinterface.generators.Call;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.TypeToken;
 
