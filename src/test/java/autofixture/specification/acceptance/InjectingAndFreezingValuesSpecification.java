@@ -16,7 +16,7 @@ public class InjectingAndFreezingValuesSpecification {
   public void shouldAlwaysReturnInjectedElementWhenAskedForParticularType() {
     //GIVEN
     int anyInt = anyInteger();
-    fixture.inject(new Integer(anyInt));
+    fixture.inject(Integer.valueOf(anyInt));
 
     //WHEN
     int createdValue1 = fixture.create(Integer.class);
@@ -31,7 +31,7 @@ public class InjectingAndFreezingValuesSpecification {
   public void shouldNotImpactOtherTypesGenerationWithInjection() {
     //GIVEN
     int anyInt = anyInteger();
-    fixture.inject(new Integer(anyInt));
+    fixture.inject(Integer.valueOf(anyInt));
 
     //WHEN
     String createdValue1 = fixture.create(String.class);
@@ -46,8 +46,8 @@ public class InjectingAndFreezingValuesSpecification {
     //GIVEN
     int anyInt = anyInteger();
     int anyInt2 = anyInteger();
-    fixture.inject(new Integer(anyInt));
-    fixture.inject(new Integer(anyInt2));
+    fixture.inject(Integer.valueOf(anyInt));
+    fixture.inject(Integer.valueOf(anyInt2));
 
     //WHEN
     int createdValue1 = fixture.create(Integer.class);

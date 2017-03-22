@@ -6,7 +6,7 @@ import autofixture.interfaces.FixtureContract;
 
 public class FloatSequenceGenerator implements InstanceGenerator {
   public static final double ARBITRARY_FLOATING_POINT_VALUE = 0.6;
-  private Float startingNumber = new Float(ARBITRARY_FLOATING_POINT_VALUE);
+  private Float startingNumber = (float)ARBITRARY_FLOATING_POINT_VALUE;
 
   @Override
   public <T> boolean appliesTo(final InstanceType<T> typeToken) {

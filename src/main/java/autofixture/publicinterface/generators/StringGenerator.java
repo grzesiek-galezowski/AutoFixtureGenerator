@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public class StringGenerator implements InstanceGenerator {
 
+  @Override
   @SuppressWarnings("unchecked")
   public <T> T next(final InstanceType<T> clazz, final FixtureContract fixture) {
     return (T) UUID.randomUUID().toString();

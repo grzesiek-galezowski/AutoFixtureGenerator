@@ -26,6 +26,10 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
     return new ConcreteInstanceType<>(typeToken);
   }
 
+  public static <TWrappedType> ConcreteInstanceType<TWrappedType> fromClass(Class<TWrappedType> type) {
+      return new ConcreteInstanceType<>(TypeToken.of(type));
+  }
+
   @Override
   public InstanceType<?> getArrayElementType() {
     return ConcreteInstanceType.from(typeToken.getComponentType());
@@ -71,6 +75,13 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   }
 
   @Override
+  public Object createEmptyArray() {
+    final T[] array = CollectionFactory.createArray(typeToken, 0);
+    return array;
+  }
+
+
+  @Override
   public boolean isAssignableTo(final Class<?> clazz) {
     return clazz.isAssignableFrom(typeToken.getRawType());
   }
@@ -100,6 +111,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
     return false;
   }
 
+  @Override
   public Type getWrapper() {
     return Primitives.wrap(this.getRawType());
   }
@@ -236,6 +248,12 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   public boolean isInterface() {
     return typeToken.getRawType().isInterface();
   }
+
+  @Override
+  public boolean isAbstract() {
+    return Modifier.isAbstract(typeToken.getRawType().getModifiers());
+  }
+
 
   @Override
   public ArrayList<Call<T, Object>> getAllSetters() {

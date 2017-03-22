@@ -30,6 +30,8 @@ public interface InstanceType<T> {
 
   Object createArray(Object[] objects);
 
+  Object createEmptyArray();
+
   boolean isAssignableTo(Class<?> clazz);
 
   boolean isRawTypeAssignableFrom(Class<?> clazz);
@@ -47,6 +49,8 @@ public interface InstanceType<T> {
 
   boolean isInterface();
 
+  boolean isAbstract();
+
   List<Call<T, Object>> getAllSetters();
 
   List<InstanceField<T>> getAllPublicFieldsOf(T instance);
@@ -60,4 +64,5 @@ public interface InstanceType<T> {
   boolean isCompatibleWith(Class<?> clazz);
 
   boolean isCompatibleWithAnyOf(Class<?>... clazzes);
+
 }

@@ -1,10 +1,10 @@
 package autofixture.publicinterface.generators;
 
-import autofixture.interfaces.RecursionGuard;
+import autofixture.implementationdetails.InMemoryEnumCache;
 import autofixture.interfaces.GeneratorsFactory;
 import autofixture.interfaces.GeneratorsPipeline;
 import autofixture.interfaces.InstanceGenerator;
-import autofixture.implementationdetails.InMemoryEnumCache;
+import autofixture.interfaces.RecursionGuard;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -51,6 +51,57 @@ public class DefaultGeneratorsFactory implements GeneratorsFactory {
                     colorSpaces(),
                     concreteObjects()))
         );
+  }
+
+  @Override
+  public DefaultGeneratorsPipeline createRecursionLimitReachedGenerators() {
+    return pipelineOfGeneratorsForTypes(
+            matchedInTheFollowingOrder(
+                    integers(),
+                    enums(),
+                    exceptions(),
+                    errors(),
+                    strings(),
+                    doubles(),
+                    floats(),
+                    bigIntegers(),
+                    bigDecimals(),
+                    dates(),
+                    calendars(),
+                    chronoLocalDates(),
+                    chronoLocalDateTimes(),
+                    localDateTimes(),
+                    localDates(),
+                    zonedDateTimes(),
+                    zoneIds(),
+                    offsetTimes(),
+                    periods(),
+                    durations(),
+                    zoneOffsets(),
+                    clocks(),
+                    instants(),
+                    objects(),
+                    booleans(),
+                    urls(),
+                    emptyArrays(),
+                    optionals(),
+                    emptyCollections(),
+                    inetAddresses(),
+                    interfaceImplementations(),
+                    colorSpaces(),
+                    emptyObjects()));
+  }
+
+  private EmptyObjectsGenerator emptyObjects() {
+    return new EmptyObjectsGenerator();
+  }
+
+  private EmptyArraysGenerator emptyArrays() {
+    return new EmptyArraysGenerator();
+  }
+
+  private EmptyCollectionsGenerator emptyCollections() {
+    return new EmptyCollectionsGenerator();
   }
 
   private InstanceGenerator instants() {
@@ -224,4 +275,5 @@ public class DefaultGeneratorsFactory implements GeneratorsFactory {
   private EnumSequenceGenerator enums() {
     return new EnumSequenceGenerator(new InMemoryEnumCache());
   }
+
 }

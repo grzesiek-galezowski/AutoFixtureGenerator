@@ -46,6 +46,7 @@ public class MethodCall<TOwnerType, TReturnType> implements Call<TOwnerType, TRe
     }
   }
 
+  @Override
   public TReturnType invokeWithArgumentsCreatedUsing(
     final FixtureContract fixture, final Optional<TOwnerType> optionalOwnerType) {
     final List<Object> arguments = prepareArgumentsOf(this, fixture);

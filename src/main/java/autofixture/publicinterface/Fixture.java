@@ -19,36 +19,50 @@ import java.util.List;
 public class Fixture implements FixtureContract {
   public static final int MINIMUM_VALUE_THAT_COULD_MEAN_MANY = 3;
   private final GeneratorsFactory generatorsFactory = new DefaultGeneratorsFactory();
-  private final RecursionGuard recursionGuard = new MapBasedRecursionGuard(20);
-  private final GeneratorsPipeline instanceGenerators = generatorsFactory.createBuiltinGenerators(recursionGuard);
+  private final RecursionGuard recursionGuard;
+  private final GeneratorsPipeline instanceGenerators;
+  private final int arbitraryRecursionDepth = 5;
   private int repeatCount = MINIMUM_VALUE_THAT_COULD_MEAN_MANY;
 
+  public Fixture() {
+    recursionGuard = new MapBasedRecursionGuard(arbitraryRecursionDepth,
+            generatorsFactory.createRecursionLimitReachedGenerators());
+    instanceGenerators = generatorsFactory.createBuiltinGenerators(recursionGuard);
+  }
+
+  @Override
   public <T> T create(final Class<T> clazz) {
     return this.create(TypeToken.of(Primitives.wrap(clazz)));
   }
 
+  @Override
   public <T> T create(final TypeToken<T> typeToken) {
     return create(new ConcreteInstanceType<>(typeToken));
   }
 
+  @Override
   public <T> T freeze(final TypeToken<T> clazz) {
     final T value = create(clazz);
     inject(value);
     return value;
   }
 
+  @Override
   public <T> T freeze(final Class<T> clazz) {
     return freeze(TypeToken.of(Primitives.wrap(clazz)));
   }
 
+  @Override
   public void register(final InstanceGenerator instanceGenerator) {
     instanceGenerators.registerCustomization(instanceGenerator);
   }
 
+  @Override
   public void clearCustomizations() {
     instanceGenerators.clearCustomizations();
   }
 
+  @Override
   public <T> T create(final InstanceType<T> instanceType) {
     return instanceGenerators.executeFor(instanceType, this);
   }
@@ -109,6 +123,7 @@ public class Fixture implements FixtureContract {
     return generator.next(type, this);
   }
 
+  @Override
   public <T> T create(final InlineInstanceGenerator<T> inlineGenerator) {
     return inlineGenerator.next(this);
   }
