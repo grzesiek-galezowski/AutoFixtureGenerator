@@ -2,6 +2,7 @@ package autofixture.specification.acceptance;
 
 import autofixture.publicinterface.Any;
 import autofixture.publicinterface.Fixture;
+import autofixture.specification.acceptance.matchers.ArrayMatchers;
 import autofixture.specification.acceptance.matchers.HasArrayLengthMatcher;
 import autofixture.specification.acceptance.matchers.HasArrayUniqueItemsMatcher;
 import com.google.common.reflect.TypeToken;
@@ -16,6 +17,7 @@ import java.util.*;
 import java.util.concurrent.*;
 
 import static autofixture.publicinterface.Generate.any;
+import static autofixture.specification.acceptance.matchers.ArrayMatchers.typeOf;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -128,8 +130,8 @@ public class CollectionTypesGenerationSpecification {
   public void shouldGenerateArraysWithThreeUniqueElements() {
     String[] array = fixture.create(TypeToken.of(String[].class));
 
-    assertThat(array, hasLength(3));
-    assertThat(array, hasUniqueItems());
+    assertThat(array, ArrayMatchers.<String>hasLength(3));
+    assertThat(array, ArrayMatchers.<String>hasUniqueItems());
   }
 
   @Theory
@@ -161,23 +163,11 @@ public class CollectionTypesGenerationSpecification {
     assertTrue("Cannot assign " + collection.getClass() + " to " + collectionClass,
       collectionClass.getRawType().isAssignableFrom(collection.getClass()));
 
-    assertThat(collection.toArray(TypeOfString()), hasLength(3));
-    assertThat(collection.toArray(TypeOfString()), hasUniqueItems());
+    assertThat(collection.toArray(typeOf(String.class)), ArrayMatchers.<String>hasLength(3));
+    assertThat(collection.toArray(typeOf(String.class)), ArrayMatchers.<String>hasUniqueItems());
     System.out.println("OK");
   }
 
-  private String[] TypeOfString() {
-    return new String[]{};
-  }
 
-  @SuppressWarnings({"rawtypes", "unchecked"})
-  private Matcher<? super String[]> hasUniqueItems() {
-    return new HasArrayUniqueItemsMatcher();
-  }
-
-  @SuppressWarnings({"rawtypes", "unchecked"})
-  private Matcher<? super String[]> hasLength(int i) {
-    return new HasArrayLengthMatcher(i);
-  }
 
 }

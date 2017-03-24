@@ -3,10 +3,8 @@ package autofixture.specification.acceptance;
 import autofixture.publicinterface.Any;
 import autofixture.publicinterface.Fixture;
 import autofixture.publicinterface.InstanceOf;
-import autofixture.specification.acceptance.matchers.HasArrayLengthMatcher;
-import autofixture.specification.acceptance.matchers.HasArrayUniqueItemsMatcher;
+import autofixture.specification.acceptance.matchers.ArrayMatchers;
 import com.google.common.reflect.TypeToken;
-import org.hamcrest.Matcher;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
@@ -18,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 import static autofixture.publicinterface.Generate.any;
+import static autofixture.specification.acceptance.matchers.ArrayMatchers.*;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -83,7 +82,11 @@ public class MapTypesGenerationSpecification {
   public void shouldGenerateEnumMaps() {
     Map<DayOfWeek, String> collection = fixture.create(new InstanceOf<EnumMap<DayOfWeek, String>>() {});
 
-    assertHasThreeUniqueEnumItems(new TypeToken<EnumMap<DayOfWeek, String>>() {}, collection);
+    assertHasThreeUniqueEnumItems(
+        new TypeToken<EnumMap<DayOfWeek, String>>() {},
+        collection,
+        DayOfWeek.class,
+        String.class);
   }
 
 
@@ -92,7 +95,8 @@ public class MapTypesGenerationSpecification {
       TypeToken<? extends Map<String, String>> collectionClass) {
     Map<String, String> collection = fixture.create(collectionClass);
 
-    assertHasThreeUniqueItems(collectionClass, collection);
+    assertHasThreeUniqueEnumItems(
+        collectionClass, collection, String.class, String.class);
   }
 
   @Theory
@@ -100,7 +104,8 @@ public class MapTypesGenerationSpecification {
       TypeToken<? extends Map<String, String>> mapClass) {
     Map<String, String> collection = Any.anonymous(mapClass);
 
-    assertHasThreeUniqueItems(mapClass, collection);
+    assertHasThreeUniqueEnumItems(
+        mapClass, collection, String.class, String.class);
   }
 
   @Theory
@@ -108,52 +113,29 @@ public class MapTypesGenerationSpecification {
       TypeToken<? extends Map<String, String>> mapClass) {
     Map<String, String> collection = any(mapClass);
 
-    assertHasThreeUniqueItems(mapClass, collection);
+    assertHasThreeUniqueEnumItems(
+        mapClass,
+        collection,
+        String.class,
+        String.class);
   }
 
-  private void assertHasThreeUniqueItems(
-      TypeToken<? extends Map<String, String>> mapClass, Map<String, String> mapInstance) {
+  private static <T, U> void assertHasThreeUniqueEnumItems(
+      TypeToken<? extends Map<T, U>> mapClass,
+      Map<T, U> mapInstance,
+      Class<T> keyClass, Class<U> valueClass) {
+
     assertTrue("Cannot assign " + mapInstance.getClass() + " to " + mapClass,
         mapClass.getRawType().isAssignableFrom(mapInstance.getClass()));
 
-    assertThat(mapInstance.values().toArray(typeOfString()), this.<String>hasLength(3));
-    assertThat(mapInstance.values().toArray(typeOfString()), this.<String>hasUniqueItems());
-    assertThat(mapInstance.keySet().toArray(typeOfString()), this.<String>hasLength(3));
-    assertThat(mapInstance.keySet().toArray(typeOfString()), this.<String>hasUniqueItems());
+    assertThat(mapInstance.keySet().toArray(typeOf(keyClass)), ArrayMatchers.<T>hasLength(3));
+    assertThat(mapInstance.keySet().toArray(typeOf(keyClass)), ArrayMatchers.<T>hasUniqueItems());
+    assertThat(mapInstance.values().toArray(typeOf(valueClass)), ArrayMatchers.<U>hasLength(3));
+    assertThat(mapInstance.values().toArray(typeOf(valueClass)), ArrayMatchers.<U>hasUniqueItems());
 
     System.out.println("OK");
   }
 
-  private void assertHasThreeUniqueEnumItems(
-      TypeToken<? extends Map<DayOfWeek, String>> mapClass, Map<DayOfWeek, String> mapInstance) {
-    assertTrue("Cannot assign " + mapInstance.getClass() + " to " + mapClass,
-        mapClass.getRawType().isAssignableFrom(mapInstance.getClass()));
-
-    assertThat(mapInstance.values().toArray(typeOfString()), this.<String>hasLength(3));
-    assertThat(mapInstance.values().toArray(typeOfString()), this.<String>hasUniqueItems());
-    assertThat(mapInstance.keySet().toArray(typeOfDayOfWeek()), this.<DayOfWeek>hasLength(3));
-    assertThat(mapInstance.keySet().toArray(typeOfDayOfWeek()), this.<DayOfWeek>hasUniqueItems());
-
-    System.out.println("OK");
-  }
-
-  private DayOfWeek[] typeOfDayOfWeek() {
-    return new DayOfWeek[]{};
-  }
-
-  private String[] typeOfString() {
-    return new String[]{};
-  }
-
-  @SuppressWarnings({"rawtypes", "unchecked"})
-  private <T> Matcher<? super T[]> hasUniqueItems() {
-    return new HasArrayUniqueItemsMatcher();
-  }
-
-  @SuppressWarnings({"rawtypes", "unchecked"})
-  private <T> Matcher<? super T[]> hasLength(int i) {
-    return new HasArrayLengthMatcher(i);
-  }
 
 }
 
