@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public interface InstanceType<T> {
   InstanceType<?> getArrayElementType();
@@ -39,7 +40,11 @@ public interface InstanceType<T> {
   @SuppressWarnings("rawtypes")
   Collection createCollection(int repeatCount);
 
-  InstanceType<?> getNestedGenericType();
+  @SuppressWarnings("rawtypes")
+  Map createMap(int repeatCount);
+
+  InstanceType<?> getNestedGenericType1();
+  InstanceType<?> getNestedGenericType2();
 
   Call<T, T> findPublicConstructorWithLeastParameters();
 
@@ -64,5 +69,7 @@ public interface InstanceType<T> {
   boolean isCompatibleWith(Class<?> clazz);
 
   boolean isCompatibleWithAnyOf(Class<?>... clazzes);
+
+
 
 }

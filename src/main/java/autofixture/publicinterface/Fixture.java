@@ -22,11 +22,12 @@ public class Fixture implements FixtureContract {
   private final RecursionGuard recursionGuard;
   private final GeneratorsPipeline instanceGenerators;
   private final int arbitraryRecursionDepth = 5;
+  private final GeneratorsPipeline dummyGenerators;
   private int repeatCount = MINIMUM_VALUE_THAT_COULD_MEAN_MANY;
 
   public Fixture() {
-    recursionGuard = new MapBasedRecursionGuard(arbitraryRecursionDepth,
-            generatorsFactory.createRecursionLimitReachedGenerators());
+    dummyGenerators = generatorsFactory.createDummyGenerators();
+    recursionGuard = new MapBasedRecursionGuard(arbitraryRecursionDepth, dummyGenerators);
     instanceGenerators = generatorsFactory.createBuiltinGenerators(recursionGuard);
   }
 
@@ -39,6 +40,15 @@ public class Fixture implements FixtureContract {
   public <T> T create(final TypeToken<T> typeToken) {
     return create(new ConcreteInstanceType<>(typeToken));
   }
+
+  public <T> T createDummy(final Class<T> clazz) {
+    return this.createDummy(TypeToken.of(Primitives.wrap(clazz)));
+  }
+
+  public <T> T createDummy(final TypeToken<T> typeToken) {
+    return createDummy(new ConcreteInstanceType<>(typeToken));
+  }
+
 
   @Override
   public <T> T freeze(final TypeToken<T> clazz) {
@@ -65,6 +75,10 @@ public class Fixture implements FixtureContract {
   @Override
   public <T> T create(final InstanceType<T> instanceType) {
     return instanceGenerators.executeFor(instanceType, this);
+  }
+
+  public <T> T createDummy(final InstanceType<T> instanceType) {
+    return dummyGenerators.executeFor(instanceType, this);
   }
 
   @Override

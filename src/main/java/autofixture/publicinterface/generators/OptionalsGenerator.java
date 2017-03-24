@@ -27,7 +27,7 @@ public class OptionalsGenerator implements InstanceGenerator {
   @Override
   public <T> T next(final InstanceType<T> instanceType, final FixtureContract fixture) {
     if (instanceType.isRawTypeAssignableFrom(Optional.class)) {
-      return (T) Optional.of(fixture.create(instanceType.getNestedGenericType()));
+      return (T) Optional.of(fixture.create(instanceType.getNestedGenericType1()));
     } else if (instanceType.isRawTypeAssignableFrom(OptionalInt.class)) {
       return (T) OptionalInt.of(fixture.create(Integer.class));
     } else if (instanceType.isRawTypeAssignableFrom(OptionalLong.class)) {

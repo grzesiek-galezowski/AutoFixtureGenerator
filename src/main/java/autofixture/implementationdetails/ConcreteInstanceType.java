@@ -153,6 +153,62 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   }
 
   @Override
+  public Map createMap(int repeatCount) {
+    final Map map;
+    if (this.isRawTypeAssignableFrom(HashMap.class)) {
+      return CollectionFactory.createEmptyHashMap();
+    }
+    if (this.isRawTypeAssignableFrom(SortedMap.class)) {
+      return CollectionFactory.createEmptySortedMap();
+    }
+    if (this.isRawTypeAssignableFrom(TreeMap.class)) {
+      return CollectionFactory.createEmptyTreeMap();
+    }
+    if (this.isRawTypeAssignableFrom(NavigableMap.class)) {
+      return CollectionFactory.createEmptyNavigableMap();
+    }
+    if (this.isRawTypeAssignableFrom(ConcurrentHashMap.class)) {
+      return CollectionFactory.createEmptyConcurrentHashMap();
+    }
+    if (this.isRawTypeAssignableFrom(ConcurrentSkipListMap.class)) {
+      return CollectionFactory.createEmptyConcurrentSkipListMap();
+    }
+    if (this.isRawTypeAssignableFrom(Hashtable.class)) {
+      return CollectionFactory.createEmptyHashtable();
+    }
+    if (this.isRawTypeAssignableFrom(LinkedHashMap.class)) {
+      return CollectionFactory.createEmptyLinkedHashMap();
+    }
+    if (this.isRawTypeAssignableFrom(WeakHashMap.class)) {
+      return CollectionFactory.createEmptyWeakHashMap();
+    }
+    if (this.isRawTypeAssignableFrom(IdentityHashMap.class)) {
+      return CollectionFactory.createEmptyIdentityHashMap();
+    }
+    if (this.isRawTypeAssignableFrom(EnumMap.class)) {
+      return CollectionFactory.createEmptyEnumMap((Class<Enum>)getNestedGenericType1().getRawType());
+    }
+
+    return CollectionFactory.createEmptyHashMap();
+
+    /*
+  //todo handle later
+  public static TypeToken<Attributes> attributesClass = new TypeToken<Attributes>() {
+  public static TypeToken<AuthProvider> authProviderClass = new TypeToken<AuthProvider>() {
+  public static TypeToken<EnumMap<DayOfWeek, String>> enumMapClass = new TypeToken<EnumMap<DayOfWeek, String>>() {
+  public static TypeToken<PrinterStateReasons> printerStateReasonsClass = new TypeToken<PrinterStateReasons>() {
+  public static TypeToken<Properties> propertiesClass = new TypeToken<Properties>() {
+  public static TypeToken<Provider> providerClass = new TypeToken<Provider>() {
+  public static TypeToken<RenderingHints> renderingHintsClass = new TypeToken<RenderingHints>() {
+  public static TypeToken<SimpleBindings> simpleBindingsClass = new TypeToken<SimpleBindings>() {
+  public static TypeToken<TabularDataSupport> tabularDataSupportClass = new TypeToken<TabularDataSupport>() {
+  public static TypeToken<UIDefaults> uiDefaultsClass = new TypeToken<UIDefaults>() {
+  };
+*/
+  }
+
+
+  @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
@@ -185,9 +241,18 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   }
 
   @Override
-  public InstanceType<?> getNestedGenericType() {
+  public InstanceType<?> getNestedGenericType1() {
+    return getNestedGenericType(0);
+  }
+
+  @Override
+  public InstanceType<?> getNestedGenericType2() {
+    return getNestedGenericType(1);
+  }
+
+  private InstanceType<?> getNestedGenericType(int i) {
     final ParameterizedType genericTypeDefinition = (ParameterizedType) (this.getType());
-    final Type nestedGenericType = genericTypeDefinition.getActualTypeArguments()[0];
+    final Type nestedGenericType = genericTypeDefinition.getActualTypeArguments()[i];
     final TypeToken<?> nestedGenericTypeToken = TypeToken.of(nestedGenericType);
     return ConcreteInstanceType.from(nestedGenericTypeToken);
   }

@@ -493,6 +493,12 @@ public class Generate {
   }
 
 
+  public static <T> T dummy(TypeToken<T> instanceType) {
+    return FIXTURE.createDummy(instanceType);
+  }
 
+  public static <T> T dummy(Class<T> clazz) {
+    return FIXTURE.createDummy(clazz);
+  }
 }
 

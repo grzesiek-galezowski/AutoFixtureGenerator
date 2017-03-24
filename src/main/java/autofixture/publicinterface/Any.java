@@ -34,6 +34,14 @@ public class Any {
     return Generate.any(instanceType, generator);
   }
 
+  public static <T> T dummy(final TypeToken<T> instanceType) {
+    return Generate.dummy(instanceType);
+  }
+
+  public static <T> T dummy(final Class<T> clazz) {
+    return Generate.dummy(clazz);
+  }
+
   public static String string() {
     return Generate.anyString();
   }

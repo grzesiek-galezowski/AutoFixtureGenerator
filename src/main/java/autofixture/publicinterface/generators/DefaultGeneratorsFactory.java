@@ -46,6 +46,7 @@ public class DefaultGeneratorsFactory implements GeneratorsFactory {
                     arrays(),
                     optionals(),
                     builtInCollections(),
+                    builtInMaps(),
                     inetAddresses(),
                     interfaceImplementations(),
                     colorSpaces(),
@@ -54,7 +55,7 @@ public class DefaultGeneratorsFactory implements GeneratorsFactory {
   }
 
   @Override
-  public DefaultGeneratorsPipeline createRecursionLimitReachedGenerators() {
+  public DefaultGeneratorsPipeline createDummyGenerators() {
     return pipelineOfGeneratorsForTypes(
             matchedInTheFollowingOrder(
                     integers(),
@@ -86,10 +87,19 @@ public class DefaultGeneratorsFactory implements GeneratorsFactory {
                     emptyArrays(),
                     optionals(),
                     emptyCollections(),
+                    emptyMaps(),
                     inetAddresses(),
                     interfaceImplementations(),
                     colorSpaces(),
                     emptyObjects()));
+  }
+
+  private InstanceGenerator emptyMaps() {
+    return new EmptyMapGenerator();
+  }
+
+  private InstanceGenerator builtInMaps() {
+    return new BuiltInMapGenerator();
   }
 
   private EmptyObjectsGenerator emptyObjects() {

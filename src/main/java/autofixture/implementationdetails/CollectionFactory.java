@@ -1,5 +1,6 @@
 package autofixture.implementationdetails;
 
+import autofixture.interfaces.InstanceType;
 import com.google.common.reflect.TypeToken;
 
 import java.lang.reflect.Array;
@@ -101,5 +102,49 @@ public class CollectionFactory {
   public static <T> T[] createArray(TypeToken<T> type, int length) {
     return (T[]) Array.newInstance(
       type.getRawType(), length);
+  }
+
+  public static Map createEmptyHashMap() {
+    return new HashMap<>();
+  }
+
+  public static Map createEmptySortedMap() {
+    return new TreeMap<>();
+  }
+
+  public static Map createEmptyTreeMap() {
+    return new TreeMap<>();
+  }
+
+  public static Map createEmptyNavigableMap() {
+    return new TreeMap<>();
+  }
+
+  public static Map createEmptyConcurrentHashMap() {
+    return new ConcurrentHashMap<>();
+  }
+
+  public static Map createEmptyConcurrentSkipListMap() {
+    return new ConcurrentSkipListMap<>();
+  }
+
+  public static Map createEmptyHashtable() {
+    return new Hashtable<>();
+  }
+
+  public static Map createEmptyLinkedHashMap() {
+    return new LinkedHashMap<>();
+  }
+
+  public static Map createEmptyWeakHashMap() {
+    return new WeakHashMap<>();
+  }
+
+  public static Map createEmptyIdentityHashMap() {
+    return new IdentityHashMap<>();
+  }
+
+  public static Map createEmptyEnumMap(Class<Enum> keyType) {
+    return new EnumMap(keyType);
   }
 }
