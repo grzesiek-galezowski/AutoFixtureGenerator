@@ -3,7 +3,6 @@ package autofixture.publicinterface;
 import autofixture.interfaces.InlineConstrainedGenerator;
 import autofixture.interfaces.InlineGeneratorsFactory;
 import autofixture.interfaces.InlineInstanceGenerator;
-import autofixture.publicinterface.generators.inline.*;
 import com.google.common.reflect.TypeToken;
 
 /**

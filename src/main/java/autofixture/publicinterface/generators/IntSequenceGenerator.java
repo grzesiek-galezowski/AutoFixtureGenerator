@@ -1,8 +1,8 @@
 package autofixture.publicinterface.generators;
 
+import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
-import autofixture.interfaces.FixtureContract;
 
 public class IntSequenceGenerator implements InstanceGenerator {
 

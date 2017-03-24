@@ -1,9 +1,9 @@
 package autofixture.publicinterface.generators;
 
+import autofixture.implementationdetails.InterfaceHandler;
+import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
-import autofixture.interfaces.FixtureContract;
-import autofixture.implementationdetails.InterfaceHandler;
 import com.google.common.reflect.Reflection;
 
 public class InterfaceImplementationGenerator implements InstanceGenerator {

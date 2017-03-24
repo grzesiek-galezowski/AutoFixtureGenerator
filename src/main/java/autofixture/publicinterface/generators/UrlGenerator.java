@@ -1,9 +1,9 @@
 package autofixture.publicinterface.generators;
 
+import autofixture.exceptions.ObjectCreationException;
+import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
-import autofixture.interfaces.FixtureContract;
-import autofixture.exceptions.ObjectCreationException;
 
 import java.net.MalformedURLException;
 import java.net.URL;

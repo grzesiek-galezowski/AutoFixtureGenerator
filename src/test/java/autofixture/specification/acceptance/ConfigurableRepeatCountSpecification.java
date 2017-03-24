@@ -1,8 +1,8 @@
 package autofixture.specification.acceptance;
 
+import autofixture.implementationdetails.ConcreteInstanceType;
 import autofixture.publicinterface.Fixture;
 import autofixture.publicinterface.InstanceOf;
-import autofixture.implementationdetails.ConcreteInstanceType;
 import autofixture.specification.acceptance.matchers.HasArrayLengthMatcher;
 import org.junit.Test;
 

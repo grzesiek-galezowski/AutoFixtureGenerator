@@ -1,8 +1,8 @@
 package autofixture.publicinterface.generators.inline;
 
 import autofixture.interfaces.FixtureContract;
-import autofixture.interfaces.InlineInstanceGenerator;
 import autofixture.interfaces.InlineGeneratorsFactory;
+import autofixture.interfaces.InlineInstanceGenerator;
 
 /**
  * Created by grzes on 26.11.2016.

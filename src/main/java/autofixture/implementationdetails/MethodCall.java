@@ -1,8 +1,8 @@
 package autofixture.implementationdetails;
 
-import autofixture.interfaces.FixtureContract;
 import autofixture.exceptions.ObjectCreationException;
 import autofixture.interfaces.Call;
+import autofixture.interfaces.FixtureContract;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.Invokable;

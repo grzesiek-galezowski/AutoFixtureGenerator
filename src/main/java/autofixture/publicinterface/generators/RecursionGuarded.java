@@ -1,10 +1,6 @@
 package autofixture.publicinterface.generators;
 
-import autofixture.interfaces.RecursionGuard;
-import autofixture.interfaces.GeneratorsPipeline;
-import autofixture.interfaces.InstanceGenerator;
-import autofixture.interfaces.InstanceType;
-import autofixture.interfaces.FixtureContract;
+import autofixture.interfaces.*;
 
 public class RecursionGuarded implements GeneratorsPipeline {
   private final GeneratorsPipeline generatorsPipeline;

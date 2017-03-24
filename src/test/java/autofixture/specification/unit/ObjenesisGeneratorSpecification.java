@@ -9,7 +9,6 @@ import autofixture.publicinterface.generators.ObjenesisGenerator;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;

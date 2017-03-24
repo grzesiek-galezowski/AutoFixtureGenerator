@@ -1,9 +1,9 @@
 package autofixture.implementationdetails;
 
-import autofixture.interfaces.InstanceType;
-import autofixture.interfaces.InstanceField;
 import autofixture.exceptions.ObjectCreationException;
 import autofixture.interfaces.Call;
+import autofixture.interfaces.InstanceField;
+import autofixture.interfaces.InstanceType;
 import com.google.common.base.Optional;
 import com.google.common.primitives.Primitives;
 import com.google.common.reflect.Invokable;

@@ -1,16 +1,16 @@
 package autofixture.specification.unit;
 
-import autofixture.implementationdetails.MapBasedRecursionGuard;
-import autofixture.interfaces.*;
-import autofixture.publicinterface.InstanceOf;
 import autofixture.implementationdetails.ConcreteInstanceType;
-import autofixture.publicinterface.generators.DefaultGeneratorsPipeline;
+import autofixture.implementationdetails.MapBasedRecursionGuard;
+import autofixture.interfaces.FixtureContract;
+import autofixture.interfaces.GeneratorsPipeline;
+import autofixture.interfaces.InstanceType;
+import autofixture.interfaces.RecursionGuard;
+import autofixture.publicinterface.InstanceOf;
 import com.google.common.reflect.TypeToken;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static autofixture.publicinterface.Generate.any;
 import static autofixture.publicinterface.Generate.anyString;

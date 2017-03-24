@@ -1,7 +1,7 @@
 package autofixture.specification.acceptance;
 
-import autofixture.publicinterface.Any;
 import autofixture.exceptions.BoomException;
+import autofixture.publicinterface.Any;
 import autofixture.publicinterface.InstanceOf;
 import autofixture.specification.acceptance.testfixtures.GenericInterface;
 import autofixture.specification.acceptance.testfixtures.GenericObject;

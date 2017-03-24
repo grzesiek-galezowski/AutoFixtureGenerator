@@ -1,9 +1,9 @@
 package autofixture.publicinterface.generators;
 
+import autofixture.exceptions.ObjectCreationException;
+import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
-import autofixture.interfaces.FixtureContract;
-import autofixture.exceptions.ObjectCreationException;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;

@@ -1,6 +1,5 @@
 package autofixture.implementationdetails;
 
-import autofixture.interfaces.InstanceType;
 import com.google.common.reflect.TypeToken;
 
 import java.lang.reflect.Array;

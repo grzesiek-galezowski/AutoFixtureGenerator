@@ -1,7 +1,7 @@
 package autofixture.implementationdetails;
 
-import autofixture.interfaces.InstanceType;
 import autofixture.interfaces.FixtureContract;
+import autofixture.interfaces.InstanceType;
 import com.google.common.base.Optional;
 import com.google.common.reflect.TypeToken;
 

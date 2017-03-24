@@ -1,9 +1,9 @@
 package autofixture.publicinterface.generators;
 
+import autofixture.implementationdetails.CircularList;
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
-import autofixture.implementationdetails.CircularList;
 
 import java.awt.color.ColorSpace;
 

@@ -7,26 +7,17 @@ import autofixture.specification.acceptance.matchers.HasArrayLengthMatcher;
 import autofixture.specification.acceptance.matchers.HasArrayUniqueItemsMatcher;
 import com.google.common.reflect.TypeToken;
 import org.hamcrest.Matcher;
-import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
-import javax.management.openmbean.TabularDataSupport;
-import javax.print.attribute.standard.PrinterStateReasons;
-import javax.script.SimpleBindings;
-import javax.swing.*;
-import javax.xml.ws.Provider;
-import java.awt.*;
-import java.security.AuthProvider;
 import java.time.DayOfWeek;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.jar.Attributes;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 import static autofixture.publicinterface.Generate.any;
-import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 

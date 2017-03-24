@@ -1,7 +1,7 @@
 package autofixture.implementationdetails;
 
-import autofixture.interfaces.InstanceType;
 import autofixture.interfaces.EnumCache;
+import autofixture.interfaces.InstanceType;
 
 import java.util.HashMap;
 import java.util.Map;

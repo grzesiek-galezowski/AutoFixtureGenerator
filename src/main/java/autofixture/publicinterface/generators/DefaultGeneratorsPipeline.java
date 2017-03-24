@@ -1,10 +1,10 @@
 package autofixture.publicinterface.generators;
 
+import autofixture.exceptions.ObjectCreationException;
+import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.GeneratorsPipeline;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
-import autofixture.interfaces.FixtureContract;
-import autofixture.exceptions.ObjectCreationException;
 
 import java.util.List;
 
