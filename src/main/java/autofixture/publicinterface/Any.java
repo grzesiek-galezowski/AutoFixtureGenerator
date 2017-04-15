@@ -170,6 +170,19 @@ public class Any {
     return Generate.anyException();
   }
 
+  public static RuntimeException runtimeException() {
+    return Generate.anyRuntimeException();
+  }
+
+  public static Exception checkedException() {
+    return Generate.anyCheckedException();
+  }
+
+  public static Throwable throwable() {
+    return Generate.anyThrowable();
+  }
+
+
   public static Error error() {
     return Generate.anyError();
   }

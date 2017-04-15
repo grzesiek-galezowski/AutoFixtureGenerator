@@ -19,6 +19,7 @@ public class DefaultGeneratorsFactory implements GeneratorsFactory {
                 matchedInTheFollowingOrder(
                     integers(),
                     enums(),
+                    throwables(),
                     exceptions(),
                     errors(),
                     strings(),
@@ -52,6 +53,10 @@ public class DefaultGeneratorsFactory implements GeneratorsFactory {
                     colorSpaces(),
                     concreteObjects()))
         );
+  }
+
+  private InstanceGenerator throwables() {
+    return new ThrowableGenerator();
   }
 
   @Override

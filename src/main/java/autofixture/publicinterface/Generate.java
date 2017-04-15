@@ -500,5 +500,17 @@ public class Generate {
   public static <T> T dummy(Class<T> clazz) {
     return FIXTURE.createDummy(clazz);
   }
+
+  public static RuntimeException anyRuntimeException() {
+    return FIXTURE.create(RuntimeException.class);
+  }
+
+  public static Exception anyCheckedException() {
+    return FIXTURE.create(Exception.class);
+  }
+
+  public static Throwable anyThrowable() {
+    return FIXTURE.create(Throwable.class);
+  }
 }
 
