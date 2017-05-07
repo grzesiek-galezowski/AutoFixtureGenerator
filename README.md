@@ -120,3 +120,4 @@ two simple examples:
 For more examples of this feature and syntax variants, see [acceptance tests](https://github.com/grzesiek-galezowski/AutoFixtureGenerator/blob/master/src/test/java/autofixture/specification/acceptance/AnyGenerationMethodsSpecification.java)
 
 
+[![](https://codescene.io/projects/1207/status.svg) Get more details at **codescene.io**.](https://codescene.io/projects/1207/jobs/latest-successful/results)
