@@ -18,7 +18,7 @@ public class InstantGenerator implements InstanceGenerator {
 
   @Override
   public <T> T next(final InstanceType<T> instanceType, final FixtureContract fixture) {
-    return (T) Instant.now().plus(Duration.ofNanos(fixture.create(Long.class)));
+    return (T) Instant.now().plus(Duration.ofMillis(fixture.create(Long.class)));
   }
 
   @Override
