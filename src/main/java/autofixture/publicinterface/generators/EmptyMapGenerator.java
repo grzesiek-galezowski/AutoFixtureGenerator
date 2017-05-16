@@ -12,14 +12,14 @@ import java.util.Map;
 public class EmptyMapGenerator implements InstanceGenerator {
   @Override
   public <T> boolean appliesTo(final InstanceType<T> clazz) {
-    return clazz.isAssignableTo(Map.class);
+    return clazz.isMap();
   }
 
   @SuppressWarnings({"unchecked", "rawtypes"})
   @Override
   public <T> T next(final InstanceType<T> type, final FixtureContract fixture) {
     //TODO make same as array generation
-    final Map map = type.createMap(fixture.getRepeatCount());
+    final Map map = type.createEmptyMap();
     return (T) map;
   }
 

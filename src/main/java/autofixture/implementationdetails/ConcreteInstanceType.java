@@ -153,8 +153,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   }
 
   @Override
-  public Map createMap(int repeatCount) {
-    final Map map;
+  public Map createEmptyMap() {
     if (this.isRawTypeAssignableFrom(HashMap.class)) {
       return CollectionFactory.createEmptyHashMap();
     }

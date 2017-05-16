@@ -5,6 +5,7 @@ import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
 
 import java.time.Clock;
+import java.time.Instant;
 import java.time.ZoneId;
 
 /**
@@ -18,7 +19,7 @@ public class ClockGenerator implements InstanceGenerator {
 
   @Override
   public <T> T next(final InstanceType<T> instanceType, final FixtureContract fixture) {
-    return (T) Clock.tickMinutes(fixture.create(ZoneId.class));
+    return (T) Clock.fixed(fixture.create(Instant.class), fixture.create(ZoneId.class));
   }
 
   @Override

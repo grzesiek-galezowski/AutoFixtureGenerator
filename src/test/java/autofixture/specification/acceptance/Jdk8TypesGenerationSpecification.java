@@ -2,6 +2,7 @@ package autofixture.specification.acceptance;
 
 import autofixture.publicinterface.Fixture;
 import autofixture.publicinterface.InstanceOf;
+import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
@@ -83,6 +84,40 @@ public class Jdk8TypesGenerationSpecification {
     assertThat(o2, not(nullValue()));
     assertThat(o1, not(o2));
     assertThat(o1, not(equalTo(o2)));
+  }
+
+  @Test
+  public void shouldGenerateFixedClock() throws InterruptedException {
+    Clock clock = fixture.create(Clock.class);
+    Instant instant1 = clock.instant();
+    long millis1 = clock.millis();
+    Thread.sleep(1);
+    Instant instant2 = clock.instant();
+    long millis2 = clock.millis();
+    Thread.sleep(1);
+    Instant instant3 = clock.instant();
+    long millis3 = clock.millis();
+
+    assertThat(instant1, is(equalTo(instant2)));
+    assertThat(instant1, is(equalTo(instant3)));
+    assertThat(millis1, is(equalTo(millis2)));
+    assertThat(millis1, is(equalTo(millis3)));
+
+  }
+
+  @Test
+  public void shouldGenerateClocksThatReturnDifferentTimes() throws InterruptedException {
+    Clock clock1 = fixture.create(Clock.class);
+    Clock clock2 = fixture.create(Clock.class);
+    Clock clock3 = fixture.create(Clock.class);
+
+    assertThat(clock1.instant(), is(not(equalTo(clock2.instant()))));
+    assertThat(clock1.instant(), is(not(equalTo(clock3.instant()))));
+    assertThat(clock2.instant(), is(not(equalTo(clock3.instant()))));
+    assertThat(clock1.millis(), is(not(equalTo(clock2.millis()))));
+    assertThat(clock1.millis(), is(not(equalTo(clock3.millis()))));
+    assertThat(clock2.millis(), is(not(equalTo(clock3.millis()))));
+
   }
 
 }

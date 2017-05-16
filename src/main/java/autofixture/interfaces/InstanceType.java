@@ -12,6 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 public interface InstanceType<T> {
+  default boolean isMap() {
+    return isAssignableTo(Map.class);
+  }
+
   InstanceType<?> getArrayElementType();
 
   <TAssignable> boolean isAssignableFrom(
@@ -41,7 +45,7 @@ public interface InstanceType<T> {
   Collection createCollection(int repeatCount);
 
   @SuppressWarnings("rawtypes")
-  Map createMap(int repeatCount);
+  Map createEmptyMap();
 
   InstanceType<?> getNestedGenericType1();
   InstanceType<?> getNestedGenericType2();
@@ -69,7 +73,5 @@ public interface InstanceType<T> {
   boolean isCompatibleWith(Class<?> clazz);
 
   boolean isCompatibleWithAnyOf(Class<?>... clazzes);
-
-
 
 }
