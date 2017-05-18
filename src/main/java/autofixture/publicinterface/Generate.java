@@ -512,5 +512,9 @@ public class Generate {
   public static Throwable anyThrowable() {
     return FIXTURE.create(Throwable.class);
   }
+
+  public static String anyString(String seed) {
+    return seed + anyString();
+  }
 }
 
