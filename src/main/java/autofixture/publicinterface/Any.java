@@ -187,6 +187,10 @@ public class Any {
     return Generate.anyThrowable();
   }
 
+  public static Throwable uncheckedThrowable() {
+    return runtimeException();
+  }
+
 
   public static Error error() {
     return Generate.anyError();

@@ -16,7 +16,7 @@ public class ThrowableGenerator implements InstanceGenerator {
   @SuppressWarnings("unchecked")
   @Override
   public <T> T next(final InstanceType<T> instanceType, final FixtureContract fixture) {
-    return (T) new RuntimeException(fixture.create(String.class));
+    return (T) new Throwable(fixture.create(String.class));
   }
 
   @Override
