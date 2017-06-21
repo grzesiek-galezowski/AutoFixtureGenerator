@@ -4,7 +4,7 @@ import autofixture.implementationdetails.CollectionFactory;
 import autofixture.implementationdetails.ConcreteInstanceType;
 import autofixture.implementationdetails.MapBasedRecursionGuard;
 import autofixture.interfaces.*;
-import autofixture.publicinterface.generators.DefaultGeneratorsFactory;
+import autofixture.generators.DefaultGeneratorsFactory;
 import com.google.common.primitives.Primitives;
 import com.google.common.reflect.TypeToken;
 

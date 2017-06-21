@@ -5,7 +5,7 @@ import autofixture.implementationdetails.MapBasedRecursionGuard;
 import autofixture.interfaces.InstanceType;
 import autofixture.publicinterface.Fixture;
 import autofixture.publicinterface.InstanceOf;
-import autofixture.publicinterface.generators.ObjenesisGenerator;
+import autofixture.generators.ObjenesisGenerator;
 import org.junit.Test;
 
 import java.util.ArrayList;
