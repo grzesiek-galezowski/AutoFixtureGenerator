@@ -1,4 +1,6 @@
-package autofixture.interfaces;
+package autofixture.generators.enums;
+
+import autofixture.interfaces.InstanceType;
 
 public interface EnumCache {
 

@@ -1,7 +1,5 @@
 package autofixture.publicinterface.constraints;
 
-import autofixture.interfaces.GenerationConstraint;
-
 import java.util.Arrays;
 
 /**

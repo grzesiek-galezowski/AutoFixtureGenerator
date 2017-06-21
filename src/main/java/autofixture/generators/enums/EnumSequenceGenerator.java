@@ -1,8 +1,7 @@
-package autofixture.generators;
+package autofixture.generators.enums;
 
-import autofixture.interfaces.EnumCache;
 import autofixture.interfaces.FixtureContract;
-import autofixture.interfaces.InstanceGenerator;
+import autofixture.generators.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
 
 public class EnumSequenceGenerator implements InstanceGenerator {

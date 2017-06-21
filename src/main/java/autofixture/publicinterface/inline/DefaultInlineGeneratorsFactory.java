@@ -1,10 +1,8 @@
-package autofixture.publicinterface;
+package autofixture.publicinterface.inline;
 
-import autofixture.interfaces.InlineConstrainedGenerator;
-import autofixture.interfaces.InlineGeneratorsFactory;
 import autofixture.interfaces.InlineInstanceGenerator;
+import autofixture.publicinterface.Generate;
 import autofixture.publicinterface.constraints.OtherThanConstraint;
-import autofixture.publicinterface.inline.*;
 import com.google.common.reflect.TypeToken;
 
 /**

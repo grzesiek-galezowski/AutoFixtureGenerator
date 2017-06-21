@@ -1,7 +1,6 @@
 package autofixture.generators;
 
 import autofixture.interfaces.FixtureContract;
-import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
 
 import java.util.Calendar;

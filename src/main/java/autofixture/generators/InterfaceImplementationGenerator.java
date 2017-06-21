@@ -2,7 +2,6 @@ package autofixture.generators;
 
 import autofixture.implementationdetails.InterfaceHandler;
 import autofixture.interfaces.FixtureContract;
-import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
 import com.google.common.reflect.Reflection;
 

@@ -2,7 +2,7 @@ package autofixture.specification.acceptance;
 
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InlineInstanceGenerator;
-import autofixture.interfaces.InstanceGenerator;
+import autofixture.generators.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
 import autofixture.publicinterface.Fixture;
 import com.google.common.reflect.TypeToken;

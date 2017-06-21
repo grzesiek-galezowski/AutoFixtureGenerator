@@ -1,5 +1,6 @@
-package autofixture.interfaces;
+package autofixture.publicinterface.inline;
 
+import autofixture.interfaces.FixtureContract;
 import com.google.common.reflect.TypeToken;
 
 /**

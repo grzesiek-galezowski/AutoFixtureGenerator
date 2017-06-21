@@ -1,6 +1,6 @@
-package autofixture.implementationdetails;
+package autofixture.generators.enums;
 
-import autofixture.interfaces.EnumCache;
+import autofixture.implementationdetails.CircularList;
 import autofixture.interfaces.InstanceType;
 
 import java.util.HashMap;
