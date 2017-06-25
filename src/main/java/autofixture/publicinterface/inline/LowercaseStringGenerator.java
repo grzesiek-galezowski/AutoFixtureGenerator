@@ -2,6 +2,7 @@ package autofixture.publicinterface.inline;
 
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InlineInstanceGenerator;
+import autofixture.interfaces.InlineGeneratorsFactory;
 
 /**
  * Created by grzes on 26.11.2016.

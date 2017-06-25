@@ -1,7 +1,5 @@
 package autofixture.interfaces;
 
-import autofixture.generators.InstanceGenerator;
-import autofixture.publicinterface.inline.InlineConstrainedGenerator;
 import com.google.common.reflect.TypeToken;
 
 import java.util.Collection;

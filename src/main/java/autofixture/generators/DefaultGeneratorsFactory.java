@@ -4,6 +4,7 @@ import autofixture.generators.enums.EnumSequenceGenerator;
 import autofixture.generators.enums.InMemoryEnumCache;
 import autofixture.generators.object.ConcreteObjectGenerator;
 import autofixture.interfaces.GeneratorsPipeline;
+import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.RecursionGuard;
 
 import java.util.Arrays;

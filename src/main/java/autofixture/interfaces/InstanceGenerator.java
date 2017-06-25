@@ -1,7 +1,4 @@
-package autofixture.generators;
-
-import autofixture.interfaces.FixtureContract;
-import autofixture.interfaces.InstanceType;
+package autofixture.interfaces;
 
 public interface InstanceGenerator {
   <T> boolean appliesTo(InstanceType<T> instanceType);

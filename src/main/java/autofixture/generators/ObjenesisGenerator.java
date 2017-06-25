@@ -5,6 +5,7 @@ package autofixture.generators;
  * This program is made available under the terms of the MIT License.
  */
 import autofixture.interfaces.FixtureContract;
+import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
 import org.objenesis.ObjenesisStd;
 

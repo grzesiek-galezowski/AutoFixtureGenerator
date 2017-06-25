@@ -1,7 +1,7 @@
 package autofixture.generators.object;
 
 import autofixture.exceptions.ObjectCreationException;
-import autofixture.generators.InstanceGenerator;
+import autofixture.interfaces.InstanceGenerator;
 import autofixture.implementationdetails.Debug;
 import autofixture.interfaces.*;
 import com.google.common.base.Optional;
