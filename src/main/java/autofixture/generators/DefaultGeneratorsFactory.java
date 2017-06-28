@@ -107,8 +107,8 @@ public class DefaultGeneratorsFactory {
     return new BuiltInMapGenerator();
   }
 
-  private EmptyObjectsGenerator emptyObjects() {
-    return new EmptyObjectsGenerator();
+  private ObjenesisGenerator emptyObjects() {
+    return new ObjenesisGenerator();
   }
 
   private EmptyArraysGenerator emptyArrays() {

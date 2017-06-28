@@ -3,16 +3,12 @@ package autofixture.specification.acceptance;
 import autofixture.exceptions.BoomException;
 import autofixture.publicinterface.Any;
 import autofixture.publicinterface.InstanceOf;
-import autofixture.specification.acceptance.testfixtures.GenericInterface;
-import autofixture.specification.acceptance.testfixtures.GenericObject;
-import autofixture.specification.acceptance.testfixtures.GenericObject2;
-import autofixture.specification.acceptance.testfixtures.NonGenericInterface;
+import autofixture.specification.acceptance.testfixtures.*;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.net.InetAddress;
 import java.time.DayOfWeek;
 import java.util.*;
 
@@ -22,6 +18,7 @@ import static autofixture.specification.acceptance.TypeHelpers.*;
 import static junit.framework.TestCase.fail;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.core.Is.is;
@@ -832,6 +829,14 @@ public class AnyGenerationMethodsSpecification {
     assertThat(port5, is(not(equalTo(port6))));
     assertThat(port5, is(lessThan(65535)));
     assertThat(port6, is(lessThan(65535)));
+  }
+
+  @Test
+  public void shouldAvoidCopyConstructorIfPossible() {
+    StructureWithCopyConstructor anonymous
+        = Any.anonymous(StructureWithCopyConstructor.class);
+    assertThat(anonymous.getX(), is(notNullValue()));
+    assertThat(anonymous.getY(), is(notNullValue()));
   }
 
   public void assertThrows(Class exceptionClass, Runnable func) {
