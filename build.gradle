@@ -26,6 +26,7 @@ apply plugin: 'jdepend'
 apply plugin: 'pmd'
 apply plugin: "jacoco"
 apply plugin: "pl.squirrel.classycle"
+apply plugin: 'com.github.johnrengelman.shadow'
 
 def travis = "$System.env.TRAVIS"
 
@@ -133,7 +134,7 @@ release {
     failOnCommitNeeded = false
 }
 
-uploadArchives {
+uploadShadow {
     repositories {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
@@ -174,10 +175,10 @@ uploadArchives {
     }
 }
 
-uploadArchives.dependsOn([jar, test])
-check.dependsOn("pitest")
+uploadShadow.dependsOn([shadowJar, test])
+//check.dependsOn("pitest")
+afterReleaseBuild.dependsOn uploadShadow
 
-afterReleaseBuild.dependsOn uploadArchives
 tasks.withType(FindBugs) {
     reports {
         xml.enabled = false
