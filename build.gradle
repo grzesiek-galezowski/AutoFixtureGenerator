@@ -47,6 +47,7 @@ if (travis == "null") {
 
     signing {
         sign configurations.archives
+        sign configurations.shadow
     }
 
 } else {
@@ -176,8 +177,9 @@ uploadShadow {
 }
 
 uploadShadow.dependsOn([shadowJar, test])
+uploadArchives.dependsOn uploadShadow
 //check.dependsOn("pitest")
-afterReleaseBuild.dependsOn uploadShadow
+afterReleaseBuild.dependsOn uploadArchives
 
 tasks.withType(FindBugs) {
     reports {
