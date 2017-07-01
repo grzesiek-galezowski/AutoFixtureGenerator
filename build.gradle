@@ -103,7 +103,7 @@ findbugs {
 }
 
 shadowJar {
-    classifier = null
+    //classifier = null
     dependencies {
         exclude(dependency('com.sharneng:jsr305defaults'))
     }
