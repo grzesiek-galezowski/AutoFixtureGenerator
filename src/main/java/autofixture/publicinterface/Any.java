@@ -2,7 +2,6 @@ package autofixture.publicinterface;
 
 import autofixture.interfaces.InlineConstrainedGenerator;
 import autofixture.interfaces.InlineInstanceGenerator;
-import com.google.common.reflect.TypeToken;
 
 import java.net.InetAddress;
 import java.net.URI;
@@ -14,7 +13,7 @@ import java.util.*;
 
 public class Any {
 
-  public static <T> T anonymous(final TypeToken<T> instanceType) {
+  public static <T> T anonymous(final InstanceOf<T> instanceType) {
     return Generate.any(instanceType);
   }
 
@@ -26,7 +25,7 @@ public class Any {
     return Generate.any(generator);
   }
 
-  public static <T> T anonymous(final TypeToken<T> type, final InlineConstrainedGenerator<T> generator) {
+  public static <T> T anonymous(final InstanceOf<T> type, final InlineConstrainedGenerator<T> generator) {
     return Generate.any(type, generator);
   }
 
@@ -34,9 +33,10 @@ public class Any {
     return Generate.any(instanceType, generator);
   }
 
-  public static <T> T dummy(final TypeToken<T> instanceType) {
+  public static <T> T dummy(final InstanceOf<T> instanceType) {
     return Generate.dummy(instanceType);
   }
+
 
   public static <T> T dummy(final Class<T> clazz) {
     return Generate.dummy(clazz);
@@ -167,7 +167,7 @@ public class Any {
     return Generate.anyExploding(clazz);
   }
 
-  public static <T> T exploding(final TypeToken<T> typeToken) {
+  public static <T> T exploding(final InstanceOf<T> typeToken) {
     return Generate.anyExploding(typeToken);
   }
 
@@ -284,7 +284,7 @@ public class Any {
   }
 
   public static <T> Iterable<T> iterableOf(
-      final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
+      final InstanceOf<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsIterableOf(typeToken, omittedValues);
   }
 
@@ -301,7 +301,7 @@ public class Any {
     return Generate.manyAsArrayOf(type);
   }
 
-  public static <T> T[] arrayOf(final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> T[] arrayOf(final InstanceOf<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsArrayOf(typeToken, omittedValues);
   }
 
@@ -320,7 +320,7 @@ public class Any {
     return Generate.manyAsListOf(type);
   }
 
-  public static <T> List<T> listOf(final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> generator) {
+  public static <T> List<T> listOf(final InstanceOf<T> typeToken, final InlineConstrainedGenerator<T> generator) {
     return Generate.manyAsListOf(typeToken, generator);
   }
 
@@ -330,7 +330,7 @@ public class Any {
 
   // COLLECTIONS - complete
 
-  public static <T> Collection<T> collectionOf(final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> Collection<T> collectionOf(final InstanceOf<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsCollectionOf(typeToken, omittedValues);
   }
 
@@ -342,7 +342,7 @@ public class Any {
     return Generate.manyAsCollectionOf(clazz);
   }
 
-  public static <T> Collection<T> collectionOf(final TypeToken<T> instanceType) {
+  public static <T> Collection<T> collectionOf(final InstanceOf<T> instanceType) {
     return Generate.manyAsCollectionOf(instanceType);
   }
 
@@ -353,7 +353,7 @@ public class Any {
     return Generate.manyAsSetOf(clazz);
   }
 
-  public static <T> Set<T> setOf(final TypeToken<T> type) {
+  public static <T> Set<T> setOf(final InstanceOf<T> type) {
     return Generate.manyAsSetOf(type);
   }
 
@@ -363,7 +363,7 @@ public class Any {
   }
 
   //TODO UT
-  public static <T> Set<T> setOf(final TypeToken<T> type, final InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> Set<T> setOf(final InstanceOf<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsSetOf(type, omittedValues);
   }
 
@@ -373,7 +373,7 @@ public class Any {
     return Generate.manyAsQueueOf(clazz);
   }
 
-  public static <T> Queue<T> queueOf(final TypeToken<T> type) {
+  public static <T> Queue<T> queueOf(final InstanceOf<T> type) {
     return Generate.manyAsQueueOf(type);
   }
 
@@ -383,7 +383,7 @@ public class Any {
   }
 
   //TODO UT
-  public static <T> Queue<T> queueOf(final TypeToken<T> type, final InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> Queue<T> queueOf(final InstanceOf<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsQueueOf(type, omittedValues);
   }
 
@@ -392,7 +392,7 @@ public class Any {
     return Generate.manyAsDequeOf(clazz);
   }
 
-  public static <T> Deque<T> dequeOf(final TypeToken<T> type) {
+  public static <T> Deque<T> dequeOf(final InstanceOf<T> type) {
     return Generate.manyAsDequeOf(type);
   }
 
@@ -402,7 +402,7 @@ public class Any {
   }
 
   //TODO UT
-  public static <T> Deque<T> dequeOf(final TypeToken<T> type, final InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> Deque<T> dequeOf(final InstanceOf<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsDequeOf(type, omittedValues);
   }
 
@@ -411,7 +411,7 @@ public class Any {
     return Generate.manyAsSortedSetOf(clazz);
   }
 
-  public static <T> SortedSet<T> sortedSetOf(final TypeToken<T> type) {
+  public static <T> SortedSet<T> sortedSetOf(final InstanceOf<T> type) {
     return Generate.manyAsSortedSetOf(type);
   }
 
@@ -421,7 +421,7 @@ public class Any {
   }
 
   //TODO UT
-  public static <T> SortedSet<T> sortedSetOf(final TypeToken<T> type, final InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> SortedSet<T> sortedSetOf(final InstanceOf<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return Generate.manyAsSortedSetOf(type, omittedValues);
   }
 
@@ -432,7 +432,7 @@ public class Any {
     return Generate.manyAsSortedMapBetween(key, value);
   }
 
-  public static <T, V> SortedMap<T, V> sortedMapBetween(final TypeToken<T> key, final TypeToken<V> value) {
+  public static <T, V> SortedMap<T, V> sortedMapBetween(final InstanceOf<T> key, final InstanceOf<V> value) {
     return Generate.manyAsSortedMapBetween(key, value);
   }
 
@@ -443,7 +443,7 @@ public class Any {
     return Generate.manyAsMapBetween(keyClass, valueClass);
   }
 
-  public static <T, V> Map<T, V> mapBetween(final TypeToken<T> keyType, final TypeToken<V> valueType) {
+  public static <T, V> Map<T, V> mapBetween(final InstanceOf<T> keyType, final InstanceOf<V> valueType) {
     return Generate.manyAsMapBetween(keyType, valueType);
   }
 

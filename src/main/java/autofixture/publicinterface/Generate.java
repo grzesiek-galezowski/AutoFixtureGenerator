@@ -1,9 +1,7 @@
 package autofixture.publicinterface;
 
-import autofixture.implementationdetails.CollectionFactory;
 import autofixture.interfaces.InlineConstrainedGenerator;
 import autofixture.interfaces.InlineInstanceGenerator;
-import com.google.common.collect.Lists;
 import com.google.common.reflect.TypeToken;
 
 import java.net.InetAddress;
@@ -20,26 +18,25 @@ import java.util.stream.LongStream;
 import static autofixture.publicinterface.InlineGenerators.*;
 
 public class Generate {
-  private static final Fixture FIXTURE = new Fixture();
 
-  public static <T> T any(final TypeToken<T> instanceType) {
-    return FIXTURE.create(instanceType);
+  public static <T> T any(final InstanceOf<T> instanceType) {
+    return PrivateGenerate.FIXTURE.create(instanceType);
   }
 
   public static <T> T any(final Class<T> clazz) {
-    return FIXTURE.create(clazz);
+    return PrivateGenerate.FIXTURE.create(clazz);
   }
 
   public static <T> T any(final InlineInstanceGenerator<T> generator) {
-    return FIXTURE.create(generator);
+    return PrivateGenerate.FIXTURE.create(generator);
   }
 
-  public static <T> T any(final TypeToken<T> type, final InlineConstrainedGenerator<T> generator) {
-    return FIXTURE.create(type, generator);
+  public static <T> T any(final InstanceOf<T> type, final InlineConstrainedGenerator<T> generator) {
+    return PrivateGenerate.FIXTURE.create(type, generator);
   }
 
   public static <T> T any(final Class<T> instanceType, final InlineConstrainedGenerator<T> generator) {
-    return any(TypeToken.of(instanceType), generator);
+    return PrivateGenerate.any(TypeToken.of(instanceType), generator);
   }
 
   public static String anyString() {
@@ -99,27 +96,27 @@ public class Generate {
   }
 
   public static Integer anyInteger() {
-    return FIXTURE.create(int.class);
+    return PrivateGenerate.FIXTURE.create(int.class);
   }
 
   public static Short anyShort() {
-    return FIXTURE.create(short.class);
+    return PrivateGenerate.FIXTURE.create(short.class);
   }
 
   public static Double anyDouble() {
-    return FIXTURE.create(double.class);
+    return PrivateGenerate.FIXTURE.create(double.class);
   }
 
   public static Float anyFloat() {
-    return FIXTURE.create(float.class);
+    return PrivateGenerate.FIXTURE.create(float.class);
   }
 
   public static Character anyChar() {
-    return FIXTURE.create(char.class);
+    return PrivateGenerate.FIXTURE.create(char.class);
   }
 
   public static Long anyLong() {
-    return FIXTURE.create(long.class);
+    return PrivateGenerate.FIXTURE.create(long.class);
   }
 
   public static Long anyLongOtherThan(final long... other) {
@@ -161,11 +158,11 @@ public class Generate {
   }
 
   public static <T> T anyExploding(final Class<T> clazz) {
-    return anyExploding(TypeToken.of(clazz));
+    return PrivateGenerate.anyExploding(TypeToken.of(clazz));
   }
 
-  public static <T> T anyExploding(final TypeToken<T> typeToken) {
-    return any(exploding(typeToken));
+  public static <T> T anyExploding(final InstanceOf<T> typeToken) {
+    return PrivateGenerate.anyExploding(typeToken);
   }
 
   public static Exception anyException() {
@@ -173,79 +170,79 @@ public class Generate {
   }
 
   public static Error anyError() {
-    return FIXTURE.create(Error.class);
+    return PrivateGenerate.FIXTURE.create(Error.class);
   }
 
   public static Boolean anyBoolean() {
-    return FIXTURE.create(Boolean.class);
+    return PrivateGenerate.FIXTURE.create(Boolean.class);
   }
 
   public static Object anyObject() {
-    return FIXTURE.create(Object.class);
+    return PrivateGenerate.FIXTURE.create(Object.class);
   }
 
   public static URI anyUri() {
-    return FIXTURE.create(URI.class);
+    return PrivateGenerate.FIXTURE.create(URI.class);
   }
 
   public static URL anyUrl() {
-    return FIXTURE.create(URL.class);
+    return PrivateGenerate.FIXTURE.create(URL.class);
   }
 
   public static int anyPort() {
-    return FIXTURE.create(portNumber());
+    return PrivateGenerate.FIXTURE.create(portNumber());
   }
 
   public static InetAddress anyIp() {
-    return FIXTURE.create(InetAddress.class);
+    return PrivateGenerate.FIXTURE.create(InetAddress.class);
   }
 
   public static ChronoLocalDate anyChronoLocalDate() {
-    return FIXTURE.create(ChronoLocalDate.class);
+    return PrivateGenerate.FIXTURE.create(ChronoLocalDate.class);
   }
 
   public static ChronoLocalDateTime anyChronoLocalDateTime() {
-    return FIXTURE.create(ChronoLocalDateTime.class);
+    return PrivateGenerate.FIXTURE.create(ChronoLocalDateTime.class);
   }
 
   public static LocalDateTime anyLocalDateTime() {
-    return FIXTURE.create(LocalDateTime.class);
+    return PrivateGenerate.FIXTURE.create(LocalDateTime.class);
   }
 
   public static LocalDate anyLocalDate() {
-    return FIXTURE.create(LocalDate.class);
+    return PrivateGenerate.FIXTURE.create(LocalDate.class);
   }
 
   public static ZonedDateTime anyZonedDateTime() {
-    return FIXTURE.create(ZonedDateTime.class);
+    return PrivateGenerate.FIXTURE.create(ZonedDateTime.class);
   }
 
   public static ZoneId anyZoneId() {
-    return FIXTURE.create(ZoneId.class);
+    return PrivateGenerate.FIXTURE.create(ZoneId.class);
   }
 
   public static OffsetTime anyOffsetTime() {
-    return FIXTURE.create(OffsetTime.class);
+    return PrivateGenerate.FIXTURE.create(OffsetTime.class);
   }
 
   public static Period anyPeriod() {
-    return FIXTURE.create(Period.class);
+    return PrivateGenerate.FIXTURE.create(Period.class);
   }
 
   public static Duration anyDuration() {
-    return FIXTURE.create(Duration.class);
+    return PrivateGenerate.FIXTURE.create(Duration.class);
   }
 
   public static ZoneOffset anyZoneOffset() {
-    return FIXTURE.create(ZoneOffset.class);
+    return PrivateGenerate.FIXTURE.create(ZoneOffset.class);
   }
 
   public static Clock anyClock() {
-    return FIXTURE.create(Clock.class);
+    return PrivateGenerate.FIXTURE.create(Clock.class);
   }
 
   public static Instant anyInstant() {
-    return FIXTURE.create(Instant.class);
+    return PrivateGenerate.FIXTURE.create(Instant.class);
   }
 
   private static final HashMap<Class, Integer> INDICES_BY_CLASS = new HashMap<>();
@@ -274,194 +271,168 @@ public class Generate {
 
 
   public static <T> Iterable<T> manyAsIterableOf(final InstanceOf<T> type) {
-    return FIXTURE.createMany(type);
+    return PrivateGenerate.FIXTURE.createMany(type);
   }
 
   public static <T> Iterable<T> manyAsIterableOf(final Class<T> clazz) {
-    return FIXTURE.createMany(TypeToken.of(clazz));
+    return PrivateGenerate.FIXTURE.createMany(TypeToken.of(clazz));
   }
 
   public static <T> Iterable<T> manyAsIterableOf(
-      final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
-    return manyAsListOf(typeToken, omittedValues);
+      final InstanceOf<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
+    return PrivateGenerate.manyAsIterableOf(typeToken, omittedValues);
   }
 
+
   public static <T> Iterable<T> manyAsIterableOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    return manyAsIterableOf(TypeToken.of(type), omittedValues);
+    return PrivateGenerate.manyAsIterableOf(TypeToken.of(type), omittedValues);
   }
 
   //ARRAYS - complete
   public static <T> T[] manyAsArrayOf(final Class<T> clazz) {
-    return manyAsArrayOf(TypeToken.of(clazz));
+    return PrivateGenerate.manyAsArrayOf(TypeToken.of(clazz));
   }
 
-  public static <T> T[] manyAsArrayOf(final TypeToken<T> type) {
-
-    return FIXTURE.createArray(type);
+  public static <T> T[] manyAsArrayOf(final InstanceOf<T> type) {
+    return PrivateGenerate.manyAsArrayOf(type);
   }
 
-  public static <T> T[] manyAsArrayOf(final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
-    final List<T> list = manyAsListOf(typeToken, omittedValues);
-    T[] templateArray = CollectionFactory.createArray(typeToken, list.size());
-    return list.toArray(templateArray);
+  public static <T> T[] manyAsArrayOf(final InstanceOf<T> typeToken,
+                                       final InlineConstrainedGenerator<T> omittedValues) {
+    return PrivateGenerate.manyAsArrayOf(typeToken, omittedValues);
   }
 
   public static <T> T[] manyAsArrayOf(final Class<T> type,
                                       final InlineConstrainedGenerator<T> omittedValues) {
-    T[] array = manyAsArrayOf(TypeToken.of(type), omittedValues);
+    T[] array = PrivateGenerate.manyAsArrayOf(TypeToken.of(type), omittedValues);
     return array;
   }
 
   //LISTS - complete
-
   public static <T> List<T> manyAsListOf(final Class<T> clazz) {
-    return Lists.newArrayList(FIXTURE.createMany(TypeToken.of(clazz)));
+    return PrivateGenerate.manyAsListOf(TypeToken.of(clazz));
   }
 
   public static <T> List<T> manyAsListOf(final InstanceOf<T> type) {
-    return Lists.newArrayList(FIXTURE.createMany(type));
+    return PrivateGenerate.manyAsListOf(type);
   }
 
-  //TODO rethink putting this into the Fixture class
-  public static <T> List<T> manyAsListOf(final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> generator) {
-    final List<T> result = CollectionFactory.createList();
-    result.add(any(typeToken, generator));
-    result.add(any(typeToken, generator));
-    result.add(any(typeToken, generator));
-
-    return result;
+  public static <T> List<T> manyAsListOf(final InstanceOf<T> typeToken, final InlineConstrainedGenerator<T> generator) {
+    return PrivateGenerate.manyAsListOf(typeToken);
   }
 
   public static <T> List<T> manyAsListOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    return manyAsListOf(TypeToken.of(type), omittedValues);
+    return PrivateGenerate.manyAsListOf(TypeToken.of(type), omittedValues);
   }
 
   // COLLECTIONS - complete
 
-  public static <T> Collection<T> manyAsCollectionOf(final TypeToken<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
+  public static <T> Collection<T> manyAsCollectionOf(final InstanceOf<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
     return manyAsListOf(typeToken, omittedValues);
   }
 
   public static <T> Collection<T> manyAsCollectionOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    return manyAsListOf(TypeToken.of(type), omittedValues);
+    return PrivateGenerate.manyAsListOf(TypeToken.of(type), omittedValues);
   }
 
   public static <T> Collection<T> manyAsCollectionOf(final Class<T> clazz) {
-    return FIXTURE.createMany(TypeToken.of(clazz));
+    return PrivateGenerate.FIXTURE.createMany(TypeToken.of(clazz));
   }
 
-  public static <T> Collection<T> manyAsCollectionOf(final TypeToken<T> instanceType) {
-    return FIXTURE.createMany(instanceType);
+  public static <T> Collection<T> manyAsCollectionOf(final InstanceOf<T> instanceType) {
+    return PrivateGenerate.FIXTURE.createMany(instanceType);
   }
 
   //SETS: complete
-
   public static <T> Set<T> manyAsSetOf(final Class<T> clazz) {
-    return manyAsSetOf(TypeToken.of(clazz));
+    return PrivateGenerate.manyAsSetOf(TypeToken.of(clazz));
   }
 
-  public static <T> Set<T> manyAsSetOf(final TypeToken<T> type) {
-    final Collection<T> many = FIXTURE.createMany(type);
-    final Set<T> collection = CollectionFactory.createSetFrom(many);
-    return collection;
+  public static <T> Set<T> manyAsSetOf(final InstanceOf<T> type) {
+    return PrivateGenerate.manyAsSetOf(type);
   }
 
   public static <T> Set<T> manyAsSetOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    return manyAsSetOf(TypeToken.of(type), omittedValues);
+    return PrivateGenerate.manyAsSetOf(TypeToken.of(type), omittedValues);
   }
 
-  public static <T> Set<T> manyAsSetOf(final TypeToken<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    final Collection<T> collection = manyAsCollectionOf(type, omittedValues);
-    return CollectionFactory.createSetFrom(collection);
+  public static <T> Set<T> manyAsSetOf(final InstanceOf<T> type, final InlineConstrainedGenerator<T> omittedValues) {
+    return PrivateGenerate.manyAsSetOf(type, omittedValues);
   }
 
   //queues: complete
   public static <T> Queue<T> manyAsQueueOf(final Class<T> clazz) {
-    return manyAsQueueOf(TypeToken.of(clazz));
+    return PrivateGenerate.manyAsQueueOf(TypeToken.of(clazz));
   }
 
 
-  public static <T> Queue<T> manyAsQueueOf(final TypeToken<T> type) {
-    final Collection<T> many = FIXTURE.createMany(type);
-    final Queue<T> queue = CollectionFactory.createQueueFrom(many);
-    return queue;
+  public static <T> Queue<T> manyAsQueueOf(final InstanceOf<T> type) {
+    return PrivateGenerate.manyAsQueueOf(type);
   }
 
   public static <T> Queue<T> manyAsQueueOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    return manyAsQueueOf(TypeToken.of(type), omittedValues);
+    return PrivateGenerate.manyAsQueueOf(TypeToken.of(type), omittedValues);
   }
 
-  public static <T> Queue<T> manyAsQueueOf(final TypeToken<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    final Collection<T> collection = manyAsCollectionOf(type, omittedValues);
-    return CollectionFactory.createQueueFrom(collection);
+  public static <T> Queue<T> manyAsQueueOf(final InstanceOf<T> type, final InlineConstrainedGenerator<T> omittedValues) {
+    return PrivateGenerate.manyAsQueueOf(type, omittedValues);
   }
 
   //Deques: complete
   public static <T> Deque<T> manyAsDequeOf(final Class<T> clazz) {
-    return manyAsDequeOf(TypeToken.of(clazz));
+    return PrivateGenerate.manyAsDequeOf(TypeToken.of(clazz));
   }
 
-  public static <T> Deque<T> manyAsDequeOf(final TypeToken<T> type) {
-    final Collection<T> many = FIXTURE.createMany(type);
-    final Deque<T> collection = CollectionFactory.createDequeFrom(many);
-    return collection;
+  public static <T> Deque<T> manyAsDequeOf(final InstanceOf<T> type) {
+    return PrivateGenerate.manyAsDequeOf(type);
   }
 
   public static <T> Deque<T> manyAsDequeOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    return manyAsDequeOf(TypeToken.of(type), omittedValues);
+    return PrivateGenerate.manyAsDequeOf(TypeToken.of(type), omittedValues);
   }
 
-  public static <T> Deque<T> manyAsDequeOf(final TypeToken<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    final Collection<T> collection = manyAsCollectionOf(type, omittedValues);
-    return CollectionFactory.createDequeFrom(collection);
+  public static <T> Deque<T> manyAsDequeOf(final InstanceOf<T> type, final InlineConstrainedGenerator<T> omittedValues) {
+    return PrivateGenerate.manyAsDequeOf(type, omittedValues);
   }
 
   //sorted sets: complete
   public static <T> SortedSet<T> manyAsSortedSetOf(final Class<T> clazz) {
-    return manyAsSortedSetOf(TypeToken.of(clazz));
+    return PrivateGenerate.manyAsSortedSetOf(TypeToken.of(clazz));
   }
 
 
-  public static <T> SortedSet<T> manyAsSortedSetOf(final TypeToken<T> type) {
-    final Collection<T> many = FIXTURE.createMany(type);
-    final SortedSet<T> collection = CollectionFactory.createSortedSetFrom(many);
-    return collection;
+  public static <T> SortedSet<T> manyAsSortedSetOf(final InstanceOf<T> type) {
+    return PrivateGenerate.manyAsSortedSetOf(type);
   }
 
   public static <T> SortedSet<T> manyAsSortedSetOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    return manyAsSortedSetOf(TypeToken.of(type), omittedValues);
+    return PrivateGenerate.manyAsSortedSetOf(TypeToken.of(type), omittedValues);
   }
 
-  public static <T> SortedSet<T> manyAsSortedSetOf(final TypeToken<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    final Collection<T> collection = manyAsCollectionOf(type, omittedValues);
-    return CollectionFactory.createSortedSetFrom(collection);
+  public static <T> SortedSet<T> manyAsSortedSetOf(final InstanceOf<T> type, final InlineConstrainedGenerator<T> omittedValues) {
+    return PrivateGenerate.manyAsSortedSetOf(type, omittedValues);
   }
 
   //sorted maps
 
   //TODO variations and UT
   public static <T, V> SortedMap<T, V> manyAsSortedMapBetween(final Class<T> key, final Class<V> value) {
-    return manyAsSortedMapBetween(TypeToken.of(key), TypeToken.of(value));
+    return PrivateGenerate.manyAsSortedMapBetween(TypeToken.of(key), TypeToken.of(value));
   }
 
-  public static <T, V> SortedMap<T, V> manyAsSortedMapBetween(final TypeToken<T> key, final TypeToken<V> value) {
-    return CollectionFactory.createSortedMapFrom(manyAsMapBetween(key, value));
+  public static <T, V> SortedMap<T, V> manyAsSortedMapBetween(final InstanceOf<T> key, final InstanceOf<V> value) {
+    return PrivateGenerate.manyAsSortedMapBetween(key, value);
   }
 
   //maps
 
   //TODO variations
   public static <T, V> Map<T, V> manyAsMapBetween(final Class<T> keyClass, final Class<V> valueClass) {
-    return manyAsMapBetween(TypeToken.of(keyClass), TypeToken.of(valueClass));
+    return PrivateGenerate.manyAsMapBetween(TypeToken.of(keyClass), TypeToken.of(valueClass));
   }
 
-  public static <T, V> Map<T, V> manyAsMapBetween(final TypeToken<T> keyType, final TypeToken<V> valueType) {
-    final T[] keys = (T[]) manyAsCollectionOf(keyType).toArray();
-    final V[] values = (V[]) manyAsCollectionOf(valueType).toArray();
-
-    final Map<T, V> map = CollectionFactory.createMapFrom(keys, values);
-
-    return map;
+  public static <T, V> Map<T, V> manyAsMapBetween(final InstanceOf<T> keyType, final InstanceOf<V> valueType) {
+    return PrivateGenerate.manyAsMapBetween(keyType, valueType);
   }
 
   private static Long[] boxed(final long[] other) {
@@ -492,25 +463,24 @@ public class Generate {
     return IntStream.of(other).boxed().toArray(Integer[]::new);
   }
 
-
-  public static <T> T dummy(TypeToken<T> instanceType) {
-    return FIXTURE.createDummy(instanceType);
+  public static <T> T dummy(InstanceOf<T> instanceType) {
+    return PrivateGenerate.FIXTURE.createDummy(instanceType);
   }
 
   public static <T> T dummy(Class<T> clazz) {
-    return FIXTURE.createDummy(clazz);
+    return PrivateGenerate.FIXTURE.createDummy(clazz);
   }
 
   public static RuntimeException anyRuntimeException() {
-    return FIXTURE.create(RuntimeException.class);
+    return PrivateGenerate.FIXTURE.create(RuntimeException.class);
   }
 
   public static Exception anyCheckedException() {
-    return FIXTURE.create(Exception.class);
+    return PrivateGenerate.FIXTURE.create(Exception.class);
   }
 
   public static Throwable anyThrowable() {
-    return FIXTURE.create(Throwable.class);
+    return PrivateGenerate.FIXTURE.create(Throwable.class);
   }
 
   public static String anyString(String seed) {

@@ -40,6 +40,10 @@ public class Fixture implements FixtureContract {
     return create(new ConcreteInstanceType<>(typeToken));
   }
 
+  public <T> T create(final InstanceOf<T> typeToken) {
+    return create((TypeToken<T>)(typeToken));
+  }
+
   public <T> T createDummy(final Class<T> clazz) {
     return this.createDummy(TypeToken.of(Primitives.wrap(clazz)));
   }
@@ -48,12 +52,19 @@ public class Fixture implements FixtureContract {
     return createDummy(new ConcreteInstanceType<>(typeToken));
   }
 
+  public <T> T createDummy(final InstanceOf<T> typeToken) {
+    return createDummy((TypeToken<T>)(typeToken));
+  }
 
   @Override
   public <T> T freeze(final TypeToken<T> clazz) {
     final T value = create(clazz);
     inject(value);
     return value;
+  }
+
+  public <T> T freeze(final InstanceOf<T> clazz) {
+    return freeze((TypeToken<T>)clazz);
   }
 
   @Override
@@ -87,6 +98,10 @@ public class Fixture implements FixtureContract {
     return manyObjects;
   }
 
+  public <T> Collection<T> createMany(final InstanceOf<T> type) {
+    return createMany((TypeToken<T>)type);
+  }
+
   @Override
   public <T> T[] createArray(final TypeToken<T> type) {
     final T[] array = CollectionFactory.createArray(type, repeatCount);
@@ -96,6 +111,9 @@ public class Fixture implements FixtureContract {
     return array;
   }
 
+  public <T> T[] createArray(final InstanceOf<T> type) {
+    return createArray((TypeToken<T>)type);
+  }
 
   @Override
   public <T> Collection<? super T> createMany(final InstanceType<T> type) {
@@ -134,6 +152,10 @@ public class Fixture implements FixtureContract {
   @Override
   public <T> T create(final TypeToken<T> type, final InlineConstrainedGenerator<T> generator) {
     return generator.next(type, this);
+  }
+
+  public <T> T create(final InstanceOf<T> type, final InlineConstrainedGenerator<T> generator) {
+    return create((TypeToken<T>)type, generator);
   }
 
   @Override

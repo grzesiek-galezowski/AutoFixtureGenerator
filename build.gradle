@@ -7,16 +7,17 @@ buildscript {
     dependencies {
         classpath "info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.1.11"
         classpath "gradle.plugin.pl.squirrel:classycle-gradle-plugin:1.2"
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
     }
 }
 
 plugins {
     id 'net.researchgate.release' version "2.6.0"
     id 'com.github.ben-manes.versions' version '0.15.0'
-    id 'com.github.johnrengelman.shadow' version '2.0.1'
 }
 
 apply plugin: "info.solidsoft.pitest"
+apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'signing'
@@ -53,7 +54,6 @@ if (travis == "null") {
 }
 
 group 'com.github.autofixture'
-apply plugin: 'java'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -61,9 +61,6 @@ targetCompatibility = 1.8
 repositories {
     mavenCentral()
     jcenter()
-}
-
-shadowJar {
 }
 
 task wrapper(type: Wrapper) {
@@ -105,10 +102,9 @@ findbugs {
 
 shadowJar {
     classifier = null
-    dependencies {
-        exclude(dependency('com.sharneng:jsr305defaults'))
-    }
-    relocate '', 'shadow.autofixture.'
+    relocate('com.google', 'shadow.')
+    relocate('com.sharneng', 'shadow.')
+    relocate('org.objenesis', 'shadow.')
 }
 
 dependencies {

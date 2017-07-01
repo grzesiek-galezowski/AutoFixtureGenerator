@@ -4,7 +4,6 @@ import autofixture.publicinterface.Any;
 import autofixture.publicinterface.Fixture;
 import autofixture.publicinterface.InstanceOf;
 import autofixture.specification.acceptance.matchers.ArrayMatchers;
-import com.google.common.reflect.TypeToken;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
@@ -16,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 import static autofixture.publicinterface.Generate.any;
-import static autofixture.specification.acceptance.matchers.ArrayMatchers.*;
+import static autofixture.specification.acceptance.matchers.ArrayMatchers.typeOf;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -28,51 +27,51 @@ public class MapTypesGenerationSpecification {
 
   @SuppressWarnings("serial")
   @DataPoint
-  public static TypeToken<Map<String, String>> mapClass = new TypeToken<Map<String, String>>() {
+  public static InstanceOf<Map<String, String>> mapClass = new InstanceOf<Map<String, String>>() {
   };
   @SuppressWarnings("serial")
   @DataPoint
-  public static TypeToken<SortedMap<String, String>> sortedMapClass = new TypeToken<SortedMap<String, String>>() {
+  public static InstanceOf<SortedMap<String, String>> sortedMapClass = new InstanceOf<SortedMap<String, String>>() {
   };
   @SuppressWarnings("serial")
   @DataPoint
-  public static TypeToken<TreeMap<String, String>> treeMapClass = new TypeToken<TreeMap<String, String>>() {
+  public static InstanceOf<TreeMap<String, String>> treeMapClass = new InstanceOf<TreeMap<String, String>>() {
   };
   @SuppressWarnings("serial")
   @DataPoint
-  public static TypeToken<NavigableMap<String, String>> navigableMapClass = new TypeToken<NavigableMap<String, String>>() {
+  public static InstanceOf<NavigableMap<String, String>> navigableMapClass = new InstanceOf<NavigableMap<String, String>>() {
   };
   @SuppressWarnings("serial")
   @DataPoint
-  public static TypeToken<AbstractMap<String, String>> abstractMapClass = new TypeToken<AbstractMap<String, String>>() {
+  public static InstanceOf<AbstractMap<String, String>> abstractMapClass = new InstanceOf<AbstractMap<String, String>>() {
   };
   @SuppressWarnings("serial")
   @DataPoint
-  public static TypeToken<ConcurrentHashMap<String, String>> concurrentHashMapClass = new TypeToken<ConcurrentHashMap<String, String>>() {
+  public static InstanceOf<ConcurrentHashMap<String, String>> concurrentHashMapClass = new InstanceOf<ConcurrentHashMap<String, String>>() {
   };
   @SuppressWarnings("serial")
   @DataPoint
-  public static TypeToken<ConcurrentSkipListMap<String, String>> concurrentSkipListMapClass = new TypeToken<ConcurrentSkipListMap<String, String>>() {
+  public static InstanceOf<ConcurrentSkipListMap<String, String>> concurrentSkipListMapClass = new InstanceOf<ConcurrentSkipListMap<String, String>>() {
   };
   @SuppressWarnings("serial")
   @DataPoint
-  public static TypeToken<HashMap<String, String>> hashMapClass = new TypeToken<HashMap<String, String>>() {
+  public static InstanceOf<HashMap<String, String>> hashMapClass = new InstanceOf<HashMap<String, String>>() {
   };
   @SuppressWarnings("serial")
   @DataPoint
-  public static TypeToken<Hashtable<String, String>> hashtableClass = new TypeToken<Hashtable<String, String>>() {
+  public static InstanceOf<Hashtable<String, String>> hashtableClass = new InstanceOf<Hashtable<String, String>>() {
   };
   @SuppressWarnings("serial")
   @DataPoint
-  public static TypeToken<IdentityHashMap<String, String>> identityHashMapClass = new TypeToken<IdentityHashMap<String, String>>() {
+  public static InstanceOf<IdentityHashMap<String, String>> identityHashMapClass = new InstanceOf<IdentityHashMap<String, String>>() {
   };
   @SuppressWarnings("serial")
   @DataPoint
-  public static TypeToken<LinkedHashMap<String, String>> linkedHashMapClass = new TypeToken<LinkedHashMap<String, String>>() {
+  public static InstanceOf<LinkedHashMap<String, String>> linkedHashMapClass = new InstanceOf<LinkedHashMap<String, String>>() {
   };
   @SuppressWarnings("serial")
   @DataPoint
-  public static TypeToken<WeakHashMap<String, String>> weakHashMapClass = new TypeToken<WeakHashMap<String, String>>() {
+  public static InstanceOf<WeakHashMap<String, String>> weakHashMapClass = new InstanceOf<WeakHashMap<String, String>>() {
   };
 
 
@@ -83,7 +82,7 @@ public class MapTypesGenerationSpecification {
     Map<DayOfWeek, String> collection = fixture.create(new InstanceOf<EnumMap<DayOfWeek, String>>() {});
 
     assertHasThreeUniqueEnumItems(
-        new TypeToken<EnumMap<DayOfWeek, String>>() {},
+        new InstanceOf<EnumMap<DayOfWeek, String>>() {},
         collection,
         DayOfWeek.class,
         String.class);
@@ -92,7 +91,7 @@ public class MapTypesGenerationSpecification {
 
   @Theory
   public void shouldGenerateMapsWithThreeUniqueKeysAndValues(
-      TypeToken<? extends Map<String, String>> collectionClass) {
+      InstanceOf<? extends Map<String, String>> collectionClass) {
     Map<String, String> collection = fixture.create(collectionClass);
 
     assertHasThreeUniqueEnumItems(
@@ -101,7 +100,7 @@ public class MapTypesGenerationSpecification {
 
   @Theory
   public void shouldGenerateMapsWithThreeUniqueElementsUsingAnyClass(
-      TypeToken<? extends Map<String, String>> mapClass) {
+      InstanceOf<? extends Map<String, String>> mapClass) {
     Map<String, String> collection = Any.anonymous(mapClass);
 
     assertHasThreeUniqueEnumItems(
@@ -110,7 +109,7 @@ public class MapTypesGenerationSpecification {
 
   @Theory
   public void shouldGenerateMapsWithThreeUniqueElementsUsingAnyMethod(
-      TypeToken<? extends Map<String, String>> mapClass) {
+      InstanceOf<? extends Map<String, String>> mapClass) {
     Map<String, String> collection = any(mapClass);
 
     assertHasThreeUniqueEnumItems(
@@ -121,7 +120,7 @@ public class MapTypesGenerationSpecification {
   }
 
   private static <T, U> void assertHasThreeUniqueEnumItems(
-      TypeToken<? extends Map<T, U>> mapClass,
+      InstanceOf<? extends Map<T, U>> mapClass,
       Map<T, U> mapInstance,
       Class<T> keyClass, Class<U> valueClass) {
 
