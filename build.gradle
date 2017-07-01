@@ -46,7 +46,6 @@ if (travis == "null") {
     }
 
     signing {
-        sign configurations.archives
         sign configurations.shadow
     }
 
@@ -64,6 +63,8 @@ repositories {
     mavenCentral()
     jcenter()
 }
+
+jar.enabled = false
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.0'
@@ -103,7 +104,7 @@ findbugs {
 }
 
 shadowJar {
-    //classifier = null
+    classifier = null
     dependencies {
         exclude(dependency('com.sharneng:jsr305defaults'))
     }
