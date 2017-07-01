@@ -126,7 +126,6 @@ dependencies {
 }
 
 artifacts {
-    archives shadowJar
     archives javadocJar
     archives sourcesJar
 }
@@ -176,7 +175,7 @@ uploadShadow {
     }
 }
 
-uploadShadow.dependsOn([shadowJar, test])
+uploadShadow.dependsOn([shadowJar, test, signShadow])
 uploadArchives.dependsOn uploadShadow
 //check.dependsOn("pitest")
 afterReleaseBuild.dependsOn uploadArchives
