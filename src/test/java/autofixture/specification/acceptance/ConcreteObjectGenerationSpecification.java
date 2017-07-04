@@ -83,6 +83,21 @@ public class ConcreteObjectGenerationSpecification {
   }
 
   @Test
+  public void shouldCreateObjectsWithPackagePrivateConstructors() {
+    ObjectWithPackagePrivateConstructor o1 = fixture.create(ObjectWithPackagePrivateConstructor.class);
+    ObjectWithPackagePrivateConstructor o2 = fixture.create(ObjectWithPackagePrivateConstructor.class);
+
+    assertThat(o1.getX(), not(equalTo(o2.getX())));
+  }
+
+  @Test
+  public void shouldPreferPublicConstructorsOverPackagePrivateConstructors() {
+    ObjectWithPackagePrivateAndPublicConstructor o1
+        = fixture.create(ObjectWithPackagePrivateAndPublicConstructor.class);
+    assertThat(o1.getStr(), equalTo("Hello"));
+  }
+
+  @Test
   public void shouldCreateInstancesOfClassesWithCustomGenericConstructorParameters() {
     ObjectWithGenericConstructorParameters obj
       = fixture.create(TypeToken.of(ObjectWithGenericConstructorParameters.class));

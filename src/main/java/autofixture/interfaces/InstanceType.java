@@ -50,7 +50,7 @@ public interface InstanceType<T> {
   InstanceType<?> getNestedGenericType1();
   InstanceType<?> getNestedGenericType2();
 
-  Call<T, T> findPublicConstructorWithLeastParameters();
+  Call<T, T> findSuitableConstructorWithLeastParameters();
 
   boolean isEnum();
 

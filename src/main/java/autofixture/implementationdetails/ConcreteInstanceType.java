@@ -257,44 +257,45 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   }
 
   @Override
-  public Call<T, T> findPublicConstructorWithLeastParameters() {
-    final Constructor<?>[] constructors =
-        getConstructorsSortedFromLongestToShortestParametersCount();
+  public Call<T, T> findSuitableConstructorWithLeastParameters() {
+    final List<ConstructorCall<T>> constructors =
+        ConstructorCall.getConstructorsSortedFromLongestToShortestParametersCount(
+            typeToken);
 
-    int currentArgumentCount = Integer.MAX_VALUE;
-    Optional<Invokable<T, T>> currentConstructor = Optional.absent();
+    Optional<ConstructorCall<T>> suitableConstructor = findConstructor(
+        constructors, ConstructorVisibility.getPublic());
 
-    for (final Constructor<?> constructor : constructors) {
-      final Invokable<T, T> invokable = typeToken.constructor(constructor);
-      final int invokableParametersCount = invokable.getParameters().size();
-      if (invokable.isPublic() && invokableParametersCount < currentArgumentCount) {
-
-        if (currentConstructor.isPresent() && invokableParametersCount == 0) {
-          continue;
-        }
-
-        currentArgumentCount = invokableParametersCount;
-        currentConstructor = Optional.of(invokable);
-      }
+    if (suitableConstructor.isPresent()) {
+      return MethodCall.to(suitableConstructor.get().getRawValue()); //do something about it
     }
 
-    if (!currentConstructor.isPresent()) {
-      throw new ObjectCreationException(this, "Could not find any public constructor");
+    suitableConstructor = findConstructor(
+        constructors, ConstructorVisibility.getPackagePrivate());
+
+    if(suitableConstructor.isPresent()) {
+      return MethodCall.to(suitableConstructor.get().getRawValue()); //do something about it
     }
-    return MethodCall.to(currentConstructor.get());
+
+    throw new ObjectCreationException(this, "Could not find any suitable constructor");
+
   }
 
-  private Constructor<?>[] getConstructorsSortedFromLongestToShortestParametersCount() {
-    final Constructor<?>[] constructors = this.getRawType().getConstructors();
+  private Optional<ConstructorCall<T>> findConstructor(
+      List<ConstructorCall<T>> constructors,
+      ConstructorVisibility visibility) {
+    int currentArgumentCount = Integer.MAX_VALUE;
+    Optional<ConstructorCall<T>> currentConstructor = Optional.absent();
 
-    Arrays.sort(constructors, (arg0, arg1) -> {
-      final Invokable<T, T> invokable1 = typeToken.constructor(arg0);
-      final Invokable<T, T> invokable2 = typeToken.constructor(arg1);
-      return Integer.compare(
-          invokable2.getParameters().size(),
-          invokable1.getParameters().size());
-    });
-    return constructors;
+    for (final ConstructorCall<T> constructor : constructors) {
+      if (visibility.appliesTo(constructor) && constructor.hasLessParametersThan(currentArgumentCount)) {
+
+        if (!(currentConstructor.isPresent() && constructor.isParameterless())) {
+          currentArgumentCount = constructor.getParametersCount();
+          currentConstructor = Optional.of(constructor);
+        }
+      }
+    }
+    return currentConstructor;
   }
 
   @Override
@@ -384,3 +385,4 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   }
 
 }
+

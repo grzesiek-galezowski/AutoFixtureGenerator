@@ -41,7 +41,7 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
   }
 
   private <T> T createInstanceOf(final InstanceType<T> type, final FixtureContract fixture) {
-    final Call<T, T> currentConstructor = type.findPublicConstructorWithLeastParameters();
+    final Call<T, T> currentConstructor = type.findSuitableConstructorWithLeastParameters();
     final T instance = currentConstructor.invokeWithArgumentsCreatedUsing(fixture);
     return instance;
   }
