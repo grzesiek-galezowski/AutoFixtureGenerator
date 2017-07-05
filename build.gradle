@@ -106,7 +106,7 @@ findbugs {
 
 shadowJar {
     classifier = null
-    relocate('com.google.common.reflect', 'shadow.com.google.common.reflect')
+    relocate('com.google.common', 'shadow.com.google.common')
     relocate('com.sharneng', 'shadow.com.sharneng')
     relocate('org.objenesis', 'shadow.org.objenesis')
 }
