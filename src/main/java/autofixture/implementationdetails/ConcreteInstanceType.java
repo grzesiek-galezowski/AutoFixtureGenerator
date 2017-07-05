@@ -287,12 +287,12 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
     Optional<ConstructorCall<T>> currentConstructor = Optional.absent();
 
     for (final ConstructorCall<T> constructor : constructors) {
-      if (visibility.appliesTo(constructor) && constructor.hasLessParametersThan(currentArgumentCount)) {
+      if (visibility.appliesTo(constructor)
+          && constructor.hasLessParametersThan(currentArgumentCount)
+          && (!currentConstructor.isPresent() || !constructor.isParameterless())) {
 
-        if (!(currentConstructor.isPresent() && constructor.isParameterless())) {
-          currentArgumentCount = constructor.getParametersCount();
-          currentConstructor = Optional.of(constructor);
-        }
+        currentArgumentCount = constructor.getParametersCount();
+        currentConstructor = Optional.of(constructor);
       }
     }
     return currentConstructor;

@@ -106,9 +106,9 @@ findbugs {
 
 shadowJar {
     classifier = null
-    relocate('com.google', 'shadow.')
-    relocate('com.sharneng', 'shadow.')
-    relocate('org.objenesis', 'shadow.')
+    relocate('com.google.common.reflect', 'shadow.com.google.common.reflect')
+    relocate('com.sharneng', 'shadow.com.sharneng')
+    relocate('org.objenesis', 'shadow.org.objenesis')
 }
 
 dependencies {
