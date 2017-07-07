@@ -318,7 +318,7 @@ public class Generate {
   }
 
   public static <T> List<T> manyAsListOf(final InstanceOf<T> typeToken, final InlineConstrainedGenerator<T> generator) {
-    return PrivateGenerate.manyAsListOf(typeToken);
+    return PrivateGenerate.manyAsListOf(typeToken, generator);
   }
 
   public static <T> List<T> manyAsListOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {

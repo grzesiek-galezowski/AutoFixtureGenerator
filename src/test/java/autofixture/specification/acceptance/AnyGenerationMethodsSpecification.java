@@ -34,7 +34,7 @@ public class AnyGenerationMethodsSpecification {
 
   @Parameterized.Parameters
   public static List<Object[]> data() {
-    return Arrays.asList(new Object[5][0]);
+    return Arrays.asList(new Object[50][0]);
   }
 
   public AnyGenerationMethodsSpecification() {
