@@ -1,6 +1,5 @@
 package autofixture.exceptions;
 
-
 import autofixture.interfaces.InstanceType;
 import org.jetbrains.annotations.NotNull;
 
