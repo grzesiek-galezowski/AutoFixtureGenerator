@@ -1,8 +1,17 @@
 package autofixture.generators;
 
+import autofixture.generators.collections.*;
 import autofixture.generators.enums.EnumSequenceGenerator;
 import autofixture.generators.enums.InMemoryEnumCache;
-import autofixture.generators.object.ConcreteObjectGenerator;
+import autofixture.generators.numbers.*;
+import autofixture.generators.objects.ConcreteObjectGenerator;
+import autofixture.generators.objects.InterfaceImplementationGenerator;
+import autofixture.generators.objects.ObjenesisGenerator;
+import autofixture.generators.objects.PlainObjectGenerator;
+import autofixture.generators.throwables.ErrorGenerator;
+import autofixture.generators.throwables.ExceptionGenerator;
+import autofixture.generators.throwables.ThrowableGenerator;
+import autofixture.generators.time.*;
 import autofixture.interfaces.GeneratorsPipeline;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.RecursionGuard;

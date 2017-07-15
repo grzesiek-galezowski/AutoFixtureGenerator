@@ -1,7 +1,7 @@
 package autofixture.publicinterface.inline;
 
 import autofixture.exceptions.OnlyInterfacesAreSupportedException;
-import autofixture.implementationdetails.ExplodingInstanceHandler;
+import autofixture.publicinterface.inline.implementationdetails.ExplodingInstanceHandler;
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InlineInstanceGenerator;
 import com.google.common.reflect.Reflection;
