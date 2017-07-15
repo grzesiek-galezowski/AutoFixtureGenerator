@@ -1,4 +1,4 @@
-package autofixture.implementationdetails;
+package autofixture.generators.objects.implementationdetails;
 
 /**
  * Created by grzes on 04.07.2017.

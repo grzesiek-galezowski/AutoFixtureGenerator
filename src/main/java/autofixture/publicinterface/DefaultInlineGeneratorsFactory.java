@@ -5,6 +5,7 @@ import autofixture.interfaces.InlineGeneratorsFactory;
 import autofixture.interfaces.InlineInstanceGenerator;
 import autofixture.publicinterface.constraints.OtherThanConstraint;
 import autofixture.publicinterface.inline.*;
+import autofixture.publicinterface.inline.strings.*;
 import com.google.common.reflect.TypeToken;
 
 /**

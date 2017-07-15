@@ -1,4 +1,4 @@
-package autofixture.implementationdetails;
+package autofixture.generators.objects.implementationdetails;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;

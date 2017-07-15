@@ -1,4 +1,4 @@
-package autofixture.publicinterface.inline;
+package autofixture.publicinterface.inline.strings;
 
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InlineInstanceGenerator;

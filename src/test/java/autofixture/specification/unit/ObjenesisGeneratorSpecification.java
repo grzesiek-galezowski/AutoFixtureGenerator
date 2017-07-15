@@ -1,6 +1,6 @@
 package autofixture.specification.unit;
 
-import autofixture.implementationdetails.ConcreteInstanceType;
+import autofixture.generators.objects.implementationdetails.ConcreteInstanceType;
 import autofixture.implementationdetails.MapBasedRecursionGuard;
 import autofixture.interfaces.InstanceType;
 import autofixture.publicinterface.Fixture;

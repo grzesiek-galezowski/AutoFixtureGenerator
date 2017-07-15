@@ -1,6 +1,6 @@
 package autofixture.specification.acceptance;
 
-import autofixture.implementationdetails.ConcreteInstanceType;
+import autofixture.generators.objects.implementationdetails.ConcreteInstanceType;
 import autofixture.publicinterface.Fixture;
 import autofixture.publicinterface.InstanceOf;
 import autofixture.specification.acceptance.matchers.HasArrayLengthMatcher;

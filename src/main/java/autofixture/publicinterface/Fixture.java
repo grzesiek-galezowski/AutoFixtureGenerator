@@ -2,7 +2,7 @@ package autofixture.publicinterface;
 
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.implementationdetails.CollectionFactory;
-import autofixture.implementationdetails.ConcreteInstanceType;
+import autofixture.generators.objects.implementationdetails.ConcreteInstanceType;
 import autofixture.implementationdetails.MapBasedRecursionGuard;
 import autofixture.interfaces.*;
 import autofixture.generators.DefaultGeneratorsFactory;

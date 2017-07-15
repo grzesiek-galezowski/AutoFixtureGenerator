@@ -1,4 +1,4 @@
-package autofixture.implementationdetails;
+package autofixture.generators.objects.implementationdetails;
 
 import autofixture.exceptions.ObjectCreationException;
 import autofixture.interfaces.Call;

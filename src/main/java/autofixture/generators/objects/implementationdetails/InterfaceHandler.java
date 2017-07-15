@@ -1,6 +1,5 @@
 package autofixture.generators.objects.implementationdetails;
 
-import autofixture.implementationdetails.MethodsInvocationResultCache;
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InstanceType;
 import com.google.common.base.Optional;

@@ -1,6 +1,7 @@
-package autofixture.implementationdetails;
+package autofixture.generators.objects.implementationdetails;
 
 import autofixture.exceptions.ObjectCreationException;
+import autofixture.implementationdetails.CollectionFactory;
 import autofixture.interfaces.Call;
 import autofixture.interfaces.InstanceField;
 import autofixture.interfaces.InstanceType;

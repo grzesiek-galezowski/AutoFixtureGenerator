@@ -1,4 +1,4 @@
-package autofixture.implementationdetails;
+package autofixture.generators.objects.implementationdetails;
 
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InstanceField;

@@ -1,4 +1,4 @@
-package autofixture.implementationdetails;
+package autofixture.generators.objects.implementationdetails;
 
 public class PublicVisibility<T> implements ConstructorVisibility<T> {
 

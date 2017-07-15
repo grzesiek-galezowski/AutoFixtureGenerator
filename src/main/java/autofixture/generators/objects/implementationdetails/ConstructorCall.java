@@ -1,4 +1,4 @@
-package autofixture.implementationdetails;
+package autofixture.generators.objects.implementationdetails;
 
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.TypeToken;
