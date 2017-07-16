@@ -1,7 +1,6 @@
 package autofixture.exceptions;
 
 import autofixture.interfaces.InstanceType;
-import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("serial")
 public class ObjectCreationException extends RuntimeException {
@@ -10,7 +9,6 @@ public class ObjectCreationException extends RuntimeException {
     super(basicMessageFor(instanceType));
   }
 
-  @NotNull
   private static String basicMessageFor(final InstanceType<?> instanceType) {
     return "Cannot create an instance of " + instanceType + ".";
   }
