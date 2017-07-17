@@ -9,14 +9,6 @@ public interface FixtureContract {
 
   <T> T create(TypeToken<T> typeToken);
 
-  <T> T freeze(TypeToken<T> clazz);
-
-  <T> T freeze(Class<T> clazz);
-
-  void register(InstanceGenerator instanceGenerator);
-
-  void clearCustomizations();
-
   <T> T create(InstanceType<T> instanceType);
 
   <T> Collection<? super T> createMany(InstanceType<T> type);
@@ -26,10 +18,6 @@ public interface FixtureContract {
   <T> T[] createArray(TypeToken<T> type);
 
   int getRepeatCount();
-
-  <T> void inject(T injectedValue);
-
-  <T> T create(TypeToken<T> type, InlineConstrainedGenerator<T> generator);
 
   <T> T create(InlineInstanceGenerator<T> generator);
 }

@@ -56,7 +56,6 @@ public class Fixture implements FixtureContract {
     return createDummy((TypeToken<T>)(typeToken));
   }
 
-  @Override
   public <T> T freeze(final TypeToken<T> clazz) {
     final T value = create(clazz);
     inject(value);
@@ -67,17 +66,14 @@ public class Fixture implements FixtureContract {
     return freeze((TypeToken<T>)clazz);
   }
 
-  @Override
   public <T> T freeze(final Class<T> clazz) {
     return freeze(TypeToken.of(Primitives.wrap(clazz)));
   }
 
-  @Override
   public void register(final InstanceGenerator instanceGenerator) {
     instanceGenerators.registerCustomization(instanceGenerator);
   }
 
-  @Override
   public void clearCustomizations() {
     instanceGenerators.clearCustomizations();
   }
@@ -129,7 +125,6 @@ public class Fixture implements FixtureContract {
     this.repeatCount = repeatCount;
   }
 
-  @Override
   public <T> void inject(final T injectedValue) {
     register(new InstanceGenerator() {
       @Override
@@ -149,7 +144,6 @@ public class Fixture implements FixtureContract {
     });
   }
 
-  @Override
   public <T> T create(final TypeToken<T> type, final InlineConstrainedGenerator<T> generator) {
     return generator.next(type, this);
   }
