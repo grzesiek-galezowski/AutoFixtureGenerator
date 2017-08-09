@@ -1,0 +1,43 @@
+apply plugin: "info.solidsoft.pitest"
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
+apply plugin: 'jdepend'
+apply plugin: 'pmd'
+apply plugin: "jacoco"
+apply plugin: "pl.squirrel.classycle"
+
+pitest {
+    targetClasses = ['autofixture.*']  //by default "${project.group}.*"
+    threads = 8
+    outputFormats = ['XML', 'HTML']
+    pitestVersion = "1.2.0"
+}
+
+checkstyle {
+    ignoreFailures = false
+    sourceSets = [project.sourceSets.main]
+}
+
+jdepend {
+    ignoreFailures = false
+}
+
+jdependMain {
+    reports {
+        xml.enabled false
+        text.enabled true
+    }
+}
+
+findbugs {
+    effort = "max"
+    reportLevel = "high"
+    ignoreFailures = false
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}

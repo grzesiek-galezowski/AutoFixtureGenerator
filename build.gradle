@@ -17,42 +17,15 @@ plugins {
     id 'io.franzbecker.gradle-lombok' version '1.8'
 }
 
-apply plugin: "info.solidsoft.pitest"
-apply plugin: 'com.github.johnrengelman.shadow'
+//apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'signing'
-apply plugin: 'checkstyle'
-apply plugin: 'findbugs'
-apply plugin: 'jdepend'
-apply plugin: 'pmd'
-apply plugin: "jacoco"
-apply plugin: "pl.squirrel.classycle"
+//apply plugin: 'maven'
+//apply plugin: 'signing'
 
-def travis = "$System.env.TRAVIS"
+apply from: 'gradle/compile.gradle'
+apply from: 'gradle/test.gradle'
+apply from: 'gradle/release.gradle'
 
-def password = "";
-if (travis == "null") {
-    println "Normal build detected"
-    password = new File('C:\\Users\\grzes\\Dysk Google\\GradlePassword.txt').text
-
-    gradle.taskGraph.whenReady { taskGraph ->
-        if (taskGraph.allTasks.any { it instanceof Sign }) {
-            allprojects {
-                ext."signing.password" = password
-                ext."signing.keyId" = '58596C05' //'58596C05' //workplace E52FB31B
-                ext."signing.secretKeyRingFile" = 'C:/Users/grzes/AppData/Roaming/gnupg/secring.gpg'
-            }
-        }
-    }
-
-    signing {
-        sign configurations.archives
-    }
-
-} else {
-    println "TRAVIS CI build detected"
-}
 
 group 'com.github.autofixture'
 
@@ -68,47 +41,8 @@ task wrapper(type: Wrapper) {
     gradleVersion = '4.0'
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from 'build/docs/javadoc'
-}
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
-
 lombok {
     version = "1.16.16"
-}
-
-pitest {
-    targetClasses = ['autofixture.*']  //by default "${project.group}.*"
-    threads = 8
-    outputFormats = ['XML', 'HTML']
-    pitestVersion = "1.2.0"
-}
-
-checkstyle {
-    ignoreFailures = false
-    sourceSets = [project.sourceSets.main]
-}
-
-jdepend {
-    ignoreFailures = false
-}
-
-findbugs {
-    effort = "max"
-    reportLevel = "high"
-    ignoreFailures = false
-}
-
-shadowJar {
-    classifier = null
-    relocate('com.google.common', 'shadow.com.google.common')
-    relocate('com.sharneng', 'shadow.com.sharneng')
-    relocate('org.objenesis', 'shadow.org.objenesis')
 }
 
 dependencies {
@@ -128,62 +62,3 @@ dependencies {
 
 }
 
-artifacts {
-    archives shadowJar
-    archives javadocJar
-    archives sourcesJar
-}
-
-release {
-    failOnCommitNeeded = false
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                //repository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
-                authentication(userName: "grzesiek-galezowski", password: password)
-            }
-
-            pom.project {
-                name 'autofixturegenerator'
-                packaging 'jar'
-                description 'Auto Fixture Generator'
-                url 'https://github.com/grzesiek-galezowski/AutoFixtureGenerator/'
-
-                scm {
-                    url 'scm:git@github.com:grzesiek-galezowski/AutoFixtureGenerator.git'
-                    connection 'scm:git@github.com:grzesiek-galezowski/AutoFixtureGenerator.git'
-                    developerConnection 'scm:git@github.com:grzesiek-galezowski/AutoFixtureGenerator.git'
-                }
-
-                licenses {
-                    license {
-                        name 'The MIT License (MIT)'
-                        url 'http://opensource.org/licenses/MIT'
-                        distribution 'repo'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'grzesiek-galezowski'
-                        name 'Grzegorz Gałęzowski'
-                    }
-                }
-            }
-        }
-    }
-}
-
-uploadArchives.dependsOn([shadowJar, test])
-afterReleaseBuild.dependsOn uploadArchives
-tasks.withType(FindBugs) {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}

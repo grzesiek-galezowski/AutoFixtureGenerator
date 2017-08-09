@@ -1,0 +1,99 @@
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+def travis = "$System.env.TRAVIS"
+
+def password = "";
+if (travis == "null") {
+    println "Normal build detected"
+    password = new File('C:\\Users\\grzes\\Dysk Google\\GradlePassword.txt').text
+
+    gradle.taskGraph.whenReady { taskGraph ->
+        if (taskGraph.allTasks.any { it instanceof Sign }) {
+            allprojects {
+                ext."signing.password" = password
+                ext."signing.keyId" = '58596C05' //'58596C05' //workplace E52FB31B
+                ext."signing.secretKeyRingFile" = 'C:/Users/grzes/AppData/Roaming/gnupg/secring.gpg'
+            }
+        }
+    }
+
+    signing {
+        sign configurations.archives
+    }
+
+} else {
+    println "TRAVIS CI build detected"
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+shadowJar {
+    classifier = null
+    relocate('com.google.common', 'shadow.com.google.common')
+    relocate('com.sharneng', 'shadow.com.sharneng')
+    relocate('org.objenesis', 'shadow.org.objenesis')
+}
+
+release {
+    failOnCommitNeeded = false
+}
+
+artifacts {
+    archives shadowJar
+    archives javadocJar
+    archives sourcesJar
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                //repository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+                authentication(userName: "grzesiek-galezowski", password: password)
+            }
+
+            pom.project {
+                name 'autofixturegenerator'
+                packaging 'jar'
+                description 'Auto Fixture Generator'
+                url 'https://github.com/grzesiek-galezowski/AutoFixtureGenerator/'
+
+                scm {
+                    url 'scm:git@github.com:grzesiek-galezowski/AutoFixtureGenerator.git'
+                    connection 'scm:git@github.com:grzesiek-galezowski/AutoFixtureGenerator.git'
+                    developerConnection 'scm:git@github.com:grzesiek-galezowski/AutoFixtureGenerator.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The MIT License (MIT)'
+                        url 'http://opensource.org/licenses/MIT'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'grzesiek-galezowski'
+                        name 'Grzegorz Gałęzowski'
+                    }
+                }
+            }
+        }
+    }
+}
+
+uploadArchives.dependsOn([shadowJar, test])
+afterReleaseBuild.dependsOn uploadArchives
