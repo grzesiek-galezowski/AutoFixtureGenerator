@@ -12,8 +12,6 @@ import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.*;
 
-import static com.google.common.base.CharMatcher.is;
-
 public class Any {
 
   @NonNull
