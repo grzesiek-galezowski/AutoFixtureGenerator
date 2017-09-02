@@ -5,10 +5,10 @@ import autofixture.implementationdetails.CollectionFactory;
 import autofixture.interfaces.Call;
 import autofixture.interfaces.InstanceField;
 import autofixture.interfaces.InstanceType;
-import com.google.common.base.Optional;
 import com.google.common.primitives.Primitives;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.TypeToken;
+import lombok.val;
 
 import java.lang.reflect.*;
 import java.util.*;
@@ -18,9 +18,13 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 
   public static final int LENGTH_OF_SETTER_PREFIX = 3;
   private final TypeToken<T> typeToken;
+  private final List<ConstructorVisibility<T>> constructorVisibilities;
 
   public ConcreteInstanceType(final TypeToken<T> typeToken) {
     this.typeToken = typeToken;
+    constructorVisibilities = Arrays.asList(
+        ConstructorVisibility.getPublic(),
+        ConstructorVisibility.getPackagePrivate());
   }
 
   private static <TWrappedType> InstanceType<TWrappedType> from(final TypeToken<TWrappedType> typeToken) {
@@ -259,44 +263,19 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
 
   @Override
   public Call<T, T> findSuitableConstructorWithLeastParameters() {
-    final List<ConstructorCall<T>> constructors =
-        ConstructorCall.getConstructorsSortedFromLongestToShortestParametersCount(
-            typeToken);
+    final List<InstanceCreation<T>> creationMethods =
+        InstanceCreation.getPrioritizedCreationMethods(typeToken);
 
-    Optional<ConstructorCall<T>> suitableConstructor = findConstructor(
-        constructors, ConstructorVisibility.getPublic());
+    for (val visibility : constructorVisibilities) {
+      val suitableConstructor = InstanceCreation.findBestOf(creationMethods, visibility);
 
-    if (suitableConstructor.isPresent()) {
-      return MethodCall.to(suitableConstructor.get().getRawValue()); //do something about it
-    }
-
-    suitableConstructor = findConstructor(
-        constructors, ConstructorVisibility.getPackagePrivate());
-
-    if(suitableConstructor.isPresent()) {
-      return MethodCall.to(suitableConstructor.get().getRawValue()); //do something about it
+      if (suitableConstructor.isPresent()) {
+        return MethodCall.to(suitableConstructor.get().getRawValue());
+      }
     }
 
     throw new ObjectCreationException(this, "Could not find any suitable constructor");
 
-  }
-
-  private Optional<ConstructorCall<T>> findConstructor(
-      List<ConstructorCall<T>> constructors,
-      ConstructorVisibility visibility) {
-    int currentArgumentCount = Integer.MAX_VALUE;
-    Optional<ConstructorCall<T>> currentConstructor = Optional.absent();
-
-    for (final ConstructorCall<T> constructor : constructors) {
-      if (visibility.appliesTo(constructor)
-          && constructor.hasLessParametersThan(currentArgumentCount)
-          && (!currentConstructor.isPresent() || !constructor.isParameterless())) {
-
-        currentArgumentCount = constructor.getParametersCount();
-        currentConstructor = Optional.of(constructor);
-      }
-    }
-    return currentConstructor;
   }
 
   @Override

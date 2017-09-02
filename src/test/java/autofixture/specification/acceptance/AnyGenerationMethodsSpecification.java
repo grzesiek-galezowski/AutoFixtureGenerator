@@ -200,7 +200,9 @@ public class AnyGenerationMethodsSpecification {
     assertThat(any(doubleValue(), otherThan(doubleNum)), is(not(equalTo(doubleNum))));
     assertThat(Any.anonymous(doubleValue(), otherThan(doubleNum)), is(not(equalTo(doubleNum))));
     assertThat(Any.doubleOtherThan(doubleNum), is(not(equalTo(doubleNum))));
+    assertThat(Any.otherThan(doubleNum), is(not(equalTo(doubleNum))));
   }
+
 
   @Test
   public void shouldCorrectlyGenerateConstrainedArrays() {

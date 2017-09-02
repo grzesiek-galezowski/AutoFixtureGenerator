@@ -4,14 +4,14 @@ package autofixture.generators.objects.implementationdetails;
  * Created by grzes on 04.07.2017.
  */
 public interface ConstructorVisibility<T> {
-  boolean appliesTo(ConstructorCall<T> constructor);
+  boolean appliesTo(InstanceCreation<T> constructor);
 
   static <U> ConstructorVisibility<U> getPublic() {
-    return new PublicVisibility<U>();
+    return new VisibilityCondition<>(c -> c.isPublic());
   }
 
   static <U> ConstructorVisibility<U> getPackagePrivate() {
-    return new PackagePrivateVisibility<U>();
+    return new VisibilityCondition<>(c -> c.isPackagePrivate());
   }
 
 }

@@ -12,6 +12,8 @@ import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.*;
 
+import static com.google.common.base.CharMatcher.is;
+
 public class Any {
 
   @NonNull
@@ -21,6 +23,11 @@ public class Any {
 
   @NonNull
   public static <T> T anonymous(final Class<T> clazz) {
+    return Generate.any(clazz);
+  }
+
+  @NonNull
+  public static <T> T instanceOf(final Class<T> clazz) {
     return Generate.any(clazz);
   }
 
@@ -139,6 +146,11 @@ public class Any {
 
   public static Long longValue() {
     return Generate.anyLong();
+  }
+
+  @NonNull
+  public static <T> T otherThan(final T... others) {
+    return Any.anonymous((Class<T>) others[0].getClass(), InlineGenerators.otherThan(others));
   }
 
   @NonNull
