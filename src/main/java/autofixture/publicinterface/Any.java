@@ -150,6 +150,7 @@ public class Any {
 
   @NonNull
   public static <T> T otherThan(final T... others) {
+    //todo doesn't work for generics
     return Any.anonymous((Class<T>) others[0].getClass(), InlineGenerators.otherThan(others));
   }
 
