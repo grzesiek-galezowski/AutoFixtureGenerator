@@ -5,6 +5,7 @@ import autofixture.publicinterface.Any;
 import autofixture.publicinterface.InstanceOf;
 import autofixture.specification.acceptance.testfixtures.*;
 import com.google.common.collect.Lists;
+import lombok.val;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -215,6 +216,14 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(integers, is(not(nullValue())));
     assertThat(objects, is(not(nullValue())));
+  }
+
+  @Test
+  public void shouldGeneratePlainObjects() {
+    val o1 = Any.anonymous(Object.class);
+    val o2 = Any.anonymous(Object.class);
+    assertThat(o1, is(not(equalTo(o2))));
+    assertThat(o1.getClass(), is(equalTo(Object.class)));
   }
 
   @Test

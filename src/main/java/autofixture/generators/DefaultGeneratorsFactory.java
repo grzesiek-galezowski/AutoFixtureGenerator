@@ -27,6 +27,7 @@ public class DefaultGeneratorsFactory {
         protectedBy(recursionGuard,
             pipelineOfGeneratorsForTypes(
                 matchedInTheFollowingOrder(
+                    objects(),
                     integers(),
                     enums(),
                     throwables(),
@@ -51,7 +52,6 @@ public class DefaultGeneratorsFactory {
                     zoneOffsets(),
                     clocks(),
                     instants(),
-                    objects(),
                     booleans(),
                     urls(),
                     arrays(),
