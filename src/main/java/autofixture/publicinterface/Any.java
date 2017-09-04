@@ -148,7 +148,9 @@ public class Any {
 
   @NonNull
   public static <T> T otherThan(final T... others) {
-    //todo doesn't work for generics
+    if(others[0].getClass().getTypeParameters().length > 0) {
+      throw new RuntimeException("otherThan() does not work for generics. Try Any.anonymous(new InstanceOf<MyType<GenericType>>() {}, otherThan(x,y,z))");
+    }
     return Any.anonymous((Class<T>) others[0].getClass(), InlineGenerators.otherThan(others));
   }
 

@@ -5,11 +5,14 @@ import autofixture.publicinterface.Any;
 import autofixture.publicinterface.InstanceOf;
 import autofixture.specification.acceptance.testfixtures.*;
 import com.google.common.collect.Lists;
+import com.google.common.reflect.TypeToken;
 import lombok.val;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.time.DayOfWeek;
 import java.util.*;
 
@@ -849,6 +852,13 @@ public class AnyGenerationMethodsSpecification {
     assertThat(anonymous.getX(), is(notNullValue()));
     assertThat(anonymous.getY(), is(notNullValue()));
   }
+
+  @Test
+  public void shouldAvoidCopyConstructorIfPossible123() {
+    assertThrows(RuntimeException.class,
+        () -> Any.otherThan(new ArrayList<Integer>()));
+  }
+
 
   public void assertThrows(Class exceptionClass, Runnable func) {
     try {
