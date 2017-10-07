@@ -1,5 +1,6 @@
 package autofixture.publicinterface;
 
+import autofixture.generators.objects.implementationdetails.TypeAssertions;
 import autofixture.interfaces.InlineConstrainedGenerator;
 import autofixture.interfaces.InlineInstanceGenerator;
 import lombok.NonNull;
@@ -148,10 +149,9 @@ public class Any {
 
   @NonNull
   public static <T> T otherThan(final T... others) {
-    if(others[0].getClass().getTypeParameters().length > 0) {
-      throw new RuntimeException("otherThan() does not work for generics. Try Any.anonymous(new InstanceOf<MyType<GenericType>>() {}, otherThan(x,y,z))");
-    }
-    return Any.anonymous((Class<T>) others[0].getClass(), InlineGenerators.otherThan(others));
+    Class<?> requestedType = others[0].getClass();
+    TypeAssertions.assertIsNotParameterized(requestedType, "otherThan() does not work for generics. Try Any.anonymous(new InstanceOf<MyType<GenericType>>() {}, otherThan(x,y,z))");
+    return Any.anonymous((Class<T>) requestedType, InlineGenerators.otherThan(others));
   }
 
   @NonNull

@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static autofixture.generators.objects.implementationdetails.TypeAssertions.assertIsNotParameterized;
+
 public class Fixture implements FixtureContract {
   public static final int MINIMUM_VALUE_THAT_COULD_MEAN_MANY = 3;
   private final DefaultGeneratorsFactory generatorsFactory = new DefaultGeneratorsFactory();
@@ -32,6 +34,8 @@ public class Fixture implements FixtureContract {
 
   @Override
   public <T> T create(final Class<T> clazz) {
+    assertIsNotParameterized(clazz,
+        getParameterizedClassAssertionMessage(clazz, "create"));
     return this.create(TypeToken.of(Primitives.wrap(clazz)));
   }
 
@@ -45,6 +49,8 @@ public class Fixture implements FixtureContract {
   }
 
   public <T> T createDummy(final Class<T> clazz) {
+    assertIsNotParameterized(clazz,
+        getParameterizedClassAssertionMessage(clazz, "createDummy"));
     return this.createDummy(TypeToken.of(Primitives.wrap(clazz)));
   }
 
@@ -67,6 +73,8 @@ public class Fixture implements FixtureContract {
   }
 
   public <T> T freeze(final Class<T> clazz) {
+    assertIsNotParameterized(clazz,
+        getParameterizedClassAssertionMessage(clazz, "freeze"));
     return freeze(TypeToken.of(Primitives.wrap(clazz)));
   }
 
@@ -168,5 +176,13 @@ public class Fixture implements FixtureContract {
 
   public void setRecursionDepth(final int depth) {
     this.recursionGuard.setMaxDepth(depth);
+  }
+
+  private <T> String getParameterizedClassAssertionMessage(final Class<T> clazz, final String methodName) {
+    return clazz.getSimpleName() + " is a generic class, " +
+        "which cannot be instantiated using " + methodName + "(Class<T>) method. " +
+        "It should be created using "+ methodName + "(InstanceOf<T>) method like this (example for List<T> class): " +
+        methodName + "(new InstanceOf<List<Integer>>() {}); " +
+        "(note the {} brackets - they are mandatory!)";
   }
 }

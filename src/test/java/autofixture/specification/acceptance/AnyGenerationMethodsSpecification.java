@@ -5,19 +5,17 @@ import autofixture.publicinterface.Any;
 import autofixture.publicinterface.InstanceOf;
 import autofixture.specification.acceptance.testfixtures.*;
 import com.google.common.collect.Lists;
-import com.google.common.reflect.TypeToken;
 import lombok.val;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.time.DayOfWeek;
 import java.util.*;
 
 import static autofixture.publicinterface.Generate.*;
 import static autofixture.publicinterface.InlineGenerators.*;
+import static autofixture.specification.acceptance.CustomAssertions.*;
 import static autofixture.specification.acceptance.TypeHelpers.*;
 import static junit.framework.TestCase.fail;
 import static org.hamcrest.CoreMatchers.allOf;
@@ -859,16 +857,5 @@ public class AnyGenerationMethodsSpecification {
         () -> Any.otherThan(new ArrayList<Integer>()));
   }
 
-
-  public void assertThrows(Class exceptionClass, Runnable func) {
-    try {
-      func.run();
-      fail("Expected " + exceptionClass + " being thrown, but got nothing");
-    } catch (Exception e) {
-      if(e.getClass() != exceptionClass) {
-        fail("Expected " + exceptionClass + " being thrown, but got " + e.getClass());
-      }
-    }
-  }
 
 }
