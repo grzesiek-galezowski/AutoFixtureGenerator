@@ -76,4 +76,9 @@ public class InlineGenerators {
   public static InlineInstanceGenerator<Integer> portNumber() {
     return INLINE_GENERATORS_FACTORY.portNumber();
   }
+
+  static <T> InlineConstrainedGenerator<T> from (final T[] possibleValues) {
+    return INLINE_GENERATORS_FACTORY.from(possibleValues);
+  }
+
 }

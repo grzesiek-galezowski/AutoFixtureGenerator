@@ -6,7 +6,7 @@ import com.google.common.reflect.TypeToken;
  * Created by grzes on 20.03.2017.
  */
 public interface InlineGeneratorsFactory {
-    InlineInstanceGenerator<String> stringContaining(String str);
+  InlineInstanceGenerator<String> stringContaining(String str);
 
     InlineInstanceGenerator<String> alphaString(int length);
 
@@ -29,6 +29,8 @@ public interface InlineGeneratorsFactory {
     InlineInstanceGenerator<String> alphaString();
 
     InlineInstanceGenerator<String> stringOfLength(int charactersCount);
+
+    <T> InlineConstrainedGenerator<T> from(T[] possibleValues);
 
     <T> InlineInstanceGenerator<T> exploding(TypeToken<T> instance);
 

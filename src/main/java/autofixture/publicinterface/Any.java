@@ -315,7 +315,8 @@ public class Any {
 
   @NonNull
   public static <T> T from(final T... possibleValues) {
-    return Generate.anyFrom(possibleValues);
+    return InlineGenerators.from(possibleValues).next(
+        (TypeToken<T>) TypeToken.of(possibleValues[0].getClass()), PrivateGenerate.FIXTURE);
   }
 
 
@@ -394,7 +395,7 @@ public class Any {
 
   @NonNull
   public static <T> Collection<T> collectionOf(final InstanceOf<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
-    return Generate.manyAsListOf(typeToken, omittedValues);
+    return PrivateGenerate.manyAsListOf(typeToken, omittedValues);
   }
 
   @NonNull

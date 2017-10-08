@@ -17,7 +17,7 @@ public class Generate {
   }
 
   public static <T> T any(final Class<T> clazz) {
-    return PrivateGenerate.FIXTURE.create(clazz);
+    return Any.anonymous(clazz);
   }
 
   public static <T> T any(final InlineInstanceGenerator<T> generator) {
@@ -158,27 +158,10 @@ public class Generate {
     return PrivateGenerate.FIXTURE.create(portNumber());
   }
 
-  private static final HashMap<Class, Integer> INDICES_BY_CLASS = new HashMap<>();
-
   //todo extract to inline generator
   public static <T> T anyFrom(final T... possibleValues) {
-    final Class<?> key = possibleValues[0].getClass();
-    if (!INDICES_BY_CLASS.containsKey(key)) {
-      INDICES_BY_CLASS.put(key, new Random().nextInt(possibleValues.length));
-    }
-
-    Integer index = INDICES_BY_CLASS.get(key);
-
-    if (index >= possibleValues.length) {
-      index = 0;
-    }
-
-    final T returnedValue = possibleValues[index];
-
-    index++;
-    INDICES_BY_CLASS.put(key, index);
-
-    return returnedValue;
+    return InlineGenerators.from(possibleValues).next(
+        (TypeToken<T>) TypeToken.of(possibleValues[0].getClass()), PrivateGenerate.FIXTURE);
   }
 
   // ITERABLES - complete
@@ -313,5 +296,6 @@ public class Generate {
   public static String anyString(String seed) {
     return seed + anyString();
   }
+
 }
 

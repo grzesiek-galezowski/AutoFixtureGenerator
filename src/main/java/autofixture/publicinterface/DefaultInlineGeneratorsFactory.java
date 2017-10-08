@@ -1,5 +1,6 @@
 package autofixture.publicinterface;
 
+import autofixture.implementationdetails.InstanceCursor;
 import autofixture.interfaces.InlineConstrainedGenerator;
 import autofixture.interfaces.InlineGeneratorsFactory;
 import autofixture.interfaces.InlineInstanceGenerator;
@@ -7,6 +8,8 @@ import autofixture.publicinterface.constraints.OtherThanConstraint;
 import autofixture.publicinterface.inline.*;
 import autofixture.publicinterface.inline.strings.*;
 import com.google.common.reflect.TypeToken;
+
+import java.util.HashMap;
 
 /**
  * Created by astral on 28.03.15.
@@ -20,6 +23,7 @@ public class DefaultInlineGeneratorsFactory implements InlineGeneratorsFactory {
       ALL_DIGITS);
   private static final InlineInstanceGenerator<Integer> PORT_NUMBER_GENERATOR = new PortNumberGenerator();
   private static final int MANY = 3;
+  private static final HashMap<Class, InstanceCursor> INDICES_BY_CLASS = new HashMap<>();
 
   @Override
   public StringContainingSubstringGenerator stringContaining(final String str) {
@@ -105,5 +109,14 @@ public class DefaultInlineGeneratorsFactory implements InlineGeneratorsFactory {
   public AlphaStringGenerator alphaString() {
     return new AlphaStringGenerator(ALPHA_CHAR_GENERATOR,
         Generate.anyString().length());
+  }
+
+  @Override
+  public <T> FromGenerator<T> from(T[] possibleValues) {
+    final InstanceCursor cursor = InstanceCursor.from(
+        INDICES_BY_CLASS,
+        possibleValues[0].getClass(),
+        possibleValues.length);
+    return new FromGenerator<>(cursor, possibleValues);
   }
 }
