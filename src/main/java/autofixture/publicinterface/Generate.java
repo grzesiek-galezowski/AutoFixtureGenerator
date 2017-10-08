@@ -1,22 +1,15 @@
 package autofixture.publicinterface;
 
+import autofixture.implementationdetails.Boxing;
 import autofixture.interfaces.InlineConstrainedGenerator;
 import autofixture.interfaces.InlineInstanceGenerator;
 import com.google.common.reflect.TypeToken;
 
-import java.net.InetAddress;
-import java.net.URI;
-import java.net.URL;
-import java.time.*;
-import java.time.chrono.ChronoLocalDate;
-import java.time.chrono.ChronoLocalDateTime;
 import java.util.*;
-import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
 
 import static autofixture.publicinterface.InlineGenerators.*;
 
+//todo inline this class
 public class Generate {
 
   public static <T> T any(final InstanceOf<T> instanceType) {
@@ -91,10 +84,6 @@ public class Generate {
     return any(identifierString());
   }
 
-  public static String anyLegalXmlTagName() {
-    return anyIdentifier();
-  }
-
   public static Integer anyInteger() {
     return PrivateGenerate.FIXTURE.create(int.class);
   }
@@ -121,7 +110,7 @@ public class Generate {
 
   public static Long anyLongOtherThan(final long... other) {
     return any(new InstanceOf<Long>() {
-    }, InlineGenerators.otherThan(boxed(other)));
+    }, InlineGenerators.otherThan(Boxing.boxed(other)));
   }
 
   public static String anyStringOtherThan(final String... other) {
@@ -131,22 +120,22 @@ public class Generate {
 
   public static Integer anyIntegerOtherThan(final int... other) {
     return any(new InstanceOf<Integer>() {
-    }, InlineGenerators.otherThan(boxed(other)));
+    }, InlineGenerators.otherThan(Boxing.boxed(other)));
   }
 
   public static Short anyShortOtherThan(final short... other) {
     return any(new InstanceOf<Short>() {
-    }, InlineGenerators.otherThan(boxed(other)));
+    }, InlineGenerators.otherThan(Boxing.boxed(other)));
   }
 
   public static Double anyDoubleOtherThan(final double... other) {
     return any(new InstanceOf<Double>() {
-    }, InlineGenerators.otherThan(boxed(other)));
+    }, InlineGenerators.otherThan(Boxing.boxed(other)));
   }
 
   public static Float anyFloatOtherThan(final float... other) {
     return any(new InstanceOf<Float>() {
-    }, InlineGenerators.otherThan(boxed(other)));
+    }, InlineGenerators.otherThan(Boxing.boxed(other)));
   }
 
   public static <T> T anyOf(final Class<T> enumClass) {
@@ -165,88 +154,13 @@ public class Generate {
     return PrivateGenerate.anyExploding(typeToken);
   }
 
-  public static Exception anyException() {
-    return any(RuntimeException.class);
-  }
-
-  public static Error anyError() {
-    return PrivateGenerate.FIXTURE.create(Error.class);
-  }
-
-  public static Boolean anyBoolean() {
-    return PrivateGenerate.FIXTURE.create(Boolean.class);
-  }
-
-  public static Object anyObject() {
-    return PrivateGenerate.FIXTURE.create(Object.class);
-  }
-
-  public static URI anyUri() {
-    return PrivateGenerate.FIXTURE.create(URI.class);
-  }
-
-  public static URL anyUrl() {
-    return PrivateGenerate.FIXTURE.create(URL.class);
-  }
-
   public static int anyPort() {
     return PrivateGenerate.FIXTURE.create(portNumber());
   }
 
-  public static InetAddress anyIp() {
-    return PrivateGenerate.FIXTURE.create(InetAddress.class);
-  }
-
-  public static ChronoLocalDate anyChronoLocalDate() {
-    return PrivateGenerate.FIXTURE.create(ChronoLocalDate.class);
-  }
-
-  public static ChronoLocalDateTime anyChronoLocalDateTime() {
-    return PrivateGenerate.FIXTURE.create(ChronoLocalDateTime.class);
-  }
-
-  public static LocalDateTime anyLocalDateTime() {
-    return PrivateGenerate.FIXTURE.create(LocalDateTime.class);
-  }
-
-  public static LocalDate anyLocalDate() {
-    return PrivateGenerate.FIXTURE.create(LocalDate.class);
-  }
-
-  public static ZonedDateTime anyZonedDateTime() {
-    return PrivateGenerate.FIXTURE.create(ZonedDateTime.class);
-  }
-
-  public static ZoneId anyZoneId() {
-    return PrivateGenerate.FIXTURE.create(ZoneId.class);
-  }
-
-  public static OffsetTime anyOffsetTime() {
-    return PrivateGenerate.FIXTURE.create(OffsetTime.class);
-  }
-
-  public static Period anyPeriod() {
-    return PrivateGenerate.FIXTURE.create(Period.class);
-  }
-
-  public static Duration anyDuration() {
-    return PrivateGenerate.FIXTURE.create(Duration.class);
-  }
-
-  public static ZoneOffset anyZoneOffset() {
-    return PrivateGenerate.FIXTURE.create(ZoneOffset.class);
-  }
-
-  public static Clock anyClock() {
-    return PrivateGenerate.FIXTURE.create(Clock.class);
-  }
-
-  public static Instant anyInstant() {
-    return PrivateGenerate.FIXTURE.create(Instant.class);
-  }
-
   private static final HashMap<Class, Integer> INDICES_BY_CLASS = new HashMap<>();
 
+  //todo extract to inline generator
   public static <T> T anyFrom(final T... possibleValues) {
     final Class<?> key = possibleValues[0].getClass();
     if (!INDICES_BY_CLASS.containsKey(key)) {
@@ -348,16 +262,8 @@ public class Generate {
     return PrivateGenerate.manyAsSetOf(TypeToken.of(clazz));
   }
 
-  public static <T> Set<T> manyAsSetOf(final InstanceOf<T> type) {
-    return PrivateGenerate.manyAsSetOf(type);
-  }
-
   public static <T> Set<T> manyAsSetOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return PrivateGenerate.manyAsSetOf(TypeToken.of(type), omittedValues);
-  }
-
-  public static <T> Set<T> manyAsSetOf(final InstanceOf<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    return PrivateGenerate.manyAsSetOf(type, omittedValues);
   }
 
   //queues: complete
@@ -366,16 +272,8 @@ public class Generate {
   }
 
 
-  public static <T> Queue<T> manyAsQueueOf(final InstanceOf<T> type) {
-    return PrivateGenerate.manyAsQueueOf(type);
-  }
-
   public static <T> Queue<T> manyAsQueueOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return PrivateGenerate.manyAsQueueOf(TypeToken.of(type), omittedValues);
-  }
-
-  public static <T> Queue<T> manyAsQueueOf(final InstanceOf<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    return PrivateGenerate.manyAsQueueOf(type, omittedValues);
   }
 
   //Deques: complete
@@ -383,16 +281,8 @@ public class Generate {
     return PrivateGenerate.manyAsDequeOf(TypeToken.of(clazz));
   }
 
-  public static <T> Deque<T> manyAsDequeOf(final InstanceOf<T> type) {
-    return PrivateGenerate.manyAsDequeOf(type);
-  }
-
   public static <T> Deque<T> manyAsDequeOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return PrivateGenerate.manyAsDequeOf(TypeToken.of(type), omittedValues);
-  }
-
-  public static <T> Deque<T> manyAsDequeOf(final InstanceOf<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    return PrivateGenerate.manyAsDequeOf(type, omittedValues);
   }
 
   //sorted sets: complete
@@ -401,16 +291,8 @@ public class Generate {
   }
 
 
-  public static <T> SortedSet<T> manyAsSortedSetOf(final InstanceOf<T> type) {
-    return PrivateGenerate.manyAsSortedSetOf(type);
-  }
-
   public static <T> SortedSet<T> manyAsSortedSetOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
     return PrivateGenerate.manyAsSortedSetOf(TypeToken.of(type), omittedValues);
-  }
-
-  public static <T> SortedSet<T> manyAsSortedSetOf(final InstanceOf<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    return PrivateGenerate.manyAsSortedSetOf(type, omittedValues);
   }
 
   //sorted maps
@@ -420,10 +302,6 @@ public class Generate {
     return PrivateGenerate.manyAsSortedMapBetween(TypeToken.of(key), TypeToken.of(value));
   }
 
-  public static <T, V> SortedMap<T, V> manyAsSortedMapBetween(final InstanceOf<T> key, final InstanceOf<V> value) {
-    return PrivateGenerate.manyAsSortedMapBetween(key, value);
-  }
-
   //maps
 
   //TODO variations
@@ -431,57 +309,6 @@ public class Generate {
     return PrivateGenerate.manyAsMapBetween(TypeToken.of(keyClass), TypeToken.of(valueClass));
   }
 
-  public static <T, V> Map<T, V> manyAsMapBetween(final InstanceOf<T> keyType, final InstanceOf<V> valueType) {
-    return PrivateGenerate.manyAsMapBetween(keyType, valueType);
-  }
-
-  private static Long[] boxed(final long[] other) {
-    return LongStream.of(other).boxed().toArray(Long[]::new);
-  }
-
-  private static Float[] boxed(final float[] other) {
-    final ArrayList<Float> list = new ArrayList<>();
-    for (final float f : other) {
-      list.add(f);
-    }
-    return list.toArray(new Float[]{});
-  }
-
-  private static Short[] boxed(final short[] other) {
-    final ArrayList<Short> list = new ArrayList<>();
-    for (final short s : other) {
-      list.add(s);
-    }
-    return list.toArray(new Short[]{});
-  }
-
-  private static Double[] boxed(final double[] other) {
-    return DoubleStream.of(other).boxed().toArray(Double[]::new);
-  }
-
-  private static Integer[] boxed(final int... other) {
-    return IntStream.of(other).boxed().toArray(Integer[]::new);
-  }
-
-  public static <T> T dummy(InstanceOf<T> instanceType) {
-    return PrivateGenerate.FIXTURE.createDummy(instanceType);
-  }
-
-  public static <T> T dummy(Class<T> clazz) {
-    return PrivateGenerate.FIXTURE.createDummy(clazz);
-  }
-
-  public static RuntimeException anyRuntimeException() {
-    return PrivateGenerate.FIXTURE.create(RuntimeException.class);
-  }
-
-  public static Exception anyCheckedException() {
-    return PrivateGenerate.FIXTURE.create(Exception.class);
-  }
-
-  public static Throwable anyThrowable() {
-    return PrivateGenerate.FIXTURE.create(Throwable.class);
-  }
 
   public static String anyString(String seed) {
     return seed + anyString();
