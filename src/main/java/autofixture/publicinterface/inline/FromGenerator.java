@@ -2,10 +2,9 @@ package autofixture.publicinterface.inline;
 
 import autofixture.implementationdetails.InstanceCursor;
 import autofixture.interfaces.FixtureContract;
-import autofixture.interfaces.InlineConstrainedGenerator;
-import com.google.common.reflect.TypeToken;
+import autofixture.interfaces.InlineInstanceGenerator;
 
-public class FromGenerator<T> implements InlineConstrainedGenerator<T> {
+public class FromGenerator<T> implements InlineInstanceGenerator<T> {
   private final T[] possibleValues;
   private InstanceCursor cursor;
 
@@ -16,7 +15,7 @@ public class FromGenerator<T> implements InlineConstrainedGenerator<T> {
 
   }
 
-  public T next(final TypeToken<T> type, FixtureContract fixture) {
+  public T next(FixtureContract fixture) {
     final T returnedValue = cursor.selectFrom(possibleValues);
 
     cursor.advance();

@@ -60,7 +60,7 @@ public class DefaultInlineGeneratorsFactory implements InlineGeneratorsFactory {
   @Override
   public IdentifierStringGenerator identifierString() {
     return new IdentifierStringGenerator(
-        ALPHA_CHAR_GENERATOR, DIGIT_CHAR_GENERATOR, Generate.anyString().length());
+        ALPHA_CHAR_GENERATOR, DIGIT_CHAR_GENERATOR, Any.string().length());
   }
 
   @Override
@@ -108,11 +108,11 @@ public class DefaultInlineGeneratorsFactory implements InlineGeneratorsFactory {
   @Override
   public AlphaStringGenerator alphaString() {
     return new AlphaStringGenerator(ALPHA_CHAR_GENERATOR,
-        Generate.anyString().length());
+        Any.string().length());
   }
 
   @Override
-  public <T> FromGenerator<T> from(T[] possibleValues) {
+  public <T> InlineInstanceGenerator<T> from(T[] possibleValues) {
     final InstanceCursor cursor = InstanceCursor.from(
         INDICES_BY_CLASS,
         possibleValues[0].getClass(),

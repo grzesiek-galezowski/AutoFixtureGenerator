@@ -1,6 +1,5 @@
 package autofixture.publicinterface;
 
-import autofixture.implementationdetails.Boxing;
 import autofixture.interfaces.InlineConstrainedGenerator;
 import autofixture.interfaces.InlineInstanceGenerator;
 import com.google.common.reflect.TypeToken;
@@ -15,7 +14,9 @@ import java.time.chrono.ChronoLocalDateTime;
 import java.util.*;
 
 import static autofixture.generators.objects.implementationdetails.TypeAssertions.assertIsNotParameterized;
+import static autofixture.implementationdetails.Boxing.*;
 import static autofixture.publicinterface.InlineGenerators.*;
+import static autofixture.publicinterface.InlineGenerators.uppercaseString;
 
 public class Any {
 
@@ -63,7 +64,7 @@ public class Any {
   }
 
   public static String string() {
-    return Generate.any(String.class);
+    return anonymous(String.class);
   }
 
   @NonNull
@@ -90,43 +91,43 @@ public class Any {
   }
 
   public static Character alphaChar() {
-    return Generate.any(InlineGenerators.alphaChar());
+    return PrivateGenerate.FIXTURE.create(InlineGenerators.alphaChar());
   }
 
   public static Character digitChar() {
-    return Generate.any(InlineGenerators.digitChar());
+    return PrivateGenerate.FIXTURE.create(InlineGenerators.digitChar());
   }
 
   public static String alphaString() {
-    return Generate.any(InlineGenerators.alphaString());
+    return PrivateGenerate.FIXTURE.create(InlineGenerators.alphaString());
   }
 
   public static String alphaString(final int length) {
-    return Generate.any(InlineGenerators.alphaString(length));
+    return PrivateGenerate.FIXTURE.create(InlineGenerators.alphaString(length));
   }
 
   public static String lowercaseString() {
-    return Generate.any(InlineGenerators.lowercaseString());
+    return PrivateGenerate.FIXTURE.create(InlineGenerators.lowercaseString());
   }
 
   public static String lowercaseString(final int length) {
-    return Generate.any(InlineGenerators.lowercaseString(length));
+    return PrivateGenerate.FIXTURE.create(InlineGenerators.lowercaseString(length));
   }
 
   public static String uppercaseString() {
-    return Generate.any(InlineGenerators.uppercaseString());
+    return PrivateGenerate.FIXTURE.create(InlineGenerators.uppercaseString());
   }
   public static String uppercaseString(final int length) {
-    return Generate.anyUppercaseString(length);
+    return PrivateGenerate.FIXTURE.create(InlineGenerators.uppercaseString(length));
   }
 
 
   public static String identifier() {
-    return Generate.any(identifierString());
+    return PrivateGenerate.FIXTURE.create(identifierString());
   }
 
   public static String legalXmlTagName() {
-    return Generate.anyIdentifier();
+    return PrivateGenerate.FIXTURE.create(identifierString());
   }
 
   public static Integer intValue() {
@@ -162,47 +163,47 @@ public class Any {
 
   @NonNull
   public static Long longOtherThan(final long... other) {
-    return Generate.any(new InstanceOf<Long>() {
-    }, InlineGenerators.otherThan(Boxing.boxed(other)));
+    return PrivateGenerate.FIXTURE.create(new InstanceOf<Long>() {
+    }, InlineGenerators.otherThan(boxed(other)));
   }
 
   @NonNull
   public static String stringOtherThan(final String... other) {
-    return Generate.any(new InstanceOf<String>() {
+    return PrivateGenerate.FIXTURE.create(new InstanceOf<String>() {
     }, InlineGenerators.otherThan(other));
   }
 
   @NonNull
   public static Integer intOtherThan(final int... other) {
-    return Generate.any(new InstanceOf<Integer>() {
-    }, InlineGenerators.otherThan(Boxing.boxed(other)));
+    return PrivateGenerate.FIXTURE.create(new InstanceOf<Integer>() {
+    }, InlineGenerators.otherThan(boxed(other)));
   }
 
   @NonNull
   public static Short shortOtherThan(final short... other) {
-    return Generate.any(new InstanceOf<Short>() {
-    }, InlineGenerators.otherThan(Boxing.boxed(other)));
+    return PrivateGenerate.FIXTURE.create(new InstanceOf<Short>() {
+    }, InlineGenerators.otherThan(boxed(other)));
   }
 
   @NonNull
   public static Double doubleOtherThan(final double... other) {
-    return Generate.any(new InstanceOf<Double>() {
-    }, InlineGenerators.otherThan(Boxing.boxed(other)));
+    return PrivateGenerate.FIXTURE.create(new InstanceOf<Double>() {
+    }, InlineGenerators.otherThan(boxed(other)));
   }
 
   @NonNull
   public static Float floatOtherThan(final float... other) {
-    return Generate.any(new InstanceOf<Float>() {
-    }, InlineGenerators.otherThan(Boxing.boxed(other)));
+    return PrivateGenerate.FIXTURE.create(new InstanceOf<Float>() {
+    }, InlineGenerators.otherThan(boxed(other)));
   }
 
   @NonNull
   public static <T> T of(final Class<T> enumClass) {
-    return Generate.any(enumClass);
+    return anonymous(enumClass);
   }
 
   public static Date date() {
-    return Generate.any(Date.class);
+    return anonymous(Date.class);
   }
 
   @NonNull
@@ -315,10 +316,8 @@ public class Any {
 
   @NonNull
   public static <T> T from(final T... possibleValues) {
-    return InlineGenerators.from(possibleValues).next(
-        (TypeToken<T>) TypeToken.of(possibleValues[0].getClass()), PrivateGenerate.FIXTURE);
+    return InlineGenerators.from(possibleValues).next(PrivateGenerate.FIXTURE);
   }
-
 
   // ITERABLES - complete
   @NonNull

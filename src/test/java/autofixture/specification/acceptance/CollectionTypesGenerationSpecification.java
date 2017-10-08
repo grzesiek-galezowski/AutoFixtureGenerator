@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 import java.util.*;
 import java.util.concurrent.*;
 
-import static autofixture.publicinterface.Generate.any;
 import static autofixture.specification.acceptance.matchers.ArrayMatchers.typeOf;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -150,7 +149,7 @@ public class CollectionTypesGenerationSpecification {
   @Theory
   public void shouldGenerateCollectionsWithThreeUniqueElementsUsingAnyMethod(
           InstanceOf<? extends Collection<String>> collectionClass) {
-    Collection<String> collection = any(collectionClass);
+    Collection<String> collection = Any.anonymous(collectionClass);
 
     assertHasThreeUniqueItems(collectionClass, collection);
   }

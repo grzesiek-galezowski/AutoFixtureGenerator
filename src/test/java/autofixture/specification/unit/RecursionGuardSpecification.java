@@ -6,23 +6,22 @@ import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.GeneratorsPipeline;
 import autofixture.interfaces.InstanceType;
 import autofixture.interfaces.RecursionGuard;
+import autofixture.publicinterface.Any;
 import autofixture.publicinterface.InstanceOf;
 import com.google.common.reflect.TypeToken;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Test;
 
-import static autofixture.publicinterface.Generate.any;
-import static autofixture.publicinterface.Generate.anyString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class RecursionGuardSpecification {
   private final InstanceType<Integer> integerInstanceType = IntegerType();
   private final InstanceType<String> stringInstanceType = StringType();
-  private final Integer anyInteger = any(Integer.class);
-  private final Integer anyInteger2 = any(Integer.class);
-  private final String anyString = anyString();
+  private final Integer anyInteger = Any.anonymous(Integer.class);
+  private final Integer anyInteger2 = Any.anonymous(Integer.class);
+  private final String anyString = Any.string();
   private final String lrMock = "LRMock";
   private Mockery context = new Mockery();
 
@@ -37,7 +36,7 @@ public class RecursionGuardSpecification {
     final RecursionGuard recursionGuard = new MapBasedRecursionGuard(3,
         limitReachedPipeline);
     final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
-    final FixtureContract anyFixture = any(FixtureContract.class);
+    final FixtureContract anyFixture = Any.anonymous(FixtureContract.class);
 
     context.checking(new Expectations() {{
       allowing(generatorPipeline).executeFor(integerInstanceType, anyFixture); will(returnValue(anyInteger));
@@ -62,7 +61,7 @@ public class RecursionGuardSpecification {
     final GeneratorsPipeline limitReachedPipeline = context.mock(GeneratorsPipeline.class, lrMock);
     final RecursionGuard recursionGuard = new MapBasedRecursionGuard(3, limitReachedPipeline);
     final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
-    final FixtureContract anyFixture = any(FixtureContract.class);
+    final FixtureContract anyFixture = Any.anonymous(FixtureContract.class);
 
     context.checking(new Expectations() {{
       allowing(generatorPipeline).executeFor(integerInstanceType, anyFixture); will(returnValue(anyInteger));
@@ -90,7 +89,7 @@ public class RecursionGuardSpecification {
     final RecursionGuard recursionGuard = new MapBasedRecursionGuard(
         3, limitReachedPipeline);
     final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
-    final FixtureContract anyFixture = any(new InstanceOf<FixtureContract>() {
+    final FixtureContract anyFixture = Any.anonymous(new InstanceOf<FixtureContract>() {
     });
 
     context.checking(new Expectations() {{
@@ -118,7 +117,8 @@ public class RecursionGuardSpecification {
     final RecursionGuard recursionGuard = new MapBasedRecursionGuard(3,
         limitReachedPipeline);
     final GeneratorsPipeline generatorPipeline = context.mock(GeneratorsPipeline.class);
-    final FixtureContract anyFixture = any(new InstanceOf<FixtureContract>() { });
+    final FixtureContract anyFixture = Any.anonymous(new InstanceOf<FixtureContract>() {
+    });
 
     context.checking(new Expectations() {{
       allowing(generatorPipeline).executeFor(integerInstanceType, anyFixture); will(returnValue(anyInteger));

@@ -1,10 +1,10 @@
 package autofixture.specification.acceptance;
 
+import autofixture.publicinterface.Any;
 import autofixture.publicinterface.Fixture;
 import autofixture.publicinterface.InstanceOf;
 import org.junit.Test;
 
-import static autofixture.publicinterface.Generate.anyInteger;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,7 +15,7 @@ public class InjectingAndFreezingValuesSpecification {
   @Test
   public void shouldAlwaysReturnInjectedElementWhenAskedForParticularType() {
     //GIVEN
-    int anyInt = anyInteger();
+    int anyInt = Any.intValue();
     fixture.inject(Integer.valueOf(anyInt));
 
     //WHEN
@@ -30,7 +30,7 @@ public class InjectingAndFreezingValuesSpecification {
   @Test
   public void shouldNotImpactOtherTypesGenerationWithInjection() {
     //GIVEN
-    int anyInt = anyInteger();
+    int anyInt = Any.intValue();
     fixture.inject(Integer.valueOf(anyInt));
 
     //WHEN
@@ -44,8 +44,8 @@ public class InjectingAndFreezingValuesSpecification {
   @Test
   public void shouldOverridePreviousInjectWithNextOne() {
     //GIVEN
-    int anyInt = anyInteger();
-    int anyInt2 = anyInteger();
+    int anyInt = Any.intValue();
+    int anyInt2 = Any.intValue();
     fixture.inject(Integer.valueOf(anyInt));
     fixture.inject(Integer.valueOf(anyInt2));
 

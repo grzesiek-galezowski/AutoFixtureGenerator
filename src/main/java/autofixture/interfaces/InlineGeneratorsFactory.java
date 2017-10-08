@@ -8,35 +8,35 @@ import com.google.common.reflect.TypeToken;
 public interface InlineGeneratorsFactory {
   InlineInstanceGenerator<String> stringContaining(String str);
 
-    InlineInstanceGenerator<String> alphaString(int length);
+  InlineInstanceGenerator<String> alphaString(int length);
 
-    InlineInstanceGenerator<String> uppercaseString();
+  InlineInstanceGenerator<String> uppercaseString();
 
-    InlineInstanceGenerator<String> lowercaseString();
+  InlineInstanceGenerator<String> lowercaseString();
 
-    InlineInstanceGenerator<String> uppercaseString(int length);
+  InlineInstanceGenerator<String> uppercaseString(int length);
 
-    InlineInstanceGenerator<String> lowercaseString(int length);
+  InlineInstanceGenerator<String> lowercaseString(int length);
 
-    InlineInstanceGenerator<String> identifierString();
+  InlineInstanceGenerator<String> identifierString();
 
-    InlineInstanceGenerator<Character> digitChar();
+  InlineInstanceGenerator<Character> digitChar();
 
-    InlineInstanceGenerator<String> stringNotContaining(String... excludedSubstrings);
+  InlineInstanceGenerator<String> stringNotContaining(String... excludedSubstrings);
 
-    InlineInstanceGenerator<Character> alphaChar();
+  InlineInstanceGenerator<Character> alphaChar();
 
-    InlineInstanceGenerator<String> alphaString();
+  InlineInstanceGenerator<String> alphaString();
 
-    InlineInstanceGenerator<String> stringOfLength(int charactersCount);
+  InlineInstanceGenerator<String> stringOfLength(int charactersCount);
 
-    <T> InlineConstrainedGenerator<T> from(T[] possibleValues);
+  <T> InlineInstanceGenerator<T> from(T[] possibleValues);
 
-    <T> InlineInstanceGenerator<T> exploding(TypeToken<T> instance);
+  <T> InlineInstanceGenerator<T> exploding(TypeToken<T> instance);
 
-    <T> InlineConstrainedGenerator<T> otherThan(T... omittedValues);
+  <T> InlineConstrainedGenerator<T> otherThan(T... omittedValues);
 
-    <T> InlineConstrainedGenerator<T> without(T... omittedValues);
+  <T> InlineConstrainedGenerator<T> without(T... omittedValues);
 
-    InlineInstanceGenerator<Integer> portNumber();
+  InlineInstanceGenerator<Integer> portNumber();
 }

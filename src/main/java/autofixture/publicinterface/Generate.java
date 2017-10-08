@@ -2,7 +2,6 @@ package autofixture.publicinterface;
 
 import autofixture.implementationdetails.Boxing;
 import autofixture.interfaces.InlineConstrainedGenerator;
-import autofixture.interfaces.InlineInstanceGenerator;
 import com.google.common.reflect.TypeToken;
 
 import java.util.*;
@@ -12,138 +11,35 @@ import static autofixture.publicinterface.InlineGenerators.*;
 //todo inline this class
 public class Generate {
 
-  public static <T> T any(final InstanceOf<T> instanceType) {
-    return PrivateGenerate.FIXTURE.create(instanceType);
-  }
-
-  public static <T> T any(final Class<T> clazz) {
-    return Any.anonymous(clazz);
-  }
-
-  public static <T> T any(final InlineInstanceGenerator<T> generator) {
-    return PrivateGenerate.FIXTURE.create(generator);
-  }
-
-  public static <T> T any(final InstanceOf<T> type, final InlineConstrainedGenerator<T> generator) {
-    return PrivateGenerate.FIXTURE.create(type, generator);
-  }
-
   public static <T> T any(final Class<T> instanceType, final InlineConstrainedGenerator<T> generator) {
     return PrivateGenerate.any(TypeToken.of(instanceType), generator);
   }
 
-  public static String anyString() {
-    return any(String.class);
+  public static Long anyLongOtherThan(final long... others) {
+    return Any.longOtherThan(others);
   }
 
-  public static String anyStringOfLength(final int charactersCount) {
-    return any(stringOfLength(charactersCount));
+  public static String anyStringOtherThan(final String... others) {
+    return Any.stringOtherThan(others);
   }
 
-  public static String anyStringNotContaining(final String... excludedSubstrings) {
-    return any(stringNotContaining(excludedSubstrings));
-  }
-  public static String anyLowercaseString() {
-    return any(lowercaseString());
-  }
-
-  public static String anyUppercaseString() {
-    return any(uppercaseString());
-  }
-
-  public static String anyLowercaseString(final int length) {
-    return any(lowercaseString(length));
-  }
-
-  public static String anyUppercaseString(final int length) {
-    return any(uppercaseString(length));
-  }
-
-
-  public static String anyStringContaining(final String str) {
-    return any(stringContaining(str));
-  }
-
-  public static Character anyAlphaChar() {
-    return any(alphaChar());
-  }
-
-  public static Character anyDigitChar() {
-    return any(digitChar());
-  }
-
-  public static String anyAlphaString() {
-    return any(alphaString());
-  }
-
-  public static String anyAlphaString(final int length) {
-    return any(alphaString(length));
-  }
-
-  public static String anyIdentifier() {
-    return any(identifierString());
-  }
-
-  public static Integer anyInteger() {
-    return PrivateGenerate.FIXTURE.create(int.class);
-  }
-
-  public static Short anyShort() {
-    return PrivateGenerate.FIXTURE.create(short.class);
-  }
-
-  public static Double anyDouble() {
-    return PrivateGenerate.FIXTURE.create(double.class);
-  }
-
-  public static Float anyFloat() {
-    return PrivateGenerate.FIXTURE.create(float.class);
-  }
-
-  public static Character anyChar() {
-    return PrivateGenerate.FIXTURE.create(char.class);
-  }
-
-  public static Long anyLong() {
-    return PrivateGenerate.FIXTURE.create(long.class);
-  }
-
-  public static Long anyLongOtherThan(final long... other) {
-    return any(new InstanceOf<Long>() {
-    }, InlineGenerators.otherThan(Boxing.boxed(other)));
-  }
-
-  public static String anyStringOtherThan(final String... other) {
-    return any(new InstanceOf<String>() {
-    }, InlineGenerators.otherThan(other));
-  }
-
-  public static Integer anyIntegerOtherThan(final int... other) {
-    return any(new InstanceOf<Integer>() {
-    }, InlineGenerators.otherThan(Boxing.boxed(other)));
+  public static Integer anyIntegerOtherThan(final int... others) {
+    return Any.intOtherThan(others);
   }
 
   public static Short anyShortOtherThan(final short... other) {
-    return any(new InstanceOf<Short>() {
+    return PrivateGenerate.FIXTURE.create(new InstanceOf<Short>() {
     }, InlineGenerators.otherThan(Boxing.boxed(other)));
   }
 
   public static Double anyDoubleOtherThan(final double... other) {
-    return any(new InstanceOf<Double>() {
+    return PrivateGenerate.FIXTURE.create(new InstanceOf<Double>() {
     }, InlineGenerators.otherThan(Boxing.boxed(other)));
   }
 
   public static Float anyFloatOtherThan(final float... other) {
-    return any(new InstanceOf<Float>() {
+    return PrivateGenerate.FIXTURE.create(new InstanceOf<Float>() {
     }, InlineGenerators.otherThan(Boxing.boxed(other)));
-  }
-
-  public static <T> T anyOf(final Class<T> enumClass) {
-    return any(enumClass);
-  }
-
-  public static Date anyDate() {
-    return any(Date.class);
   }
 
   public static <T> T anyExploding(final Class<T> clazz) {
@@ -154,18 +50,7 @@ public class Generate {
     return PrivateGenerate.anyExploding(typeToken);
   }
 
-  public static int anyPort() {
-    return PrivateGenerate.FIXTURE.create(portNumber());
-  }
-
-  //todo extract to inline generator
-  public static <T> T anyFrom(final T... possibleValues) {
-    return InlineGenerators.from(possibleValues).next(
-        (TypeToken<T>) TypeToken.of(possibleValues[0].getClass()), PrivateGenerate.FIXTURE);
-  }
-
   // ITERABLES - complete
-
 
   public static <T> Iterable<T> manyAsIterableOf(final InstanceOf<T> type) {
     return PrivateGenerate.FIXTURE.createMany(type);
@@ -291,11 +176,5 @@ public class Generate {
   public static <T, V> Map<T, V> manyAsMapBetween(final Class<T> keyClass, final Class<V> valueClass) {
     return PrivateGenerate.manyAsMapBetween(TypeToken.of(keyClass), TypeToken.of(valueClass));
   }
-
-
-  public static String anyString(String seed) {
-    return seed + anyString();
-  }
-
 }
 

@@ -1,12 +1,12 @@
 package autofixture.specification.acceptance;
 
 import autofixture.generators.objects.implementationdetails.ConcreteInstanceType;
+import autofixture.publicinterface.Any;
 import autofixture.publicinterface.Fixture;
 import autofixture.publicinterface.InstanceOf;
 import autofixture.specification.acceptance.matchers.HasArrayLengthMatcher;
 import org.junit.Test;
 
-import static autofixture.publicinterface.Generate.any;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -21,7 +21,7 @@ public class ConfigurableRepeatCountSpecification {
   @Test
   public void shouldAllowRetrievingSetRepeatCount() {
     //GIVEN
-    int anyRepeatCount = any(Integer.class);
+    int anyRepeatCount = Any.anonymous(Integer.class);
     fixture.setRepeatCount(anyRepeatCount);
 
     //WHEN
@@ -34,7 +34,7 @@ public class ConfigurableRepeatCountSpecification {
   @Test
   public void shouldGenerateCollectionsOfSizeSameAsRepeatCountFromInstanceType() {
     //GIVEN
-    int anyRepeatCount = any(Integer.class);
+    int anyRepeatCount = Any.anonymous(Integer.class);
     fixture.setRepeatCount(anyRepeatCount);
 
     //WHEN
@@ -47,7 +47,7 @@ public class ConfigurableRepeatCountSpecification {
   @Test
   public void shouldGenerateCollectionsOfSizeSameAsRepeatCountFromInstanceOf() {
     //GIVEN
-    int anyRepeatCount = any(Integer.class);
+    int anyRepeatCount = Any.anonymous(Integer.class);
     fixture.setRepeatCount(anyRepeatCount);
 
     //WHEN

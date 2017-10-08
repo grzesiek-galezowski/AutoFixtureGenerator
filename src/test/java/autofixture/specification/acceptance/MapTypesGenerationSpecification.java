@@ -14,7 +14,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
-import static autofixture.publicinterface.Generate.any;
 import static autofixture.specification.acceptance.matchers.ArrayMatchers.typeOf;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -110,7 +109,7 @@ public class MapTypesGenerationSpecification {
   @Theory
   public void shouldGenerateMapsWithThreeUniqueElementsUsingAnyMethod(
       InstanceOf<? extends Map<String, String>> mapClass) {
-    Map<String, String> collection = any(mapClass);
+    Map<String, String> collection = Any.anonymous(mapClass);
 
     assertHasThreeUniqueEnumItems(
         mapClass,

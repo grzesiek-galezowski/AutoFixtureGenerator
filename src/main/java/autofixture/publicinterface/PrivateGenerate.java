@@ -20,7 +20,7 @@ class PrivateGenerate {
   }
 
   static <T> T anyExploding(final TypeToken<T> typeToken) {
-    return Generate.any(exploding(typeToken));
+    return Any.anonymous(exploding(typeToken));
   }
 
   static <T> Iterable<T> manyAsIterableOf(
