@@ -45,49 +45,38 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateEachTimeDifferentString() {
-    String str1 = anyString();
-    String str2 = anyString();
+    String str1 = Any.string();
+    String str2 = Any.string();
 
     assertThat(str1, is(not(str2)));
   }
 
   @Test
   public void shouldGenerateEachTimeDifferentAlphaString() {
-    String str1 = anyAlphaString();
-    String str2 = anyAlphaString();
+    String str1 = Any.alphaString();
+    String str2 = Any.alphaString();
 
     assertThat(str1, is(not(str2)));
 
-    String str3 = any(alphaString());
-    String str4 = any(alphaString());
+    String str3 = Any.anonymous(alphaString());
+    String str4 = Any.anonymous(alphaString());
 
     assertThat(str3, is(not(str4)));
-
-    String str5 = Any.alphaString();
-    String str6 = Any.alphaString();
-
-    assertThat(str5, is(not(str6)));
-
   }
 
   @Test
   public void shouldGenerateStringNotContainingGivenSubstring() {
     String string1 = "1";
     String string2 = "2";
-    String str = anyStringNotContaining(string1, string2);
+    String str = Any.stringNotContaining(string1, string2);
 
     assertThat(str, not(containsString(string1)));
     assertThat(str, not(containsString(string2)));
 
-    String str2 = any(stringNotContaining(string1, string2));
+    String str2 = Any.anonymous(stringNotContaining(string1, string2));
 
     assertThat(str2, not(containsString(string1)));
     assertThat(str2, not(containsString(string2)));
-
-    String str3 = Any.stringNotContaining(string1, string2);
-
-    assertThat(str3, not(containsString(string1)));
-    assertThat(str3, not(containsString(string2)));
   }
 
   @Test
@@ -95,13 +84,8 @@ public class AnyGenerationMethodsSpecification {
 
     int size = 40;
     AssertTwoStringsWithExpectedSizeAreDifferent(
-        anyStringOfLength(size),
-        anyStringOfLength(size),
-        size);
-
-    AssertTwoStringsWithExpectedSizeAreDifferent(
-        any(stringOfLength(size)),
-        any(stringOfLength(size)),
+        Any.stringOfLength(size),
+        Any.stringOfLength(size),
         size);
 
     AssertTwoStringsWithExpectedSizeAreDifferent(
@@ -121,23 +105,13 @@ public class AnyGenerationMethodsSpecification {
 
     int size = 40;
     AssertTwoStringsWithExpectedSizeAreDifferent(
-        anyAlphaString(size),
-        anyAlphaString(size),
-        size);
-
-    AssertTwoStringsWithExpectedSizeAreDifferent(
-        any(alphaString(size)),
-        any(alphaString(size)),
+        Any.alphaString(size),
+        Any.alphaString(size),
         size);
 
     AssertTwoStringsWithExpectedSizeAreDifferent(
         Any.anonymous(alphaString(size)),
         Any.anonymous(alphaString(size)),
-        size);
-
-    AssertTwoStringsWithExpectedSizeAreDifferent(
-        Any.alphaString(size),
-        Any.alphaString(size),
         size);
   }
 
@@ -149,8 +123,8 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateLowercaseStrings() {
-    String lowercaseString1 = anyLowercaseString();
-    String lowercaseString2 = any(lowercaseString());
+    String lowercaseString1 = Any.lowercaseString();
+    String lowercaseString2 = Any.anonymous(lowercaseString());
     String lowercaseString3 = Any.anonymous(lowercaseString());
     String lowercaseString4 = Any.lowercaseString();
 
@@ -162,8 +136,8 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateUppercaseStrings() {
-    String upperString1 = anyUppercaseString();
-    String upperString2 = any(uppercaseString());
+    String upperString1 = Any.uppercaseString();
+    String upperString2 = Any.anonymous(uppercaseString());
     String upperString3 = Any.anonymous(uppercaseString());
     String upperString4 = Any.uppercaseString();
 
@@ -256,8 +230,8 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateDistinctEnumValues() {
-    DayOfWeek dow1 = anyOf(DayOfWeek.class);
-    DayOfWeek dow2 = anyOf(DayOfWeek.class);
+    DayOfWeek dow1 = Any.anonymous(DayOfWeek.class);
+    DayOfWeek dow2 = Any.anonymous(DayOfWeek.class);
 
     assertThat(dow1, is(not(nullValue())));
     assertThat(dow2, is(not(nullValue())));
@@ -266,8 +240,8 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateDistinctDates() {
-    Date date1 = anyDate();
-    Date date2 = anyDate();
+    Date date1 = Any.anonymous(Date.class);
+    Date date2 = Any.anonymous(Date.class);
 
     assertThat(date1, is(not(nullValue())));
     assertThat(date2, is(not(nullValue())));
@@ -285,10 +259,10 @@ public class AnyGenerationMethodsSpecification {
   @Test
   public void shouldGenerateStringContainingGivenSubstring() {
     String someString = "1";
-    String str1 = anyStringContaining(someString);
+    String str1 = Any.stringContaining(someString);
     assertThat(str1, containsString(someString));
 
-    String str2 = any(stringContaining(someString));
+    String str2 = Any.anonymous(stringContaining(someString));
     assertThat(str2, containsString(someString));
 
     String str3 = Any.stringContaining(someString);
@@ -297,9 +271,9 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateEachTimeDifferentInstance() {
-    GenericObject<Integer> o1 = any(new InstanceOf<GenericObject<Integer>>() {
+    GenericObject<Integer> o1 = Any.anonymous(new InstanceOf<GenericObject<Integer>>() {
     });
-    GenericObject<Integer> o2 = any(new InstanceOf<GenericObject<Integer>>() {
+    GenericObject<Integer> o2 = Any.anonymous(new InstanceOf<GenericObject<Integer>>() {
     });
     assertThat(o1, is(not(o2)));
   }
@@ -309,7 +283,7 @@ public class AnyGenerationMethodsSpecification {
     int num1 = 5;
     int num2 = 10;
     int num3 = 15;
-    Integer notA5 = any(new InstanceOf<Integer>() {
+    Integer notA5 = Any.anonymous(new InstanceOf<Integer>() {
     }, otherThan(num1, num2, num3));
 
     assertThat(notA5, is(not(equalTo(num1))));
@@ -623,26 +597,28 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldGenerateAnIntegerInstanceFromProvided() {
-    int[] possibleValues = new int[] {1,3,4,6,7,8};
-    int chosen1 = anyFrom(1,3,4,6,7,8);
-    int chosen2 = anyFrom(1,3,4,6,7,8);
-    int chosen3 = anyFrom(1,3,4,6,7,8);
-    int chosen4 = anyFrom(1,3,4,6,7,8);
-    int chosen5 = anyFrom(1,3,4,6,7,8);
-    int chosen6 = anyFrom(1,3,4,6,7,8);
+    int chosen1 = Any.from(1, 3, 4, 6, 7, 8);
+    int chosen2 = Any.from(1, 3, 4, 6, 7, 8);
+    int chosen3 = Any.from(1, 3, 4, 6, 7, 8);
+    int chosen4 = Any.from(1, 3, 4, 6, 7, 8);
+    int chosen5 = Any.from(1, 3, 4, 6, 7, 8);
+    int chosen6 = Any.from(1, 3, 4, 6, 7, 8);
 
-    assertThat(Arrays.asList(chosen1, chosen2, chosen3, chosen4, chosen5, chosen6), hasItem(1));
-    assertThat(Arrays.asList(chosen1, chosen2, chosen3, chosen4, chosen5, chosen6), hasItem(3));
-    assertThat(Arrays.asList(chosen1, chosen2, chosen3, chosen4, chosen5, chosen6), hasItem(4));
-    assertThat(Arrays.asList(chosen1, chosen2, chosen3, chosen4, chosen5, chosen6), hasItem(6));
-    assertThat(Arrays.asList(chosen1, chosen2, chosen3, chosen4, chosen5, chosen6), hasItem(7));
-    assertThat(Arrays.asList(chosen1, chosen2, chosen3, chosen4, chosen5, chosen6), hasItem(8));
+    List<Integer> allResults = Arrays.asList(
+        chosen1, chosen2, chosen3, chosen4, chosen5, chosen6);
+    assertThat(allResults, hasItem(1));
+    assertThat(allResults, hasItem(3));
+    assertThat(allResults, hasItem(4));
+    assertThat(allResults, hasItem(6));
+    assertThat(allResults, hasItem(7));
+    assertThat(allResults, hasItem(8));
   }
 
   @Test
   public void shouldSupportNestedGenericImplementations() {
     //GIVEN
-    GenericObject<GenericObject<Integer>> o = any(new InstanceOf<GenericObject<GenericObject<Integer>>>() {});
+    GenericObject<GenericObject<Integer>> o = Any.anonymous(new InstanceOf<GenericObject<GenericObject<Integer>>>() {
+    });
 
     //THEN
     assertThat(o.getInstance(), instanceOf(GenericObject.class));
@@ -653,7 +629,8 @@ public class AnyGenerationMethodsSpecification {
   public void shouldSupportNestedGenericInterfaceImplementations() {
     //GIVEN
     GenericInterface<GenericObject2<Integer>> o =
-            any(new InstanceOf<GenericInterface<GenericObject2<Integer>>>() {});
+        Any.anonymous(new InstanceOf<GenericInterface<GenericObject2<Integer>>>() {
+        });
 
     //THEN
     assertGenericObject2GeneratedCorrectly(o);
@@ -726,39 +703,28 @@ public class AnyGenerationMethodsSpecification {
   public void shouldGenerateNumbersUsingOnePartMethods() {
 
     AssertNumbersAreGeneratedCorretly(
-            anyInteger(),
-            anyDouble(),
-            anyFloat(),
-            anyChar(),
-            anyAlphaChar(),
-            anyDigitChar(),
-            anyLong(),
-            anyShort());
+        Any.intValue(),
+        Any.doubleValue(),
+        Any.floatValue(),
+        Any.charValue(),
+        Any.alphaChar(),
+        Any.digitChar(),
+        Any.longValue(),
+        Any.shortValue());
   }
 
   @Test
   public void shouldGenerateNumbersUsingCompositionalApi() {
 
     AssertNumbersAreGeneratedCorretly(
-            any(intValue()),
-            any(doubleValue()),
-            any(floatValue()),
-            any(charValue()),
-            any(alphaChar()),
-            any(digitChar()),
-            any(longValue()),
-            any(shortValue()));
-
-    AssertNumbersAreGeneratedCorretly(
-            Any.anonymous(intValue()),
-            Any.anonymous(doubleValue()),
-            Any.anonymous(floatValue()),
-            Any.anonymous(charValue()),
-            Any.anonymous(alphaChar()),
-            Any.anonymous(digitChar()),
-            Any.anonymous(longValue()),
-            Any.anonymous(shortValue()));
-
+        Any.anonymous(intValue()),
+        Any.anonymous(doubleValue()),
+        Any.anonymous(floatValue()),
+        Any.anonymous(charValue()),
+        Any.anonymous(alphaChar()),
+        Any.anonymous(digitChar()),
+        Any.anonymous(longValue()),
+        Any.anonymous(shortValue()));
   }
 
   @Test
@@ -821,26 +787,19 @@ public class AnyGenerationMethodsSpecification {
 
   @Test
   public void shouldCreateDifferentPortEachTime() {
-    int port1 = anyPort();
-    int port2 = anyPort();
+    int port1 = Any.port();
+    int port2 = Any.port();
 
     assertThat(port1, is(not(equalTo(port2))));
     assertThat(port1, is(lessThan(65535)));
     assertThat(port2, is(lessThan(65535)));
 
-    int port3 = any(portNumber());
-    int port4 = any(portNumber());
+    int port3 = Any.anonymous(portNumber());
+    int port4 = Any.anonymous(portNumber());
 
     assertThat(port3, is(not(equalTo(port4))));
     assertThat(port3, is(lessThan(65535)));
     assertThat(port4, is(lessThan(65535)));
-
-    int port5 = Any.port();
-    int port6 = Any.port();
-
-    assertThat(port5, is(not(equalTo(port6))));
-    assertThat(port5, is(lessThan(65535)));
-    assertThat(port6, is(lessThan(65535)));
   }
 
   @Test
