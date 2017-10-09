@@ -4,9 +4,10 @@ import java.util.Map;
 import java.util.Random;
 
 public class InstanceCursor {
+  private static final Random RANDOM = new Random();
   private Integer value;
-  private Class key;
-  private Map<Class, InstanceCursor> indicesByClass;
+  private final Class key;
+  private final Map<Class, InstanceCursor> indicesByClass;
 
   public InstanceCursor(
       final Integer value,
@@ -18,7 +19,7 @@ public class InstanceCursor {
   }
 
   public static InstanceCursor randomUpTo(final int length, final Class key, final Map<Class, InstanceCursor> indicesByClass) {
-    return new InstanceCursor(new Random().nextInt(length), key, indicesByClass);
+    return new InstanceCursor(RANDOM.nextInt(length), key, indicesByClass);
   }
 
   public static InstanceCursor from(final Map<Class, InstanceCursor> indicesByClass, final Class key, final int length) {
