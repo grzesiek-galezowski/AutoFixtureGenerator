@@ -14,9 +14,9 @@ import java.time.chrono.ChronoLocalDateTime;
 import java.util.*;
 
 import static autofixture.generators.objects.implementationdetails.TypeAssertions.assertIsNotParameterized;
-import static autofixture.implementationdetails.Boxing.*;
-import static autofixture.publicinterface.InlineGenerators.*;
-import static autofixture.publicinterface.InlineGenerators.uppercaseString;
+import static autofixture.implementationdetails.Boxing.boxed;
+import static autofixture.publicinterface.InlineGenerators.identifierString;
+import static autofixture.publicinterface.InlineGenerators.portNumber;
 
 public class Any {
 
@@ -217,6 +217,11 @@ public class Any {
     return PrivateGenerate.anyExploding(typeToken);
   }
 
+  @NonNull
+  public static <T> T exploding(final TypeToken<T> typeToken) {
+    return PrivateGenerate.anyExploding(typeToken);
+  }
+
   public static Exception exception() {
     return anonymous(RuntimeException.class);
   }
@@ -334,7 +339,7 @@ public class Any {
   @NonNull
   public static <T> Iterable<T> iterableOf(
       final InstanceOf<T> typeToken, final InlineConstrainedGenerator<T> omittedValues) {
-    return Generate.manyAsIterableOf(typeToken, omittedValues);
+    return PrivateGenerate.manyAsIterableOf(typeToken, omittedValues);
   }
 
   @NonNull
@@ -533,16 +538,16 @@ public class Any {
     return PrivateGenerate.manyAsSortedMapBetween(key, value);
   }
 
-
   //maps
-  //TODO variations
 
+  //TODO variations
   @NonNull
   public static <T, V> Map<T, V> mapBetween(final Class<T> keyClass, final Class<V> valueClass) {
     assertIsNotParameterized(keyClass, "generic key types are not allowed for this method.");
     assertIsNotParameterized(valueClass, "generic value types are not allowed for this method.");
     return PrivateGenerate.manyAsMapBetween(TypeToken.of(keyClass), TypeToken.of(valueClass));
   }
+
   @NonNull
   public static <T, V> Map<T, V> mapBetween(final InstanceOf<T> keyType, final InstanceOf<V> valueType) {
     return PrivateGenerate.manyAsMapBetween(keyType, valueType);
