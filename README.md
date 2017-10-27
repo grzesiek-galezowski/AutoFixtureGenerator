@@ -4,6 +4,7 @@ AutoFixtureGenerator
 [![Build Status](https://travis-ci.org/grzesiek-galezowski/AutoFixtureGenerator.svg?branch=master)](https://travis-ci.org/grzesiek-galezowski/AutoFixtureGenerator) [![Dependency Status](https://www.versioneye.com/java/com.github.autofixture:autofixturegenerator/badge.svg)](https://www.versioneye.com/java/com.github.autofixture:autofixturegenerator/) [![Inline docs](http://inch-ci.org/github/grzesiek-galezowski/AutoFixtureGenerator.svg?branch=master)](http://inch-ci.org/github/grzesiek-galezowski/AutoFixtureGenerator)
 ![](https://reposs.herokuapp.com/?path=grzesiek-galezowski/AutoFixtureGenerator&style=flat)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
+![](https://maven-badges.herokuapp.com/maven-central/com.github.autofixture/AutoFixtureGenerator/badge.svg)
 
 An attempt to reimplement core features of a popular .NET anonymous value generator - AutoFixture - in Java
 
