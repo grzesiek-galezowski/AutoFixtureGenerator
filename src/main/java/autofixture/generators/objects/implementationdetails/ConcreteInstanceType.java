@@ -117,6 +117,11 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   }
 
   @Override
+  public boolean isFromPackage(final String packageName) {
+    return this.typeToken.getRawType().getName().startsWith(packageName);
+  }
+
+  @Override
   public Type getWrapper() {
     return Primitives.wrap(this.getRawType());
   }

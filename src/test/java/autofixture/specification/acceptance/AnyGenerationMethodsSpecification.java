@@ -2,7 +2,9 @@ package autofixture.specification.acceptance;
 
 import autofixture.exceptions.BoomException;
 import autofixture.publicinterface.Any;
+import autofixture.publicinterface.Fixture;
 import autofixture.publicinterface.InstanceOf;
+import autofixture.publicinterface.thirdpartysupport.AnyVavr;
 import autofixture.specification.acceptance.testfixtures.*;
 import com.google.common.collect.Lists;
 import lombok.val;
@@ -451,6 +453,63 @@ public class AnyGenerationMethodsSpecification {
 
 
   @Test
+  public void shouldGenerateImmutableListsUsingClassSignature() {
+    final io.vavr.collection.List<Integer> list = AnyVavr.listOf(intValues());
+
+    assertThat(list.size(), is(3));
+    assertThat(list, not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(list.toJavaList());
+
+    Fixture fixture = new Fixture();
+    val list2 = fixture.create(new InstanceOf<io.vavr.collection.List<Integer>>(){});
+    assertThat(list2.size(), is(3));
+    assertThat(list2, not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(list2.toJavaList());
+
+    io.vavr.collection.Map<String, Integer> map = fixture.create(new InstanceOf<io.vavr.collection.Map<String, Integer>>() {});
+    assertThat(map.size(), is(3));
+    assertThat(map.keySet(), not(hasItem(nullValue())));
+    assertThat(map.values(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(map.toJavaMap().values());
+    assertContainsOnlyStrings(map.toJavaMap().keySet());
+
+
+    fixture.create(new InstanceOf<io.vavr.collection.Traversable<Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.List<Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.Seq<Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.LinearSeq<Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.IndexedSeq<Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.Ordered<Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.HashMap<Integer, Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.Array<Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.HashSet<Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.Set<Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.SortedMap<Integer, Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.SortedSet<Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.Tree<Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.CharSeq>(){});
+    fixture.create(new InstanceOf<CharSequence>(){}); //todo add canonical way - this is java.util
+    fixture.create(new InstanceOf<io.vavr.collection.Vector<Integer>>(){});
+
+    fixture.create(new InstanceOf<io.vavr.collection.LinkedHashMap<Integer, Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.LinkedHashSet<Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.PriorityQueue<Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.Queue<Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.TreeMap<Integer, Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.TreeMultimap<Integer, Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.TreeSet<Integer>>(){});
+
+    fixture.create(new InstanceOf<io.vavr.collection.SortedMultimap<Integer, Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.Multimap<Integer, Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.HashMultimap<Integer, Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.LinkedHashMultimap<Integer, Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.Iterator<Integer>>(){});
+    fixture.create(new InstanceOf<io.vavr.collection.BitSet<Integer>>(){});
+  }
+
+
+
+  @Test
   public void shouldGenerateArraysUsingClassSignature() {
     List<Integer> list = Lists.newArrayList(Any.arrayOf(intValues()));
 
@@ -649,6 +708,8 @@ public class AnyGenerationMethodsSpecification {
     assertThat(collection.toArray()[1], instanceOf(intValue()));
     assertThat(collection.toArray()[2], instanceOf(intValue()));
   }
+
+
 
 /*
   //TODO variations

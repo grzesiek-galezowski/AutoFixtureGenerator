@@ -1,6 +1,7 @@
+apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'maven'
 apply plugin: 'signing'
-apply plugin: 'com.github.johnrengelman.shadow'
+
 
 def travis = "$System.env.TRAVIS"
 
@@ -54,7 +55,7 @@ artifacts {
     archives sourcesJar
 }
 
-uploadArchives {
+uploadShadow {
     repositories {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
@@ -95,5 +96,5 @@ uploadArchives {
     }
 }
 
-uploadArchives.dependsOn([shadowJar, test])
-afterReleaseBuild.dependsOn uploadArchives
+uploadShadow.dependsOn([shadowJar, test])
+afterReleaseBuild.dependsOn uploadShadow

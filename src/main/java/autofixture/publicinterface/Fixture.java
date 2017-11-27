@@ -45,7 +45,7 @@ public class Fixture implements FixtureContract {
   }
 
   public <T> T create(final InstanceOf<T> typeToken) {
-    return create((TypeToken<T>)(typeToken));
+      return create((TypeToken<T>) (typeToken));
   }
 
   public <T> T createDummy(final Class<T> clazz) {

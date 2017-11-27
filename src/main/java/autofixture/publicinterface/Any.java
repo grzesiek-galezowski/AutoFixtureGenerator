@@ -1,5 +1,6 @@
 package autofixture.publicinterface;
 
+import autofixture.implementationdetails.ErrorMessages;
 import autofixture.interfaces.InlineConstrainedGenerator;
 import autofixture.interfaces.InlineInstanceGenerator;
 import com.google.common.reflect.TypeToken;
@@ -27,13 +28,13 @@ public class Any {
 
   @NonNull
   public static <T> T anonymous(final Class<T> clazz) {
-    assertIsNotParameterized(clazz, msg("anonymous"));
+    assertIsNotParameterized(clazz, ErrorMessages.msg("anonymous"));
     return PrivateGenerate.FIXTURE.create(clazz);
   }
 
   @NonNull
   public static <T> T instanceOf(final Class<T> clazz) {
-    assertIsNotParameterized(clazz, msg("instanceOf"));
+    assertIsNotParameterized(clazz, ErrorMessages.msg("instanceOf"));
     return PrivateGenerate.FIXTURE.create(clazz);
   }
 
@@ -49,7 +50,7 @@ public class Any {
 
   @NonNull
   public static <T> T anonymous(final Class<T> instanceType, final InlineConstrainedGenerator<T> generator) {
-    assertIsNotParameterized(instanceType, msgInline("anonymous"));
+    assertIsNotParameterized(instanceType, ErrorMessages.msgInline("anonymous"));
     return PrivateGenerate.any(TypeToken.of(instanceType), generator);
   }
 
@@ -208,7 +209,7 @@ public class Any {
 
   @NonNull
   public static <T> T exploding(final Class<T> clazz) {
-    assertIsNotParameterized(clazz, msg("exploding"));
+    assertIsNotParameterized(clazz, ErrorMessages.msg("exploding"));
     return PrivateGenerate.anyExploding(TypeToken.of(clazz));
   }
 
@@ -332,7 +333,7 @@ public class Any {
 
   @NonNull
   public static <T> Iterable<T> iterableOf(final Class<T> clazz) {
-    assertIsNotParameterized(clazz, msg("iterableOf"));
+    assertIsNotParameterized(clazz, ErrorMessages.msg("iterableOf"));
     return PrivateGenerate.FIXTURE.createMany(TypeToken.of(clazz));
   }
 
@@ -344,14 +345,14 @@ public class Any {
 
   @NonNull
   public static <T> Iterable<T> iterableOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    assertIsNotParameterized(type, msgInline("iterableOf"));
+    assertIsNotParameterized(type, ErrorMessages.msgInline("iterableOf"));
     return PrivateGenerate.manyAsIterableOf(TypeToken.of(type), omittedValues);
   }
 
   //ARRAYS - complete
   @NonNull
   public static <T> T[] arrayOf(final Class<T> clazz) {
-    assertIsNotParameterized(clazz, msg("arrayOf"));
+    assertIsNotParameterized(clazz, ErrorMessages.msg("arrayOf"));
     return PrivateGenerate.manyAsArrayOf(TypeToken.of(clazz));
   }
 
@@ -367,7 +368,7 @@ public class Any {
 
   @NonNull
   public static <T> T[] arrayOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    assertIsNotParameterized(type, msgInline("arrayOf"));
+    assertIsNotParameterized(type, ErrorMessages.msgInline("arrayOf"));
     return PrivateGenerate.manyAsArrayOf(TypeToken.of(type), omittedValues);
   }
 
@@ -375,7 +376,7 @@ public class Any {
 
   @NonNull
   public static <T> List<T> listOf(final Class<T> clazz) {
-    assertIsNotParameterized(clazz, msg("listOf"));
+    assertIsNotParameterized(clazz, ErrorMessages.msg("listOf"));
     return PrivateGenerate.manyAsListOf(TypeToken.of(clazz));
   }
 
@@ -391,7 +392,7 @@ public class Any {
 
   @NonNull
   public static <T> List<T> listOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    assertIsNotParameterized(type, msgInline("listOf"));
+    assertIsNotParameterized(type, ErrorMessages.msgInline("listOf"));
     return PrivateGenerate.manyAsListOf(TypeToken.of(type), omittedValues);
   }
 
@@ -404,13 +405,13 @@ public class Any {
 
   @NonNull
   public static <T> Collection<T> collectionOf(final Class<T> clazz) {
-    assertIsNotParameterized(clazz, msg("collectionOf"));
+    assertIsNotParameterized(clazz, ErrorMessages.msg("collectionOf"));
     return PrivateGenerate.FIXTURE.createMany(TypeToken.of(clazz));
   }
 
   @NonNull
   public static <T> Collection<T> collectionOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    assertIsNotParameterized(type, msgInline("collectionOf"));
+    assertIsNotParameterized(type, ErrorMessages.msgInline("collectionOf"));
     return PrivateGenerate.manyAsListOf(TypeToken.of(type), omittedValues);
   }
 
@@ -424,7 +425,7 @@ public class Any {
   //TODO variations
   @NonNull
   public static <T> Set<T> setOf(final Class<T> clazz) {
-    assertIsNotParameterized(clazz, msg("setOf"));
+    assertIsNotParameterized(clazz, ErrorMessages.msg("setOf"));
     return PrivateGenerate.manyAsSetOf(TypeToken.of(clazz));
   }
 
@@ -436,7 +437,7 @@ public class Any {
   //TODO UT
   @NonNull
   public static <T> Set<T> setOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    assertIsNotParameterized(type, msgInline("setOf"));
+    assertIsNotParameterized(type, ErrorMessages.msgInline("setOf"));
     return PrivateGenerate.manyAsSetOf(TypeToken.of(type), omittedValues);
   }
 
@@ -450,7 +451,7 @@ public class Any {
   //queues: incomplete
   @NonNull
   public static <T> Queue<T> queueOf(final Class<T> clazz) {
-    assertIsNotParameterized(clazz, msg("queueOf"));
+    assertIsNotParameterized(clazz, ErrorMessages.msg("queueOf"));
     return PrivateGenerate.manyAsQueueOf(TypeToken.of(clazz));
   }
 
@@ -463,7 +464,7 @@ public class Any {
 
   @NonNull
   public static <T> Queue<T> queueOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    assertIsNotParameterized(type, msgInline("queueOf"));
+    assertIsNotParameterized(type, ErrorMessages.msgInline("queueOf"));
     return PrivateGenerate.manyAsQueueOf(TypeToken.of(type), omittedValues);
   }
   //TODO UT
@@ -476,7 +477,7 @@ public class Any {
 
   @NonNull
   public static <T> Deque<T> dequeOf(final Class<T> clazz) {
-    assertIsNotParameterized(clazz, msg("dequeOf"));
+    assertIsNotParameterized(clazz, ErrorMessages.msg("dequeOf"));
     return PrivateGenerate.manyAsDequeOf(TypeToken.of(clazz));
   }
   @NonNull
@@ -487,7 +488,7 @@ public class Any {
   //TODO UT
   @NonNull
   public static <T> Deque<T> dequeOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    assertIsNotParameterized(type, msgInline("dequeOf"));
+    assertIsNotParameterized(type, ErrorMessages.msgInline("dequeOf"));
     return PrivateGenerate.manyAsDequeOf(TypeToken.of(type), omittedValues);
   }
 
@@ -501,7 +502,7 @@ public class Any {
 
   @NonNull
   public static <T> SortedSet<T> sortedSetOf(final Class<T> clazz) {
-    assertIsNotParameterized(clazz, msg("sortedSetOf"));
+    assertIsNotParameterized(clazz, ErrorMessages.msg("sortedSetOf"));
     return PrivateGenerate.manyAsSortedSetOf(TypeToken.of(clazz));
   }
   @NonNull
@@ -513,7 +514,7 @@ public class Any {
 
   @NonNull
   public static <T> SortedSet<T> sortedSetOf(final Class<T> type, final InlineConstrainedGenerator<T> omittedValues) {
-    assertIsNotParameterized(type, msgInline("sortedSetOf"));
+    assertIsNotParameterized(type, ErrorMessages.msgInline("sortedSetOf"));
     return PrivateGenerate.manyAsSortedSetOf(TypeToken.of(type), omittedValues);
   }
   //TODO UT
@@ -553,13 +554,4 @@ public class Any {
     return PrivateGenerate.manyAsMapBetween(keyType, valueType);
   }
 
-  private static String msg(final String methodName) {
-    return "generic types are not allowed for this method. " +
-        "Try Any." + methodName + "(new InstanceOf<MyType<MyGenericType>>() {}).";
-  }
-
-  private static String msgInline(final String methodName) {
-    return "generic types are not allowed for this method. " +
-        "Try Any." + methodName + "(new InstanceOf<MyType<MyGenericType>>() {}, generator).";
-  }
 }

@@ -12,9 +12,11 @@ import autofixture.generators.throwables.ErrorGenerator;
 import autofixture.generators.throwables.ExceptionGenerator;
 import autofixture.generators.throwables.ThrowableGenerator;
 import autofixture.generators.time.*;
+import autofixture.generators.vavr.*;
 import autofixture.interfaces.GeneratorsPipeline;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.RecursionGuard;
+import com.google.common.collect.Lists;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -56,6 +58,7 @@ public class DefaultGeneratorsFactory {
                     urls(),
                     arrays(),
                     optionals(),
+                    vavrTypes(),
                     builtInCollections(),
                     builtInMaps(),
                     inetAddresses(),
@@ -63,6 +66,19 @@ public class DefaultGeneratorsFactory {
                     colorSpaces(),
                     concreteObjects()))
         );
+  }
+
+  private InstanceGenerator vavrTypes() {
+    return new VavrGenerator(
+        new DefaultGeneratorsPipeline(
+            Lists.newArrayList(
+                new VavrListGenerator(),
+                new VavrArrayGenerator(),
+                new VavrHashMapGenerator(),
+                new VavrHashSetGenerator(),
+                new VavrTreeSetGenerator(),
+                new VavrTreeMapGenerator(),
+                new VavrNodeGenerator())));
   }
 
   private InstanceGenerator throwables() {

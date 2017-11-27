@@ -3,7 +3,6 @@ package autofixture.publicinterface;
 import com.google.common.reflect.TypeToken;
 
 public class InstanceOf<T> extends TypeToken<T> {
-
   /**
    *
    */
