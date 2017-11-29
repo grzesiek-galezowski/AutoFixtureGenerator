@@ -3,6 +3,7 @@ package autofixture.generators.objects.implementationdetails;
 import autofixture.exceptions.ObjectCreationException;
 import autofixture.implementationdetails.CollectionFactory;
 import autofixture.interfaces.Call;
+import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InstanceField;
 import autofixture.interfaces.InstanceType;
 import com.google.common.primitives.Primitives;
@@ -369,5 +370,19 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
     return typeToken.toString();
   }
 
+  @Override
+  public Map turnIntoMapInstance(FixtureContract fixture) {
+    Map map = new HashMap<>();
+    for(int i = 0 ; i < fixture.getRepeatCount() ; ++i) {
+      map.put(fixture.create(getNestedGenericType1()),
+          fixture.create(getNestedGenericType2()));
+    }
+    return map;
+  }
+
+  @Override
+  public Collection<?> turnIntoCollection(FixtureContract fixture) {
+    return fixture.createMany(getNestedGenericType1());
+  }
 }
 

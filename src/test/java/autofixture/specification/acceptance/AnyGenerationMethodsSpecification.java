@@ -10,8 +10,12 @@ import com.google.common.collect.Lists;
 import io.vavr.collection.*;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.HashSet;
+import io.vavr.collection.LinkedHashMap;
+import io.vavr.collection.LinkedHashSet;
+import io.vavr.collection.PriorityQueue;
 import io.vavr.collection.TreeMap;
 import io.vavr.collection.TreeSet;
+import io.vavr.collection.Vector;
 import lombok.val;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -507,7 +511,6 @@ public class AnyGenerationMethodsSpecification {
     assertThat(ordered.toJavaList(), not(hasItem(nullValue())));
     assertContainsOnlyIntegers(ordered.toJavaList());
 
-
     HashMap<String, Integer> hashMap = fixture.create(new InstanceOf<HashMap<String, Integer>>() {});
     assertThat(hashMap.size(), is(3));
     assertThat(hashMap.keySet(), not(hasItem(nullValue())));
@@ -555,12 +558,32 @@ public class AnyGenerationMethodsSpecification {
     assertContainsOnlyIntegers(treeMap.toJavaMap().values());
     assertContainsOnlyStrings(treeMap.toJavaMap().keySet());
 
+    LinkedHashMap<String, Integer> linkedHashMap = fixture.create(new InstanceOf<LinkedHashMap<String, Integer>>() {});
+    assertThat(linkedHashMap.size(), is(3));
+    assertThat(linkedHashMap.keySet(), not(hasItem(nullValue())));
+    assertThat(linkedHashMap.values(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(linkedHashMap.toJavaMap().values());
+    assertContainsOnlyStrings(linkedHashMap.toJavaMap().keySet());
 
-    fixture.create(new InstanceOf<io.vavr.collection.Vector<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.LinkedHashMap<Integer, Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.LinkedHashSet<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.PriorityQueue<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.Queue<Integer>>(){});
+    Vector<Integer> intVector = fixture.create(new InstanceOf<Vector<Integer>>() {});
+    assertThat(intVector.size(), is(3));
+    assertThat(intVector.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(intVector.toJavaList());
+
+    LinkedHashSet<Integer> linkedHashSet = fixture.create(new InstanceOf<LinkedHashSet<Integer>>() {});
+    assertThat(linkedHashSet.size(), is(3));
+    assertThat(linkedHashSet.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(linkedHashSet.toJavaList());
+
+    PriorityQueue<Integer> priorityQueue = fixture.create(new InstanceOf<PriorityQueue<Integer>>() {});
+    assertThat(priorityQueue.size(), is(3));
+    assertThat(priorityQueue.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(priorityQueue.toJavaList());
+
+    io.vavr.collection.Queue<Integer> queue = fixture.create(new InstanceOf<io.vavr.collection.Queue<Integer>>() {});
+    assertThat(queue.size(), is(3));
+    assertThat(queue.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(queue.toJavaList());
 
     Tree<Integer> tree = fixture.create(new InstanceOf<Tree<Integer>>() {});
     assertThat(tree.getValue(), is(not(nullValue())));

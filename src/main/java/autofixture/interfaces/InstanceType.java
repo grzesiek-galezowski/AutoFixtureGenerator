@@ -12,6 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 public interface InstanceType<T> {
+  Collection<?> turnIntoCollection(FixtureContract fixture);
+
+  Map turnIntoMapInstance(FixtureContract fixture);
+
   default boolean isMap() {
     return isAssignableTo(Map.class);
   }

@@ -14,7 +14,7 @@ if (travis == "null") {
         if (taskGraph.allTasks.any { it instanceof Sign }) {
             allprojects {
                 ext."signing.password" = password
-                ext."signing.keyId" = '58596C05' //'58596C05' //workplace E52FB31B
+                ext."signing.keyId" = 'E52FB31B' //'58596C05' //workplace E52FB31B
                 ext."signing.secretKeyRingFile" = 'C:/Users/grzes/AppData/Roaming/gnupg/secring.gpg'
             }
         }
