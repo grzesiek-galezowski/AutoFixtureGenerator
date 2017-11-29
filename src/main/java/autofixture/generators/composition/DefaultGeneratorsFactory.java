@@ -86,7 +86,9 @@ public class DefaultGeneratorsFactory {
                 new VavrCollectionGenerator<>(
                     io.vavr.collection.HashSet.class,
                     io.vavr.collection.HashSet::ofAll),
-                new VavrTreeSetGenerator(),
+                new VavrCollectionGenerator<>(
+                    io.vavr.collection.TreeSet.class,
+                    x -> io.vavr.collection.TreeSet.ofAll((Iterable)x)),
                 new VavrMapGenerator<>(
                     TreeMap.class,
                     TreeMap::ofAll),
@@ -100,7 +102,9 @@ public class DefaultGeneratorsFactory {
                 new VavrCollectionGenerator<>(
                     io.vavr.collection.Vector.class,
                     io.vavr.collection.Vector::ofAll),
-                new VavrPriorityQueueGenerator(),
+                new VavrCollectionGenerator<>(
+                    io.vavr.collection.PriorityQueue.class,
+                    x -> io.vavr.collection.PriorityQueue.ofAll((Iterable)x)),
                 new VavrCollectionGenerator<>(
                     io.vavr.collection.Queue.class,
                     io.vavr.collection.Queue::ofAll),
@@ -113,7 +117,11 @@ public class DefaultGeneratorsFactory {
                     HashMultimap.withSeq()::ofAll),
                 new VavrMapGenerator<>(
                     LinkedHashMultimap.class,
-                    LinkedHashMultimap.withSeq()::ofAll)
+                    LinkedHashMultimap.withSeq()::ofAll),
+                new VavrIteratorGenerator(),
+                new VavrOptionGenerator(),
+                new VavrEitherGenerator(),
+                new VavrValidationGenerator()
             )));
   }
 

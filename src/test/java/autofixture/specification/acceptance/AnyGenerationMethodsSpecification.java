@@ -10,12 +10,14 @@ import com.google.common.collect.Lists;
 import io.vavr.collection.*;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.HashSet;
+import io.vavr.collection.Iterator;
 import io.vavr.collection.LinkedHashMap;
 import io.vavr.collection.LinkedHashSet;
 import io.vavr.collection.PriorityQueue;
 import io.vavr.collection.TreeMap;
 import io.vavr.collection.TreeSet;
 import io.vavr.collection.Vector;
+import io.vavr.control.Option;
 import lombok.val;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -585,22 +587,59 @@ public class AnyGenerationMethodsSpecification {
     assertThat(queue.toJavaList(), not(hasItem(nullValue())));
     assertContainsOnlyIntegers(queue.toJavaList());
 
+    Iterator<Integer> integerIterator = fixture.create(new InstanceOf<Iterator<Integer>>() {});
+    assertThat(integerIterator.size(), is(3));
+    assertThat(integerIterator.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(queue.toJavaList());
+
     Tree<Integer> tree = fixture.create(new InstanceOf<Tree<Integer>>() {});
     assertThat(tree.getValue(), is(not(nullValue())));
     assertThat(tree.getValue(), is(instanceOf(Integer.class)));
     assertThat(tree.getChildren().toJavaList(), hasSize(0));
 
+    CharSeq charSeq = fixture.create(new InstanceOf<CharSeq>() {});
+    assertThat(charSeq.size(), is(3));
+    assertThat(charSeq.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnly(charSeq.toJavaList(), Character.class);
 
-    fixture.create(new InstanceOf<io.vavr.collection.CharSeq>(){});
-    fixture.create(new InstanceOf<CharSequence>(){}); //todo add canonical way - this is java.util
-    fixture.create(new InstanceOf<io.vavr.collection.TreeMultimap<Integer, Integer>>(){});
+    TreeMultimap<String, Integer> treeMultimap = fixture.create(new InstanceOf<TreeMultimap<String, Integer>>() {});
+    assertThat(treeMultimap.size(), is(3));
+    assertThat(treeMultimap.keySet(), not(hasItem(nullValue())));
+    assertThat(treeMultimap.values(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(treeMultimap.values().toJavaList());
+    assertContainsOnlyStrings(treeMultimap.keySet().toJavaSet());
 
-    fixture.create(new InstanceOf<io.vavr.collection.SortedMultimap<Integer, Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.Multimap<Integer, Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.HashMultimap<Integer, Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.LinkedHashMultimap<Integer, Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.Iterator<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.BitSet<Integer>>(){});
+    SortedMultimap<String, Integer> sortedMultimap = fixture.create(new InstanceOf<SortedMultimap<String, Integer>>() {});
+    assertThat(sortedMultimap.size(), is(3));
+    assertThat(sortedMultimap.keySet(), not(hasItem(nullValue())));
+    assertThat(sortedMultimap.values(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(sortedMultimap.values().toJavaList());
+    assertContainsOnlyStrings(sortedMultimap.keySet().toJavaSet());
+
+    Multimap<String, Integer> multimap = fixture.create(new InstanceOf<Multimap<String, Integer>>() {});
+    assertThat(multimap.size(), is(3));
+    assertThat(multimap.keySet(), not(hasItem(nullValue())));
+    assertThat(multimap.values(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(multimap.values().toJavaList());
+    assertContainsOnlyStrings(multimap.keySet().toJavaSet());
+
+    HashMultimap<String, Integer> hashMultimap = fixture.create(new InstanceOf<HashMultimap<String, Integer>>() {});
+    assertThat(hashMultimap.size(), is(3));
+    assertThat(hashMultimap.keySet(), not(hasItem(nullValue())));
+    assertThat(hashMultimap.values(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(hashMultimap.values().toJavaList());
+    assertContainsOnlyStrings(hashMultimap.keySet().toJavaSet());
+
+    LinkedHashMultimap<String, Integer> linkedHashMultimap = fixture.create(new InstanceOf<LinkedHashMultimap<String, Integer>>() {});
+    assertThat(linkedHashMultimap.size(), is(3));
+    assertThat(linkedHashMultimap.keySet(), not(hasItem(nullValue())));
+    assertThat(linkedHashMultimap.values(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(linkedHashMultimap.values().toJavaList());
+    assertContainsOnlyStrings(linkedHashMultimap.keySet().toJavaSet());
+
+    Option<Integer> option = fixture.create(new InstanceOf<Option<Integer>>(){});
+    assertThat(option.isDefined(), is(true));
+
   }
 
 
@@ -800,9 +839,13 @@ public class AnyGenerationMethodsSpecification {
   }
 
   private void assertContainsOnlyIntegers(Collection<Integer> collection) {
-    assertThat(collection.toArray()[0], instanceOf(intValue()));
-    assertThat(collection.toArray()[1], instanceOf(intValue()));
-    assertThat(collection.toArray()[2], instanceOf(intValue()));
+    assertContainsOnly(collection, intValue());
+  }
+
+  private <T> void assertContainsOnly(final Collection<T> collection, final Class<T> type) {
+    assertThat(collection.toArray()[0], instanceOf(type));
+    assertThat(collection.toArray()[1], instanceOf(type));
+    assertThat(collection.toArray()[2], instanceOf(type));
   }
 
 
