@@ -3,12 +3,8 @@ package autofixture.generators.vavr;
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
-import io.vavr.Tuple;
-import io.vavr.Tuple2;
-import io.vavr.collection.HashMap;
+import io.vavr.collection.TreeMap;
 
-import java.util.TreeMap;
-import java.util.stream.Stream;
 
 public class VavrTreeMapGenerator implements InstanceGenerator {
 
@@ -27,7 +23,7 @@ public class VavrTreeMapGenerator implements InstanceGenerator {
           fixture.create(instanceType.getNestedGenericType2()));
     }
 
-    return (T) (TreeMap<?, ?>) new TreeMap<>(map);
+    return (T) (TreeMap<?, ?>) TreeMap.ofAll(map);
   }
 
   @Override

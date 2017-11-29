@@ -5,9 +5,6 @@ import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
 import io.vavr.collection.Array;
-import io.vavr.collection.HashMap;
-import io.vavr.collection.List;
-import io.vavr.collection.Map;
 
 public class VavrArrayGenerator implements InstanceGenerator {
   private BuiltInCollectionGenerator gen = new BuiltInCollectionGenerator();

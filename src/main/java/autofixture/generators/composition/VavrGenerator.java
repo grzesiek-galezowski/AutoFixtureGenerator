@@ -1,6 +1,5 @@
-package autofixture.generators.vavr;
+package autofixture.generators.composition;
 
-import autofixture.generators.DefaultGeneratorsPipeline;
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.GeneratorsPipeline;
 import autofixture.interfaces.InstanceGenerator;

@@ -3,14 +3,7 @@ package autofixture.generators.vavr;
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
-import io.vavr.Tuple;
-import io.vavr.Tuple1;
-import io.vavr.Tuple2;
 import io.vavr.collection.TreeSet;
-
-import java.util.Collection;
-import java.util.TreeMap;
-import java.util.stream.Stream;
 
 public class VavrTreeSetGenerator implements InstanceGenerator {
   @Override

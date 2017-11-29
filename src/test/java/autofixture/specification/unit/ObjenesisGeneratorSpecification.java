@@ -1,11 +1,11 @@
 package autofixture.specification.unit;
 
+import autofixture.generators.objects.ObjenesisGenerator;
 import autofixture.generators.objects.implementationdetails.ConcreteInstanceType;
 import autofixture.implementationdetails.MapBasedRecursionGuard;
 import autofixture.interfaces.InstanceType;
 import autofixture.publicinterface.Fixture;
 import autofixture.publicinterface.InstanceOf;
-import autofixture.generators.objects.ObjenesisGenerator;
 import org.junit.Test;
 
 import java.util.ArrayList;

@@ -1,18 +1,11 @@
 package autofixture.generators.vavr;
 
-import autofixture.generators.collections.BuiltInCollectionGenerator;
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
 import io.vavr.collection.List;
-import io.vavr.collection.Multimap;
 
 public class VavrListGenerator implements InstanceGenerator {
-  private final BuiltInCollectionGenerator gen;
-
-  public VavrListGenerator() {
-    gen = new BuiltInCollectionGenerator();
-  }
 
   @Override
   public <T> boolean appliesTo(final InstanceType<T> instanceType) {
@@ -29,3 +22,4 @@ public class VavrListGenerator implements InstanceGenerator {
 
   }
 }
+

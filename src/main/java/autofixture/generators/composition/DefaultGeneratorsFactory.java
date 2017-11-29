@@ -1,5 +1,6 @@
-package autofixture.generators;
+package autofixture.generators.composition;
 
+import autofixture.generators.*;
 import autofixture.generators.collections.*;
 import autofixture.generators.enums.EnumSequenceGenerator;
 import autofixture.generators.enums.InMemoryEnumCache;
@@ -78,7 +79,13 @@ public class DefaultGeneratorsFactory {
                 new VavrHashSetGenerator(),
                 new VavrTreeSetGenerator(),
                 new VavrTreeMapGenerator(),
-                new VavrNodeGenerator())));
+                new VavrNodeGenerator(),
+                new VavrLinkedHashMapGenerator(),
+                new VavrLinkedHashSetGenerator(),
+                new VavrVectorGenerator(),
+                new VavrPriorityQueueGenerator(),
+                new VavrQueueGenerator()
+                )));
   }
 
   private InstanceGenerator throwables() {

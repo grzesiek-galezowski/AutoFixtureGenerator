@@ -3,11 +3,8 @@ package autofixture.generators.vavr;
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
-import io.vavr.collection.Array;
 import io.vavr.collection.List;
 import io.vavr.collection.Tree;
-
-import java.util.ArrayList;
 
 public class VavrNodeGenerator implements InstanceGenerator {
   @Override

@@ -7,6 +7,11 @@ import autofixture.publicinterface.InstanceOf;
 import autofixture.publicinterface.thirdpartysupport.AnyVavr;
 import autofixture.specification.acceptance.testfixtures.*;
 import com.google.common.collect.Lists;
+import io.vavr.collection.*;
+import io.vavr.collection.HashMap;
+import io.vavr.collection.HashSet;
+import io.vavr.collection.TreeMap;
+import io.vavr.collection.TreeSet;
 import lombok.val;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,13 +19,17 @@ import org.junit.runners.Parameterized;
 
 import java.time.DayOfWeek;
 import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.SortedSet;
 
 import static autofixture.publicinterface.InlineGenerators.*;
-import static autofixture.specification.acceptance.CustomAssertions.*;
+import static autofixture.specification.acceptance.CustomAssertions.assertThrows;
 import static autofixture.specification.acceptance.TypeHelpers.*;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.core.Is.is;
@@ -473,31 +482,95 @@ public class AnyGenerationMethodsSpecification {
     assertContainsOnlyIntegers(map.toJavaMap().values());
     assertContainsOnlyStrings(map.toJavaMap().keySet());
 
+    Traversable<Integer> traversable = fixture.create(new InstanceOf<Traversable<Integer>>() {});
+    assertThat(traversable.size(), is(3));
+    assertThat(traversable.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(traversable.toJavaList());
 
-    fixture.create(new InstanceOf<io.vavr.collection.Traversable<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.List<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.Seq<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.LinearSeq<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.IndexedSeq<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.Ordered<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.HashMap<Integer, Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.Array<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.HashSet<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.Set<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.SortedMap<Integer, Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.SortedSet<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.Tree<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.CharSeq>(){});
-    fixture.create(new InstanceOf<CharSequence>(){}); //todo add canonical way - this is java.util
+    Seq<Integer> seq = fixture.create(new InstanceOf<Seq<Integer>>() {});
+    assertThat(seq.size(), is(3));
+    assertThat(seq.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(seq.toJavaList());
+
+    LinearSeq<Integer> linearSeq = fixture.create(new InstanceOf<LinearSeq<Integer>>() {});
+    assertThat(linearSeq.size(), is(3));
+    assertThat(linearSeq.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(linearSeq.toJavaList());
+
+    IndexedSeq<Integer> indexedSeq = fixture.create(new InstanceOf<IndexedSeq<Integer>>() {});
+    assertThat(indexedSeq.size(), is(3));
+    assertThat(indexedSeq.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(indexedSeq.toJavaList());
+
+    TreeSet<Integer> ordered = (TreeSet<Integer>)fixture.create(new InstanceOf<Ordered<Integer>>() {});
+    assertThat(ordered.size(), is(3));
+    assertThat(ordered.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(ordered.toJavaList());
+
+
+    HashMap<String, Integer> hashMap = fixture.create(new InstanceOf<HashMap<String, Integer>>() {});
+    assertThat(hashMap.size(), is(3));
+    assertThat(hashMap.keySet(), not(hasItem(nullValue())));
+    assertThat(hashMap.values(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(hashMap.toJavaMap().values());
+    assertContainsOnlyStrings(hashMap.toJavaMap().keySet());
+
+
+    Array<Integer> integerArray = fixture.create(new InstanceOf<Array<Integer>>() {});
+    assertThat(integerArray.size(), is(3));
+    assertThat(integerArray.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(integerArray.toJavaList());
+
+    HashSet<Integer> hashSet = fixture.create(new InstanceOf<HashSet<Integer>>() {});
+    assertThat(hashSet.size(), is(3));
+    assertThat(hashSet.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(hashSet.toJavaList());
+
+    io.vavr.collection.Set<Integer> set = fixture.create(new InstanceOf<io.vavr.collection.Set<Integer>>() { });
+    assertThat(set.size(), is(3));
+    assertThat(set.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(set.toJavaList());
+
+    io.vavr.collection.SortedMap<String, Integer> sortedMap = fixture.create(new InstanceOf<io.vavr.collection.SortedMap<String, Integer>>() {});
+    assertThat(sortedMap.size(), is(3));
+    assertThat(sortedMap.keySet(), not(hasItem(nullValue())));
+    assertThat(sortedMap.values(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(sortedMap.toJavaMap().values());
+    assertContainsOnlyStrings(sortedMap.toJavaMap().keySet());
+
+    io.vavr.collection.SortedSet<Integer> sortedSet = fixture.create(new InstanceOf<io.vavr.collection.SortedSet<Integer>>() {});
+    assertThat(sortedSet.size(), is(3));
+    assertThat(sortedSet.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(sortedSet.toJavaList());
+
+    TreeSet<Integer> treeSet = fixture.create(new InstanceOf<TreeSet<Integer>>() {});
+    assertThat(treeSet.size(), is(3));
+    assertThat(treeSet.toJavaList(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(treeSet.toJavaList());
+
+    TreeMap<String, Integer> treeMap = fixture.create(new InstanceOf<TreeMap<String, Integer>>() {});
+    assertThat(treeMap.size(), is(3));
+    assertThat(treeMap.keySet(), not(hasItem(nullValue())));
+    assertThat(treeMap.values(), not(hasItem(nullValue())));
+    assertContainsOnlyIntegers(treeMap.toJavaMap().values());
+    assertContainsOnlyStrings(treeMap.toJavaMap().keySet());
+
+
     fixture.create(new InstanceOf<io.vavr.collection.Vector<Integer>>(){});
-
     fixture.create(new InstanceOf<io.vavr.collection.LinkedHashMap<Integer, Integer>>(){});
     fixture.create(new InstanceOf<io.vavr.collection.LinkedHashSet<Integer>>(){});
     fixture.create(new InstanceOf<io.vavr.collection.PriorityQueue<Integer>>(){});
     fixture.create(new InstanceOf<io.vavr.collection.Queue<Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.TreeMap<Integer, Integer>>(){});
+
+    Tree<Integer> tree = fixture.create(new InstanceOf<Tree<Integer>>() {});
+    assertThat(tree.getValue(), is(not(nullValue())));
+    assertThat(tree.getValue(), is(instanceOf(Integer.class)));
+    assertThat(tree.getChildren().toJavaList(), hasSize(0));
+
+
+    fixture.create(new InstanceOf<io.vavr.collection.CharSeq>(){});
+    fixture.create(new InstanceOf<CharSequence>(){}); //todo add canonical way - this is java.util
     fixture.create(new InstanceOf<io.vavr.collection.TreeMultimap<Integer, Integer>>(){});
-    fixture.create(new InstanceOf<io.vavr.collection.TreeSet<Integer>>(){});
 
     fixture.create(new InstanceOf<io.vavr.collection.SortedMultimap<Integer, Integer>>(){});
     fixture.create(new InstanceOf<io.vavr.collection.Multimap<Integer, Integer>>(){});

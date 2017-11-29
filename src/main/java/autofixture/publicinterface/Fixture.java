@@ -1,12 +1,10 @@
 package autofixture.publicinterface;
 
-import autofixture.interfaces.InstanceGenerator;
-import autofixture.implementationdetails.CollectionFactory;
+import autofixture.generators.composition.DefaultGeneratorsFactory;
 import autofixture.generators.objects.implementationdetails.ConcreteInstanceType;
+import autofixture.implementationdetails.CollectionFactory;
 import autofixture.implementationdetails.MapBasedRecursionGuard;
 import autofixture.interfaces.*;
-import autofixture.generators.DefaultGeneratorsFactory;
-import autofixture.interfaces.InlineConstrainedGenerator;
 import com.google.common.primitives.Primitives;
 import com.google.common.reflect.TypeToken;
 

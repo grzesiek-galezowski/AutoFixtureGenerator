@@ -1,4 +1,4 @@
-package autofixture.generators;
+package autofixture.generators.composition;
 
 import autofixture.exceptions.ObjectCreationException;
 import autofixture.interfaces.FixtureContract;

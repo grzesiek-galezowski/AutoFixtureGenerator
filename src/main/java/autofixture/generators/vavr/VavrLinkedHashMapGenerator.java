@@ -5,16 +5,16 @@ import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
-import io.vavr.collection.HashMap;
+import io.vavr.collection.LinkedHashMap;
 
 import java.util.stream.Stream;
 
-public class VavrHashMapGenerator implements InstanceGenerator {
+public class VavrLinkedHashMapGenerator implements InstanceGenerator {
 
   @Override
   public <T> boolean appliesTo(final InstanceType<T> instanceType) {
     return instanceType.isRawTypeAssignableFrom(
-        io.vavr.collection.HashMap.class);
+        io.vavr.collection.LinkedHashMap.class);
   }
 
   @Override
@@ -24,7 +24,7 @@ public class VavrHashMapGenerator implements InstanceGenerator {
         fixture.create(instanceType.getNestedGenericType1()),
         fixture.create(instanceType.getNestedGenericType2())))
         .limit(fixture.getRepeatCount());
-    HashMap<?, ?> hashMap = HashMap.ofAll(stream, t -> t._1, t -> t._2);
+    LinkedHashMap<?, ?> hashMap = LinkedHashMap.ofAll(stream, t -> t._1, t -> t._2);
 
     return (T) hashMap;
   }
@@ -34,4 +34,3 @@ public class VavrHashMapGenerator implements InstanceGenerator {
 
   }
 }
-
