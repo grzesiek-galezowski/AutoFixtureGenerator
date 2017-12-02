@@ -5,7 +5,6 @@ import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
 import com.google.common.reflect.TypeToken;
 import io.vavr.collection.CharSeq;
-import io.vavr.collection.List;
 
 public class VavrCharSeqGenerator implements InstanceGenerator {
 

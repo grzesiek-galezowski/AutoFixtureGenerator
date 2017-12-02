@@ -3,7 +3,6 @@ package autofixture.generators.vavr;
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
-import io.vavr.collection.List;
 import io.vavr.control.Option;
 
 public class VavrOptionGenerator implements InstanceGenerator {

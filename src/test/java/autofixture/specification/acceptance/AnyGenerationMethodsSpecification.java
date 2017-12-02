@@ -17,7 +17,9 @@ import io.vavr.collection.PriorityQueue;
 import io.vavr.collection.TreeMap;
 import io.vavr.collection.TreeSet;
 import io.vavr.collection.Vector;
+import io.vavr.control.Either;
 import io.vavr.control.Option;
+import io.vavr.control.Validation;
 import lombok.val;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -639,6 +641,24 @@ public class AnyGenerationMethodsSpecification {
 
     Option<Integer> option = fixture.create(new InstanceOf<Option<Integer>>(){});
     assertThat(option.isDefined(), is(true));
+
+    Validation<String, Long> validation1 = fixture.create(new InstanceOf<Validation<String, Long>>(){});
+    Validation<String, Long> validation2 = fixture.create(new InstanceOf<Validation<String, Long>>(){});
+    assertThat(validation1.isValid(), is(validation2.isInvalid()));
+    assertThat(validation1.isInvalid(), is(validation2.isValid()));
+    assertThat(validation1.get(), is(not(nullValue())));
+    assertThat(validation1.get(), instanceOf(longValue()));
+    assertThat(validation2.getError(), is(not(nullValue())));
+    assertThat(validation2.getError(), instanceOf(string()));
+
+    Either<String, Long> either1 = fixture.create(new InstanceOf<Either<String, Long>>(){});
+    Either<String, Long> either2 = fixture.create(new InstanceOf<Either<String, Long>>(){});
+    assertThat(either1.isRight(), is(either2.isLeft()));
+    assertThat(either1.isLeft(), is(either2.isRight()));
+    assertThat(either1.get(), is(not(nullValue())));
+    assertThat(either1.get(), instanceOf(longValue()));
+    assertThat(either2.getLeft(), is(not(nullValue())));
+    assertThat(either2.getLeft(), instanceOf(string()));
 
   }
 

@@ -1,6 +1,5 @@
 apply plugin: "info.solidsoft.pitest"
 apply plugin: 'checkstyle'
-apply plugin: 'findbugs'
 apply plugin: 'jdepend'
 apply plugin: 'pmd'
 apply plugin: "jacoco"
@@ -29,7 +28,7 @@ jdependMain {
     }
 }
 
-findbugs {
+spotbugs {
     effort = "max"
     reportLevel = "high"
     ignoreFailures = false
