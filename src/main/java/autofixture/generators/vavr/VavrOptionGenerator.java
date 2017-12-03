@@ -19,7 +19,6 @@ public class VavrOptionGenerator implements InstanceGenerator {
 
   @Override
   public void setOmittingAutoProperties(final boolean isOn) {
-
   }
 }
 

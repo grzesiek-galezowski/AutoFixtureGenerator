@@ -2,24 +2,9 @@ package autofixture.specification.acceptance;
 
 import autofixture.exceptions.BoomException;
 import autofixture.publicinterface.Any;
-import autofixture.publicinterface.Fixture;
 import autofixture.publicinterface.InstanceOf;
-import autofixture.publicinterface.thirdpartysupport.AnyVavr;
 import autofixture.specification.acceptance.testfixtures.*;
 import com.google.common.collect.Lists;
-import io.vavr.collection.*;
-import io.vavr.collection.HashMap;
-import io.vavr.collection.HashSet;
-import io.vavr.collection.Iterator;
-import io.vavr.collection.LinkedHashMap;
-import io.vavr.collection.LinkedHashSet;
-import io.vavr.collection.PriorityQueue;
-import io.vavr.collection.TreeMap;
-import io.vavr.collection.TreeSet;
-import io.vavr.collection.Vector;
-import io.vavr.control.Either;
-import io.vavr.control.Option;
-import io.vavr.control.Validation;
 import lombok.val;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,12 +12,6 @@ import org.junit.runners.Parameterized;
 
 import java.time.DayOfWeek;
 import java.util.*;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.SortedSet;
 
 import static autofixture.publicinterface.InlineGenerators.*;
 import static autofixture.specification.acceptance.CustomAssertions.assertThrows;
@@ -323,7 +302,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(num2)));
     assertThat(list, not(hasItem(num3)));
     assertThat(list, not(hasItem(num4)));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -337,7 +316,7 @@ public class AnyGenerationMethodsSpecification {
             not(hasItem(6)),
             not(hasItem(7))
     ));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -346,7 +325,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -357,7 +336,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -367,7 +346,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -376,7 +355,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -392,7 +371,7 @@ public class AnyGenerationMethodsSpecification {
             not(hasItem(2)),
             not(hasItem(3))
     ));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -405,7 +384,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -417,7 +396,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(1)));
     assertThat(list, not(hasItem(2)));
     assertThat(list, not(hasItem(3)));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
 
@@ -427,7 +406,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -437,7 +416,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -451,7 +430,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -464,202 +443,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
-    assertContainsOnlyIntegers(list);
-  }
-
-
-
-  @Test
-  public void shouldGenerateImmutableListsUsingClassSignature() {
-    final io.vavr.collection.List<Integer> list = AnyVavr.listOf(intValues());
-
-    assertThat(list.size(), is(3));
-    assertThat(list, not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(list.toJavaList());
-
-    Fixture fixture = new Fixture();
-    val list2 = fixture.create(new InstanceOf<io.vavr.collection.List<Integer>>(){});
-    assertThat(list2.size(), is(3));
-    assertThat(list2, not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(list2.toJavaList());
-
-    io.vavr.collection.Map<String, Integer> map = fixture.create(new InstanceOf<io.vavr.collection.Map<String, Integer>>() {});
-    assertThat(map.size(), is(3));
-    assertThat(map.keySet(), not(hasItem(nullValue())));
-    assertThat(map.values(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(map.toJavaMap().values());
-    assertContainsOnlyStrings(map.toJavaMap().keySet());
-
-    Traversable<Integer> traversable = fixture.create(new InstanceOf<Traversable<Integer>>() {});
-    assertThat(traversable.size(), is(3));
-    assertThat(traversable.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(traversable.toJavaList());
-
-    Seq<Integer> seq = fixture.create(new InstanceOf<Seq<Integer>>() {});
-    assertThat(seq.size(), is(3));
-    assertThat(seq.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(seq.toJavaList());
-
-    LinearSeq<Integer> linearSeq = fixture.create(new InstanceOf<LinearSeq<Integer>>() {});
-    assertThat(linearSeq.size(), is(3));
-    assertThat(linearSeq.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(linearSeq.toJavaList());
-
-    IndexedSeq<Integer> indexedSeq = fixture.create(new InstanceOf<IndexedSeq<Integer>>() {});
-    assertThat(indexedSeq.size(), is(3));
-    assertThat(indexedSeq.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(indexedSeq.toJavaList());
-
-    TreeSet<Integer> ordered = (TreeSet<Integer>)fixture.create(new InstanceOf<Ordered<Integer>>() {});
-    assertThat(ordered.size(), is(3));
-    assertThat(ordered.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(ordered.toJavaList());
-
-    HashMap<String, Integer> hashMap = fixture.create(new InstanceOf<HashMap<String, Integer>>() {});
-    assertThat(hashMap.size(), is(3));
-    assertThat(hashMap.keySet(), not(hasItem(nullValue())));
-    assertThat(hashMap.values(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(hashMap.toJavaMap().values());
-    assertContainsOnlyStrings(hashMap.toJavaMap().keySet());
-
-
-    Array<Integer> integerArray = fixture.create(new InstanceOf<Array<Integer>>() {});
-    assertThat(integerArray.size(), is(3));
-    assertThat(integerArray.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(integerArray.toJavaList());
-
-    HashSet<Integer> hashSet = fixture.create(new InstanceOf<HashSet<Integer>>() {});
-    assertThat(hashSet.size(), is(3));
-    assertThat(hashSet.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(hashSet.toJavaList());
-
-    io.vavr.collection.Set<Integer> set = fixture.create(new InstanceOf<io.vavr.collection.Set<Integer>>() { });
-    assertThat(set.size(), is(3));
-    assertThat(set.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(set.toJavaList());
-
-    io.vavr.collection.SortedMap<String, Integer> sortedMap = fixture.create(new InstanceOf<io.vavr.collection.SortedMap<String, Integer>>() {});
-    assertThat(sortedMap.size(), is(3));
-    assertThat(sortedMap.keySet(), not(hasItem(nullValue())));
-    assertThat(sortedMap.values(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(sortedMap.toJavaMap().values());
-    assertContainsOnlyStrings(sortedMap.toJavaMap().keySet());
-
-    io.vavr.collection.SortedSet<Integer> sortedSet = fixture.create(new InstanceOf<io.vavr.collection.SortedSet<Integer>>() {});
-    assertThat(sortedSet.size(), is(3));
-    assertThat(sortedSet.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(sortedSet.toJavaList());
-
-    TreeSet<Integer> treeSet = fixture.create(new InstanceOf<TreeSet<Integer>>() {});
-    assertThat(treeSet.size(), is(3));
-    assertThat(treeSet.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(treeSet.toJavaList());
-
-    TreeMap<String, Integer> treeMap = fixture.create(new InstanceOf<TreeMap<String, Integer>>() {});
-    assertThat(treeMap.size(), is(3));
-    assertThat(treeMap.keySet(), not(hasItem(nullValue())));
-    assertThat(treeMap.values(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(treeMap.toJavaMap().values());
-    assertContainsOnlyStrings(treeMap.toJavaMap().keySet());
-
-    LinkedHashMap<String, Integer> linkedHashMap = fixture.create(new InstanceOf<LinkedHashMap<String, Integer>>() {});
-    assertThat(linkedHashMap.size(), is(3));
-    assertThat(linkedHashMap.keySet(), not(hasItem(nullValue())));
-    assertThat(linkedHashMap.values(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(linkedHashMap.toJavaMap().values());
-    assertContainsOnlyStrings(linkedHashMap.toJavaMap().keySet());
-
-    Vector<Integer> intVector = fixture.create(new InstanceOf<Vector<Integer>>() {});
-    assertThat(intVector.size(), is(3));
-    assertThat(intVector.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(intVector.toJavaList());
-
-    LinkedHashSet<Integer> linkedHashSet = fixture.create(new InstanceOf<LinkedHashSet<Integer>>() {});
-    assertThat(linkedHashSet.size(), is(3));
-    assertThat(linkedHashSet.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(linkedHashSet.toJavaList());
-
-    PriorityQueue<Integer> priorityQueue = fixture.create(new InstanceOf<PriorityQueue<Integer>>() {});
-    assertThat(priorityQueue.size(), is(3));
-    assertThat(priorityQueue.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(priorityQueue.toJavaList());
-
-    io.vavr.collection.Queue<Integer> queue = fixture.create(new InstanceOf<io.vavr.collection.Queue<Integer>>() {});
-    assertThat(queue.size(), is(3));
-    assertThat(queue.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(queue.toJavaList());
-
-    Iterator<Integer> integerIterator = fixture.create(new InstanceOf<Iterator<Integer>>() {});
-    assertThat(integerIterator.size(), is(3));
-    assertThat(integerIterator.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(queue.toJavaList());
-
-    Tree<Integer> tree = fixture.create(new InstanceOf<Tree<Integer>>() {});
-    assertThat(tree.getValue(), is(not(nullValue())));
-    assertThat(tree.getValue(), is(instanceOf(Integer.class)));
-    assertThat(tree.getChildren().toJavaList(), hasSize(0));
-
-    CharSeq charSeq = fixture.create(new InstanceOf<CharSeq>() {});
-    assertThat(charSeq.size(), is(3));
-    assertThat(charSeq.toJavaList(), not(hasItem(nullValue())));
-    assertContainsOnly(charSeq.toJavaList(), Character.class);
-
-    TreeMultimap<String, Integer> treeMultimap = fixture.create(new InstanceOf<TreeMultimap<String, Integer>>() {});
-    assertThat(treeMultimap.size(), is(3));
-    assertThat(treeMultimap.keySet(), not(hasItem(nullValue())));
-    assertThat(treeMultimap.values(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(treeMultimap.values().toJavaList());
-    assertContainsOnlyStrings(treeMultimap.keySet().toJavaSet());
-
-    SortedMultimap<String, Integer> sortedMultimap = fixture.create(new InstanceOf<SortedMultimap<String, Integer>>() {});
-    assertThat(sortedMultimap.size(), is(3));
-    assertThat(sortedMultimap.keySet(), not(hasItem(nullValue())));
-    assertThat(sortedMultimap.values(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(sortedMultimap.values().toJavaList());
-    assertContainsOnlyStrings(sortedMultimap.keySet().toJavaSet());
-
-    Multimap<String, Integer> multimap = fixture.create(new InstanceOf<Multimap<String, Integer>>() {});
-    assertThat(multimap.size(), is(3));
-    assertThat(multimap.keySet(), not(hasItem(nullValue())));
-    assertThat(multimap.values(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(multimap.values().toJavaList());
-    assertContainsOnlyStrings(multimap.keySet().toJavaSet());
-
-    HashMultimap<String, Integer> hashMultimap = fixture.create(new InstanceOf<HashMultimap<String, Integer>>() {});
-    assertThat(hashMultimap.size(), is(3));
-    assertThat(hashMultimap.keySet(), not(hasItem(nullValue())));
-    assertThat(hashMultimap.values(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(hashMultimap.values().toJavaList());
-    assertContainsOnlyStrings(hashMultimap.keySet().toJavaSet());
-
-    LinkedHashMultimap<String, Integer> linkedHashMultimap = fixture.create(new InstanceOf<LinkedHashMultimap<String, Integer>>() {});
-    assertThat(linkedHashMultimap.size(), is(3));
-    assertThat(linkedHashMultimap.keySet(), not(hasItem(nullValue())));
-    assertThat(linkedHashMultimap.values(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(linkedHashMultimap.values().toJavaList());
-    assertContainsOnlyStrings(linkedHashMultimap.keySet().toJavaSet());
-
-    Option<Integer> option = fixture.create(new InstanceOf<Option<Integer>>(){});
-    assertThat(option.isDefined(), is(true));
-
-    Validation<String, Long> validation1 = fixture.create(new InstanceOf<Validation<String, Long>>(){});
-    Validation<String, Long> validation2 = fixture.create(new InstanceOf<Validation<String, Long>>(){});
-    assertThat(validation1.isValid(), is(validation2.isInvalid()));
-    assertThat(validation1.isInvalid(), is(validation2.isValid()));
-    assertThat(validation1.get(), is(not(nullValue())));
-    assertThat(validation1.get(), instanceOf(longValue()));
-    assertThat(validation2.getError(), is(not(nullValue())));
-    assertThat(validation2.getError(), instanceOf(string()));
-
-    Either<String, Long> either1 = fixture.create(new InstanceOf<Either<String, Long>>(){});
-    Either<String, Long> either2 = fixture.create(new InstanceOf<Either<String, Long>>(){});
-    assertThat(either1.isRight(), is(either2.isLeft()));
-    assertThat(either1.isLeft(), is(either2.isRight()));
-    assertThat(either1.get(), is(not(nullValue())));
-    assertThat(either1.get(), instanceOf(longValue()));
-    assertThat(either2.getLeft(), is(not(nullValue())));
-    assertThat(either2.getLeft(), instanceOf(string()));
-
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
 
@@ -670,7 +454,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -680,7 +464,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -689,7 +473,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(list.size(), is(3));
     assertThat(list, not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -702,7 +486,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -711,7 +495,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(queue.size(), is(3));
     assertThat(queue, not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(queue);
+    GenerationAssertions.assertContainsOnlyIntegers(queue);
   }
 
   @Test
@@ -724,7 +508,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
   @Test
@@ -733,7 +517,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(collection.size(), is(3));
     assertThat(collection, not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(collection);
+    GenerationAssertions.assertContainsOnlyIntegers(collection);
   }
 
   @Test
@@ -746,7 +530,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
 
@@ -756,7 +540,7 @@ public class AnyGenerationMethodsSpecification {
 
     assertThat(collection.size(), is(3));
     assertThat(collection, not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(collection);
+    GenerationAssertions.assertContainsOnlyIntegers(collection);
   }
 
   @Test
@@ -769,7 +553,7 @@ public class AnyGenerationMethodsSpecification {
     assertThat(list, not(hasItem(5)));
     assertThat(list, not(hasItem(6)));
     assertThat(list, not(hasItem(7)));
-    assertContainsOnlyIntegers(list);
+    GenerationAssertions.assertContainsOnlyIntegers(list);
   }
 
 
@@ -780,8 +564,8 @@ public class AnyGenerationMethodsSpecification {
     assertThat(collection.size(), is(3));
     assertThat(collection.keySet(), not(hasItem(nullValue())));
     assertThat(collection.values(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(collection.values());
-    assertContainsOnlyStrings(collection.keySet());
+    GenerationAssertions.assertContainsOnlyIntegers(collection.values());
+    GenerationAssertions.assertContainsOnlyStrings(collection.keySet());
   }
 
   @Test
@@ -791,8 +575,8 @@ public class AnyGenerationMethodsSpecification {
     assertThat(collection.size(), is(3));
     assertThat(collection.keySet(), not(hasItem(nullValue())));
     assertThat(collection.values(), not(hasItem(nullValue())));
-    assertContainsOnlyIntegers(collection.values());
-    assertContainsOnlyStrings(collection.keySet());
+    GenerationAssertions.assertContainsOnlyIntegers(collection.values());
+    GenerationAssertions.assertContainsOnlyStrings(collection.keySet());
   }
 
   @Test
@@ -833,7 +617,7 @@ public class AnyGenerationMethodsSpecification {
         });
 
     //THEN
-    assertGenericObject2GeneratedCorrectly(o);
+    GenerationAssertions.assertGenericObject2GeneratedCorrectly(o);
   }
 
   @Test
@@ -843,29 +627,7 @@ public class AnyGenerationMethodsSpecification {
             Any.anonymous(new InstanceOf<GenericInterface<GenericObject2<Integer>>>() {});
 
     //THEN
-    assertGenericObject2GeneratedCorrectly(o);
-  }
-
-
-  private void assertGenericObject2GeneratedCorrectly(GenericInterface<GenericObject2<Integer>> o) {
-    assertThat(o.getInstance(), instanceOf(GenericObject2.class));
-    assertThat(o.getInstance().field, instanceOf(intValue()));
-  }
-
-  private void assertContainsOnlyStrings(Collection<String> collection) {
-    assertThat(collection.toArray()[0], instanceOf(string()));
-    assertThat(collection.toArray()[1], instanceOf(string()));
-    assertThat(collection.toArray()[2], instanceOf(string()));
-  }
-
-  private void assertContainsOnlyIntegers(Collection<Integer> collection) {
-    assertContainsOnly(collection, intValue());
-  }
-
-  private <T> void assertContainsOnly(final Collection<T> collection, final Class<T> type) {
-    assertThat(collection.toArray()[0], instanceOf(type));
-    assertThat(collection.toArray()[1], instanceOf(type));
-    assertThat(collection.toArray()[2], instanceOf(type));
+    GenerationAssertions.assertGenericObject2GeneratedCorrectly(o);
   }
 
 
