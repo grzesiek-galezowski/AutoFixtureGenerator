@@ -554,4 +554,24 @@ public class Any {
     return PrivateGenerate.manyAsMapBetween(keyType, valueType);
   }
 
+  /// optionals
+
+  @NonNull
+  public static <T> Optional<T> optional(Class<T> type) {
+    return Optional.of(Any.anonymous(type));
+  }
+
+  @NonNull
+  public static <T> Optional<T> optional(InstanceOf<T> type) {
+    return Optional.of(Any.anonymous(type));
+  }
+
+  @NonNull
+  public static <T> Optional<T> optionalOtherThan(Optional<T>... others) {
+    T[] others1 = (T[])Arrays.stream(others).map(o -> o.get()).toArray(Object[]::new);
+    T o = Any.otherThan(others1);
+    return Optional.of(o);
+  }
+
+
 }

@@ -630,6 +630,18 @@ public class AnyGenerationMethodsSpecification {
     GenerationAssertions.assertGenericObject2GeneratedCorrectly(o);
   }
 
+  @Test
+  public void shouldGenerateOptionalOtherThanGiven() {
+    Optional<Integer> integer1 = Any.optional(Integer.class);
+    Optional<Integer> integer2 = Any.optional(Integer.class);
+    Optional<Integer> integer3 = Any.optional(Integer.class);
+
+    Optional<Integer> other = Any.optionalOtherThan(integer1, integer2, integer3);
+    assertThat(integer1, is(not(equalTo(other))));
+    assertThat(integer2, is(not(equalTo(other))));
+    assertThat(integer3, is(not(equalTo(other))));
+    assertThat(other.isPresent(), is(true));
+  }
 
 
 /*
