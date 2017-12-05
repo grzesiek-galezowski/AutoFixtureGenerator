@@ -51,9 +51,7 @@ dependencies {
     )
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
-// https://mvnrepository.com/artifact/io.vavr/vavr
     compileOnly group: 'io.vavr', name: 'vavr', version: '0.9.0'
-    // https://mvnrepository.com/artifact/io.vavr/vavr
     testCompile group: 'io.vavr', name: 'vavr', version: '0.9.0'
 
 

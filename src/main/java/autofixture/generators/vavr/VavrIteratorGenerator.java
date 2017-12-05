@@ -6,13 +6,11 @@ import autofixture.interfaces.InstanceType;
 import io.vavr.collection.Iterator;
 import io.vavr.collection.List;
 
-import java.util.Collection;
-
 public class VavrIteratorGenerator implements InstanceGenerator {
 
   //apparently, when the lists are not cached,
   //the size of the iterator becomes 0 pretty soon
-  List<List> iteratorParents = List.empty();
+  private List<List> iteratorParents = List.empty();
 
   @Override
   public <T> boolean appliesTo(final InstanceType<T> instanceType) {

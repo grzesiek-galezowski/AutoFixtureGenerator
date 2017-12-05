@@ -13,12 +13,9 @@ import autofixture.generators.throwables.ErrorGenerator;
 import autofixture.generators.throwables.ExceptionGenerator;
 import autofixture.generators.throwables.ThrowableGenerator;
 import autofixture.generators.time.*;
-import autofixture.generators.vavr.*;
 import autofixture.interfaces.GeneratorsPipeline;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.RecursionGuard;
-import com.google.common.collect.Lists;
-import io.vavr.collection.*;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -71,58 +68,7 @@ public class DefaultGeneratorsFactory {
   }
 
   private InstanceGenerator vavrTypes() {
-    return new VavrGenerator(
-        new DefaultGeneratorsPipeline(
-            Lists.newArrayList(
-                new VavrCollectionGenerator<>(
-                    io.vavr.collection.List.class,
-                    io.vavr.collection.List::ofAll),
-                new VavrCollectionGenerator<>(
-                    io.vavr.collection.Array.class,
-                    io.vavr.collection.Array::ofAll),
-                new VavrMapGenerator<>(
-                    HashMap.class,
-                    HashMap::ofAll),
-                new VavrCollectionGenerator<>(
-                    io.vavr.collection.HashSet.class,
-                    io.vavr.collection.HashSet::ofAll),
-                new VavrCollectionGenerator<>(
-                    io.vavr.collection.TreeSet.class,
-                    x -> io.vavr.collection.TreeSet.ofAll((Iterable)x)),
-                new VavrMapGenerator<>(
-                    TreeMap.class,
-                    TreeMap::ofAll),
-                new VavrNodeGenerator(),
-                new VavrMapGenerator<>(
-                    LinkedHashMap.class,
-                    LinkedHashMap::ofAll),
-                new VavrCollectionGenerator<>(
-                    io.vavr.collection.LinkedHashSet.class,
-                    io.vavr.collection.LinkedHashSet::ofAll),
-                new VavrCollectionGenerator<>(
-                    io.vavr.collection.Vector.class,
-                    io.vavr.collection.Vector::ofAll),
-                new VavrCollectionGenerator<>(
-                    io.vavr.collection.PriorityQueue.class,
-                    x -> io.vavr.collection.PriorityQueue.ofAll((Iterable)x)),
-                new VavrCollectionGenerator<>(
-                    io.vavr.collection.Queue.class,
-                    io.vavr.collection.Queue::ofAll),
-                new VavrCharSeqGenerator(),
-                new VavrMapGenerator<>(
-                    TreeMultimap.class,
-                    TreeMultimap.withSeq()::ofAll),
-                new VavrMapGenerator<>(
-                    HashMultimap.class,
-                    HashMultimap.withSeq()::ofAll),
-                new VavrMapGenerator<>(
-                    LinkedHashMultimap.class,
-                    LinkedHashMultimap.withSeq()::ofAll),
-                new VavrIteratorGenerator(),
-                new VavrOptionGenerator(),
-                new VavrEitherGenerator(),
-                new VavrValidationGenerator()
-            )));
+    return new VavrGenerator();
   }
 
   private InstanceGenerator throwables() {
