@@ -55,7 +55,7 @@ artifacts {
     archives sourcesJar
 }
 
-uploadShadow {
+uploadArchives {
     repositories {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
@@ -96,5 +96,5 @@ uploadShadow {
     }
 }
 
-uploadShadow.dependsOn([shadowJar, test])
-afterReleaseBuild.dependsOn uploadShadow
+uploadArchives.dependsOn([shadowJar, test])
+afterReleaseBuild.dependsOn uploadArchives
