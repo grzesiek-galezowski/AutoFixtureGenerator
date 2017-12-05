@@ -22,7 +22,6 @@ plugins {
 apply plugin: 'java'
 apply from: 'gradle/compile.gradle'
 apply from: 'gradle/test.gradle'
-apply from: 'gradle/release.gradle'
 
 
 group 'com.github.autofixture'
@@ -61,4 +60,6 @@ dependencies {
     testCompile group: 'org.jmock', name: 'jmock-junit4', version: '2.8.3'
     testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
 }
+
+apply from: 'gradle/release.gradle'
 
