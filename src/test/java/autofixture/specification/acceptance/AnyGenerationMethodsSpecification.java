@@ -783,6 +783,9 @@ public class AnyGenerationMethodsSpecification {
     assertThrows(RuntimeException.class,
         () -> Any.otherThan(new ArrayList<Integer>()));
   }
-
-
+  @Test
+  public void shouldAvoidCopyConstructorIfPossible1234() {
+    Group group = Any.instanceOf(Group.class);
+    assertThat(group.getMembers(), is(not(nullValue())));
+  }
 }

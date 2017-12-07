@@ -1,12 +1,14 @@
 package autofixture.generators.objects.implementationdetails;
 
-import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.Invokable;
+import com.google.common.reflect.Parameter;
 import com.google.common.reflect.TypeToken;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -43,10 +45,11 @@ public class InstanceCreation<T> {
       List<InstanceCreation<T>> constructors,
       ConstructorVisibility visibility) {
     int currentArgumentCount = Integer.MAX_VALUE;
-    Optional<InstanceCreation<T>> currentConstructor = Optional.absent();
+    Optional<InstanceCreation<T>> currentConstructor = constructors.stream().findFirst();
 
     for (final InstanceCreation<T> constructor : constructors) {
-      if (visibility.appliesTo(constructor)
+      if (constructor.isNotCopyConstructor()
+          && visibility.appliesTo(constructor)
           && constructor.hasLessParametersThan(currentArgumentCount)
           && (!currentConstructor.isPresent() || !constructor.isParameterless())) {
 
@@ -55,6 +58,13 @@ public class InstanceCreation<T> {
       }
     }
     return currentConstructor;
+  }
+
+  private boolean isNotCopyConstructor() {
+    TypeToken<T> ownerType = this.rawValue.getOwnerType();
+    ImmutableList<Parameter> parameters = this.rawValue.getParameters();
+    boolean isCopyConstructor = parameters.stream().anyMatch(p -> p.getType().equals(ownerType));
+    return !isCopyConstructor;
   }
 
   boolean isParameterless() {
