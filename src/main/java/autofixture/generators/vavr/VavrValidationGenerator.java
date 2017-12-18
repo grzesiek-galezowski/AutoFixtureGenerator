@@ -40,6 +40,11 @@ public class VavrValidationGenerator implements InstanceGenerator {
   }
 
   @Override
+  public <T> T nextEmpty(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    return (T) Validation.valid(fixture.createDummy(instanceType.getNestedGenericType2()));
+  }
+
+  @Override
   public void setOmittingAutoProperties(final boolean isOn) {
 
   }

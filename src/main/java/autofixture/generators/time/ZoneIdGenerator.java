@@ -35,6 +35,11 @@ public class ZoneIdGenerator implements InstanceGenerator {
   }
 
   @Override
+  public <T> T nextEmpty(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    return next(instanceType, fixture);
+  }
+
+  @Override
   public void setOmittingAutoProperties(final boolean isOn) {
 
   }

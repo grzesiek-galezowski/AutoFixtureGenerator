@@ -22,6 +22,14 @@ public class BuiltInMapGenerator implements InstanceGenerator {
     return (T) map;
   }
 
+  @Override
+  public <T> T nextEmpty(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    //TODO make same as array generation
+    final Map map = instanceType.createEmptyMap();
+    return (T) map;
+
+  }
+
   public <T> void fillWithNestedInstances(final Map map, final InstanceType<T> type, final FixtureContract fixture) {
     final InstanceType<?> nestedGenericType1 = type.getNestedGenericType1();
     final InstanceType<?> nestedGenericType2 = type.getNestedGenericType2();

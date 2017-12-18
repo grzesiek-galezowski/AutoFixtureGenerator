@@ -39,6 +39,11 @@ public class VavrEitherGenerator implements InstanceGenerator {
 
   }
 
+  @Override
+  public <T> T nextEmpty(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    return (T)Either.right(fixture.createDummy(instanceType.getNestedGenericType2()));
+  }
+
   private <T> Object fromSecondGenericOf(final InstanceType<T> instanceType, final FixtureContract fixture) {
     return fixture.create(instanceType.getNestedGenericType2());
   }

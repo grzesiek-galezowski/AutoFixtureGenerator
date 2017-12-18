@@ -21,6 +21,14 @@ public class VavrNodeGenerator implements InstanceGenerator {
   }
 
   @Override
+  public <T> T nextEmpty(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    return (T) new Tree.Node(
+      fixture.createDummy(instanceType.getNestedGenericType1()),
+      List.empty()
+    );
+  }
+
+  @Override
   public void setOmittingAutoProperties(final boolean isOn) {
 
   }

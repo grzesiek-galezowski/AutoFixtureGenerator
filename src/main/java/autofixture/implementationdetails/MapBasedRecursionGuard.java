@@ -11,14 +11,11 @@ import java.util.Map;
 
 public class MapBasedRecursionGuard implements RecursionGuard {
   private final Map<InstanceType<?>, Integer> recursionCounters = new HashMap<>();
-  private final GeneratorsPipeline recursionLimitReachedGeneratorsPipeline;
   private int maxRecursionDepth;
 
   public MapBasedRecursionGuard(
-          final int maxRecursionDepth,
-          final GeneratorsPipeline recursionLimitReachedGeneratorsPipeline) {
+      final int maxRecursionDepth) {
     this.maxRecursionDepth = maxRecursionDepth;
-    this.recursionLimitReachedGeneratorsPipeline = recursionLimitReachedGeneratorsPipeline;
   }
 
   @Override
@@ -29,14 +26,14 @@ public class MapBasedRecursionGuard implements RecursionGuard {
 
   @Override
   @Nullable
-  public <T> T defaultValueIfMaxDepthReachedOrGenerateUsing(
+  public <T> T generateUsing(
           final GeneratorsPipeline generatorsPipeline,
           final InstanceType<T> instanceType,
           final FixtureContract fixture) {
     if (maxRecursionDepthIsReachedFor(instanceType)) {
-      return recursionLimitReachedGeneratorsPipeline.executeFor(instanceType, fixture);
+      return generatorsPipeline.generateEmptyInstanceOf(instanceType, fixture);
     } else {
-      return generatorsPipeline.executeFor(instanceType, fixture);
+      return generatorsPipeline.generateInstanceOf(instanceType, fixture);
     }
   }
 

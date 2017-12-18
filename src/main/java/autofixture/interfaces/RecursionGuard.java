@@ -9,7 +9,7 @@ public interface RecursionGuard {
     <T> void addDepthLevelTo(InstanceType<T> instanceType);
 
     @Nullable
-    <T> T defaultValueIfMaxDepthReachedOrGenerateUsing(
+    <T> T generateUsing(
             GeneratorsPipeline generatorsPipeline,
             InstanceType<T> instanceType,
             FixtureContract fixture);

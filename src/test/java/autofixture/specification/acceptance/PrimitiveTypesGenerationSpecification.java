@@ -98,6 +98,11 @@ public class PrimitiveTypesGenerationSpecification {
       }
 
       @Override
+      public <T> T nextEmpty(final InstanceType<T> instanceType, final FixtureContract fixture) {
+        return next(instanceType, fixture);
+      }
+
+      @Override
       public <T> boolean appliesTo(InstanceType<T> type) {
         return type.isRawTypeAssignableFrom(int.class);
       }

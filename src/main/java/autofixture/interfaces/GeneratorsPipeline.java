@@ -1,7 +1,9 @@
 package autofixture.interfaces;
 
 public interface GeneratorsPipeline {
-  <T> T executeFor(InstanceType<T> instanceType, FixtureContract fixture);
+  <T> T generateInstanceOf(InstanceType<T> instanceType, FixtureContract fixture);
+
+  <T> T generateEmptyInstanceOf(InstanceType<T> instanceType, FixtureContract fixture);
 
   void registerCustomization(InstanceGenerator instanceGenerator);
 

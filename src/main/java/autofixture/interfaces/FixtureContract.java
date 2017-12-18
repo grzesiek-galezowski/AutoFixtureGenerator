@@ -13,6 +13,8 @@ public interface FixtureContract {
 
   <T> Collection<? super T> createMany(InstanceType<T> type);
 
+  <T> T createDummy(InstanceType<T> instanceType);
+
   <T> Collection<T> createMany(TypeToken<T> type);
 
   <T> T[] createArray(TypeToken<T> type);

@@ -4,12 +4,15 @@ import autofixture.exceptions.ObjectCreationException;
 import autofixture.generators.objects.implementationdetails.Debug;
 import autofixture.interfaces.*;
 import com.google.common.base.Optional;
+import org.objenesis.ObjenesisStd;
 
 import java.util.List;
 
 public class ConcreteObjectGenerator implements InstanceGenerator {
 
   private boolean omittingAutoProperties = false;
+
+  private final ObjenesisStd objenesis = new ObjenesisStd(true);
 
   @Override
   public <T> boolean appliesTo(final InstanceType<T> typeToken) {
@@ -29,6 +32,11 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
       throw new ObjectCreationException(type, e);
     }
     return instance;
+  }
+
+  @Override
+  public <T> T nextEmpty(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    return objenesis.newInstance((Class<T>)instanceType.getRawType());
   }
 
   private <T> void makeBestEffortAttemptToSetAllPublicFields(final T instance,

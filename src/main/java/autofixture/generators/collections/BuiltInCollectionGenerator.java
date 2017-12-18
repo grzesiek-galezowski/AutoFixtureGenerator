@@ -26,6 +26,12 @@ public class BuiltInCollectionGenerator implements InstanceGenerator {
   }
 
   @Override
+  public <T> T nextEmpty(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    final Collection collection = instanceType.createCollection(0);
+    return (T) collection;
+  }
+
+  @Override
   public void setOmittingAutoProperties(final boolean isOn) {
   }
 

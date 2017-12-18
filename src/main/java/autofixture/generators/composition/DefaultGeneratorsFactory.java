@@ -7,7 +7,6 @@ import autofixture.generators.enums.InMemoryEnumCache;
 import autofixture.generators.numbers.*;
 import autofixture.generators.objects.ConcreteObjectGenerator;
 import autofixture.generators.objects.InterfaceImplementationGenerator;
-import autofixture.generators.objects.ObjenesisGenerator;
 import autofixture.generators.objects.PlainObjectGenerator;
 import autofixture.generators.throwables.ErrorGenerator;
 import autofixture.generators.throwables.ExceptionGenerator;
@@ -75,63 +74,8 @@ public class DefaultGeneratorsFactory {
     return new ThrowableGenerator();
   }
 
-  public DefaultGeneratorsPipeline createDummyGenerators() {
-    return pipelineOfGeneratorsForTypes(
-            matchedInTheFollowingOrder(
-                    integers(),
-                    enums(),
-                    exceptions(),
-                    errors(),
-                    strings(),
-                    doubles(),
-                    floats(),
-                    bigIntegers(),
-                    bigDecimals(),
-                    dates(),
-                    calendars(),
-                    chronoLocalDates(),
-                    chronoLocalDateTimes(),
-                    localDateTimes(),
-                    localDates(),
-                    zonedDateTimes(),
-                    zoneIds(),
-                    offsetTimes(),
-                    periods(),
-                    durations(),
-                    zoneOffsets(),
-                    clocks(),
-                    instants(),
-                    objects(),
-                    booleans(),
-                    urls(),
-                    emptyArrays(),
-                    optionals(),
-                    emptyCollections(),
-                    emptyMaps(),
-                    inetAddresses(),
-                    interfaceImplementations(),
-                    colorSpaces(),
-                    emptyObjects()));
-  }
-
-  private InstanceGenerator emptyMaps() {
-    return new EmptyMapGenerator();
-  }
-
   private InstanceGenerator builtInMaps() {
     return new BuiltInMapGenerator();
-  }
-
-  private ObjenesisGenerator emptyObjects() {
-    return new ObjenesisGenerator();
-  }
-
-  private EmptyArraysGenerator emptyArrays() {
-    return new EmptyArraysGenerator();
-  }
-
-  private EmptyCollectionsGenerator emptyCollections() {
-    return new EmptyCollectionsGenerator();
   }
 
   private InstanceGenerator instants() {

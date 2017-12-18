@@ -18,6 +18,11 @@ public class VavrOptionGenerator implements InstanceGenerator {
   }
 
   @Override
+  public <T> T nextEmpty(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    return (T)Option.none();
+  }
+
+  @Override
   public void setOmittingAutoProperties(final boolean isOn) {
   }
 }

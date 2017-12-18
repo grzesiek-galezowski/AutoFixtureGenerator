@@ -21,6 +21,14 @@ public class ArrayGenerator implements InstanceGenerator {
   }
 
   @Override
+  public <T> T nextEmpty(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    final InstanceType<?> componentType = instanceType.getArrayElementType();
+    final Object array = componentType.createEmptyArray();
+    final T stronglyTypedArray = (T) array;
+    return stronglyTypedArray;
+  }
+
+  @Override
   public void setOmittingAutoProperties(final boolean isOn) {
   }
 

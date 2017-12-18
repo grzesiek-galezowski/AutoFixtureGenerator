@@ -12,56 +12,70 @@ import io.vavr.collection.*;
 
 public class VavrGenerator implements InstanceGenerator {
   private Supplier<GeneratorsPipeline> pipeline = Suppliers.memoize(() ->
-      new DefaultGeneratorsPipeline(
-        Lists.newArrayList(
-          new VavrCollectionGenerator<>(
-              List.class,
-              List::ofAll),
-          new VavrCollectionGenerator<>(
-              Array.class,
-              Array::ofAll),
-          new VavrMapGenerator<>(
-              HashMap.class,
-              HashMap::ofAll),
-          new VavrCollectionGenerator<>(
-              HashSet.class,
-              HashSet::ofAll),
-          new VavrCollectionGenerator<>(
-              TreeSet.class,
-              x -> TreeSet.ofAll((Iterable)x)),
-          new VavrMapGenerator<>(
-              TreeMap.class,
-              TreeMap::ofAll),
-          new VavrNodeGenerator(),
-          new VavrMapGenerator<>(
-              LinkedHashMap.class,
-              LinkedHashMap::ofAll),
-          new VavrCollectionGenerator<>(
-              LinkedHashSet.class,
-              LinkedHashSet::ofAll),
-          new VavrCollectionGenerator<>(
-              Vector.class,
-              Vector::ofAll),
-          new VavrCollectionGenerator<>(
-              PriorityQueue.class,
-              x -> PriorityQueue.ofAll((Iterable)x)),
-          new VavrCollectionGenerator<>(
-              Queue.class,
-              Queue::ofAll),
-          new VavrCharSeqGenerator(),
-          new VavrMapGenerator<>(
-              TreeMultimap.class,
-              TreeMultimap.withSeq()::ofAll),
-          new VavrMapGenerator<>(
-              HashMultimap.class,
-              HashMultimap.withSeq()::ofAll),
-          new VavrMapGenerator<>(
-              LinkedHashMultimap.class,
-              LinkedHashMultimap.withSeq()::ofAll),
-          new VavrIteratorGenerator(),
-          new VavrOptionGenerator(),
-          new VavrEitherGenerator(),
-          new VavrValidationGenerator()
+    new DefaultGeneratorsPipeline(
+      Lists.newArrayList(
+        new VavrCollectionGenerator<>(
+          List.class,
+          List::ofAll,
+          List::empty),
+        new VavrCollectionGenerator<>(
+          Array.class,
+          Array::ofAll,
+          Array::empty),
+        new VavrMapGenerator<>(
+          HashMap.class,
+          HashMap::ofAll,
+          HashMap::empty),
+        new VavrCollectionGenerator<>(
+          HashSet.class,
+          HashSet::ofAll,
+          HashSet::empty),
+        new VavrCollectionGenerator<>(
+          TreeSet.class,
+          x -> TreeSet.ofAll((Iterable) x),
+          TreeSet::empty),
+        new VavrMapGenerator<>(
+          TreeMap.class,
+          TreeMap::ofAll,
+          TreeMap::empty),
+        new VavrNodeGenerator(),
+        new VavrMapGenerator<>(
+          LinkedHashMap.class,
+          LinkedHashMap::ofAll,
+          LinkedHashMap::empty),
+        new VavrCollectionGenerator<>(
+          LinkedHashSet.class,
+          LinkedHashSet::ofAll,
+          LinkedHashSet::empty),
+        new VavrCollectionGenerator<>(
+          Vector.class,
+          Vector::ofAll,
+          Vector::empty),
+        new VavrCollectionGenerator<>(
+          PriorityQueue.class,
+          x -> PriorityQueue.ofAll((Iterable) x),
+          PriorityQueue::empty),
+        new VavrCollectionGenerator<>(
+          Queue.class,
+          Queue::ofAll,
+          Queue::empty),
+        new VavrCharSeqGenerator(),
+        new VavrMapGenerator<>(
+          TreeMultimap.class,
+          TreeMultimap.withSeq()::ofAll,
+          TreeMultimap.withSeq()::empty),
+        new VavrMapGenerator<>(
+          HashMultimap.class,
+          HashMultimap.withSeq()::ofAll,
+          HashMultimap.withSeq()::empty),
+        new VavrMapGenerator<>(
+          LinkedHashMultimap.class,
+          LinkedHashMultimap.withSeq()::ofAll,
+          LinkedHashMultimap.withSeq()::empty),
+        new VavrIteratorGenerator(),
+        new VavrOptionGenerator(),
+        new VavrEitherGenerator(),
+        new VavrValidationGenerator()
       )));
 
 
@@ -72,8 +86,12 @@ public class VavrGenerator implements InstanceGenerator {
 
   @Override
   public <T> T next(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    return pipeline.get().generateInstanceOf(instanceType, fixture);
+  }
 
-    return pipeline.get().executeFor(instanceType, fixture);
+  @Override
+  public <T> T nextEmpty(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    return pipeline.get().generateEmptyInstanceOf(instanceType, fixture);
   }
 
   @Override

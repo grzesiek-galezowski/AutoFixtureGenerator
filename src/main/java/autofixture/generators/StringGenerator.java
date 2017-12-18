@@ -15,6 +15,11 @@ public class StringGenerator implements InstanceGenerator {
   }
 
   @Override
+  public <T> T nextEmpty(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    return next(instanceType, fixture);
+  }
+
+  @Override
   public <T> boolean appliesTo(final InstanceType<T> clazz) {
     return clazz.isRawTypeAssignableFrom(String.class);
   }

@@ -19,10 +19,22 @@ public class DefaultGeneratorsPipeline implements GeneratorsPipeline {
   }
 
   @Override
-  public <T> T executeFor(final InstanceType<T> instanceType, final FixtureContract fixture) {
+  public <T> T generateInstanceOf(final InstanceType<T> instanceType, final FixtureContract fixture) {
     for (final InstanceGenerator generator : generators) {
       if (generator.appliesTo(instanceType)) {
         return generator.next(instanceType, fixture);
+      }
+    }
+    throw new ObjectCreationException(instanceType);
+  }
+
+  @Override
+  public <T> T generateEmptyInstanceOf(final InstanceType<T> instanceType, final FixtureContract fixture) {
+
+    //todo some dupl. between here and generateFor...
+    for (final InstanceGenerator generator : generators) {
+      if (generator.appliesTo(instanceType)) {
+        return generator.nextEmpty(instanceType, fixture);
       }
     }
     throw new ObjectCreationException(instanceType);

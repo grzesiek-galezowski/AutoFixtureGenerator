@@ -12,14 +12,20 @@ public class RecursionGuarded implements GeneratorsPipeline {
   }
 
   @Override
-  public <T> T executeFor(final InstanceType<T> instanceType, final FixtureContract fixture) {
+  public <T> T generateInstanceOf(final InstanceType<T> instanceType, final FixtureContract fixture) {
     try {
       recursionGuard.addDepthLevelTo(instanceType);
-      return recursionGuard.defaultValueIfMaxDepthReachedOrGenerateUsing(generatorsPipeline, instanceType, fixture);
+      //todo do we need this method?
+      return recursionGuard.generateUsing(generatorsPipeline, instanceType, fixture);
     } finally {
       recursionGuard.removeDepthLevelFor(instanceType);
     }
 
+  }
+
+  @Override
+  public <T> T generateEmptyInstanceOf(final InstanceType<T> instanceType, final FixtureContract fixture) {
+    return generatorsPipeline.generateEmptyInstanceOf(instanceType, fixture);
   }
 
   @Override
