@@ -30,7 +30,6 @@ public class DefaultGeneratorsPipeline implements GeneratorsPipeline {
 
   @Override
   public <T> T generateEmptyInstanceOf(final InstanceType<T> instanceType, final FixtureContract fixture) {
-
     //todo some dupl. between here and generateFor...
     for (final InstanceGenerator generator : generators) {
       if (generator.appliesTo(instanceType)) {

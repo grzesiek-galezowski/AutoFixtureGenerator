@@ -79,7 +79,7 @@ public class RecursionGuardSpecification {
     assertThat(value, equalTo(anyInteger));
   }
 
-  @Test //todo not true anymore
+  @Test
   public void shouldReturnNullWhenRecursionForTypeIsReached() {
     //GIVEN
     final RecursionGuard recursionGuard = new MapBasedRecursionGuard(

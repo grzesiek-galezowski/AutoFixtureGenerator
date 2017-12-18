@@ -15,7 +15,6 @@ public class RecursionGuarded implements GeneratorsPipeline {
   public <T> T generateInstanceOf(final InstanceType<T> instanceType, final FixtureContract fixture) {
     try {
       recursionGuard.addDepthLevelTo(instanceType);
-      //todo do we need this method?
       return recursionGuard.generateUsing(generatorsPipeline, instanceType, fixture);
     } finally {
       recursionGuard.removeDepthLevelFor(instanceType);
