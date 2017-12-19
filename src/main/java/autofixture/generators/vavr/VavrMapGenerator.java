@@ -4,7 +4,6 @@ import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
 import com.google.common.base.Supplier;
-import io.vavr.collection.LinkedHashMultimap;
 
 import java.util.Map;
 import java.util.function.Function;

@@ -66,7 +66,7 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
     try {
       setter.invokeWithArgumentsCreatedUsing(fixture, Optional.of(instance));
     } catch (final Exception t) {
-      Debug.debugPrint(t);
+      Debug.print(t);
     }
   }
 
