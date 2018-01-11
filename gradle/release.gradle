@@ -39,9 +39,9 @@ task sourcesJar(type: Jar) {
 
 shadowJar {
     classifier = null
-    relocate('com.google.common', 'shadow.com.google.common')
-    relocate('com.sharneng', 'shadow.com.sharneng')
-    relocate('org.objenesis', 'shadow.org.objenesis')
+    relocate('com.google.common', "shadow${guavaVersion.replace('-', '').replace('.', '')}.com.google.common")
+    relocate('com.sharneng', "shadow${jsr305version.replace('-', '').replace('.', '')}.com.sharneng")
+    relocate('org.objenesis', "shadow${objenesisVersion.replace('-', '').replace('.', '')}.org.objenesis")
 }
 
 release {
