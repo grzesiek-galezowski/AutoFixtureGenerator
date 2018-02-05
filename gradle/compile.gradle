@@ -1,5 +1,5 @@
 ext {
-    guavaVersion = "23.6-jre"
+    guavaVersion = "24.0-jre"
     jsr305version = "2.0.3"
     objenesisVersion = "2.6"
     lombokVersion = "1.16.20"

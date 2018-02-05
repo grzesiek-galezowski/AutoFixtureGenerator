@@ -10,7 +10,7 @@ pitest {
     targetClasses = ['autofixture.*']  //by default "${project.group}.*"
     threads = 8
     outputFormats = ['XML', 'HTML']
-    pitestVersion = "1.3.1"
+    pitestVersion = "1.3.2"
 }
 
 checkstyle {
