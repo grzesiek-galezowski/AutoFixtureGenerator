@@ -66,7 +66,7 @@ public interface InstanceType<T> {
 
   List<Call<T, Object>> getAllSetters();
 
-  List<InstanceField<T>> getAllPublicFieldsOf(T instance);
+  List<InstanceField<T>> getAllPublicSettableFieldsOf(T instance);
 
   TypeToken<?> resolveActualTypeOf(Field field);
 

@@ -41,7 +41,7 @@ public class ConcreteObjectGenerator implements InstanceGenerator {
 
   private <T> void makeBestEffortAttemptToSetAllPublicFields(final T instance,
                                                              final InstanceType<T> type, final FixtureContract fixture) throws IllegalAccessException {
-    final List<InstanceField<T>> publicFields = type.getAllPublicFieldsOf(instance);
+    final List<InstanceField<T>> publicFields = type.getAllPublicSettableFieldsOf(instance);
     for (final InstanceField<T> publicField : publicFields) {
       publicField.setValueUsing(fixture);
     }

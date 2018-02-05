@@ -27,6 +27,5 @@ public class ReflectionInstanceField<T> implements InstanceField<T> {
   @Override
   public void setValueUsing(final FixtureContract fixture) throws IllegalAccessException {
     field.set(instance, fixture.create(resolveActualType()));
-
   }
 }

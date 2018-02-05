@@ -117,4 +117,11 @@ public class ConcreteObjectGenerationSpecification {
     assertThat(obj1, is(not(equalTo(obj2))));
   }
 
+  @Test
+  public void shouldSuccessfullyGenerateObjectsWithPublicFinalFields() {
+    ObjectWithPublicFinalFields o = fixture.create(ObjectWithPublicFinalFields.class);
+    assertThat(o, is(notNullValue()));
+    assertThat(o.age, is(not(nullValue())));
+  }
+
 }

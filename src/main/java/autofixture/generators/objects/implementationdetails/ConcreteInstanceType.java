@@ -344,11 +344,13 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   }
 
   @Override
-  public ArrayList<InstanceField<T>> getAllPublicFieldsOf(final T instance) {
+  public ArrayList<InstanceField<T>> getAllPublicSettableFieldsOf(final T instance) {
     final ArrayList<InstanceField<T>> fields = new ArrayList<>();
     final Field[] fieldsArray = typeToken.getRawType().getDeclaredFields();
     for (final Field field : fieldsArray) {
-      if (Modifier.isPublic(field.getModifiers()) && !Modifier.isStatic(field.getModifiers())) {
+      if (Modifier.isPublic(field.getModifiers()) &&
+          !Modifier.isStatic(field.getModifiers()) &&
+          !Modifier.isFinal(field.getModifiers())) {
         fields.add(new ReflectionInstanceField<>(field, this, instance));
       }
     }
