@@ -1,11 +1,10 @@
-import com.github.spotbugs.SpotBugsTask
-
 apply plugin: "info.solidsoft.pitest"
 apply plugin: 'checkstyle'
 apply plugin: 'jdepend'
 apply plugin: 'pmd'
 apply plugin: "jacoco"
 apply plugin: "pl.squirrel.classycle"
+apply plugin: "com.github.spotbugs"
 
 pitest {
     targetClasses = ['autofixture.*']  //by default "${project.group}.*"
@@ -34,11 +33,5 @@ spotbugs {
     effort = "max"
     reportLevel = "high"
     ignoreFailures = false
-}
-
-tasks.withType(SpotBugsTask) {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
+    toolVersion = '3.1.1'
 }
