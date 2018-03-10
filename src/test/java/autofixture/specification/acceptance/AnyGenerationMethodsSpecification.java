@@ -3,20 +3,54 @@ package autofixture.specification.acceptance;
 import autofixture.exceptions.BoomException;
 import autofixture.publicinterface.Any;
 import autofixture.publicinterface.InstanceOf;
-import autofixture.specification.acceptance.testfixtures.*;
+import autofixture.specification.acceptance.testfixtures.GenericInterface;
+import autofixture.specification.acceptance.testfixtures.GenericObject;
+import autofixture.specification.acceptance.testfixtures.GenericObject2;
+import autofixture.specification.acceptance.testfixtures.Group;
+import autofixture.specification.acceptance.testfixtures.NonGenericInterface;
+import autofixture.specification.acceptance.testfixtures.StructureWithCopyConstructor;
 import com.google.common.collect.Lists;
 import lombok.val;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.nio.file.Path;
 import java.time.DayOfWeek;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Deque;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Queue;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.SortedSet;
 
-import static autofixture.publicinterface.InlineGenerators.*;
+import static autofixture.publicinterface.InlineGenerators.alphaChar;
+import static autofixture.publicinterface.InlineGenerators.alphaString;
+import static autofixture.publicinterface.InlineGenerators.digitChar;
+import static autofixture.publicinterface.InlineGenerators.lowercaseString;
+import static autofixture.publicinterface.InlineGenerators.otherThan;
+import static autofixture.publicinterface.InlineGenerators.portNumber;
+import static autofixture.publicinterface.InlineGenerators.stringContaining;
+import static autofixture.publicinterface.InlineGenerators.stringNotContaining;
+import static autofixture.publicinterface.InlineGenerators.stringOfLength;
+import static autofixture.publicinterface.InlineGenerators.uppercaseString;
+import static autofixture.publicinterface.InlineGenerators.without;
 import static autofixture.specification.acceptance.CustomAssertions.assertThrows;
-import static autofixture.specification.acceptance.TypeHelpers.*;
-import static org.hamcrest.CoreMatchers.*;
+import static autofixture.specification.acceptance.TypeHelpers.charValue;
+import static autofixture.specification.acceptance.TypeHelpers.doubleValue;
+import static autofixture.specification.acceptance.TypeHelpers.floatValue;
+import static autofixture.specification.acceptance.TypeHelpers.intValue;
+import static autofixture.specification.acceptance.TypeHelpers.intValues;
+import static autofixture.specification.acceptance.TypeHelpers.longValue;
+import static autofixture.specification.acceptance.TypeHelpers.shortValue;
+import static autofixture.specification.acceptance.TypeHelpers.string;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.core.Is.is;
@@ -782,5 +816,12 @@ public class AnyGenerationMethodsSpecification {
   public void shouldAvoidCopyConstructorIfPossible2() {
     Group group = Any.instanceOf(Group.class);
     assertThat(group.getMembers(), is(not(nullValue())));
+  }
+
+  @Test
+  public void shouldAllowGeneratingPaths() {
+    Path path = Any.instanceOf(Path.class);
+    assertThat(path, is(not(nullValue())));
+    assertThat(path.isAbsolute(), is(true));
   }
 }

@@ -52,6 +52,7 @@ public class DefaultGeneratorsFactory {
                     zoneOffsets(),
                     clocks(),
                     instants(),
+                    paths(),
                     booleans(),
                     urls(),
                     arrays(),
@@ -64,6 +65,10 @@ public class DefaultGeneratorsFactory {
                     colorSpaces(),
                     concreteObjects()))
         );
+  }
+
+  private InstanceGenerator paths() {
+    return new PathGenerator();
   }
 
   private InstanceGenerator vavrTypes() {
