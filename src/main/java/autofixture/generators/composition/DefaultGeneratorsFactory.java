@@ -1,18 +1,46 @@
 package autofixture.generators.composition;
 
-import autofixture.generators.*;
-import autofixture.generators.collections.*;
+import autofixture.generators.BooleanGenerator;
+import autofixture.generators.ColorSpaceGenerator;
+import autofixture.generators.InetAddressGenerator;
+import autofixture.generators.OptionalsGenerator;
+import autofixture.generators.PathGenerator;
+import autofixture.generators.RecursionGuarded;
+import autofixture.generators.StringGenerator;
+import autofixture.generators.UrlGenerator;
+import autofixture.generators.collections.ArrayGenerator;
+import autofixture.generators.collections.BuiltInCollectionGenerator;
+import autofixture.generators.collections.BuiltInMapGenerator;
 import autofixture.generators.enums.EnumSequenceGenerator;
 import autofixture.generators.enums.InMemoryEnumCache;
-import autofixture.generators.numbers.*;
+import autofixture.generators.numbers.BigDecimalGenerator;
+import autofixture.generators.numbers.BigIntGenerator;
+import autofixture.generators.numbers.ByteAndCharSequenceGenerator;
+import autofixture.generators.numbers.DoubleSequenceGenerator;
+import autofixture.generators.numbers.FloatSequenceGenerator;
+import autofixture.generators.numbers.RandomNumberGenerator;
 import autofixture.generators.objects.ConcreteObjectGenerator;
 import autofixture.generators.objects.InterfaceImplementationGenerator;
 import autofixture.generators.objects.PlainObjectGenerator;
 import autofixture.generators.throwables.ErrorGenerator;
 import autofixture.generators.throwables.ExceptionGenerator;
 import autofixture.generators.throwables.ThrowableGenerator;
-import autofixture.generators.time.*;
+import autofixture.generators.time.CalendarGenerator;
+import autofixture.generators.time.ChronoLocalDateGenerator;
+import autofixture.generators.time.ChronoLocalDateTimeGenerator;
+import autofixture.generators.time.ClockGenerator;
+import autofixture.generators.time.DateGenerator;
+import autofixture.generators.time.DurationGenerator;
+import autofixture.generators.time.InstantGenerator;
+import autofixture.generators.time.LocalDateGenerator;
+import autofixture.generators.time.LocalDateTimeGenerator;
+import autofixture.generators.time.OffsetTimeGenerator;
+import autofixture.generators.time.PeriodGenerator;
+import autofixture.generators.time.ZoneIdGenerator;
+import autofixture.generators.time.ZoneOffsetGenerator;
+import autofixture.generators.time.ZonedDateTimeGenerator;
 import autofixture.interfaces.GeneratorsPipeline;
+import autofixture.interfaces.InlineGeneratorsFactory;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.RecursionGuard;
 
@@ -21,6 +49,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DefaultGeneratorsFactory {
+
+  private InlineGeneratorsFactory inlineGeneratorsFactory;
+
+  public DefaultGeneratorsFactory(InlineGeneratorsFactory inlineGeneratorsFactory) {
+
+    this.inlineGeneratorsFactory = inlineGeneratorsFactory;
+  }
 
   public GeneratorsPipeline createBuiltinGenerators(final RecursionGuard recursionGuard) {
     return
@@ -68,7 +103,7 @@ public class DefaultGeneratorsFactory {
   }
 
   private InstanceGenerator paths() {
-    return new PathGenerator();
+    return new PathGenerator(inlineGeneratorsFactory);
   }
 
   private InstanceGenerator vavrTypes() {

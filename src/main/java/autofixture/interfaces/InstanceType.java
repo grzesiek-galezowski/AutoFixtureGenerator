@@ -79,4 +79,5 @@ public interface InstanceType<T> {
   boolean isCompatibleWithAnyOf(Class<?>... clazzes);
 
   boolean isFromPackage(String packageName);
+
 }

@@ -17,7 +17,7 @@ import static autofixture.generators.objects.implementationdetails.TypeAssertion
 
 public class Fixture implements FixtureContract {
   public static final int MINIMUM_VALUE_THAT_COULD_MEAN_MANY = 3;
-  private final DefaultGeneratorsFactory generatorsFactory = new DefaultGeneratorsFactory();
+  private final DefaultGeneratorsFactory generatorsFactory;
   private final RecursionGuard recursionGuard;
   private final GeneratorsPipeline instanceGenerators;
   private final int arbitraryRecursionDepth = 5;
@@ -25,6 +25,7 @@ public class Fixture implements FixtureContract {
 
   public Fixture() {
     recursionGuard = new MapBasedRecursionGuard(arbitraryRecursionDepth);
+    generatorsFactory = new DefaultGeneratorsFactory(new DefaultInlineGeneratorsFactory());
     instanceGenerators = generatorsFactory.createBuiltinGenerators(recursionGuard);
   }
 

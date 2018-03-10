@@ -86,7 +86,6 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
     return array;
   }
 
-
   @Override
   public boolean isAssignableTo(final Class<?> clazz) {
     return clazz.isAssignableFrom(typeToken.getRawType());
@@ -121,6 +120,7 @@ public class ConcreteInstanceType<T> implements InstanceType<T> {
   public boolean isFromPackage(final String packageName) {
     return this.typeToken.getRawType().getName().startsWith(packageName);
   }
+
 
   @Override
   public Type getWrapper() {
