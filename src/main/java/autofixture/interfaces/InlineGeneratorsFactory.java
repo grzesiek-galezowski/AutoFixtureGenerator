@@ -2,10 +2,13 @@ package autofixture.interfaces;
 
 import com.google.common.reflect.TypeToken;
 
+import java.nio.file.Path;
+
 /**
  * Created by grzes on 20.03.2017.
  */
 public interface InlineGeneratorsFactory {
+
   InlineInstanceGenerator<String> stringContaining(String str);
 
   InlineInstanceGenerator<String> alphaString(int length);
@@ -39,4 +42,12 @@ public interface InlineGeneratorsFactory {
   <T> InlineConstrainedGenerator<T> without(T... omittedValues);
 
   InlineInstanceGenerator<Integer> portNumber();
+
+  InlineInstanceGenerator<String> seededString(String seed);
+
+  InlineInstanceGenerator<Path> absolutePath();
+
+  InlineInstanceGenerator<Path> relativePath();
+
+  InlineInstanceGenerator<Path> rootPath();
 }

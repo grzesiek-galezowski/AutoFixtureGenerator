@@ -34,6 +34,7 @@ import static autofixture.publicinterface.InlineGenerators.digitChar;
 import static autofixture.publicinterface.InlineGenerators.lowercaseString;
 import static autofixture.publicinterface.InlineGenerators.otherThan;
 import static autofixture.publicinterface.InlineGenerators.portNumber;
+import static autofixture.publicinterface.InlineGenerators.relativePath;
 import static autofixture.publicinterface.InlineGenerators.stringContaining;
 import static autofixture.publicinterface.InlineGenerators.stringNotContaining;
 import static autofixture.publicinterface.InlineGenerators.stringOfLength;
@@ -802,6 +803,40 @@ public class AnyGenerationMethodsSpecification {
     assertThat(port3, is(not(equalTo(port4))));
     assertThat(port3, is(lessThan(65535)));
     assertThat(port4, is(lessThan(65535)));
+  }
+
+  @Test
+  public void shouldCreateDifferentRelativePathEachTime() {
+    Path path1 = Any.relativePath();
+    Path path2 = Any.relativePath();
+
+    assertThat(path1, is(not(equalTo(path2))));
+    assertThat(path1.isAbsolute(), is(false));
+    assertThat(path2.isAbsolute(), is(false));
+
+    Path path3 = Any.anonymous(relativePath());
+    Path path4 = Any.anonymous(relativePath());
+
+    assertThat(path3, is(not(equalTo(path4))));
+    assertThat(path3.isAbsolute(), is(false));
+    assertThat(path4.isAbsolute(), is(false));
+  }
+
+  @Test
+  public void shouldCreateDifferentAbsolutePathEachTime() {
+    Path path1 = Any.absolutePath();
+    Path path2 = Any.absolutePath();
+
+    assertThat(path1, is(not(equalTo(path2))));
+    assertThat(path1.isAbsolute(), is(true));
+    assertThat(path2.isAbsolute(), is(true));
+
+    Path path3 = Any.anonymous(Path.class);
+    Path path4 = Any.anonymous(Path.class);
+
+    assertThat(path3, is(not(equalTo(path4))));
+    assertThat(path3.isAbsolute(), is(true));
+    assertThat(path4.isAbsolute(), is(true));
   }
 
   @Test

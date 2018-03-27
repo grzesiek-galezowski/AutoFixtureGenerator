@@ -9,10 +9,30 @@ import lombok.NonNull;
 import java.net.InetAddress;
 import java.net.URI;
 import java.net.URL;
-import java.time.*;
+import java.nio.file.Path;
+import java.time.Clock;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetTime;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.ChronoLocalDateTime;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Deque;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Queue;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.SortedSet;
 
 import static autofixture.generators.objects.implementationdetails.TypeAssertions.assertIsNotParameterized;
 import static autofixture.implementationdetails.Boxing.boxed;
@@ -70,7 +90,7 @@ public class Any {
 
   @NonNull
   public static String string(String seed) {
-    return seed + string();
+    return anonymous(InlineGenerators.seededString(seed));
   }
 
   public static String string(final int charactersCount) {
@@ -118,6 +138,7 @@ public class Any {
   public static String uppercaseString() {
     return PrivateGenerate.FIXTURE.create(InlineGenerators.uppercaseString());
   }
+
   public static String uppercaseString(final int length) {
     return PrivateGenerate.FIXTURE.create(InlineGenerators.uppercaseString(length));
   }
@@ -262,6 +283,18 @@ public class Any {
 
   public static URL url() {
     return PrivateGenerate.FIXTURE.create(URL.class);
+  }
+
+  public static Path path() {
+    return PrivateGenerate.FIXTURE.create(Path.class);
+  }
+
+  public static Path absolutePath() {
+    return PrivateGenerate.FIXTURE.create(Path.class);
+  }
+
+  public static Path relativePath() {
+    return anonymous(InlineGenerators.relativePath());
   }
 
   public static int port() {

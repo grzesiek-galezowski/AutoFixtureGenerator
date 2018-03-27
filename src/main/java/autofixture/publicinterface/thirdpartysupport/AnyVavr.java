@@ -16,7 +16,6 @@ import static autofixture.implementationdetails.ErrorMessages.msgInline;
 
 public class AnyVavr {
   //todo add generics checks
-  //todo add first-party check to autofixture engine
   @NonNull
   public static <T> List<T> listOf(Class<T> clazz) {
     assertIsNotParameterized(clazz, msg("listOf"));

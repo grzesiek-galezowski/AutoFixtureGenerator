@@ -2,25 +2,20 @@ package autofixture.generators;
 
 import autofixture.interfaces.FixtureContract;
 import autofixture.interfaces.InlineGeneratorsFactory;
+import autofixture.interfaces.InlineInstanceGenerator;
 import autofixture.interfaces.InstanceGenerator;
 import autofixture.interfaces.InstanceType;
-import com.google.common.collect.Lists;
 
-import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Optional;
 
 public class PathGenerator implements InstanceGenerator {
     private InlineGeneratorsFactory generatorsFactory;
-    private Optional<Path> root;
+    private InlineInstanceGenerator<Path> root;
 
     public PathGenerator(InlineGeneratorsFactory generatorsFactory) {
 
         this.generatorsFactory = generatorsFactory;
-        root = Lists.newArrayList(FileSystems.getDefault().getRootDirectories())
-            .stream()
-            .findFirst();
+        root = generatorsFactory.rootPath();
     }
 
     @Override
@@ -30,16 +25,12 @@ public class PathGenerator implements InstanceGenerator {
 
     @Override
     public <T> T next(InstanceType<T> instanceType, FixtureContract fixture) {
-        return (T)Paths.get(
-            root.get().toString(),
-            fixture.create(generatorsFactory.alphaString()),
-            fixture.create(generatorsFactory.alphaString()),
-            fixture.create(generatorsFactory.alphaString()));
+        return (T) generatorsFactory.relativePath().next(fixture);
     }
 
     @Override
     public <T> T nextEmpty(InstanceType<T> instanceType, FixtureContract fixture) {
-        return (T)root.get();
+        return (T)root.next(fixture);
     }
 
     @Override

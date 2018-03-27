@@ -5,6 +5,8 @@ import autofixture.interfaces.InlineGeneratorsFactory;
 import autofixture.interfaces.InlineInstanceGenerator;
 import com.google.common.reflect.TypeToken;
 
+import java.nio.file.Path;
+
 /**
  * Created by astral on 28.03.15.
  */
@@ -77,8 +79,16 @@ public class InlineGenerators {
     return INLINE_GENERATORS_FACTORY.portNumber();
   }
 
-  static <T> InlineInstanceGenerator<T> from (final T[] possibleValues) {
+  public static <T> InlineInstanceGenerator<T> from(final T[] possibleValues) {
     return INLINE_GENERATORS_FACTORY.from(possibleValues);
+  }
+
+  public static InlineInstanceGenerator<String> seededString(String seed) {
+    return INLINE_GENERATORS_FACTORY.seededString(seed);
+  }
+
+  public static InlineInstanceGenerator<Path> relativePath() {
+    return INLINE_GENERATORS_FACTORY.relativePath();
   }
 
 }
