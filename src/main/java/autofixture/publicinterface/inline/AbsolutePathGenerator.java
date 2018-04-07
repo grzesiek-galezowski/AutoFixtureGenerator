@@ -1,7 +1,7 @@
 package autofixture.publicinterface.inline;
 
-import autofixture.publicinterface.DefaultInlineGeneratorsFactory;
 import autofixture.interfaces.FixtureContract;
+import autofixture.interfaces.InlineGeneratorsFactory;
 import autofixture.interfaces.InlineInstanceGenerator;
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
@@ -14,14 +14,14 @@ import java.util.Optional;
 
 public class AbsolutePathGenerator implements InlineInstanceGenerator<Path> {
 
-  private DefaultInlineGeneratorsFactory defaultInlineGeneratorsFactory;
+  private InlineGeneratorsFactory defaultInlineGeneratorsFactory;
   private Supplier<Optional<Path>> rootPath = Suppliers.memoize(this::getRoot);
 
-  public AbsolutePathGenerator(DefaultInlineGeneratorsFactory defaultInlineGeneratorsFactory) {
+  public AbsolutePathGenerator(InlineGeneratorsFactory defaultInlineGeneratorsFactory) {
     this.defaultInlineGeneratorsFactory = defaultInlineGeneratorsFactory;
   }
 
-  public Optional<Path> getRoot() {
+  private Optional<Path> getRoot() {
     return Lists.newArrayList(FileSystems.getDefault().getRootDirectories())
         .stream()
         .findFirst();

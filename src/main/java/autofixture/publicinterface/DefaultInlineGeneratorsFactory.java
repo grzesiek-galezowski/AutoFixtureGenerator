@@ -11,6 +11,7 @@ import autofixture.publicinterface.inline.ExplodingInstanceGenerator;
 import autofixture.publicinterface.inline.FromGenerator;
 import autofixture.publicinterface.inline.GenerationConstrainedByValueRejection;
 import autofixture.publicinterface.inline.PortNumberGenerator;
+import autofixture.publicinterface.inline.RelativePathGenerator;
 import autofixture.publicinterface.inline.strings.AlphaStringGenerator;
 import autofixture.publicinterface.inline.strings.IdentifierStringGenerator;
 import autofixture.publicinterface.inline.strings.LowercaseStringGenerator;
@@ -37,15 +38,12 @@ public class DefaultInlineGeneratorsFactory implements InlineGeneratorsFactory {
   private static final String ALL_DIGITS = "1029384756";
   private static final InlineInstanceGenerator<Character> DIGIT_CHAR_GENERATOR = new CharacterGenerator(
       ALL_DIGITS);
-  private final AlphaStringGenerator alphaStringGenerator = new AlphaStringGenerator(ALPHA_CHAR_GENERATOR,
-      Any.string().length());
-  private final IdentifierStringGenerator identifierStringGenerator = new IdentifierStringGenerator(
-      ALPHA_CHAR_GENERATOR, DIGIT_CHAR_GENERATOR, Any.string().length());
   private static final InlineInstanceGenerator<Integer> PORT_NUMBER_GENERATOR = new PortNumberGenerator();
   private final LowercaseStringGenerator lowercaseStringGenerator = new LowercaseStringGenerator(MANY, this);
   private final UppercaseStringGenerator uppercaseStringGenerator = new UppercaseStringGenerator(MANY, this);
   private final AbsolutePathGenerator absolutePathGenerator = new AbsolutePathGenerator(this);
   private static final HashMap<Class, InstanceCursor> INDICES_BY_CLASS = new HashMap<>();
+  private final InlineInstanceGenerator<Path> relativePathGenerator = new RelativePathGenerator(this);
 
   @Override
   public StringContainingSubstringGenerator stringContaining(final String str) {
@@ -81,7 +79,8 @@ public class DefaultInlineGeneratorsFactory implements InlineGeneratorsFactory {
 
   @Override
   public IdentifierStringGenerator identifierString() {
-    return identifierStringGenerator;
+    return new IdentifierStringGenerator(
+        ALPHA_CHAR_GENERATOR, DIGIT_CHAR_GENERATOR, Any.string().length());
   }
 
   @Override
@@ -122,7 +121,6 @@ public class DefaultInlineGeneratorsFactory implements InlineGeneratorsFactory {
 
   @Override
   public InlineInstanceGenerator<Integer> portNumber() {
-
     return PORT_NUMBER_GENERATOR;
   }
 
@@ -133,7 +131,8 @@ public class DefaultInlineGeneratorsFactory implements InlineGeneratorsFactory {
 
     @Override
   public AlphaStringGenerator alphaString() {
-    return alphaStringGenerator;
+    return new AlphaStringGenerator(ALPHA_CHAR_GENERATOR,
+        Any.string().length());
   }
 
   @Override
@@ -160,9 +159,7 @@ public class DefaultInlineGeneratorsFactory implements InlineGeneratorsFactory {
 
   @Override
   public InlineInstanceGenerator<Path> relativePath() {
-    return fixture -> Paths.get(
-        fixture.create(InlineGenerators.identifierString()),
-        fixture.create(InlineGenerators.identifierString()),
-        fixture.create(InlineGenerators.identifierString()));
+    return relativePathGenerator;
   }
+
 }

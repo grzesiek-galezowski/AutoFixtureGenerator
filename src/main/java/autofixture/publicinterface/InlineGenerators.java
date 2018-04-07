@@ -91,4 +91,8 @@ public class InlineGenerators {
     return INLINE_GENERATORS_FACTORY.relativePath();
   }
 
+  public static InlineInstanceGenerator<Path> absolutePath() {
+    return INLINE_GENERATORS_FACTORY.absolutePath();
+  }
+
 }

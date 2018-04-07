@@ -59,6 +59,18 @@ public class Any {
   }
 
   @NonNull
+  public static <T> T instanceOf(final InlineInstanceGenerator<T> generator) {
+    return PrivateGenerate.FIXTURE.create(generator);
+  }
+
+  @NonNull
+  public static <T> T instanceOf(final Class<T> instanceType, final InlineConstrainedGenerator<T> generator) {
+    assertIsNotParameterized(instanceType, ErrorMessages.msgInline("anonymous"));
+    return PrivateGenerate.any(TypeToken.of(instanceType), generator);
+  }
+
+
+  @NonNull
   public static <T> T anonymous(final InlineInstanceGenerator<T> generator) {
     return PrivateGenerate.FIXTURE.create(generator);
   }
@@ -605,6 +617,7 @@ public class Any {
     T o = Any.otherThan(others1);
     return Optional.of(o);
   }
+
 
 
 }

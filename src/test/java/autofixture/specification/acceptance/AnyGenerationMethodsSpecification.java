@@ -28,6 +28,7 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.SortedSet;
 
+import static autofixture.publicinterface.InlineGenerators.absolutePath;
 import static autofixture.publicinterface.InlineGenerators.alphaChar;
 import static autofixture.publicinterface.InlineGenerators.alphaString;
 import static autofixture.publicinterface.InlineGenerators.digitChar;
@@ -202,7 +203,6 @@ public class AnyGenerationMethodsSpecification {
     assertThat(Any.doubleOtherThan(doubleNum), is(not(equalTo(doubleNum))));
     assertThat(Any.otherThan(doubleNum), is(not(equalTo(doubleNum))));
   }
-
 
   @Test
   public void shouldCorrectlyGenerateConstrainedArrays() {
@@ -828,15 +828,15 @@ public class AnyGenerationMethodsSpecification {
     Path path2 = Any.absolutePath();
 
     assertThat(path1, is(not(equalTo(path2))));
-    assertThat(path1.isAbsolute(), is(true));
-    assertThat(path2.isAbsolute(), is(true));
+    assertThat(path1.isAbsolute(), is(false));
+    assertThat(path2.isAbsolute(), is(false));
 
     Path path3 = Any.anonymous(Path.class);
     Path path4 = Any.anonymous(Path.class);
 
     assertThat(path3, is(not(equalTo(path4))));
-    assertThat(path3.isAbsolute(), is(true));
-    assertThat(path4.isAbsolute(), is(true));
+    assertThat(path3.isAbsolute(), is(false));
+    assertThat(path4.isAbsolute(), is(false));
   }
 
   @Test
@@ -857,6 +857,21 @@ public class AnyGenerationMethodsSpecification {
   public void shouldAllowGeneratingPaths() {
     Path path = Any.instanceOf(Path.class);
     assertThat(path, is(not(nullValue())));
+    assertThat(path.isAbsolute(), is(false));
+  }
+
+  @Test
+  public void shouldAllowGeneratingAbsolutePaths() {
+    Path path = Any.instanceOf(absolutePath());
+    assertThat(path, is(not(nullValue())));
     assertThat(path.isAbsolute(), is(true));
   }
+
+  @Test
+  public void shouldAllowGeneratingAbsolutePaths2() {
+    assertThat(new InstanceOf<List<Integer>>(){}, is(equalTo(new InstanceOf<List<Integer>>(){})));
+  }
+
+
+
 }
