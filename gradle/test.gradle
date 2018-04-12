@@ -29,6 +29,10 @@ jdependMain {
     }
 }
 
+jmh {
+    duplicateClassesStrategy = 'warn'
+}
+
 spotbugs {
     effort = "max"
     reportLevel = "high"

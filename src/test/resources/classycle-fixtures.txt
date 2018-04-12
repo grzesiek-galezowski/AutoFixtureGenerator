@@ -1,0 +1,2 @@
+show allResults
+check absenceOfPackageCycles > 1 in *.*
