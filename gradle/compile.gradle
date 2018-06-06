@@ -1,8 +1,8 @@
 ext {
-    guavaVersion = "24.1-jre"
+    guavaVersion = "25.1-jre"
     jsr305version = "2.0.3"
     objenesisVersion = "2.6"
-    lombokVersion = "1.16.20"
+    lombokVersion = "1.18.0"
 }
 
 dependencies {

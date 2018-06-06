@@ -53,6 +53,7 @@ import static autofixture.specification.acceptance.TypeHelpers.string;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.core.Is.is;
@@ -188,6 +189,14 @@ public class AnyGenerationMethodsSpecification {
     assertThat(Any.anonymous(longValue(), otherThan(long1, long2)), is(not(equalTo(int1))));
     assertThat(Any.longOtherThan(long1, long2), is(not(equalTo(int1))));
   }
+
+  @Test
+  public void shouldArraysOtherThanSpecified() {
+    Integer[] ints = new Integer[] {56, 57, 58};
+    Integer[] actual = Any.arrayWithout(ints);
+    assertThat(Lists.newArrayList(actual), not(contains(ints)));
+  }
+
 
   @Test
   public void shouldGenerateIntegersOtherThanSpecified() {
@@ -330,7 +339,7 @@ public class AnyGenerationMethodsSpecification {
     int num3 = 6;
     int num4 = 7;
     List<Integer> list = Arrays.asList(Any.arrayOf(new InstanceOf<Integer>() {
-    }, without(num1, num2, num3, num4)));
+    },   without(num1, num2, num3, num4)));
 
     assertThat(list.size(), is(num1));
     assertThat(list, not(hasItem(num1)));

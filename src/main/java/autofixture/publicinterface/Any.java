@@ -38,6 +38,7 @@ import static autofixture.generators.objects.implementationdetails.TypeAssertion
 import static autofixture.implementationdetails.Boxing.boxed;
 import static autofixture.publicinterface.InlineGenerators.identifierString;
 import static autofixture.publicinterface.InlineGenerators.portNumber;
+import static autofixture.publicinterface.InlineGenerators.without;
 
 public class Any {
 
@@ -190,45 +191,70 @@ public class Any {
 
   @NonNull
   public static <T> T otherThan(final T... others) {
+    assertHasElements(others);
     Class<?> requestedType = others[0].getClass();
     assertIsNotParameterized(requestedType, "otherThan() does not work for generics. Try Any.anonymous(new InstanceOf<MyType<GenericType>>() {}, otherThan(x,y,z))");
     return Any.anonymous((Class<T>) requestedType, InlineGenerators.otherThan(others));
   }
 
   @NonNull
-  public static Long longOtherThan(final long... other) {
+  public static <T> T[] arrayWithout(final T... others) {
+    assertHasElements(others);
+    Class<T> elementClass = (Class<T>) (others[0].getClass());
+    assertIsNotParameterized(elementClass, "arrayWithout() does not work for generics. Try Any.arrayOf(new InstanceOf<MyType<GenericType>>() {}, without(x))");
+
+    return Any.arrayOf(elementClass, without(others));
+  }
+
+  @NonNull
+  public static <T> T[] arrayOtherThan(final T[] otherArray) {
+    assertHasElements(otherArray);
+    Class<T> elementClass = (Class<T>) (otherArray[0].getClass());
+    assertIsNotParameterized(elementClass, "arrayWithout() does not work for generics. Try Any.arrayOf(new InstanceOf<MyType<GenericType>>() {}, without(x))");
+
+    return Any.arrayOf(elementClass, without(otherArray));
+  }
+
+  @NonNull
+  public static Long longOtherThan(final long... others) {
+    assertHasElements(boxed(others));
     return PrivateGenerate.FIXTURE.create(new InstanceOf<Long>() {
-    }, InlineGenerators.otherThan(boxed(other)));
+    }, InlineGenerators.otherThan(boxed(others)));
   }
 
   @NonNull
-  public static String stringOtherThan(final String... other) {
+  public static String stringOtherThan(final String... others) {
+    assertHasElements(others);
     return PrivateGenerate.FIXTURE.create(new InstanceOf<String>() {
-    }, InlineGenerators.otherThan(other));
+    }, InlineGenerators.otherThan(others));
   }
 
   @NonNull
-  public static Integer intOtherThan(final int... other) {
+  public static Integer intOtherThan(final int... others) {
+    assertHasElements(boxed(others));
     return PrivateGenerate.FIXTURE.create(new InstanceOf<Integer>() {
-    }, InlineGenerators.otherThan(boxed(other)));
+    }, InlineGenerators.otherThan(boxed(others)));
   }
 
   @NonNull
-  public static Short shortOtherThan(final short... other) {
+  public static Short shortOtherThan(final short... others) {
+    assertHasElements(boxed(others));
     return PrivateGenerate.FIXTURE.create(new InstanceOf<Short>() {
-    }, InlineGenerators.otherThan(boxed(other)));
+    }, InlineGenerators.otherThan(boxed(others)));
   }
 
   @NonNull
-  public static Double doubleOtherThan(final double... other) {
+  public static Double doubleOtherThan(final double... others) {
+    assertHasElements(boxed(others));
     return PrivateGenerate.FIXTURE.create(new InstanceOf<Double>() {
-    }, InlineGenerators.otherThan(boxed(other)));
+    }, InlineGenerators.otherThan(boxed(others)));
   }
 
   @NonNull
-  public static Float floatOtherThan(final float... other) {
+  public static Float floatOtherThan(final float... others) {
+    assertHasElements(boxed(others));
     return PrivateGenerate.FIXTURE.create(new InstanceOf<Float>() {
-    }, InlineGenerators.otherThan(boxed(other)));
+    }, InlineGenerators.otherThan(boxed(others)));
   }
 
   @NonNull
@@ -613,11 +639,19 @@ public class Any {
 
   @NonNull
   public static <T> Optional<T> optionalOtherThan(Optional<T>... others) {
-    T[] others1 = (T[])Arrays.stream(others).map(o -> o.get()).toArray(Object[]::new);
+    T[] others1 = (T[])Arrays.stream(others)
+        .map(Optional::get)
+        .toArray(Object[]::new);
     T o = Any.otherThan(others1);
     return Optional.of(o);
   }
 
+  private static <T> void assertHasElements(T[] otherArray) {
+    if(otherArray.length == 0) {
+      throw new RuntimeException(
+          "expected the input array to contain at least one element, but is empty");
+    }
+  }
 
 
 }
