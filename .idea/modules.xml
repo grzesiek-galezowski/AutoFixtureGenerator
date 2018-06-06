@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/autofixturegenerator.iml" filepath="$PROJECT_DIR$/.idea/modules/autofixturegenerator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/autofixturegenerator_fixtures.iml" filepath="$PROJECT_DIR$/.idea/modules/autofixturegenerator_fixtures.iml" group="autofixturegenerator" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/autofixturegenerator_jmh.iml" filepath="$PROJECT_DIR$/.idea/modules/autofixturegenerator_jmh.iml" group="autofixturegenerator" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/autofixturegenerator_main.iml" filepath="$PROJECT_DIR$/.idea/modules/autofixturegenerator_main.iml" group="autofixturegenerator" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/autofixturegenerator_test.iml" filepath="$PROJECT_DIR$/.idea/modules/autofixturegenerator_test.iml" group="autofixturegenerator" />
