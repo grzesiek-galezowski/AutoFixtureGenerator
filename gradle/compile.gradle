@@ -10,10 +10,12 @@ sourceSets {
 }
 
 dependencies {
-    compile (
-            "com.google.guava:guava:${guavaVersion}",
-            "com.sharneng:jsr305defaults:${jsr305version}",
-            "org.objenesis:objenesis:${objenesisVersion}"
+    compile(
+        "com.google.guava:guava:${guavaVersion}",
+        "com.sharneng:jsr305defaults:${jsr305version}",
+        "org.objenesis:objenesis:${objenesisVersion}",
+        'com.github.grzesiek-galezowski:readonly-collections:1.0.0'
+
     )
 
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
@@ -23,7 +25,7 @@ dependencies {
     fixturesCompileOnly group: 'io.vavr', name: 'vavr', version: '0.9.2'
 
 
-    testCompile (
+    testCompile(
         sourceSets.main.output,
         sourceSets.fixtures.output,
         'io.vavr:vavr:0.9.2',
@@ -36,7 +38,7 @@ dependencies {
 
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.7.1'
 
-    jmhCompile (
+    jmhCompile(
         sourceSets.fixtures.output,
     )
     /*fixturesCompile (
