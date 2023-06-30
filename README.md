@@ -19,20 +19,25 @@ Creating a fixture object
 
 New fixture object:
 
-    Fixture fixture = new Fixture();
-
+```java
+Fixture fixture = new Fixture();
+```
 
 Creating instances
 -
 
 A value of non-generic class:
 
-    int number = fixture.create(int.class);
-    String text = fixture.create(String.class);
+```java
+int number = fixture.create(int.class);
+String text = fixture.create(String.class);
+```
     
 A value of generic class (including collections):
 
-    ArrayList<Integer> list = fixture.create(new InstanceOf<ArrayList<Integer>>() {});
+```java
+ArrayList<Integer> list = fixture.create(new InstanceOf<ArrayList<Integer>>() {});
+```
 
 Fixture customization
 -
@@ -41,28 +46,30 @@ Customizations always take precedence over built-in generators.
 
 Example of new integer generation customization that always returns 12:
 
-    f.register(new InstanceGenerator() {
+```java
+f.register(new InstanceGenerator() {
     
-      @Override
-      public <T> boolean appliesTo(InstanceType<T> arg0) {
-        return arg0.getRawType() == int.class;
-      }
+  @Override
+  public <T> boolean appliesTo(InstanceType<T> arg0) {
+    return arg0.getRawType() == int.class;
+  }
     
-      @SuppressWarnings("unchecked")
-      @Override
-      public <T> T next(InstanceType<T> arg0, FixtureContract arg1) {
-        return (T) Integer.valueOf(12);
-      }
+  @SuppressWarnings("unchecked")
+  @Override
+  public <T> T next(InstanceType<T> arg0, FixtureContract arg1) {
+    return (T) Integer.valueOf(12);
+  }
 
-      @Override
-      void setOmittingAutoProperties(boolean isOn) {}
-    });
-
+  @Override
+  void setOmittingAutoProperties(boolean isOn) {}
+});
+```
 
 Clearing all customizations:
 
-    fixture.clearCustomizations();
-
+```java
+fixture.clearCustomizations();
+```
 
 Any method helpers
 -
@@ -72,27 +79,28 @@ Starting with version 0.3.0, new "any" method helpers are available.
 two simple examples:
 --
 
-    import static autofixture.publicinterface.*;
+```java
+import static autofixture.publicinterface.*;
     
-    public class AnyGenerationMethodsSpecification {
-      @Test
-      public void shouldGenerateEachTimeDifferentString() {
-        String str1 = Any.string();
-        String str2 = Any.string();
+public class AnyGenerationMethodsSpecification {
+  @Test
+  public void shouldGenerateEachTimeDifferentString() {
+    String str1 = Any.string();
+    String str2 = Any.string();
     
-        assertThat(str1, is(not(str2)));
-      }
+    assertThat(str1, is(not(str2)));
+  }
 	  
-      @Test
-      public void shouldGenerateEachTimeDifferentInstance() {
-        GenericObject<Integer> o1 = Any.anonymous(new InstanceOf<GenericObject<Integer>>() {});
-        GenericObject<Integer> o2 = Any.anonumous(new InstanceOf<GenericObject<Integer>>() {});
+  @Test
+  public void shouldGenerateEachTimeDifferentInstance() {
+    GenericObject<Integer> o1 = Any.anonymous(new InstanceOf<GenericObject<Integer>>() {});
+    GenericObject<Integer> o2 = Any.anonumous(new InstanceOf<GenericObject<Integer>>() {});
       
-        assertThat(o1, is(not(o2)));
-      }
+    assertThat(o1, is(not(o2)));
+  }
 }
+```
 
 For more examples of this feature and syntax variants, see [acceptance tests](https://github.com/grzesiek-galezowski/AutoFixtureGenerator/blob/master/src/test/java/autofixture/specification/acceptance/AnyGenerationMethodsSpecification.java)
-
 
 [![](https://codescene.io/projects/1207/status.svg) Get more details at **codescene.io**.](https://codescene.io/projects/1207/jobs/latest-successful/results)
